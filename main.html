@@ -174,7 +174,7 @@
 
                 postElement.innerHTML = `
                     <div class="post-header">
-                        <img src="${post.creator.avatar || 'https://via.placeholder.com/50'}" alt="аватар">
+                        <img src="${post.creator.avatar || 'https://lgor360.github.io/oldemmi/user.png'}" alt="avatar">
                         <div class="author">
                             ${post.creator.name}
                             <div class="community">
@@ -184,7 +184,7 @@
                     </div>
                     <div class="post-name">${post.post.name}</div>
                     <div class="post-text">${parseMarkdown(post.post.body || "")}</div>
-                    ${post.post.thumbnail_url ? `<img src="${post.post.thumbnail_url}" class="post-image" alt="картинка">` : ""}
+                    ${post.post.thumbnail_url ? `<img src="${post.post.thumbnail_url}" class="post-image" alt="image">` : ""}
                     <div class="post-footer">
                         <div class="counter">👍 <span>${post.counts.upvotes}</span></div>
                         <div class="counter">👎 <span>${post.counts.downvotes}</span></div>
