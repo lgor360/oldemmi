@@ -79,6 +79,9 @@
             height: auto;
             margin-bottom: 10px;
         }
+        .post-link a {
+            padding: 10px 15px;
+        }
         .post-footer {
             display: flex;
             justify-content: space-between;
@@ -177,6 +180,9 @@
                     <div class="post-name">${post.post.name}</div>
                     <div class="post-text">${parseMarkdown(post.post.body || "")}</div>
                     ${post.post.thumbnail_url ? `<img src="${post.post.thumbnail_url}" class="post-image" alt="image">` : ""}
+                    <div class="post-link">
+                        <a href="${post.post.link}" target="_blank">${post.post.link}</a>
+                    </div>
                     <div class="post-footer">
                         <div class="counter">👍 <span>${post.counts.upvotes}</span></div>
                         <div class="counter">👎 <span>${post.counts.downvotes}</span></div>
