@@ -173,7 +173,7 @@
                     <div class="post-text">${parseMarkdown(post.post.body || "")}</div>
                     ${post.post.thumbnail_url ? `<img src="${post.post.thumbnail_url}" class="post-image" alt="картинка">` : ""}
                     <div class="post-footer">
-                        <div class="counter">👍 <span>${post.counts.score}</span></div>
+                        <div class="counter">👍 <span>${post.counts.upvotes}</span></div>
                         <div class="counter">👎 <span>${post.counts.downvotes}</span></div>
                         <div class="counter">💬 <span>${post.counts.comments}</span></div>
                     </div>
