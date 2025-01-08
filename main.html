@@ -103,6 +103,7 @@
 <body>
     <div class="navbar">
         <img src="https://lgor360.github.io/oldemmi/logo.png" alt="oldemmi logo">
+        <button onclick="change_server()">change the instance</button>
         <button onclick="login()">login</button>
     </div>
 
@@ -115,10 +116,10 @@
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
-        const server = urlParams.get('server') || "lemdro@id";
+        const server = urlParams.get('server') || "lemdro.id";
         let page = 1; // текущая страница для загрузки
         const limit = 9; // количество постов на одну загрузку
-        const api = `https://${server.replace('@', '.')}/api/v3`
+        const api = `https://${server}/api/v3`
         // функция для получения постов
         async function fetchPosts() {
             const response = await fetch(`${api}/post/list?page=${page}&limit=${limit}&sort=New`, {
@@ -198,6 +199,14 @@
         // функция для входа (заглушка)
         function login() {
             alert("вход не реализован! (но можно добавить авторизацию через api)");
+        }
+
+        // функция для изменения инстанса
+        function change_server() {
+            const prompto = prompt("enter instance url. example: lemmy.world");
+            if (prompto) {
+                window.location.href = `https://lgor360.github.io/oldemmi/main.html?server=${prompto}`
+            }
         }
 
         // загружаем первые посты при загрузке страницы
