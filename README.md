@@ -1,4 +1,4 @@
 # oldemmi
 I wanted to make a light client for Lemmy. I tried to make it look like from the old internet :P
 
-![Screenshot_20250108_234614](https://github.com/user-attachments/assets/083efdd6-2bd9-4e1b-a3f6-75aa56e06881)
+![preview](https://github.com/user-attachments/assets/f6e9be0b-b1ff-4d6d-abe5-c89124b6be81)
