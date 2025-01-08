@@ -129,6 +129,11 @@
             return data.posts;
         }
 
+        function parseMarkdownLinks(text) {
+            // ищем ссылки в формате [текст](ссылка)
+            return text.replace(/\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+        }
+        
         // функция для отображения постов
         function renderPosts(posts) {
             const postsContainer = document.getElementById("posts");
@@ -148,7 +153,7 @@
                         </div>
                     </div>
                     <div class="post-name">${post.post.name}</div>
-                    <div class="post-text">${post.post.body}</div>
+                    <div class="post-text">${parseMarkdownLinks(post.post.body || "")}</div>
                     ${post.post.thumbnail_url ? `<img src="${post.post.thumbnail_url}" class="post-image" alt="картинка">` : ""}
                     <div class="post-footer">
                         <div class="counter">👍 <span>${post.counts.score}</span></div>
