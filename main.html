@@ -77,6 +77,22 @@
         .counter span {
             margin-left: 5px;
         }
+        .load-more {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .load-more button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .load-more button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -88,24 +104,27 @@
     <div id="posts">
         <!-- сюда будут добавляться посты через js -->
     </div>
+    <div class="load-more">
+        <button onclick="loadMorePosts()">загрузить ещё</button>
+    </div>
 
     <script>
-        let token = null; // токен отсутствует изначально
+        let page = 1; // текущая страница для загрузки
+        const limit = 9; // количество постов на одну загрузку
 
-        // функция для получения постов (без авторизации)
+        // функция для получения постов
         async function fetchPosts() {
-            const response = await fetch("https://lemmy.ml/api/v3/post/list", {
+            const response = await fetch(`https://lemmy.world/api/v3/post/list?page=${page}&limit=${limit}`, {
                 method: "GET",
                 headers: { "Content-Type": "application/json" }
             });
             const data = await response.json();
-            renderPosts(data.posts);
+            return data.posts;
         }
 
         // функция для отображения постов
         function renderPosts(posts) {
             const postsContainer = document.getElementById("posts");
-            postsContainer.innerHTML = ""; // очищаем контейнер
 
             posts.forEach(post => {
                 const postElement = document.createElement("div");
@@ -128,13 +147,20 @@
             });
         }
 
-        // функция для входа
+        // функция для загрузки постов
+        async function loadMorePosts() {
+            const posts = await fetchPosts();
+            renderPosts(posts);
+            page++; // увеличиваем номер страницы
+        }
+
+        // функция для входа (заглушка)
         function login() {
             alert("вход не реализован! (но можно добавить авторизацию через api)");
         }
 
-        // загружаем посты при загрузке страницы
-        fetchPosts();
+        // загружаем первые посты при загрузке страницы
+        loadMorePosts();
     </script>
 </body>
 </html>
