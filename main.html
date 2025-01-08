@@ -63,6 +63,10 @@
         .post-text {
             margin-bottom: 10px;
         }
+        .post-name {
+            margin-bottom: 10px;
+            font-size: 0.6em;
+        }
         .post-image {
             max-width: 100%;
             height: auto;
@@ -143,7 +147,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="post-text">${post.post.body || " "}</div>
+                    <div class="post-name">${post.post.name}</div>
+                    <div class="post-text">${post.post.body}</div>
                     ${post.post.thumbnail_url ? `<img src="${post.post.thumbnail_url}" class="post-image" alt="картинка">` : ""}
                     <div class="post-footer">
                         <div class="counter">👍 <span>${post.counts.score}</span></div>
