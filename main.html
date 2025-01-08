@@ -122,7 +122,7 @@
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
-        const server = urlParams.get('server') || "lemdro.id";
+        const server = urlParams.get('server') || "lemmy.world";
         let page = 1; // текущая страница для загрузки
         const limit = 9; // количество постов на одну загрузку
         const api = `https://${server}/api/v3`
@@ -178,7 +178,7 @@
                         <div class="author">
                             ${post.creator.name}
                             <div class="community">
-                                в сообществе: ${post.community.title || post.community.name}
+                                community: ${post.community.title || post.community.name}
                             </div>
                         </div>
                     </div>
