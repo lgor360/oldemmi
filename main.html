@@ -135,7 +135,9 @@
                         <img src="${post.creator.avatar || 'https://via.placeholder.com/50'}" alt="аватар">
                         <div class="author">
                             ${post.creator.name}
-                            в сообществе: ${post.community.title || post.community.name}
+                            <div class="community">
+                                в сообществе: ${post.community.title || post.community.name}
+                            </div>
                         </div>
                     </div>
                     <div class="post-text">${post.post.body || " "}</div>
