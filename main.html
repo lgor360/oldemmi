@@ -111,7 +111,7 @@
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
-        const server = urlParams.get('server');
+        const server = urlParams.get('server') || "lemdro@id";
         let page = 1; // текущая страница для загрузки
         const limit = 9; // количество постов на одну загрузку
         const api = `https://${server.replace('@', '.')}/api/v3`
