@@ -137,8 +137,6 @@
             text = text.replace(/\*([^\*]+)\*/g, '<em>$1</em>');
             // зачёркнутый текст (~~текст~~)
             text = text.replace(/~~(.*?)~~/g, '<del>$1</del>');
-            // заголовки (# текст)
-            text = text.replace(/^#\s(.+)/gm, '<h1>$1</h1>');
             // цитаты (> текст)
             text = text.replace(/^>\s(.+)/gm, '<blockquote>$1</blockquote>');
             // списки (- текст)
