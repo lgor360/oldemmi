@@ -8,7 +8,7 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #404040;
-            color: #333;
+            color: #f3f3f3;
             margin: 0;
             padding: 0;
         }
@@ -133,7 +133,10 @@
                 postElement.innerHTML = `
                     <div class="post-header">
                         <img src="${post.creator.avatar || 'https://via.placeholder.com/50'}" alt="аватар">
-                        <div class="author">${post.creator.name}</div>
+                        <div class="author">
+                            ${post.creator.name}
+                            <span class="community">в сообществе: ${post.community.title || post.community.name}</span>
+                        </div>
                     </div>
                     <div class="post-text">${post.post.body || " "}</div>
                     ${post.post.thumbnail_url ? `<img src="${post.post.thumbnail_url}" class="post-image" alt="картинка">` : ""}
