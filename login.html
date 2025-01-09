@@ -116,8 +116,15 @@
     </div>
     <script>
         function handleSubmit() {
-            alert('система: отправить белеберду? нажмите да!');
-        }
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const instance = document.getElementById('instance').value.trim();
+
+            if (!username || !password || !instance) {
+                alert('not all inputs are filled');
+            }
+            alert('hi! just wanted to say: this is a placeholder and its not a login page for now :D');
+         }
     </script>
 </body>
 </html>
