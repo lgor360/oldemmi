@@ -131,6 +131,8 @@
         .comment .post-header {
             display: flex;
             align-items: center;
+            margin-left: auto;
+            margin-right: auto;
         }
         .comment {
             border: 1px solid #ccc;
@@ -141,6 +143,8 @@
             max-width: 600px;
         }
         .comment-replies .post-header {
+            margin-left: auto;
+            margin-right: auto;
             display: flex;
             align-items: center;
         }
@@ -299,6 +303,7 @@
             comments.forEach(comment => {
                 const commentElement = document.createElement("div");
                 commentElement.classList.add("comment");
+                commentElement.setAttribute('data-id', comment.comment.id); // добавляем id для ссылок на комментарий
 
                 commentElement.innerHTML = `
                     <div class="post-header">
@@ -344,7 +349,6 @@
                 }
             });
         }
-
         
         // функция для загрузки комментариев
         async function loadMoreComments() {
