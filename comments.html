@@ -129,6 +129,9 @@
         .load-more button {
             padding: 10px 20px;
         }
+        .post-link {
+            margin-bottom: 10px; /* добавляем отступ снизу */
+        }
     </style>
 </head>
 <body>
@@ -231,6 +234,8 @@
         function renderPost(post_view) {
             const postContainer = document.getElementById("post");
 
+            
+            const postotourl = post_view.post.url && post_view.post.url !== post_view.post.thumbnail_url ? post_view.post.url : null;
             const postElement = document.createElement("div");
             postElement.classList.add("post");
 
@@ -249,6 +254,7 @@
                 <div class="post-name">${post_view.post.name}</div>
                 <div class="post-text">${parseMarkdown(post_view.post.body || "")}</div>
                 ${post_view.post.thumbnail_url ? `<img src="${post_view.post.thumbnail_url}" class="post-image" alt="image">` : ""}
+                ${postotourl ? `<div class="post-link"><a href="${postotourl}">${postotourl}</a></div>` : ""}
                 <div class="post-footer">
                     <div class="counter">
                         <button>👍</button>
