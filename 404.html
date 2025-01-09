@@ -72,16 +72,21 @@
             font-weight: bold;
             font-size: 1.2em;
         }
-        .error {
+        .caca .error {
             font-weight: bold;
             font-size: 3.2em;
         }
-        .message {
+        .caca .message {
             font-weight: bold;
             font-size: 2.1em;
         }
-        .back {
+        .caca .back {
             padding: 10px 15px;
+        }
+        .caca {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
         }
     </style>
 </head>
@@ -94,9 +99,11 @@
             </div>
         </div>
     </div>
-    <font class="error">404</font>
-    <font class="message">sorry, but page not found :(</font>
-    <button class="back" onclick="back()">back</button>
+    <div class="caca">
+        <font class="error">404</font>
+        <font class="message">sorry, but page not found :(</font>
+        <button class="back" onclick="back()">back</button>
+    </div>
     <script>
         function back() {
             window.location.href = `https://lgor360.github.io/oldemmi/main.html`
