@@ -107,7 +107,7 @@
         <div class="login-text">
             login to your account
         </div>
-        <form class="login-form" onsubmit="handleSubmit(event)" method="post" action="oldemmi/login.html">
+        <form class="login-form" onsubmit="return handleSubmit();" method="post" action="oldemmi/login.html">
             <input placeholder="username" type="text" id="username" name="username" required>
             <input placeholder="password" type="password" id="password" name="password" required>
             <input placeholder="instance" type="text" name="instance" required>
@@ -115,8 +115,7 @@
         </form>
     </div>
     <script>
-        function handleSubmit(event) {
-            event.preventDefault(); // предотвращаем отправку формы
+        function handleSubmit() {
             alert('система: отправить белеберду? нажмите да!');
         }
     </script>
