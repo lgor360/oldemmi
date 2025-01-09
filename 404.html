@@ -72,18 +72,24 @@
             font-weight: bold;
             font-size: 1.2em;
         }
-        .caca .error {
+        .caca .c .error {
             font-weight: bold;
             font-size: 3.2em;
         }
-        .caca .message {
+        .caca .c .message {
             font-weight: bold;
             font-size: 2.1em;
         }
-        .caca .back {
+        .caca .c .back {
             padding: 10px 15px;
         }
         .caca {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin: 20px auto;
+            border-radius: 0px;
+        }
+        .caca .c {
             display: flex;
             align-items: center;
             margin-bottom: 10px;
@@ -100,9 +106,11 @@
         </div>
     </div>
     <div class="caca">
-        <font class="error">404</font>
-        <font class="message">sorry, but page not found :(</font>
-        <button class="back" onclick="back()">back</button>
+        <div class="c">
+            <font class="error">404</font>
+            <font class="message">sorry, but page not found :(</font>
+            <button class="back" onclick="back()">back</button>
+        </div>
     </div>
     <script>
         // функция для возвращения на главную страницу
