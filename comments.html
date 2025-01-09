@@ -125,6 +125,7 @@
     <div id="post">
         <!-- сюда будут добавляться посты через js -->
     </div>
+    <button onclick="back()">back</button>
     <div id="comments">
         <!-- сюда будут добавляться комментарии через js -->
     </div>
@@ -267,7 +268,11 @@
             console.log("login");
         }
 
-        // загружаем пост при загрузке страницы
+        function back() {
+            window.location.href = `https://lgor360.github.io/oldemmi/main?server=${server}`
+        }
+        
+        // загружаем пост и комментарии при загрузке страницы
         loadPost();
         loadMoreComments();
     </script>
