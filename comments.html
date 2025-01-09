@@ -230,14 +230,15 @@
                 <div class="post-footer">
                     <div class="counter">
                         <button>👍</button>
-                        <span>${comments.counts.upvotes}</span>
+                        <span>${post_view.counts.upvotes}</span>
                     </div>
                     <div class="counter">
                         <button>👎</button>
-                        <span>${comments.counts.downvotes}</span>
+                        <span>${post_view.counts.downvotes}</span>
                     </div>
                     <div class="answer">
                         <button>💬</button>
+                        <span>${post_view.counts.comments}</span>
                     </div>
                 </div>
             `;
@@ -262,15 +263,14 @@
                     <div class="post-footer">
                         <div class="counter">
                             <button>👍</button>
-                            <span>${post.counts.upvotes}</span>
+                            <span>${comments.counts.upvotes}</span>
                         </div>
                         <div class="counter">
                             <button>👎</button>
-                            <span>${post.counts.downvotes}</span>
+                            <span>${comments.counts.downvotes}</span>
                         </div>
                         <div class="counter">
                             <button>💬</button>
-                            <span>${post.counts.comments}</span>
                         </div>
                     </div>
                 `;
