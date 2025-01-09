@@ -49,12 +49,26 @@
         }
         .navbar img {
             height: 40px;
+            border: none;
         }
         .navbar button {
             padding: 10px 15px;
         }
         .navbar .login {
             background-color: #a3af74;
+        }
+        .navbar .oldemmi {
+            display: flex;
+            align-items: center;
+            justify-content: normal;
+        }
+        .navbar .oldemmi .text {
+            margin-left: 5px;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        .navbar .oldemmi .text .instance {
+            font-size: 0.6em;
         }
         .post {
             border: 1px solid #ccc;
@@ -126,7 +140,15 @@
 </head>
 <body>
     <div class="navbar">
-        <img src="https://lgor360.github.io/oldemmi/logo.png" alt="oldemmi logo">
+        <div class="oldemmi">
+            <img src="https://lgor360.github.io/oldemmi/logo.png" alt="oldemmi logo">
+            <div class="text">
+                oldemmi
+                <div class="instance">
+                    <!-- тут будет сервер -->
+                </div>
+            </div>
+        </div>
         <!-- <button class="login" onclick="login()">login</button> -->
     </div>
     <div id="post">
@@ -149,6 +171,14 @@
         let page = 1; // текущая страница для загрузки
         const limit = 9; // количество постов на одну загрузку
         const api = `https://${server}/api/v3`
+        
+        function instanceapply() {
+            const instdiv = document.querySelector(".navbar .oldemmi .text .instance");
+            instdiv.innerHTML = `
+                ${server}
+            `;
+        }
+        
         // функция для получения постов
         async function fetchPost() {
             const response = await fetch(`${api}/post?id=${post}`, {
@@ -302,6 +332,8 @@
         // загружаем пост и комментарии при загрузке страницы
         loadPost();
         loadMoreComments();
+        // вставляем название сервера в заголовок
+        instanceapply();
     </script>
 </body>
 </html>
