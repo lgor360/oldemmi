@@ -130,6 +130,10 @@
         .load-more button {
             padding: 10px 20px;
         }
+        .user-header .cover {
+            max-height: 600px;
+            max-width: 400px;
+        }
     </style>
 </head>
 <body>
@@ -143,11 +147,12 @@
                 </div>
             </div>
         </div>
-        <button onclick="change_server()">change the instance</button>
         <!-- <button class="login" onclick="login()">login</button> -->
     </div>
 
     <div id="user-header">
+        <img class="cover" alt="cover">
+    </div>
     <div id="posts">
         <!-- сюда будут добавляться посты через js -->
     </div>
@@ -158,6 +163,7 @@
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const server = urlParams.get('server') || "lemmy.world";
+        const user = urlParams.get('user') || "okelote360";
         let page = 1; // текущая страница для загрузки
         const limit = 9; // количество постов на одну загрузку
         const api = `https://${server}/api/v3`
@@ -170,13 +176,13 @@
         }
 
         // функция для получения постов
-        async function fetchPosts() {
-            const response = await fetch(`${api}/post/list?page=${page}&limit=${limit}&sort=New`, {
+        async function fetchUser() {
+            const response = await fetch(`${api}/user?username=${user}`, {
                 method: "GET",
                 headers: { "Content-Type": "application/json" }
             });
             const data = await response.json();
-            return data.posts;
+            return data.person_view;
         }
 
         function parseMarkdown(text) {
@@ -261,6 +267,13 @@
             });
         }
 
+        function renderUser(person_view) }
+            const user_header = document.querySelector(".user-header");
+            user_header.innerHTML = `
+                <img class="cover" alt="cover" src="${person_view.person.banner}">
+            `;
+        }
+        
         // функция для загрузки постов
         async function loadMorePosts() {
             const posts = await fetchPosts();
@@ -268,23 +281,22 @@
             page++; // увеличиваем номер страницы
         }
 
+        async function loadUser() {
+            const person_view = await fetchUser();
+            renderUser(person_view);
+        }
+
         // функция для входа (заглушка)
         function login() {
             console.log("login");
         }
-
-        // функция для изменения инстанса
-        function change_server() {
-            const prompto = prompt("enter instance url. example: lemmy.world");
-            if (prompto) {
-                window.location.href = `https://lgor360.github.io/oldemmi/main.html?server=${prompto}`
-            }
-        }
-
-        // загружаем первые посты при загрузке страницы
-        // loadMorePosts();
+        
         // вставляем название сервера в заголовок
         instanceapply();
+        // загружаем профиль
+        loadUser();
+        // загружаем первые посты при загрузке страницы
+        // loadMorePosts();
     </script>
 </body>
 </html>
