@@ -296,9 +296,6 @@
 
             // создаём мапу для быстрого доступа к комментариям по их id
             const commentMap = {};
-            comments.forEach(comment => {
-                commentMap[comment.comment.id] = comment;
-            });
 
             comments.forEach(comment => {
                 const commentElement = document.createElement("div");
@@ -326,29 +323,35 @@
                     </div>
                 `;
 
-                // проверяем, является ли комментарий ответом
-                if (comment.comment.parent_id) {
-                    const parentComment = commentMap[comment.comment.parent_id];
-                    if (parentComment) {
-                        const parentReplies = parentComment.replies || document.createElement("div");
-                        parentReplies.classList.add("comment-replies");
-                        parentReplies.appendChild(commentElement);
-                        parentComment.replies = parentReplies; // сохраняем ссылки для последующего добавления
-                    }
-                } else {
-                    // если комментарий не ответ, добавляем его в основной контейнер
+                // сохраняем комментарий в мапе
+                commentMap[comment.comment.id] = {
+                    element: commentElement,
+                    parentId: comment.comment.parent_id
+                };
+
+                // если это корневой комментарий, добавляем его сразу
+                if (!comment.comment.parent_id) {
                     commentsContainer.appendChild(commentElement);
                 }
             });
 
-            // добавляем вложенные ответы
-            comments.forEach(comment => {
-                if (comment.replies) {
-                    const commentElement = document.querySelector(`.comment[data-id="${comment.comment.id}"]`);
-                    commentElement.appendChild(comment.replies);
+            // теперь добавляем вложенные комментарии
+            Object.values(commentMap).forEach(({ element, parentId }) => {
+                if (parentId) {
+                    const parent = commentMap[parentId];
+                    if (parent) {
+                        let repliesContainer = parent.element.querySelector(".comment-replies");
+                        if (!repliesContainer) {
+                            repliesContainer = document.createElement("div");
+                            repliesContainer.classList.add("comment-replies");
+                            parent.element.appendChild(repliesContainer);
+                        }
+                        repliesContainer.appendChild(element);
+                    }
                 }
             });
         }
+
         
         // функция для загрузки комментариев
         async function loadMoreComments() {
