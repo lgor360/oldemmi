@@ -12,6 +12,13 @@
             margin: 0;
             padding: 0;
         }
+        button {
+            border: 1px solid #ccc;
+            border-radius: 0px;
+            cursor: pointer;
+            background-color: #353535;
+            color: #fff;
+        }
         img {
             border: 1px solid #ccc;
             border-radius: 0px;
@@ -65,6 +72,17 @@
             font-weight: bold;
             font-size: 1.2em;
         }
+        .error {
+            font-weight: bold;
+            font-size: 3.2em;
+        }
+        .message {
+            font-weight: bold;
+            font-size: 2.1em;
+        }
+        .back {
+            padding: 10px 15px;
+        }
     </style>
 </head>
 <body>
@@ -76,7 +94,13 @@
             </div>
         </div>
     </div>
+    <font class="error">404</font>
+    <font class="message">sorry, but page not found :(</font>
+    <button class="back" onclick="back()">back</button>
     <script>
+        function back() {
+            window.location.href = `https://lgor360.github.io/oldemmi/main.html`
+        }
     </script>
 </body>
 </html>
