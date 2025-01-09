@@ -53,6 +53,7 @@
         }
         .navbar img {
             height: 40px;
+            border: none;
         }
         .navbar button {
             padding: 10px 15px;
@@ -62,8 +63,6 @@
         }
         .navbar .oldemmi {
             justify-content: normal;
-        }
-        .navbar .oldemmi .text {
             font-weight: bold;
             font-size: 1.2em;
         }
@@ -132,11 +131,9 @@
     <div class="navbar">
         <div class="oldemmi">
             <img src="https://lgor360.github.io/oldemmi/logo.png" alt="oldemmi logo">
-            <div class="text">
-                oldemmi
-                <div class="instance">
-                    <!-- тут будет сервер -->
-                </div>
+            oldemmi
+            <div class="instance">
+                <!-- тут будет сервер -->
             </div>
         </div>
         <button onclick="change_server()">change the instance</button>
@@ -158,7 +155,7 @@
         const api = `https://${server}/api/v3`
 
         function instanceapply() {
-            const instdiv = document.querySelector(".navbar .oldemmi .text .instance");
+            const instdiv = document.querySelector(".navbar .oldemmi .instance");
             instdiv.innerHTML = `
                 ${server}
             `;
