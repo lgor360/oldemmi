@@ -316,10 +316,11 @@
             profile_header.innerHTML = `
                 <img src="${person_view.person.avatar || 'https://lgor360.github.io/oldemmi/user.png'}" alt="avatar">
                 <div class="person">
-                    ${person_view.person.display_name}
+                    ${person_view.person.display_name || person_view.person.name}
                     <div class="instance">
                             ${getInstanceFromActorId(person_view.person.actor_id)}
-                        </div>
+                    </div>
+                </div>
             `;
         }
             
