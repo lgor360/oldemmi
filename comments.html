@@ -130,16 +130,16 @@
                 headers: { "Content-Type": "application/json" }
             });
             const data = await response.json();
-            return data.posts;
+            return data.post_view;
         }
 
         async function fetchComments() {
-            const response = await fetch(`${api}/post?id=${post}`, {
+            const response = await fetch(`${api}/comment/list?post_id=${post}&page=${page}&limit=${limit}&sort=New`, {
                 method: "GET",
                 headers: { "Content-Type": "application/json" }
             });
             const data = await response.json();
-            return data.posts;
+            return data.comments;
         }
       
         function parseMarkdown(text) {
@@ -199,8 +199,8 @@
 
         // функция для загрузки комментариев
         async function loadMoreComments() {
-            const posts = await fetchPosts();
-            renderComments(posts);
+            const comments = await fetchComments();
+            // renderComments(posts);
             page++; // увеличиваем номер страницы
         }
 
