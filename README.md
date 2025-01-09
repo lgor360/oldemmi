@@ -19,3 +19,4 @@ due to the client being under development, some features are not available
 |post's link view||✓|
 |moderation functions||✓|
 |comment replies||✓|
+|404 page||✓|
