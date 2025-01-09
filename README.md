@@ -1,4 +1,6 @@
-# oldemmi
-I wanted to make a light client for Lemmy. I tried to make it look like from the old internet :P
+# about
+i wanted to make a light client for lemmy. i tried to make it look like from the old internet :P
 
-![preview](https://github.com/user-attachments/assets/f6e9be0b-b1ff-4d6d-abe5-c89124b6be81)
+![preview](https://github.com/user-attachments/assets/dd701ad1-eb5a-4a9f-89a6-d4677ca9f818)
+
+# in development!!!
