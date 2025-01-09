@@ -12,14 +12,16 @@
             margin: 0;
             padding: 0;
         }
-        img {
-            border: 1px solid #ccc;
-            border-radius: 0px;
-        }
         button {
             border: 1px solid #ccc;
             border-radius: 0px;
             cursor: pointer;
+            background-color: #353535;
+            color: #fff;
+        }
+        input {
+            border: 1px solid #ccc;
+            border-radius: 0px;
             background-color: #353535;
             color: #fff;
         }
@@ -58,12 +60,16 @@
         .navbar .oldemmi {
             display: flex;
             align-items: center;
-            justify-content: normal;
         }
         .navbar .oldemmi .text {
             margin-left: 5px;
             font-weight: bold;
             font-size: 1.2em;
+        }
+        .caca {
+            padding: 20px;
+            margin: 40px auto;
+            text-align: center;
         }
     </style>
 </head>
@@ -76,7 +82,15 @@
             </div>
         </div>
     </div>
+    <div class="caca">
+        <div class="username">
+            <input placeholder="username">
+        </div>
+        <div class="password">
+            <input type="password" placeholder="password">
+        </div>
+    </div>
     <script>
     </script>
 </body>
-  </html>
+</html>
