@@ -128,29 +128,6 @@
         .load-more button {
             padding: 10px 20px;
         }
-        .comment .post-header {
-            display: flex;
-            align-items: center;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .comment {
-            border: 1px solid #ccc;
-            padding: 10px;
-            background-color: #454545;
-            border-radius: 0px;
-            max-width: 600px;
-        }
-        .comment-replies .post-header {
-            margin-left: auto;
-            margin-right: auto;
-            display: flex;
-            align-items: center;
-        }
-        .comment-replies {
-            border-left: 2px solid #ccc; /* визуальное выделение */
-            padding-left: 10px;
-        }
     </style>
 </head>
 <body>
@@ -292,18 +269,16 @@
         function renderComments(comments) {
             const commentsContainer = document.getElementById("comments");
 
-            // создаём мапу для быстрого доступа к комментариям по их id
-            const commentMap = {};
-
             comments.forEach(comment => {
                 const commentElement = document.createElement("div");
-                commentElement.classList.add("comment");
-                commentElement.setAttribute('data-id', comment.comment.id); // добавляем id для ссылок на комментарий
+                commentElement.classList.add("post");
 
                 commentElement.innerHTML = `
                     <div class="post-header">
                         <img src="${comment.creator.avatar || 'https://lgor360.github.io/oldemmi/user.png'}" alt="avatar">
-                        <div class="author">${comment.creator.name}</div>
+                        <div class="author">
+                            ${comment.creator.name}
+                        </div>
                     </div>
                     <div class="post-text">${parseMarkdown(comment.comment.content)}</div>
                     <div class="post-footer">
@@ -320,36 +295,9 @@
                         </div>
                     </div>
                 `;
-
-                // сохраняем комментарий в мапе
-                commentMap[comment.comment.id] = {
-                    element: commentElement,
-                    parentId: comment.comment.parent_id
-                };
-
-                // если это корневой комментарий, добавляем его сразу
-                if (!comment.comment.parent_id) {
-                    commentsContainer.appendChild(commentElement);
-                }
-            });
-
-            // теперь добавляем вложенные комментарии
-            Object.values(commentMap).forEach(({ element, parentId }) => {
-                if (parentId) {
-                    const parent = commentMap[parentId];
-                    if (parent) {
-                        let repliesContainer = parent.element.querySelector(".comment-replies");
-                        if (!repliesContainer) {
-                            repliesContainer = document.createElement("div");
-                            repliesContainer.classList.add("comment-replies");
-                            parent.element.appendChild(repliesContainer);
-                        }
-                        repliesContainer.appendChild(element);
-                    }
-                }
+                commentsContainer.appendChild(commentElement);
             });
         }
-
         
         // функция для загрузки комментариев
         async function loadMoreComments() {
