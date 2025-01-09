@@ -172,7 +172,7 @@
             // заголовки
             text = text.replace(/^(#+)\s*(.+)$/gm, (_, hashes, content) => `<h${hashes.length}>${content}</h${hashes.length}>`);
             // картинки
-            text.replace(/!\[([^\]]*)\]\((https?:\/\/[^\)]+\.(jpg|jpeg|png|gif|webp))\)/g, '<img src="$2" alt="$1" style="max-width: 100%; height: auto;">');
+            text = text.replace(/!\[([^\]]*)\]\((https?:\/\/[^\)]+\.(jpg|jpeg|png|gif|webp))\)/g, '<img src="$2" alt="$1" style="max-width: 100%; height: auto;">');
             // переносы строк
             text = text.replace(/\\n/g, '<br>');
             return text;
