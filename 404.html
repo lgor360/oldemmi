@@ -19,17 +19,6 @@
             background-color: #353535;
             color: #fff;
         }
-        img {
-            border: 1px solid #ccc;
-            border-radius: 0px;
-        }
-        button {
-            border: 1px solid #ccc;
-            border-radius: 0px;
-            cursor: pointer;
-            background-color: #353535;
-            color: #fff;
-        }
         a {
             color: #b3c46d;
             text-decoration: none;
@@ -65,34 +54,30 @@
         .navbar .oldemmi {
             display: flex;
             align-items: center;
-            justify-content: normal;
         }
         .navbar .oldemmi .text {
             margin-left: 5px;
             font-weight: bold;
             font-size: 1.2em;
         }
-        .caca .c .error {
+        .caca {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin: 40px auto;
+            border-radius: 0px;
+            text-align: center;
+        }
+        .error {
             font-weight: bold;
             font-size: 3.2em;
         }
-        .caca .c .mes .message {
+        .message {
             font-weight: bold;
             font-size: 2.1em;
+            margin: 10px 0;
         }
-        .caca .c .back {
+        .back {
             padding: 10px 15px;
-        }
-        .caca {
-            border: 1px solid #ccc;
-            padding: 15px;
-            margin: 20px auto;
-            border-radius: 0px;
-        }
-        .caca .c {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
         }
     </style>
 </head>
@@ -106,13 +91,9 @@
         </div>
     </div>
     <div class="caca">
-        <div class="c">
-            <font class="error">404</font>
-            <div class="mes">
-                <font class="message">sorry, but page not found :(</font>
-            </div>
-            <button class="back" onclick="back()">back</button>
-        </div>
+        <div class="error">404</div>
+        <div class="message">sorry, but page not found :(</div>
+        <button class="back" onclick="back()">back</button>
     </div>
     <script>
         // функция для возвращения на главную страницу
