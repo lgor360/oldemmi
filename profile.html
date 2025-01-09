@@ -130,10 +130,6 @@
         .load-more button {
             padding: 10px 20px;
         }
-        .user-header .cover {
-            max-height: 600px;
-            max-width: 400px;
-        }
     </style>
 </head>
 <body>
@@ -150,14 +146,11 @@
         <!-- <button class="login" onclick="login()">login</button> -->
     </div>
 
-    <div id="user-header">
-        <img class="cover" alt="cover">
-    </div>
     <div id="posts">
         <!-- сюда будут добавляться посты через js -->
     </div>
     <div class="load-more">
-        <!-- <button onclick="loadMorePosts()">more</button> -->
+        <button onclick="loadMorePosts()">more</button>
     </div>
 
     <script>
@@ -173,6 +166,16 @@
             instdiv.innerHTML = `
                 ${server}
             `;
+        }
+
+        // функция для получения постов
+        async function fetchPosts() {
+            const response = await fetch(`${api}/post/list?page=${page}&limit=${limit}&sort=New`, {
+                method: "GET",
+                headers: { "Content-Type": "application/json" }
+            });
+            const data = await response.json();
+            return data.posts;
         }
 
         // функция для получения постов
@@ -267,13 +270,14 @@
             });
         }
 
-        function renderUser(person_view) }
-            const user_header = document.getElementById("user-header");
-            user_header.innerHTML = `
-                <img class="cover" alt="cover" src="${person_view.person.banner}">
+        // функция для рендеринга профиля
+        function renderUser(person_view) {
+            const profile_header = document.getElementById("profile-header");
+            profile_header.innerHTML = `
+                ${server}
             `;
         }
-        
+            
         // функция для загрузки постов
         async function loadMorePosts() {
             const posts = await fetchPosts();
@@ -281,6 +285,7 @@
             page++; // увеличиваем номер страницы
         }
 
+        // функция для загрузки профиля
         async function loadUser() {
             const person_view = await fetchUser();
             renderUser(person_view);
@@ -290,13 +295,11 @@
         function login() {
             console.log("login");
         }
-        
-        // вставляем название сервера в заголовок
-        instanceapply();
-        // загружаем профиль
-        loadUser();
+
         // загружаем первые посты при загрузке страницы
         // loadMorePosts();
+        // вставляем название сервера в заголовок
+        instanceapply();
     </script>
 </body>
 </html>
