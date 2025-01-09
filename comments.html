@@ -114,6 +114,14 @@
         .load-more button {
             padding: 10px 20px;
         }
+        .back {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .back button {
+            padding: 10px 20px;
+        }
     </style>
 </head>
 <body>
@@ -121,11 +129,12 @@
         <img src="https://lgor360.github.io/oldemmi/logo.png" alt="oldemmi logo">
         <!-- <button class="login" onclick="login()">login</button> -->
     </div>
-<!-- а -->
     <div id="post">
         <!-- сюда будут добавляться посты через js -->
     </div>
-    <button onclick="back()">back</button>
+    <div class="back">
+        <button onclick="back()">back</button>
+    </div>
     <div id="comments">
         <!-- сюда будут добавляться комментарии через js -->
     </div>
