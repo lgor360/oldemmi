@@ -228,9 +228,17 @@
                 <div class="post-text">${parseMarkdown(post_view.post.body || "")}</div>
                 ${post_view.post.thumbnail_url ? `<img src="${post_view.post.thumbnail_url}" class="post-image" alt="image">` : ""}
                 <div class="post-footer">
-                    <div class="counter">👍 <span>${post_view.counts.upvotes}</span></div>
-                    <div class="counter">👎 <span>${post_view.counts.downvotes}</span></div>
-                    <div class="counter">💬 <span>${post_view.counts.comments}</span></div>
+                    <div class="counter">
+                        <button>👍</button>
+                        <span>${comments.counts.upvotes}</span>
+                    </div>
+                    <div class="counter">
+                        <button>👎</button>
+                        <span>${comments.counts.downvotes}</span>
+                    </div>
+                    <div class="answer">
+                        <button>💬</button>
+                    </div>
                 </div>
             `;
             postContainer.appendChild(postElement);
@@ -252,8 +260,18 @@
                     </div>
                     <div class="post-text">${parseMarkdown(comment.comment.content)}</div>
                     <div class="post-footer">
-                        <div class="counter">👍 <span>${comment.counts.upvotes}</span></div>
-                        <div class="counter">👎 <span>${comment.counts.downvotes}</span></div>
+                        <div class="counter">
+                            <button>👍</button>
+                            <span>${post.counts.upvotes}</span>
+                        </div>
+                        <div class="counter">
+                            <button>👎</button>
+                            <span>${post.counts.downvotes}</span>
+                        </div>
+                        <div class="counter">
+                            <button>💬</button>
+                            <span>${post.counts.comments}</span>
+                        </div>
                     </div>
                 `;
                 commentsContainer.appendChild(commentElement);
