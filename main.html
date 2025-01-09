@@ -153,7 +153,13 @@
                 '<details><summary>$1</summary><div>$2</div></details>');
             // ссылки ([текст](ссылка))
             text = text.replace(/\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+            text = text.replace(/^(#+)\s*(.+)$/gm, (_, hashes, content) => `<h${hashes.length}>${content}</h${hashes.length}>`);
             return text;
+        }
+        
+        function getInstanceFromActorId(actorId) {
+            const url = new URL(actorId);
+            return url.hostname; // возвращает домен, например, "lemmy.world"
         }
         
         // функция для отображения постов
@@ -170,7 +176,9 @@
                         <div class="author">
                             ${post.creator.name}
                             <div class="community">
-                                ${post.community.title}
+                                ${post.community.name}
+                                @
+                                ${getInstanceFromActorId(post.community.actor_id)}
                             </div>
                         </div>
                     </div>
