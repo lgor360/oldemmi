@@ -164,8 +164,9 @@
         <!-- <button class="login" onclick="login()">login</button> -->
     </div>
 
-    <div id="profile">
-        <div id="profile-header">
+    <div class="profile">
+        <div class="profile-header">
+            <!-- здесь будет шапка профиля -->
         </div>
     </div>
     
@@ -295,7 +296,7 @@
 
         // функция для рендеринга профиля
         function renderUser(person_view) {
-            const profile_header = document.querySelector("#profile #profile-header");
+            const profile_header = document.querySelector(".profile .profile-header");
             profile_header.innerHTML = `
                 <img src="${profile_view.person.avatar || 'https://lgor360.github.io/oldemmi/user.png'}" alt="avatar">
             `;
@@ -319,10 +320,12 @@
             console.log("login");
         }
 
-        // загружаем первые посты при загрузке страницы
-        // loadMorePosts();
         // вставляем название сервера в заголовок
         instanceapply();
+        // загружаем профиль
+        loadUser();
+        // загружаем первые посты при загрузке страницы
+        // loadMorePosts();
     </script>
 </body>
 </html>
