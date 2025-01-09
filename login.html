@@ -80,7 +80,7 @@
         .instance {
             margin: 40px 0;
         }
-        .caca .button button {
+        .logbutton {
             padding: 10px 20px;
         }
     </style>
@@ -94,22 +94,14 @@
             </div>
         </div>
     </div>
-    <div class="caca">
-        <div class="login-text">
+    <div class="login-text">
             login to your account
-        </div>
-        <div class="username">
-            <input placeholder="username">
-        </div>
-        <div class="password">
-            <input type="password" placeholder="password">
-        </div>
-        <div class="instance">
-            <input placeholder="instance">
-        </div>
-        <div class="button">
-            <button>login</button>
-        </div>
     </div>
+    <form class="login-form" action="/login" method="post">
+        <input type="text" id="username" name="username" required>
+        <input type="password" id="password" name="password" required>
+        <input class="instance" placeholder="instance">
+        <button class="logbutton" type="submit">login</button>
+    </form>
 </body>
 </html>
