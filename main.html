@@ -133,7 +133,7 @@
             padding: 10px 20px;
         }
         .post-attached-link {
-            margin: 5px 0;
+            margin: 5px 5px;
         }
     </style>
 </head>
@@ -228,6 +228,9 @@
             const postsContainer = document.getElementById("posts");
 
             posts.forEach(post => {
+                if posts.post.url != post.post.thumbnail_url {
+                    let postotourl = posts.post.url
+                }
                 const postElement = document.createElement("div");
                 postElement.classList.add("post");
 
@@ -246,7 +249,7 @@
                     <div class="post-name">${post.post.name}</div>
                     <div class="post-text">${parseMarkdown(post.post.body || "")}</div>
                     ${post.post.thumbnail_url ? `<img src="${post.post.thumbnail_url}" class="post-image" alt="image">` : ""}
-                    ${post.post.url ? `<a class="post-attached-link" href="${post.post.url}">attached link</a>` : ""}
+                    ${postotourl ? `<a class="post-attached-link" href="${postotourl}">${postotourl}</a>` : ""}
                     <div class="post-footer">
                         <div class="counter">
                             <button>👍</button>
