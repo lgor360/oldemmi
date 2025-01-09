@@ -207,9 +207,18 @@
                     <div class="post-text">${parseMarkdown(post.post.body || "")}</div>
                     ${post.post.thumbnail_url ? `<img src="${post.post.thumbnail_url}" class="post-image" alt="image">` : ""}
                     <div class="post-footer">
-                        <div class="counter">👍 <span>${post.counts.upvotes}</span></div>
-                        <div class="counter">👎 <span>${post.counts.downvotes}</span></div>
-                        <div class="counter">💬 <span>${post.counts.comments}</span></div>
+                        <div class="counter">
+                            <button>👍</button>
+                            <span>${post.counts.upvotes}</span>
+                        </div>
+                        <div class="counter">
+                            <button>👎</button>
+                            <span>${post.counts.downvotes}</span>
+                        </div>
+                        <div class="counter">
+                            <button>💬</button>
+                            <span>${post.counts.comments}</span>
+                        </div>
                     </div>
                 `;
                 postsContainer.appendChild(postElement);
