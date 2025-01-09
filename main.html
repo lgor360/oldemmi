@@ -132,7 +132,7 @@
         .load-more button {
             padding: 10px 20px;
         }
-        .posts .post-attached-link {
+        .posts .post-link {
             margin-bottom: 10px;
         }
     </style>
@@ -247,7 +247,7 @@
                     <div class="post-name">${post.post.name}</div>
                     <div class="post-text">${parseMarkdown(post.post.body || "")}</div>
                     ${post.post.thumbnail_url ? `<img src="${post.post.thumbnail_url}" class="post-image" alt="image">` : ""}
-                    ${postotourl ? `<a class="post-attached-link" href="${postotourl}">${postotourl}</a>` : ""}
+                    ${postotourl ? `<a class="post-link" href="${postotourl}">${postotourl}</a>` : ""}
                     <div class="post-footer">
                         <div class="counter">
                             <button>👍</button>
