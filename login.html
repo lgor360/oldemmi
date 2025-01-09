@@ -94,14 +94,16 @@
             </div>
         </div>
     </div>
-    <div class="login-text">
-            login to your account
+    <div class="caca">
+        <div class="login-text">
+                login to your account
+        </div>
+        <form class="login-form" action="/login" method="post">
+            <input type="text" id="username" name="username" required>
+            <input type="password" id="password" name="password" required>
+            <input class="instance" placeholder="instance">
+            <button class="logbutton" type="submit">login</button>
+        </form>
     </div>
-    <form class="login-form" action="/login" method="post">
-        <input type="text" id="username" name="username" required>
-        <input type="password" id="password" name="password" required>
-        <input class="instance" placeholder="instance">
-        <button class="logbutton" type="submit">login</button>
-    </form>
 </body>
 </html>
