@@ -125,7 +125,7 @@
         const api = `https://${server}/api/v3`
         // функция для получения постов
         async function fetchPost() {
-            const response = await fetch(`${api}/post?post_id=${post}`, {
+            const response = await fetch(`${api}/post?id=${post}`, {
                 method: "GET",
                 headers: { "Content-Type": "application/json" }
             });
