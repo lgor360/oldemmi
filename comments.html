@@ -134,7 +134,7 @@
         }
 
         async function fetchComments() {
-            const response = await fetch(`${api}/post?post_id=${post}`, {
+            const response = await fetch(`${api}/post?id=${post}`, {
                 method: "GET",
                 headers: { "Content-Type": "application/json" }
             });
@@ -178,21 +178,21 @@
 
                 postElement.innerHTML = `
                     <div class="post-header">
-                        <img src="${post.creator.avatar || 'https://lgor360.github.io/oldemmi/user.png'}" alt="avatar">
+                        <img src="${post_view.creator.avatar || 'https://lgor360.github.io/oldemmi/user.png'}" alt="avatar">
                         <div class="author">
-                            ${post.creator.name}
+                            ${post_view.creator.name}
                             <div class="community">
-                                ${post.community.title}
+                                ${post_view.community.title}
                             </div>
                         </div>
                     </div>
-                    <div class="post-name">${post.post.name}</div>
-                    <div class="post-text">${parseMarkdown(post.post.body || "")}</div>
-                    ${post.post.thumbnail_url ? `<img src="${post.post.thumbnail_url}" class="post-image" alt="image">` : ""}
+                    <div class="post-name">${post_view.post.name}</div>
+                    <div class="post-text">${parseMarkdown(post_view.post.body || "")}</div>
+                    ${post_view.post.thumbnail_url ? `<img src="${post_view.post.thumbnail_url}" class="post-image" alt="image">` : ""}
                     <div class="post-footer">
-                        <div class="counter">👍 <span>${post.counts.upvotes}</span></div>
-                        <div class="counter">👎 <span>${post.counts.downvotes}</span></div>
-                        <div class="counter">💬 <span>${post.counts.comments}</span></div>
+                        <div class="counter">👍 <span>${post_view.counts.upvotes}</span></div>
+                        <div class="counter">👎 <span>${post_view.counts.downvotes}</span></div>
+                        <div class="counter">💬 <span>${post_view.counts.comments}</span></div>
                     </div>
                 `;
                 postContainer.appendChild(postElement);
