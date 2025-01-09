@@ -169,34 +169,32 @@
         }
         
         // функция для отображения постов
-        function renderPost(posts) {
+        function renderPost(post_view) {
             const postContainer = document.getElementById("post");
 
-            posts.forEach(post => {
-                const postElement = document.createElement("div");
-                postElement.classList.add("post");
+            const postElement = document.createElement("div");
+            postElement.classList.add("post");
 
-                postElement.innerHTML = `
-                    <div class="post-header">
-                        <img src="${post_view.creator.avatar || 'https://lgor360.github.io/oldemmi/user.png'}" alt="avatar">
-                        <div class="author">
-                            ${post_view.creator.name}
-                            <div class="community">
-                                ${post_view.community.title}
-                            </div>
+            postElement.innerHTML = `
+                <div class="post-header">
+                    <img src="${post_view.creator.avatar || 'https://lgor360.github.io/oldemmi/user.png'}" alt="avatar">
+                    <div class="author">
+                        ${post_view.creator.name}
+                        <div class="community">
+                            ${post_view.community.title}
                         </div>
                     </div>
-                    <div class="post-name">${post_view.post.name}</div>
-                    <div class="post-text">${parseMarkdown(post_view.post.body || "")}</div>
-                    ${post_view.post.thumbnail_url ? `<img src="${post_view.post.thumbnail_url}" class="post-image" alt="image">` : ""}
-                    <div class="post-footer">
-                        <div class="counter">👍 <span>${post_view.counts.upvotes}</span></div>
-                        <div class="counter">👎 <span>${post_view.counts.downvotes}</span></div>
-                        <div class="counter">💬 <span>${post_view.counts.comments}</span></div>
-                    </div>
-                `;
-                postContainer.appendChild(postElement);
-            });
+                </div>
+                <div class="post-name">${post_view.post.name}</div>
+                <div class="post-text">${parseMarkdown(post_view.post.body || "")}</div>
+                ${post_view.post.thumbnail_url ? `<img src="${post_view.post.thumbnail_url}" class="post-image" alt="image">` : ""}
+                <div class="post-footer">
+                    <div class="counter">👍 <span>${post_view.counts.upvotes}</span></div>
+                    <div class="counter">👎 <span>${post_view.counts.downvotes}</span></div>
+                    <div class="counter">💬 <span>${post_view.counts.comments}</span></div>
+                </div>
+            `;
+            postContainer.appendChild(postElement);
         }
 
         // функция для загрузки комментариев
