@@ -168,6 +168,11 @@
             text = text.replace(/^(#+)\s*(.+)$/gm, (_, hashes, content) => `<h${hashes.length}>${content}</h${hashes.length}>`);
             return text;
         }
+
+        function getInstanceFromActorId(actorId)
+            const url = new URL(actorId);
+            return url.hostname; // возвращает домен, например, "lemmy.world"
+        }
         
         // функция для отображения постов
         function renderPost(post_view) {
@@ -183,6 +188,8 @@
                         ${post_view.creator.name}
                         <div class="community">
                             ${post_view.community.name}
+                            @
+                            ${getInstanceFromActorId(post_view.community.actor_id)}
                         </div>
                     </div>
                 </div>
