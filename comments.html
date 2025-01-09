@@ -205,10 +205,34 @@
             postContainer.appendChild(postElement);
         }
 
+        function renderComments(comments) {
+            const commentsContainer = document.getElementById("comments");
+
+            comments.forEach(comment => {
+                const commentElement = document.createElement("div");
+                commentElement.classList.add("post");
+
+                commentElement.innerHTML = `
+                    <div class="post-header">
+                        <img src="${comment.creator.avatar || 'https://lgor360.github.io/oldemmi/user.png'}" alt="avatar">
+                        <div class="author">
+                            ${comment.creator.name}
+                        </div>
+                    </div>
+                    <div class="post-text">${parseMarkdown(comment.comment.content)}</div>
+                    <div class="post-footer">
+                        <div class="counter">👍 <span>${comment.counts.upvotes}</span></div>
+                        <div class="counter">👎 <span>${comment.counts.downvotes}</span></div>
+                    </div>
+                `;
+                commentsContainer.appendChild(commentElement);
+            });
+        }
+        
         // функция для загрузки комментариев
         async function loadMoreComments() {
             const comments = await fetchComments();
-            // renderComments(posts);
+            renderComments(comments);
             page++; // увеличиваем номер страницы
         }
 
