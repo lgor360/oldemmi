@@ -281,16 +281,20 @@
         function renderComments(comments) {
             const commentsContainer = document.getElementById("comments");
 
+            // создаём мапу для быстрого доступа к комментариям по их id
+            const commentMap = {};
+            comments.forEach(comment => {
+                commentMap[comment.comment.id] = comment;
+            });
+
             comments.forEach(comment => {
                 const commentElement = document.createElement("div");
-                commentElement.classList.add("post");
+                commentElement.classList.add("comment");
 
                 commentElement.innerHTML = `
                     <div class="post-header">
                         <img src="${comment.creator.avatar || 'https://lgor360.github.io/oldemmi/user.png'}" alt="avatar">
-                        <div class="author">
-                            ${comment.creator.name}
-                        </div>
+                        <div class="author">${comment.creator.name}</div>
                     </div>
                     <div class="post-text">${parseMarkdown(comment.comment.content)}</div>
                     <div class="post-footer">
@@ -306,12 +310,32 @@
                             <button>💬</button>
                         </div>
                     </div>
-                    <div class="comment-replies">
-                    </div>
                 `;
-                commentsContainer.appendChild(commentElement);
+
+                // проверяем, является ли комментарий ответом
+                if (comment.comment.parent_id) {
+                    const parentComment = commentMap[comment.comment.parent_id];
+                    if (parentComment) {
+                        const parentReplies = parentComment.replies || document.createElement("div");
+                        parentReplies.classList.add("comment-replies");
+                        parentReplies.appendChild(commentElement);
+                        parentComment.replies = parentReplies; // сохраняем ссылки для последующего добавления
+                    }
+                } else {
+                    // если комментарий не ответ, добавляем его в основной контейнер
+                    commentsContainer.appendChild(commentElement);
+                }
+            });
+
+            // добавляем вложенные ответы
+            comments.forEach(comment => {
+                if (comment.replies) {
+                    const commentElement = document.querySelector(`.comment[data-id="${comment.comment.id}"]`);
+                    commentElement.appendChild(comment.replies);
+                }
             });
         }
+
         
         // функция для загрузки комментариев
         async function loadMoreComments() {
