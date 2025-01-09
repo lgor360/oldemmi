@@ -148,6 +148,13 @@
             width: 50px;
             margin-right: 10px;
         }
+        .profile .profile-header .person {
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        .profile .profile-header .person .instance {
+            font-size: 0.6em;
+        }
     </style>
 </head>
 <body>
@@ -252,6 +259,12 @@
         function goToComments(postoid) {
             window.location.href = `https://lgor360.github.io/oldemmi/comments.html?server=${server}&post=${postoid}`
         }
+
+        function getInstanceFromActorId(actorId) {
+            const url = new URL(actorId);
+            return url.hostname; // возвращает домен, например, "lemmy.world"
+        }
+        
         // функция для отображения постов
         function renderPosts(posts) {
             const postsContainer = document.getElementById("posts");
@@ -299,6 +312,11 @@
             const profile_header = document.querySelector(".profile .profile-header");
             profile_header.innerHTML = `
                 <img src="${person_view.person.avatar || 'https://lgor360.github.io/oldemmi/user.png'}" alt="avatar">
+                <div class="person">
+                    ${person_view.person.display_name}
+                    <div class="instance">
+                            ${getInstanceFromActorId(person_view.person.actor_id)}
+                        </div>
             `;
         }
             
