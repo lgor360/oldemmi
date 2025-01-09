@@ -167,12 +167,12 @@
             // спойлеры (::spoiler текст:::)
             text = text.replace(/::: spoiler (.+?)\n([\s\S]+?)\n:::/g, 
                 '<details><summary>$1</summary><div>$2</div></details>');
+            // картинки
+            text = text.replace(/!\[([^\]]*)\]\((https?:\/\/[^\)]+\.(jpg|jpeg|png|gif|webp))\)/g, '<img src="$2" alt="$1" style="max-width: 100%; height: auto;">');
             // ссылки ([текст](ссылка))
             text = text.replace(/\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
             // заголовки
             text = text.replace(/^(#+)\s*(.+)$/gm, (_, hashes, content) => `<h${hashes.length}>${content}</h${hashes.length}>`);
-            // картинки
-            text = text.replace(/!\[([^\]]*)\]\((https?:\/\/[^\)]+\.(jpg|jpeg|png|gif|webp))\)/g, '<img src="$2" alt="$1" style="max-width: 100%; height: auto;">');
             // переносы строк
             text = text.replace(/\\n/g, '<br>');
             return text;
