@@ -182,7 +182,10 @@
             const url = new URL(actorId);
             return url.hostname; // возвращает домен, например, "lemmy.world"
         }
-        
+
+        function goToComments(id) {
+            window.location.href = `https://lgor360.github.io/oldemmi/comments?server=${server}&post=${post}`
+        }
         // функция для отображения постов
         function renderPosts(posts) {
             const postsContainer = document.getElementById("posts");
