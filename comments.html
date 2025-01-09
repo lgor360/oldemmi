@@ -169,7 +169,7 @@
             return text;
         }
 
-        function getInstanceFromActorId(actorId)
+        function getInstanceFromActorId(actorId) {
             const url = new URL(actorId);
             return url.hostname; // возвращает домен, например, "lemmy.world"
         }
