@@ -228,9 +228,7 @@
             const postsContainer = document.getElementById("posts");
 
             posts.forEach(post => {
-                if posts.post.url != post.post.thumbnail_url {
-                    let postotourl = posts.post.url
-                }
+                const postotourl = post.post.url && post.post.url !== post.post.thumbnail_url ? post.post.url : null;
                 const postElement = document.createElement("div");
                 postElement.classList.add("post");
 
