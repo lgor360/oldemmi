@@ -107,12 +107,12 @@
         <div class="login-text">
             login to your account
         </div>
-        <form class="login-form" onsubmit="return handleSubmit();" method="post" action="oldemmi/login.html">
-            <input placeholder="username" type="text" id="username" name="username" required>
-            <input placeholder="password" type="password" id="password" name="password" required>
-            <input placeholder="instance" type="text" name="instance" required>
-            <button type="submit">login</button>
-        </form>
+        <div class="login-form">
+            <input placeholder="username" type="text" id="username">
+            <input placeholder="password" type="password" id="password">
+            <input placeholder="instance" type="text" id="instance">
+            <button onclick="handleSubmit()">login</button>
+        </div>
     </div>
     <script>
         function handleSubmit() {
