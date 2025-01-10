@@ -164,6 +164,13 @@
             flex-direction: column;
             align-items: flex-end;
         }
+        .profile .buttons {
+            border: 1px solid #ccc;
+        }
+        .profile .buttons button {
+            height: 50%;
+            padding: 10px 25px;
+        }
     </style>
 </head>
 <body>
@@ -346,6 +353,10 @@
                 </div>
                 <div class="bio">
                     ${person_view.person.bio}
+                </div>
+                <div class="buttons">
+                    <button onclick="goToPostTab()">posts</button>
+                    <button onclick="goToCommentsTab()">comments</button>
                 </div>
             `;
         }
