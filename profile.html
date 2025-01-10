@@ -118,6 +118,7 @@
         }
         .counter {
             display: flex;
+            justlify-content: normal;
             align-items: center;
         }
         .counter span {
@@ -156,6 +157,9 @@
         }
         .profile .profile-header .person .instance {
             font-size: 0.6em;
+        }
+        .counts {
+            justlify-content: right;
         }
     </style>
 </head>
@@ -318,6 +322,12 @@
                     ${person_view.person.display_name || person_view.person.name}
                     <div class="instance">
                             ${getInstanceFromActorId(person_view.person.actor_id)}
+                            <div class="counts">
+                                <div class="counter">
+                                    <button>💬</button>
+                                    <span>${person_view.counts.comment_count}</span>
+                                </div>
+                            </div>
                     </div>
                 </div>
             `;
