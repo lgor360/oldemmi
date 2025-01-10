@@ -487,8 +487,6 @@
         
         async function loadSomething() {
             try {
-                clearContainers();
-                setActiveContainer(filter);
                 if (filter === "Posts") {
                     const posts = await fetchPosts();
                     renderPosts(posts);
@@ -508,6 +506,8 @@
         // вставляем название сервера в заголовок
         instanceapply();
         // загружаем то, что нужно
+        clearContainers();
+        setActiveContainer(filter);
         loadSomething();
     </script>
 </body>
