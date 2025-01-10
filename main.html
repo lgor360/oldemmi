@@ -191,12 +191,16 @@
 
         // функция для получения постов
         async function fetchPosts() {
-            const response = await fetch(`${api}/post/list?page=${page}&limit=${limit}&sort=${filter}`, {
-                method: "GET",
-                headers: { "Content-Type": "application/json" }
-            });
-            const data = await response.json();
-            return data.posts;
+            try {
+                const response = await fetch(`${api}/post/list?page=${page}&limit=${limit}&sort=${filter}`, {
+                    method: "GET",
+                    headers: { "Content-Type": "application/json" }
+                });
+                const data = await response.json();
+                return data.posts;
+            } catch (error) {
+                alert(error);
+            }
         }
 
         function parseMarkdown(text) {
@@ -252,7 +256,7 @@
                     <div class="post-header">
                         <img onclick="goToProfile('${post.creator.name}', '${getInstanceFromActorId(post.creator.actor_id)}')" src="${post.creator.avatar || 'https://lgor360.github.io/oldemmi/user.png'}" alt="avatar">
                         <div class="author">
-                            ${post.creator.name}
+                            ${post.creator.display_name || post.creator.name}
                             <div class="community">
                                 ${post.community.name}
                                 @
