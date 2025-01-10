@@ -244,30 +244,42 @@
 
         // функция для получения профиля
         async function fetchUser() {
-            const response = await fetch(`${api}/user?username=${user}`, {
-                method: "GET",
-                headers: { "Content-Type": "application/json" }
-            });
-            const data = await response.json();
-            return data.person_view;
+            try {
+                const response = await fetch(`${api}/user?username=${user}`, {
+                    method: "GET",
+                    headers: { "Content-Type": "application/json" }
+                });
+                const data = await response.json();
+                return data.person_view;
+            } catch (error) {
+                alert(`error while loading profile: ${error}`);
+            }
         }
 
         async function fetchPosts() {
-            const response = await fetch(`${api}/user?username=${user}&page=${page}&limit=${limit}`, {
-                method: "GET",
-                headers: { "Content-Type": "application/json" }
-            });
-            const data = await response.json();
-            return data.posts;
+            try {
+                const response = await fetch(`${api}/user?username=${user}&page=${page}&limit=${limit}`, {
+                    method: "GET",
+                    headers: { "Content-Type": "application/json" }
+                });
+                const data = await response.json();
+                return data.posts;
+            } catch (error) {
+                alert(`error while loading posts: ${error}`);
+            }
         }
 
         async function fetchComments() {
-            const response = await fetch(`${api}/user?username=${user}&page=${page}&limit=${limit}`, {
-                method: "GET",
-                headers: { "Content-Type": "application/json" }
-            });
-            const data = await response.json();
-            return data.comments;
+            try {
+                const response = await fetch(`${api}/user?username=${user}&page=${page}&limit=${limit}`, {
+                    method: "GET",
+                    headers: { "Content-Type": "application/json" }
+                });
+                const data = await response.json();
+                return data.comments;
+            } catch (error) {
+                alert(`error while loading comments: ${error}`);
+            }
         }
 
         function parseMarkdown(text) {
@@ -313,113 +325,125 @@
         
         // функция для отображения постов
         function renderPosts(posts) {
-            const postsContainer = document.getElementById("posts");
+            try {
+                const postsContainer = document.getElementById("posts");
 
-            posts.forEach(post => {
-                const postotourl = post.post.url && post.post.url !== post.post.thumbnail_url ? post.post.url : null;
-                const postElement = document.createElement("div");
-                postElement.classList.add("post");
+                posts.forEach(post => {
+                    const postotourl = post.post.url && post.post.url !== post.post.thumbnail_url ? post.post.url : null;
+                    const postElement = document.createElement("div");
+                    postElement.classList.add("post");
 
-                postElement.innerHTML = `
-                    <div class="post-header">
-                        <img src="${post.creator.avatar || 'https://lgor360.github.io/oldemmi/user.png'}" alt="avatar">
-                        <div class="author">
-                            ${post.creator.display_name || post.creator.name}
-                            <div class="community">
-                                ${post.community.name}
-                                @
-                                ${getInstanceFromActorId(post.community.actor_id)}
+                    postElement.innerHTML = `
+                        <div class="post-header">
+                            <img src="${post.creator.avatar || 'https://lgor360.github.io/oldemmi/user.png'}" alt="avatar">
+                            <div class="author">
+                                ${post.creator.display_name || post.creator.name}
+                                <div class="community">
+                                    ${post.community.name}
+                                    @
+                                    ${getInstanceFromActorId(post.community.actor_id)}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="post-name">${post.post.name}</div>
-                    <div class="post-text">${parseMarkdown(post.post.body || "")}</div>
-                    ${post.post.thumbnail_url ? `<img src="${post.post.thumbnail_url}" class="post-image" alt="image">` : ""}
-                    ${postotourl ? `<div class="post-link"><a rel="noopener noreferrer" href="${postotourl}">${postotourl}</a></div>` : ""}
-                    <div class="post-footer">
-                        <div class="counter">
-                            <button>👍</button>
-                            <span>${post.counts.upvotes}</span>
+                        <div class="post-name">${post.post.name}</div>
+                        <div class="post-text">${parseMarkdown(post.post.body || "")}</div>
+                        ${post.post.thumbnail_url ? `<img src="${post.post.thumbnail_url}" class="post-image" alt="image">` : ""}
+                        ${postotourl ? `<div class="post-link"><a rel="noopener noreferrer" href="${postotourl}">${postotourl}</a></div>` : ""}
+                        <div class="post-footer">
+                            <div class="counter">
+                                <button>👍</button>
+                                <span>${post.counts.upvotes}</span>
+                            </div>
+                            <div class="counter">
+                                <button>👎</button>
+                                <span>${post.counts.downvotes}</span>
+                            </div>
+                            <div class="counter">
+                                <button onclick="goToComments(${post.post.id})">💬</button>
+                                <span>${post.counts.comments}</span>
+                            </div>
                         </div>
-                        <div class="counter">
-                            <button>👎</button>
-                            <span>${post.counts.downvotes}</span>
-                        </div>
-                        <div class="counter">
-                            <button onclick="goToComments(${post.post.id})">💬</button>
-                            <span>${post.counts.comments}</span>
-                        </div>
-                    </div>
-                `;
-                postsContainer.appendChild(postElement);
-            });
+                    `;
+                    postsContainer.appendChild(postElement);
+                });
+            } catch (error) {
+                alert(`error while rendering post: ${error}`);
+            }
         }
 
         // функция для рендеринга профиля
         function renderUser(person_view) {
-            const date = new Date(person_view.person.published);
-            const profile = document.querySelector(".profile");
-            profile.innerHTML = `
-                <div class="profile-header">
-                    <img src="${person_view.person.avatar || 'https://lgor360.github.io/oldemmi/user.png'}" alt="avatar">
-                    <div class="person">
-                        ${person_view.person.display_name || person_view.person.name}
-                        <div class="instance">
-                            ${getInstanceFromActorId(person_view.person.actor_id)}
+            try {
+                const date = new Date(person_view.person.published);
+                const profile = document.querySelector(".profile");
+                profile.innerHTML = `
+                    <div class="profile-header">
+                        <img src="${person_view.person.avatar || 'https://lgor360.github.io/oldemmi/user.png'}" alt="avatar">
+                        <div class="person">
+                            ${person_view.person.display_name || person_view.person.name}
+                            <div class="instance">
+                                ${getInstanceFromActorId(person_view.person.actor_id)}
+                            </div>
                         </div>
-                    </div>
-                    <div class="counts">
-                        <div class="birthday">
-                            🍰
-                            ${date.toLocaleDateString('en-EN', { day: '2-digit', month: '2-digit', year: 'numeric' })}
-                        </div>
-                        <div class="counter">
-                            💬
-                            <span>${person_view.counts.comment_count}</span>
-                        </div>
-                        <div class="counter">
-                            📬
-                            <span>${person_view.counts.post_count}</span>
-                        </div>
-                    </div>
-                </div>
-                ${person_view.person.bio ? `<div class='bio'>${person_view.person.bio}</div>` : ''}
-            `;
-        }
-
-        function renderComments(comments) {
-            const commentsContainer = document.getElementById("posts");
-            comments.forEach(comment => {
-                const commentElement = document.createElement("div");
-                commentElement.classList.add("post");
-
-                commentElement.innerHTML = `
-                    <div class="post-header">
-                        <img src="${comment.creator.avatar || 'https://lgor360.github.io/oldemmi/user.png'}" alt="avatar">
-                        <div class="author">
-                            ${comment.creator.display_name || comment.creator.name}
-                            <div class="community">
-                                ${getInstanceFromActorId(comment.creator.actor_id)}
+                        <div class="counts">
+                            <div class="birthday">
+                                🍰
+                                ${date.toLocaleDateString('en-EN', { day: '2-digit', month: '2-digit', year: 'numeric' })}
+                            </div>
+                            <div class="counter">
+                                💬
+                                <span>${person_view.counts.comment_count}</span>
+                            </div>
+                            <div class="counter">
+                                📬
+                                <span>${person_view.counts.post_count}</span>
                             </div>
                         </div>
                     </div>
-                    <div class="post-text">${parseMarkdown(comment.comment.content)}</div>
-                    <div class="post-footer">
-                        <div class="counter">
-                            <button>👍</button>
-                            <span>${comment.counts.upvotes}</span>
-                        </div>
-                        <div class="counter">
-                            <button>👎</button>
-                            <span>${comment.counts.downvotes}</span>
-                        </div>
-                        <div class="gotoco">
-                            <button onclick="goToComments('${comment.comment.post_id}')">👁️</button>
-                        </div>
-                    </div>
+                    ${person_view.person.bio ? `<div class='bio'>${person_view.person.bio}</div>` : ''}
                 `;
-                commentsContainer.appendChild(commentElement);
-            });
+            } catch (error) {
+                alert(`error while rendering profile: ${error}`);
+            }
+        }
+
+        function renderComments(comments) {
+            try {
+                const commentsContainer = document.getElementById("posts");
+                comments.forEach(comment => {
+                    const commentElement = document.createElement("div");
+                    commentElement.classList.add("post");
+
+                    commentElement.innerHTML = `
+                        <div class="post-header">
+                            <img src="${comment.creator.avatar || 'https://lgor360.github.io/oldemmi/user.png'}" alt="avatar">
+                            <div class="author">
+                                ${comment.creator.display_name || comment.creator.name}
+                                <div class="community">
+                                    ${getInstanceFromActorId(comment.creator.actor_id)}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="post-text">${parseMarkdown(comment.comment.content)}</div>
+                        <div class="post-footer">
+                            <div class="counter">
+                                <button>👍</button>
+                                <span>${comment.counts.upvotes}</span>
+                            </div>
+                            <div class="counter">
+                                <button>👎</button>
+                                <span>${comment.counts.downvotes}</span>
+                            </div>
+                            <div class="gotoco">
+                                <button onclick="goToComments('${comment.comment.post_id}')">👁️</button>
+                            </div>
+                        </div>
+                    `;
+                    commentsContainer.appendChild(commentElement);
+                });
+            } catch (error) {
+                alert(`error while rendering comments: ${error}`);
+            }
         }
         
         // функция для загрузки постов
