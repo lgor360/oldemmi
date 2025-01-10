@@ -411,19 +411,11 @@
             }
         }
 
-        function filters() {
-            window.location.href = `https://lgor360.github.io/oldemmi/main.html?server=${server}&filter=${fSelect.value}`
-        }
-
-        function goToProfile(id, servero) {
-            window.location.href = `https://lgor360.github.io/oldemmi/profile.html?server=${servero}&user=${id}`
-        }
-
         function loadSomething() {
             if (filter === "Posts") {
                 loadMorePosts();
             } else if (filter === "Comments") {
-                loadMorePosts();
+                loadMoreComments;
             } else if (filter === "Communities") {
                 loadCommunity();
             }
