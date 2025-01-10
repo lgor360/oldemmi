@@ -249,7 +249,7 @@
                 const postsContainer = document.getElementById("posts");
 
                 posts.forEach(post => {
-                    const postotourl = post.post.url && post.post.url !== post.post.thumbnail_url ? post.post.url : null;
+                    const postotourl = post.post.url && getInstanceFromActorId(post.post.url) !== getInstanceFromActorId(post.post.thumbnail_url) ? post.post.url : null;
                     const postElement = document.createElement("div");
                     postElement.classList.add("post");
 
