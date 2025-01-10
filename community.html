@@ -336,7 +336,7 @@
                     <div class="profile-header">
                         <img src="${community_view.community.icon || 'https://lgor360.github.io/oldemmi/community.png'}" alt="avatar">
                         <div class="person">
-                            ${community_view.community.display_name || community_view.community.name}
+                            ${community_view.community.title || community_view.community.name}
                             <div class="instance">
                                 ${getInstanceFromActorId(community_view.community.actor_id)}
                             </div>
