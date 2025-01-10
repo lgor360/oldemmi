@@ -361,7 +361,7 @@
                             </div>
                         </div>
                     </div>
-                    ${community_view.community.description ? `<div class='bio'>${community_view.community.description}</div>` : ''}
+                    ${community_view.community.description ? `<div class='bio'>${parseMarkdown(community_view.community.description)}</div>` : ''}
                 `;
             } catch (error) {
                 alert(`error while rendering community: ${error.message}`);
