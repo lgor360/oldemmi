@@ -398,6 +398,9 @@
                         <img src="${comment.creator.avatar || 'https://lgor360.github.io/oldemmi/user.png'}" alt="avatar">
                         <div class="author">
                             ${comment.creator.display_name || comment.creator.name}
+                            <div class="instance">
+                                ${getInstanceFromActorId(comment.creator.actor_id)}
+                            </div>
                         </div>
                     </div>
                     <div class="post-text">${parseMarkdown(comment.comment.content)}</div>
@@ -410,7 +413,7 @@
                             <button>👎</button>
                             <span>${comment.counts.downvotes}</span>
                         </div>
-                        <div class="counter">
+                        <div class="gotoco">
                             <button onclick="goToComments('${comment.comment.post_id}')>👁️</button>
                         </div>
                     </div>
