@@ -281,7 +281,7 @@
                 alert(`error while loading comments: ${error}`);
             }
         }
-
+      
         function parseMarkdown(text) {
             // жирный текст (*текст*)
             text = text.replace(/\*{2}([^\*]+)\*{2}/g, '<strong>$1</strong>');
@@ -311,6 +311,11 @@
             text = text.replace(/^(#+)\s*(.+)$/gm, (_, hashes, content) => `<h${hashes.length}>${content}</h${hashes.length}>`);
             // переносы строк
             text = text.replace(/\\n/g, '<br>');
+            // обработка ссылок типа !сообщество@инстанс
+            text = text.replace(/!([\w\d_]+)@([\w\d\.-]+)/g, (match, community, instance) => {
+                const url = `https://lgor360.github.io/oldemmi/community.html?server=${instance}&community=${community}`;
+                return `<a href="${url}" rel="noopener noreferrer">${community}@${instance}</a>`;
+            });
             return text;
         }
         
