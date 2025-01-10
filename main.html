@@ -240,8 +240,8 @@
             return url.hostname; // возвращает домен, например, "lemmy.world"
         }
 
-        function goToComments(postoid, servero) {
-            window.location.href = `https://lgor360.github.io/oldemmi/comments.html?server=${servero}&post=${postoid}`
+        function goToComments(postoid) {
+            window.location.href = `https://lgor360.github.io/oldemmi/comments.html?server=${server}&post=${postoid}`
         }
         // функция для отображения постов
         function renderPosts(posts) {
@@ -279,7 +279,7 @@
                                 <span>${post.counts.downvotes}</span>
                             </div>
                             <div class="counter">
-                                <button onclick="goToComments('${post.post.id}', '${getInstanceFromActorId(post.post.ap_id)}')">💬</button>
+                                <button onclick="goToComments(${post.post.id})">💬</button>
                                 <span>${post.counts.comments}</span>
                             </div>
                         </div>
