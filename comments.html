@@ -166,8 +166,6 @@
         let page = 1; // текущая страница для загрузки
         const limit = 9; // количество постов на одну загрузку
         const api = `https://${server}/api/v3`
-        let fSelect = document.querySelector(".navbar #filter");
-        fSelect.value = filter;
         
         function instanceapply() {
             const instdiv = document.querySelector(".navbar .oldemmi .text .instance");
