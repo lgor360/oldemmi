@@ -466,31 +466,43 @@
         }
 
         function clearContainers() {
-            document.getElementById("posts").innerHTML = "";
-            document.getElementById("communities").innerHTML = "";
-            document.getElementById("comments").innerHTML = "";
+            try {
+                document.getElementById("posts").innerHTML = "";
+                document.getElementById("communities").innerHTML = "";
+                document.getElementById("comments").innerHTML = "";
+            } catch (error) {
+                alert(`eror in clearContainers() function: ${error}`)
+            }
         }
 
         function setActiveContainer(filter) {
-            document.getElementById("posts").style.display = filter === "Posts" ? "block" : "none";
-            document.getElementById("communities").style.display = filter === "Communities" ? "block" : "none";
-            document.getElementById("comments").style.display = filter === "Comments" ? "block" : "none";
+            try {
+                document.getElementById("posts").style.display = filter === "Posts" ? "block" : "none";
+                document.getElementById("communities").style.display = filter === "Communities" ? "block" : "none";
+                document.getElementById("comments").style.display = filter === "Comments" ? "block" : "none";
+            } catch (error) {
+                alert(`eror in setActiveContainer(filter) function: ${error}`)
+            }
         }
         
         async function loadSomething() {
-            clearContainers();
-            setActiveContainer(filter);
-            if (filter === "Posts") {
-                const posts = await fetchPosts();
-                renderPosts(posts);
-            } else if (filter === "Comments") {
-                const comments = await fetchComments();
-                renderComments(comments);
-            } else if (filter === "Communities") {
-                const communities = await fetchCommunity();
-                renderCommunity(communities);
+            try {
+                clearContainers();
+                setActiveContainer(filter);
+                if (filter === "Posts") {
+                    const posts = await fetchPosts();
+                    renderPosts(posts);
+                } else if (filter === "Comments") {
+                    const comments = await fetchComments();
+                    renderComments(comments);
+                } else if (filter === "Communities") {
+                    const communities = await fetchCommunity();
+                    renderCommunity(communities);
+                }
+                page++;
+            } catch (error) {
+                alert(`eror in loadSomething() function: ${error}`)
             }
-            page++;
         }
       
         // загружаем первые посты при загрузке страницы
