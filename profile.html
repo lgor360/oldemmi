@@ -164,10 +164,14 @@
             flex-direction: column;
             align-items: flex-end;
         }
-        .profile .buttons {
+        .buttons {
+            min-width: 300px;
             border: 1px solid #ccc;
+            border-radius: 0px;
+            max-width: 600px;
+            background-color: #454545;
         }
-        .profile .buttons button {
+        .buttons button {
             height: 50%;
             padding: 10px 25px;
         }
@@ -191,6 +195,10 @@
         <div class="profile-header">
             <!-- здесь будет шапка профиля -->
         </div>
+    </div>
+    <div class="buttons">
+        <button onclick="goToPostTab()">posts</button>
+        <button onclick="goToCommentsTab()">comments</button>
     </div>
     
     <div id="posts">
@@ -353,10 +361,6 @@
                 </div>
                 <div class="bio">
                     ${person_view.person.bio}
-                </div>
-                <div class="buttons">
-                    <button onclick="goToPostTab()">posts</button>
-                    <button onclick="goToCommentsTab()">comments</button>
                 </div>
             `;
         }
