@@ -330,8 +330,13 @@
         // функция для рендеринга сообщества
         function renderCommunity(community_view) {
             try {
+                if (!community_view || !community_view.community || !community_view.counts) {
+                    throw new Error("invalid community_view data");
+                }
+
                 const date = new Date(community_view.community.published);
                 const profile = document.querySelector(".profile");
+
                 profile.innerHTML = `
                     <div class="profile-header">
                         <img src="${community_view.community.icon || 'https://lgor360.github.io/oldemmi/community.png'}" alt="avatar">
@@ -359,9 +364,10 @@
                     ${community_view.community.description ? `<div class='bio'>${community_view.community.description}</div>` : ''}
                 `;
             } catch (error) {
-                alert(`error while rendering community: ${error}`);
+                alert(`error while rendering community: ${error.message}`);
             }
         }
+        
         
         // функция для загрузки постов
         async function loadMorePosts() {
