@@ -400,7 +400,7 @@
                             </div>
                         </div>
                     </div>
-                    ${person_view.person.bio ? `<div class='bio'>${person_view.person.bio}</div>` : ''}
+                    ${person_view.person.bio ? `<div class='bio'>${parseMarkdown(person_view.person.bio)}</div>` : ''}
                 `;
             } catch (error) {
                 alert(`error while rendering profile: ${error}`);
