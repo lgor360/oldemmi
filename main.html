@@ -156,8 +156,8 @@
             </div>
         </div>
         <select onchange="filters(this)" name="filter" id="filter">
-            <option value="hot">Hot</option>
-            <option value="hot">New</option>
+            <option value="Hot">Hot</option>
+            <option value="New">New</option>
         </select>
         <button onclick="change_server()">change the instance</button>
         <!-- <button class="login" onclick="login()">login</button> -->
@@ -219,7 +219,7 @@
             // картинки
             text = text.replace(/!\[([^\]]*)\]\((https?:\/\/[^\)]+\.(jpg|jpeg|png|gif|webp))\)/g, '<img src="$2" alt="$1" style="max-width: 100%; height: auto;">');
             // ссылки ([текст](ссылка))
-            text = text.replace(/\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+            text = text.replace(/\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g, '<a href="$2" rel="noopener noreferrer" target="_blank">$1</a>');
             // заголовки
             text = text.replace(/^(#+)\s*(.+)$/gm, (_, hashes, content) => `<h${hashes.length}>${content}</h${hashes.length}>`);
             // переносы строк
@@ -259,7 +259,7 @@
                     <div class="post-name">${post.post.name}</div>
                     <div class="post-text">${parseMarkdown(post.post.body || "")}</div>
                     ${post.post.thumbnail_url ? `<img src="${post.post.thumbnail_url}" class="post-image" alt="image">` : ""}
-                    ${postotourl ? `<div class="post-link"><a href="${postotourl}">${postotourl}</a></div>` : ""}
+                    ${postotourl ? `<div class="post-link"><a rel="noopener noreferrer" href="${postotourl}">${postotourl}</a></div>` : ""}
                     <div class="post-footer">
                         <div class="counter">
                             <button>👍</button>
