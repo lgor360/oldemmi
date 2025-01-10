@@ -241,6 +241,15 @@
             return data.person_view;
         }
 
+        async function fetchPosts() {
+            const response = await fetch(`${api}/user?username=${user}`, {
+                method: "GET",
+                headers: { "Content-Type": "application/json" }
+            });
+            const data = await response.json();
+            return data.posts;
+        }
+
         function parseMarkdown(text) {
             // жирный текст (*текст*)
             text = text.replace(/\*{2}([^\*]+)\*{2}/g, '<strong>$1</strong>');
@@ -283,12 +292,12 @@
         }
         
         // функция для отображения постов
-        function renderPosts(person_view) {
+        function renderPosts(posts) {
             alert("китикет")
             const postsContainer = document.getElementById("posts");
             alert("аку. сая");
 
-            person_view.posts.forEach(post => {
+            posts.forEach(post => {
                 const postElement = document.createElement("div");
                 alert(post);
                 postElement.classList.add("post");
@@ -364,9 +373,9 @@
             
         // функция для загрузки постов
         async function loadMorePosts() {
-            const person_view = await fetchUser();
+            const posts = await fetchPosts();
             alert("лоад мор пост");
-            renderPosts(person_view);
+            renderPosts(posts);
         }
 
         // функция для загрузки профиля
