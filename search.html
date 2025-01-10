@@ -284,7 +284,7 @@
                     postElement.classList.add("post");
 
                     postElement.innerHTML = `
-                        <div onclick="goToComments(${post.post.post_id})"class="post-header">
+                        <div onclick="goToComments(${post.post.id})"class="post-header">
                             <img src="${post.creator.avatar || 'https://lgor360.github.io/oldemmi/user.png'}" alt="avatar">
                             <div class="author">
                                 ${post.creator.display_name || post.creator.name}
