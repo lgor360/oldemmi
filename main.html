@@ -142,6 +142,9 @@
         .post-link {
             margin-bottom: 10px; /* добавляем отступ снизу */
         }
+        .normal {
+            justify-content: normal;
+        }
     </style>
 </head>
 <body>
@@ -161,7 +164,10 @@
             <option value="Old">old</option>
             <option value="Controversial">controversial</option>
         </select>
-        <button onclick="change_server()">change the instance</button>
+        <div class="normal">
+            <button onclick="goToSearch()">🔎</button>
+            <button onclick="change_server()">change the instance</button>
+        </div>
         <!-- <button class="login" onclick="login()">login</button> -->
     </div>
 
@@ -328,6 +334,11 @@
         function goToProfile(id, servero) {
             window.location.href = `https://lgor360.github.io/oldemmi/profile.html?server=${servero}&user=${id}`
         }
+
+        function goToSearch() {
+            window.location.href = `https://lgor360.github.io/oldemmi/search?server=${server}&filter=Posts`;
+        }
+        
         // загружаем первые посты при загрузке страницы
         loadMorePosts();
         // вставляем название сервера в заголовок
