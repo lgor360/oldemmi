@@ -481,7 +481,7 @@
                     communityElement.classList.add("post");
 
                     communityElement.innerHTML = `
-                        <div onclick="goToProfile('${person.person.id}', '${getInstanceFromActorId(person.person.actor_id)}')" class="profile-header">
+                        <div onclick="goToProfile('${person.person.name}', '${getInstanceFromActorId(person.person.actor_id)}')" class="profile-header">
                             <img src="${person.person.avatar || 'https://lgor360.github.io/oldemmi/community.png'}" alt="avatar">
                             <div class="person">
                                 ${person.person.display_name || person.person.name}
