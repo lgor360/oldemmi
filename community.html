@@ -284,11 +284,14 @@
         function renderPosts(posts) {
             try {
                 const postsContainer = document.getElementById("posts");
-
+                alert("ce");
+                
                 posts.forEach(post => {
+                    alert("ze");
                     const postotourl = post.post.url && post.post.url !== post.post.thumbnail_url ? post.post.url : null;
                     const postElement = document.createElement("div");
                     postElement.classList.add("post");
+                    alert("mi");
 
                     postElement.innerHTML = `
                         <div class="post-header">
@@ -321,7 +324,9 @@
                             </div>
                         </div>
                     `;
+                    alert("hre");
                     postsContainer.appendChild(postElement);
+                    alert("customic");
                 });
             } catch (error) {
                 alert(`error while rendering post: ${error}`);
