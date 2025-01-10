@@ -313,7 +313,7 @@
                 const postsContainer = document.getElementById("posts");
 
                 communities.forEach( community => {
-                    const date = new Date(community_view.community.published);
+                    const date = new Date(community.community.published);
                     const communityElement = document.createElement("div");
                     communityElement.classList.add("post");
 
