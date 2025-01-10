@@ -54,6 +54,13 @@
         .navbar button {
             padding: 10px 15px;
         }
+        .navbar select {
+            padding: 10px 15px;
+            border: 1px solid #ccc;
+            border-radius: 0px;
+            background-color: #353535;
+            color: #fff
+        }
         .navbar .login {
             background-color: #a3af74;
         }
@@ -145,7 +152,11 @@
                 </div>
             </div>
         </div>
-        <button onclick="back()">back</button>
+        <select onchange="filters()" name="filter" id="filter">
+            <option value="Hot">Hot</option>
+            <option value="New">New</option>
+        </select>
+        <!-- <button onclick="back()">back</button> -->
         <!-- <button class="login" onclick="login()">login</button> -->
     </div>
     <div id="post">
@@ -163,9 +174,12 @@
         const urlParams = new URLSearchParams(window.location.search);
         const server = urlParams.get('server') || "lemmy.world";
         const post = urlParams.get('post') || "826753";
+        const filter = urlParams.get('filter') || "New";
         let page = 1; // текущая страница для загрузки
         const limit = 9; // количество постов на одну загрузку
         const api = `https://${server}/api/v3`
+        let fSelect = document.querySelector(".navbar #filter");
+        fSelect.value = filter;
         
         function instanceapply() {
             const instdiv = document.querySelector(".navbar .oldemmi .text .instance");
@@ -176,7 +190,7 @@
         
         // функция для получения постов
         async function fetchPost() {
-            const response = await fetch(`${api}/post?id=${post}`, {
+            const response = await fetch(`${api}/post?id=${post}&sort=${filter}`, {
                 method: "GET",
                 headers: { "Content-Type": "application/json" }
             });
@@ -217,7 +231,7 @@
             // картинки
             text = text.replace(/!\[([^\]]*)\]\((https?:\/\/[^\)]+\.(jpg|jpeg|png|gif|webp))\)/g, '<img src="$2" alt="$1" style="max-width: 100%; height: auto;">');
             // ссылки ([текст](ссылка))
-            text = text.replace(/\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+            text = text.replace(/\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g, '<a href="$2" rel="noopener noreferrer" target="_blank">$1</a>');
             // заголовки
             text = text.replace(/^(#+)\s*(.+)$/gm, (_, hashes, content) => `<h${hashes.length}>${content}</h${hashes.length}>`);
             // переносы строк
@@ -254,7 +268,7 @@
                 <div class="post-name">${post_view.post.name}</div>
                 <div class="post-text">${parseMarkdown(post_view.post.body || "")}</div>
                 ${post_view.post.thumbnail_url ? `<img src="${post_view.post.thumbnail_url}" class="post-image" alt="image">` : ""}
-                ${postotourl ? `<div class="post-link"><a href="${postotourl}">${postotourl}</a></div>` : ""}
+                ${postotourl ? `<div class="post-link"><a rel="noopener noreferrer" href="${postotourl}">${postotourl}</a></div>` : ""}
                 <div class="post-footer">
                     <div class="counter">
                         <button>👍</button>
@@ -325,6 +339,10 @@
 
         function back() {
             window.location.href = `https://lgor360.github.io/oldemmi/main.html?server=${server}`
+        }
+        
+        function filters() {
+            window.location.href = `https://lgor360.github.io/oldemmi/comments.html?server=${server}&filter=${fSelect.value}&post=${post}`
         }
         
         // загружаем пост и комментарии при загрузке страницы
