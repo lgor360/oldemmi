@@ -322,12 +322,12 @@
                     ${person_view.person.display_name || person_view.person.name}
                     <div class="instance">
                             ${getInstanceFromActorId(person_view.person.actor_id)}
-                            <div class="counts">
-                                <div class="counter">
-                                    <button>💬</button>
-                                    <span>${person_view.counts.comment_count}</span>
-                                </div>
-                            </div>
+                    </div>
+                    <div class="counts">
+                        <div class="counter">
+                            💬
+                            <span>${person_view.counts.comment_count}</span>
+                        </div>
                     </div>
                 </div>
             `;
