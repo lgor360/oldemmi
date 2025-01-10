@@ -238,6 +238,10 @@
             return url.hostname; // возвращает домен, например, "lemmy.world"
         }
         
+        function goToCommunity(comname, servecom) {
+            window.location.href = `https://lgor360.github.io/oldemmi/community.html?server=${servecom}&community=${comname}`
+        }
+        
         // функция для отображения постов
         function renderPost(post_view) {
             try {
@@ -252,7 +256,7 @@
                         <img onclick="goToProfile('${post_view.creator.name}', '${getInstanceFromActorId(post_view.creator.actor_id)}')" src="${post_view.creator.avatar || 'https://lgor360.github.io/oldemmi/user.png'}" alt="avatar">
                         <div class="author">
                             ${post_view.creator.display_name || post_view.creator.name}
-                            <div class="community">
+                            <div onclick="goToCommunity('${post_view.community.name}', '${getInstanceFromActorId(post_view.community.actor_id)}')" class="community">
                                 ${post_view.community.name}
                                 @
                                 ${getInstanceFromActorId(post_view.community.actor_id)}
