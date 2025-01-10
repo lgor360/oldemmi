@@ -196,6 +196,7 @@
                 </div>
             </div>
         </div>
+        <button onclick="goToSearch()">🔎</button>
         <!-- <button class="login" onclick="login()">login</button> -->
     </div>
 
@@ -482,6 +483,10 @@
             } else {
                 loadMoreComments();
             }
+        }
+
+        function goToSearch() {
+            window.location.href = `https://lgor360.github.io/oldemmi/search?server=${server}&filter=Posts`;
         }
         
         // вставляем название сервера в заголовок
