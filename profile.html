@@ -236,7 +236,7 @@
             const userResponse = await fetch(`${api}/user?username=${username}`);
             const userData = await userResponse.json();
             const creatorId = userData.person_view.person.id;
-            
+            alert(creatorId)
             const response = await fetch(`${api}/post/list?creator_id=${creatorId}&page=${page}&limit=${limit}&sort=New`, {
                 method: "GET",
                 headers: { "Content-Type": "application/json" }
