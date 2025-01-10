@@ -372,9 +372,13 @@
         
         // функция для загрузки постов
         async function loadMorePosts() {
-            const posts = await fetchPosts();
-            renderPosts(posts);
-            page++;
+            try {
+                const posts = await fetchPosts();
+                renderPosts(posts);
+                page++;
+            } catch (error) {
+                alert(`error in loadMorePosts function: ${error}`);
+            }
         }
 
         // функция для загрузки профиля
