@@ -204,7 +204,7 @@
             </div>
         </div>
         <div class="searchbar">
-            <input placeholder="your request">
+            <input id="searchinput" placeholder="your request">
             <select id="typeSelect" name="typeSelect">
                 <option value="Comments">comments</option>
                 <option value="Posts">posts</option>
@@ -255,7 +255,7 @@
 
         function letssearch() {
             try {
-                const type = document.getElementById("searchbar").value;
+                const type = document.getElementById("typeSelect").value;
                 const request = document.getElementById("searchinput").value;
                 window.location.href = `https://lgor360.github.io/oldemmi/search?server=${server}&filter=${type}&search=${request}`;
             } catch (error) {
