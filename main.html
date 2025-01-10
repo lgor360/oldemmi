@@ -155,7 +155,7 @@
                 </div>
             </div>
         </div>
-        <select onchange="filters(this)" name="filter" id="filter">
+        <select onchange="filters()" name="filter" id="filter">
             <option value="Hot">Hot</option>
             <option value="New">New</option>
         </select>
@@ -301,9 +301,8 @@
             }
         }
 
-        function filters(selectFilter) {
-            var filterValue = selectFilter.value
-            window.location.href = `https://lgor360.github.io/oldemmi/main.html?server=${server}&filter=${filterValue}`
+        function filters() {
+            window.location.href = `https://lgor360.github.io/oldemmi/main.html?server=${server}&filter=${fSelect.value}`
         }
         // загружаем первые посты при загрузке страницы
         loadMorePosts();
