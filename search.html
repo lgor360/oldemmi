@@ -142,6 +142,32 @@
         .post-link {
             margin-bottom: 10px; /* добавляем отступ снизу */
         }
+        .profile {
+            min-width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 0px;
+            padding: 15px;
+            margin: 20px auto;
+            max-width: 600px;
+            background-color: #454545;
+        }
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .profile-header img {
+            height: 50px;
+            width: 50px;
+            margin-right: 10px;
+        }
+        .profile .profile-header .person {
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        .profile .profile-header .person .instance {
+            font-size: 0.6em;
+        }
     </style>
 </head>
 <body>
@@ -315,7 +341,7 @@
                 communities.forEach( community => {
                     const date = new Date(community.community.published);
                     const communityElement = document.createElement("div");
-                    communityElement.classList.add("post");
+                    communityElement.classList.add("profile");
 
                     communityElement.innerHTML = `
                         <div onclick="goToCommunity('${community.community.name}', '${getInstanceFromActorId(community.community.actor_id)}')" class="profile-header">
