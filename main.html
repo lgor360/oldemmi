@@ -58,6 +58,12 @@
         .navbar button {
             padding: 10px 15px;
         }
+        .navbar select {
+            padding: 10px 15px;
+            border: 1px solid #ccc;
+            border-radius: 0px;
+            background-color: #353535;
+        }
         .navbar .login {
             background-color: #a3af74;
         }
@@ -148,6 +154,10 @@
                 </div>
             </div>
         </div>
+        <select onchange="filters(this)" name="filter" id="filter">
+            <option value="hot">Hot</option>
+            <option value="hot">New</option>
+        </select>
         <button onclick="change_server()">change the instance</button>
         <!-- <button class="login" onclick="login()">login</button> -->
     </div>
@@ -162,6 +172,7 @@
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const server = urlParams.get('server') || "lemmy.world";
+        const filter = urlParams.get('filter') || "New";
         let page = 1; // текущая страница для загрузки
         const limit = 9; // количество постов на одну загрузку
         const api = `https://${server}/api/v3`
@@ -175,7 +186,7 @@
 
         // функция для получения постов
         async function fetchPosts() {
-            const response = await fetch(`${api}/post/list?page=${page}&limit=${limit}&sort=New`, {
+            const response = await fetch(`${api}/post/list?page=${page}&limit=${limit}&sort=${filter}`, {
                 method: "GET",
                 headers: { "Content-Type": "application/json" }
             });
@@ -287,6 +298,10 @@
             }
         }
 
+        function filters(selectFilter) {
+            var filterValue = selectFilter.value
+            window.location.href = `https://lgor360.github.io/oldemmi/main.html?server=${prompto}&filter=${filterValue}`
+        }
         // загружаем первые посты при загрузке страницы
         loadMorePosts();
         // вставляем название сервера в заголовок
