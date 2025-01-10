@@ -389,13 +389,9 @@
 
         function renderComments(comments) {
             const commentsContainer = document.getElementById("posts");
-            alert(commentsContainer);
             comments.forEach(comment => {
-                alert("mi");
                 const commentElement = document.createElement("div");
-                alert("ky");
                 commentElement.classList.add("post");
-                alert("mikik");
 
                 commentElement.innerHTML = `
                     <div class="post-header">
@@ -419,9 +415,7 @@
                         </div>
                     </div>
                 `;
-                alert("foyyfofyoyfohlfhof");
                 commentsContainer.appendChild(commentElement);
-                alert("fu");
             });
         }
         
@@ -440,7 +434,6 @@
         
         // функция для загрузки комментариев
         async function loadMoreComments() {
-            alert("h");
             const comments = await fetchComments();
             renderComments(comments);
             page++; // увеличиваем номер страницы
