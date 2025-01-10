@@ -214,8 +214,11 @@
     <div id="posts">
         <!-- сюда будут добавляться посты через js -->
     </div>
+    <div class="comments">
+        <!-- сюда будут добавляться комментарии через js -->
+    </div>
     <div class="load-more">
-        <button onclick="loadMorePosts()">more</button>
+        <button onclick="loadMoreSomething()">more</button>
     </div>
 
     <script>
@@ -259,6 +262,15 @@
             });
             const data = await response.json();
             return data.posts;
+        }
+
+        async function fetchComments() {
+            const response = await fetch(`${api}/user?username=${user}&page=${page}&limit=${limit}`, {
+                method: "GET",
+                headers: { "Content-Type": "application/json" }
+            });
+            const data = await response.json();
+            return data.comments;
         }
 
         function parseMarkdown(text) {
@@ -377,7 +389,40 @@
                 ${person_view.person.bio ? `<div class='bio'>${person_view.person.bio}</div>` : ''}
             `;
         }
-            
+
+        function renderComments(comments) {
+            const commentsContainer = document.getElementById("comments");
+
+            comments.forEach(comment => {
+                const commentElement = document.createElement("div");
+                commentElement.classList.add("post");
+
+                commentElement.innerHTML = `
+                    <div class="post-header">
+                        <img src="${comment.creator.avatar || 'https://lgor360.github.io/oldemmi/user.png'}" alt="avatar">
+                        <div class="author">
+                            ${comment.creator.name}
+                        </div>
+                    </div>
+                    <div class="post-text">${parseMarkdown(comment.comment.content)}</div>
+                    <div class="post-footer">
+                        <div class="counter">
+                            <button>👍</button>
+                            <span>${comment.counts.upvotes}</span>
+                        </div>
+                        <div class="counter">
+                            <button>👎</button>
+                            <span>${comment.counts.downvotes}</span>
+                        </div>
+                        <div class="counter">
+                            <button>💬</button>
+                        </div>
+                    </div>
+                `;
+                commentsContainer.appendChild(commentElement);
+            });
+        }
+        
         // функция для загрузки постов
         async function loadMorePosts() {
             const posts = await fetchPosts();
@@ -390,20 +435,33 @@
             const person_view = await fetchUser();
             renderUser(person_view);
         }
+        
+        // функция для загрузки комментариев
+        async function loadMoreComments() {
+            const comments = await fetchComments();
+            renderComments(comments);
+            page++; // увеличиваем номер страницы
+        }
 
         // функция для входа (заглушка)
         function login() {
             console.log("login");
         }
 
+        function loadMoreSomething() {
+            if (need === "post") {
+                loadMorePosts();
+            } else {
+                loadMoreComments();
+            }
+        }
+        
         // вставляем название сервера в заголовок
         instanceapply();
         // загружаем профиль
         loadUser();
         // загружаем первые посты при загрузке страницы
-        if (need === "post") {
-            loadMorePosts();
-        }
+        loadMoreSomething();
     </script>
 </body>
 </html>
