@@ -318,12 +318,12 @@
                     communityElement.classList.add("post");
 
                     communityElement.innerHTML = `
-                        <div onclick="goToCommunity('${community_view.community.name}', '${getInstanceFromActorId(community_view.community.actor_id)}')" class="profile-header">
-                            <img src="${community_view.community.icon || 'https://lgor360.github.io/oldemmi/community.png'}" alt="avatar">
+                        <div onclick="goToCommunity('${community.community.name}', '${getInstanceFromActorId(community.community.actor_id)}')" class="profile-header">
+                            <img src="${community.community.icon || 'https://lgor360.github.io/oldemmi/community.png'}" alt="avatar">
                             <div class="person">
-                                ${community_view.community.title || community_view.community.name}
+                                ${community.community.title || community_view.community.name}
                                 <div class="instance">
-                                    ${getInstanceFromActorId(community_view.community.actor_id)}
+                                    ${getInstanceFromActorId(community.community.actor_id)}
                                 </div>
                             </div>
                             <div class="counts">
@@ -333,15 +333,15 @@
                                 </div>
                                 <div class="counter">
                                     📬
-                                    <span>${community_view.counts.posts}</span>
+                                    <span>${community.counts.posts}</span>
                                 </div>
                                 <div class="counter">
                                     👥
-                                    <span>${community_view.counts.subscribers}</span>
+                                    <span>${community.counts.subscribers}</span>
                                 </div>
                             </div>
                         </div>
-                        ${community_view.community.description ? `<div class='bio'>${parseMarkdown(community_view.community.description)}</div>` : ''}
+                        ${community.community.description ? `<div class='bio'>${parseMarkdown(community.community.description)}</div>` : ''}
                     `;
                     postsContainer.appendChild(communityElement);
                 });
