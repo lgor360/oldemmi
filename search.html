@@ -198,7 +198,7 @@
 
         async function fetchComments() {
               try {
-                  const response = await fetch(`${api}/comment/list?post_id=${post}&page=${page}&limit=${limit}&sort=New`, {
+                  const response = await fetch(`${api}/search?q=${search}&type_=Comments&page=${page}&limit=${limit}`, {
                       method: "GET",
                       headers: { "Content-Type": "application/json" }
                   });
