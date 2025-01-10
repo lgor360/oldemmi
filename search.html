@@ -209,6 +209,7 @@
                 <option value="Comments">comments</option>
                 <option value="Posts">posts</option>
                 <option value="Communities">communities</option>
+                <option value="Users">users</option>
             </select>
             <button onclick="letssearch()">search</button>
         </div>
@@ -224,6 +225,9 @@
     </div>
     <div id="comments" style="display: none;">
         <!-- сюда будут добавляться комментарии -->
+    </div>
+    <div id="users" style="display: none;">
+        <!-- сюда будут добавляться профили -->
     </div>
 
     <div class="load-more">
@@ -295,6 +299,20 @@
                 return data.communities;
             } catch (error) {
                 alert(`error while loading community: ${error}`);
+            }
+        }
+        
+        // функция для получения профиля
+        async function fetchUser() {
+            try {
+                const response = await fetch(`${api}/search?q=${search}&type_=Users&page=${page}&limit=${limit}&sort=TopAll`, {
+                    method: "GET",
+                    headers: { "Content-Type": "application/json" }
+                });
+                const data = await response.json();
+                return data.users;
+            } catch (error) {
+                alert(`error while loading profile: ${error}`);
             }
         }
       
@@ -452,9 +470,56 @@
             }
         }
 
+        // функция для рендеринга сообщества
+        function renderUsers(users) {
+            try {
+                const postsContainer = document.getElementById("users");
+
+                users.forEach( person => {
+                    const date = new Date(person.person.published);
+                    const communityElement = document.createElement("div");
+                    communityElement.classList.add("post");
+
+                    communityElement.innerHTML = `
+                        <div onclick="goToProfile('${person.person.id}', '${getInstanceFromActorId(person.person.actor_id)}')" class="profile-header">
+                            <img src="${person.person.avatar || 'https://lgor360.github.io/oldemmi/community.png'}" alt="avatar">
+                            <div class="person">
+                                ${person.person.display_name || person.person.name}
+                                <div class="instance">
+                                    ${getInstanceFromActorId(person.person.actor_id)}
+                                </div>
+                            </div>
+                            <div class="counts">
+                                <div class="birthday">
+                                    🍰
+                                    ${date.toLocaleDateString('en-EN', { day: '2-digit', month: '2-digit', year: 'numeric' })}
+                                </div>
+                                <div class="counter">
+                                    💬
+                                    <span>${person.counts.comment_count}</span>
+                                </div>
+                                <div class="counter">
+                                    📬
+                                    <span>${person.counts.post_count}</span>
+                                </div>
+                            </div>
+                        </div>
+                        ${person.person.bio ? `<div class='bio'>${parseMarkdown(person.person.bio)}</div>` : ''}
+                    `;
+                    postsContainer.appendChild(communityElement);
+                });
+            } catch (error) {
+               alert(`error while rendering community: ${error.message}`);
+            }
+        }
+
         // функция для входа (заглушка)
         function login() {
             console.log("login");
+        }
+        
+        function goToProfile(id, servero) {
+            window.location.href = `https://lgor360.github.io/oldemmi/profile.html?server=${servero}&user=${id}`
         }
 
         // функция для изменения инстанса
@@ -470,6 +535,7 @@
                 document.getElementById("posts").innerHTML = "";
                 document.getElementById("communities").innerHTML = "";
                 document.getElementById("comments").innerHTML = "";
+                document.getElementById("users").innerHTML = "";
             } catch (error) {
                 alert(`eror in clearContainers() function: ${error}`)
             }
@@ -480,6 +546,7 @@
                 document.getElementById("posts").style.display = filter === "Posts" ? "block" : "none";
                 document.getElementById("communities").style.display = filter === "Communities" ? "block" : "none";
                 document.getElementById("comments").style.display = filter === "Comments" ? "block" : "none";
+                document.getElementById("users").style.display = filter === "Users" ? "block" : "none";
             } catch (error) {
                 alert(`eror in setActiveContainer(filter) function: ${error}`)
             }
@@ -496,6 +563,10 @@
                 } else if (filter === "Communities") {
                     const communities = await fetchCommunity();
                     renderCommunity(communities);
+                }
+                } else if (filter === "Users") {
+                    const users = await fetchUser();
+                    renderUsers(users);
                 }
                 page++;
             } catch (error) {
