@@ -250,7 +250,7 @@
 
                 postElement.innerHTML = `
                     <div class="post-header">
-                        <img src="${post.creator.avatar || 'https://lgor360.github.io/oldemmi/user.png'}" alt="avatar">
+                        <img onclick="goToProfile(${post.creator.name}, ${getInstanceFromActorId(post.creator.actor_id)})" src="${post.creator.avatar || 'https://lgor360.github.io/oldemmi/user.png'}" alt="avatar">
                         <div class="author">
                             ${post.creator.name}
                             <div class="community">
@@ -305,6 +305,10 @@
 
         function filters() {
             window.location.href = `https://lgor360.github.io/oldemmi/main.html?server=${server}&filter=${fSelect.value}`
+        }
+
+        function goToProfile(id, servero) {
+            window.location.href = `https://lgor360.github.io/oldemmi/profile.html?server=${servero}&user=${id}`
         }
         // загружаем первые посты при загрузке страницы
         loadMorePosts();
