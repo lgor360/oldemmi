@@ -274,7 +274,7 @@
             // картинки
             text = text.replace(/!\[([^\]]*)\]\((https?:\/\/[^\)]+\.(jpg|jpeg|png|gif|webp))\)/g, '<img src="$2" alt="$1" style="max-width: 100%; height: auto;">');
             // ссылки ([текст](ссылка))
-            text = text.replace(/\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+            text = text.replace(/\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g, '<a href="$2" rel="noopener noreferrer" target="_blank">$1</a>');
             // заголовки
             text = text.replace(/^(#+)\s*(.+)$/gm, (_, hashes, content) => `<h${hashes.length}>${content}</h${hashes.length}>`);
             // переносы строк
@@ -296,6 +296,7 @@
             const postsContainer = document.getElementById("posts");
 
             posts.forEach(post => {
+                const postotourl = post.post.url && post.post.url !== post.post.thumbnail_url ? post.post.url : null;
                 const postElement = document.createElement("div");
                 postElement.classList.add("post");
 
@@ -303,7 +304,7 @@
                     <div class="post-header">
                         <img src="${post.creator.avatar || 'https://lgor360.github.io/oldemmi/user.png'}" alt="avatar">
                         <div class="author">
-                            ${post.creator.display_name || post.creator.name}
+                            ${post.creator.name}
                             <div class="community">
                                 ${post.community.name}
                                 @
@@ -314,6 +315,7 @@
                     <div class="post-name">${post.post.name}</div>
                     <div class="post-text">${parseMarkdown(post.post.body || "")}</div>
                     ${post.post.thumbnail_url ? `<img src="${post.post.thumbnail_url}" class="post-image" alt="image">` : ""}
+                    ${postotourl ? `<div class="post-link"><a rel="noopener noreferrer" href="${postotourl}">${postotourl}</a></div>` : ""}
                     <div class="post-footer">
                         <div class="counter">
                             <button>👍</button>
