@@ -54,13 +54,6 @@
         .navbar button {
             padding: 10px 15px;
         }
-        .navbar select {
-            padding: 10px 15px;
-            border: 1px solid #ccc;
-            border-radius: 0px;
-            background-color: #353535;
-            color: #fff
-        }
         .navbar .login {
             background-color: #a3af74;
         }
@@ -152,10 +145,6 @@
                 </div>
             </div>
         </div>
-        <select onchange="filters()" name="filter" id="filter">
-            <option value="Hot">Hot</option>
-            <option value="New">New</option>
-        </select>
         <!-- <button onclick="back()">back</button> -->
         <!-- <button class="login" onclick="login()">login</button> -->
     </div>
@@ -174,7 +163,6 @@
         const urlParams = new URLSearchParams(window.location.search);
         const server = urlParams.get('server') || "lemmy.world";
         const post = urlParams.get('post') || "826753";
-        const filter = urlParams.get('filter') || "New";
         let page = 1; // текущая страница для загрузки
         const limit = 9; // количество постов на одну загрузку
         const api = `https://${server}/api/v3`
@@ -190,7 +178,7 @@
         
         // функция для получения постов
         async function fetchPost() {
-            const response = await fetch(`${api}/post?id=${post}&sort=${filter}`, {
+            const response = await fetch(`${api}/post?id=${post}`, {
                 method: "GET",
                 headers: { "Content-Type": "application/json" }
             });
@@ -339,10 +327,6 @@
 
         function back() {
             window.location.href = `https://lgor360.github.io/oldemmi/main.html?server=${server}`
-        }
-        
-        function filters() {
-            window.location.href = `https://lgor360.github.io/oldemmi/comments.html?server=${server}&filter=${fSelect.value}&post=${post}`
         }
         
         // загружаем пост и комментарии при загрузке страницы
