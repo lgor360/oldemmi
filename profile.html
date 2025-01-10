@@ -233,7 +233,7 @@
 
         // функция для получения постов
         async function fetchPosts() {
-            const response = await fetch(`${api}/post/list?page=${page}&limit=${limit}&sort=New`, {
+            const response = await fetch(`${api}/post/list?username=${user}&page=${page}&limit=${limit}&sort=New`, {
                 method: "GET",
                 headers: { "Content-Type": "application/json" }
             });
@@ -290,11 +290,6 @@
 
         function goToComments(postoid) {
             window.location.href = `https://lgor360.github.io/oldemmi/comments.html?server=${server}&post=${postoid}`
-        }
-
-        function getInstanceFromActorId(actorId) {
-            const url = new URL(actorId);
-            return url.hostname; // возвращает домен, например, "lemmy.world"
         }
         
         // функция для отображения постов
