@@ -312,7 +312,9 @@
             try {
                 const postsContainer = document.getElementById("posts");
 
+                alert("mikikiki");
                 community_view.forEach( community => {
+                    alert("k");
                     const date = new Date(community_view.community.published);
                     const communityElement = document.createElement("div");
                     communityElement.classList.add("post");
