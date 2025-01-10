@@ -231,8 +231,8 @@
             `;
         }
 
-        // функция для получения постов
-        async function fetchPosts() {
+        // функция для получения профиля
+        async function fetchUser() {
             const response = await fetch(`${api}/user?username=${user}`, {
                 method: "GET",
                 headers: { "Content-Type": "application/json" }
