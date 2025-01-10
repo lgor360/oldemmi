@@ -244,7 +244,7 @@
         // функция для получения постов
         async function fetchPosts() {
             try {
-                const response = await fetch(`${api}/search?q=${search}&type_=Posts&page=${page}&limit=${limit}`, {
+                const response = await fetch(`${api}/search?q=${search}&type_=Posts&page=${page}&limit=${limit}&sort=Hot`, {
                     method: "GET",
                     headers: { "Content-Type": "application/json" }
                 });
@@ -266,7 +266,7 @@
         
         async function fetchComments() {
               try {
-                  const response = await fetch(`${api}/search?q=${search}&type_=Comments&page=${page}&limit=${limit}`, {
+                  const response = await fetch(`${api}/search?q=${search}&type_=Comments&page=${page}&limit=${limit}&sort=Hot`, {
                       method: "GET",
                       headers: { "Content-Type": "application/json" }
                   });
@@ -280,7 +280,7 @@
         // функция для получения профиля
         async function fetchCommunity() {
             try {
-                const response = await fetch(`${api}/search?q=${search}&type_=Communities&page=${page}&limit=${limit}`, {
+                const response = await fetch(`${api}/search?q=${search}&type_=Communities&page=${page}&limit=${limit}&sort=TopAll`, {
                     method: "GET",
                     headers: { "Content-Type": "application/json" }
                 });
