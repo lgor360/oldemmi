@@ -477,7 +477,7 @@
             document.getElementById("comments").style.display = filter === "Comments" ? "block" : "none";
         }
         
-        function loadSomething() {
+        async function loadSomething() {
             clearContainers();
             setActiveContainer(filter);
             if (filter === "Posts") {
