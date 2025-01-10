@@ -212,7 +212,7 @@
         // функция для получения профиля
         async function fetchCommunity() {
             try {
-                const response = await fetch(`${api}/community?name=${community}`, {
+                const response = await fetch(`${api}/search?q=${search}&type_=Communities&page=${page}&limit=${limit}`, {
                     method: "GET",
                     headers: { "Content-Type": "application/json" }
                 });
@@ -312,7 +312,7 @@
             try {
                 const postsContainer = document.getElementById("posts");
 
-                community_view.ForEach( community => {
+                community_view.forEach( community => {
                     const date = new Date(community_view.community.published);
                     const communityElement = document.createElement("div");
                     communityElement.classList.add("post");
@@ -415,7 +415,7 @@
             if (filter === "Posts") {
                 loadMorePosts();
             } else if (filter === "Comments") {
-                loadMoreComments;
+                loadMoreComments();
             } else if (filter === "Communities") {
                 loadCommunity();
             }
