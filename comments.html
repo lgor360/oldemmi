@@ -145,6 +145,7 @@
                 </div>
             </div>
         </div>
+        <button onclick="goToSearch()">🔎</button>
         <!-- <button onclick="back()">back</button> -->
         <!-- <button class="login" onclick="login()">login</button> -->
     </div>
@@ -356,6 +357,10 @@
 
         function goToProfile(id, servero) {
             window.location.href = `https://lgor360.github.io/oldemmi/profile.html?server=${servero}&user=${id}`
+        }
+
+        function goToSearch() {
+            window.location.href = `https://lgor360.github.io/oldemmi/search?server=${server}&filter=Posts`;
         }
         
         // загружаем пост и комментарии при загрузке страницы
