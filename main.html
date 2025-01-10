@@ -244,8 +244,8 @@
             window.location.href = `https://lgor360.github.io/oldemmi/comments.html?server=${server}&post=${postoid}`
         }
         
-        function goToCommunity(comname, comid, servecom) {
-            window.location.href = `https://lgor360.github.io/oldemmi/community.html?server=${servecom}&community=${comname}&community_id=${comid}`
+        function goToCommunity(comname, servecom) {
+            window.location.href = `https://lgor360.github.io/oldemmi/community.html?server=${servecom}&community=${comname}`
         }
         
         // функция для отображения постов
@@ -263,7 +263,7 @@
                             <img onclick="goToProfile('${post.creator.name}', '${getInstanceFromActorId(post.creator.actor_id)}')" src="${post.creator.avatar || 'https://lgor360.github.io/oldemmi/user.png'}" alt="avatar">
                             <div class="author">
                                 ${post.creator.display_name || post.creator.name}
-                                <div onclick="goToCommunity('${post.community.name}', '${post.community.id}', '${getInstanceFromActorId(post.community.actor_id)}')" class="community">
+                                <div onclick="goToCommunity('${post.community.name}', '${getInstanceFromActorId(post.community.actor_id)}')" class="community">
                                     ${post.community.name}
                                     @
                                     ${getInstanceFromActorId(post.community.actor_id)}
