@@ -217,7 +217,7 @@
                     headers: { "Content-Type": "application/json" }
                 });
                 const data = await response.json();
-                return data.community_view;
+                return data.community;
             } catch (error) {
                 alert(`error while loading community: ${error}`);
             }
@@ -308,13 +308,11 @@
         }
 
         // функция для рендеринга сообщества
-        function renderCommunity(community_view) {
+        function renderCommunity(communities) {
             try {
                 const postsContainer = document.getElementById("posts");
 
-                alert("mikikiki");
-                community_view.forEach( community => {
-                    alert("k");
+                communities.forEach( community => {
                     const date = new Date(community_view.community.published);
                     const communityElement = document.createElement("div");
                     communityElement.classList.add("post");
@@ -395,8 +393,8 @@
 
         // функция для загрузки профиля
         async function loadCommunity() {
-            const community_view = await fetchCommunity();
-            renderCommunity(community_view);
+            const communities = await fetchCommunity();
+            renderCommunity(communities);
             page++;
         }
 
