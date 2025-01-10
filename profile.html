@@ -316,23 +316,25 @@
         // функция для рендеринга профиля
         function renderUser(person_view) {
             const date = new Date(person_view.person.published);
-            const profile_header = document.querySelector(".profile .profile-header");
-            profile_header.innerHTML = `
-                <img src="${person_view.person.avatar || 'https://lgor360.github.io/oldemmi/user.png'}" alt="avatar">
-                <div class="person">
-                    ${person_view.person.display_name || person_view.person.name}
-                    <div class="instance">
-                        ${getInstanceFromActorId(person_view.person.actor_id)}
+            const profile = document.querySelector(".profile");
+            profile.innerHTML = `
+                <div class="profile-header">
+                    <img src="${person_view.person.avatar || 'https://lgor360.github.io/oldemmi/user.png'}" alt="avatar">
+                    <div class="person">
+                        ${person_view.person.display_name || person_view.person.name}
+                        <div class="instance">
+                            ${getInstanceFromActorId(person_view.person.actor_id)}
+                        </div>
                     </div>
-                    <div class="birthday">
-                        🍰
-                        ${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}
-                    </div>
-                </div>
-                <div class="counts">
-                    <div class="counter">
-                        💬
-                        <span>${person_view.counts.comment_count}</span>
+                    <div class="counts">
+                        <div class="birthday">
+                            🍰
+                            ${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}
+                        </div>
+                        <div class="counter">
+                            💬
+                            <span>${person_view.counts.comment_count}</span>
+                        </div>
                     </div>
                 </div>
             `;
