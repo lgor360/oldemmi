@@ -293,13 +293,10 @@
         
         // функция для отображения постов
         function renderPosts(posts) {
-            alert("китикет")
             const postsContainer = document.getElementById("posts");
-            alert("аку. сая");
 
             posts.forEach(post => {
                 const postElement = document.createElement("div");
-                alert(post);
                 postElement.classList.add("post");
 
                 postElement.innerHTML = `
@@ -334,7 +331,6 @@
                 `;
                 postsContainer.appendChild(postElement);
             });
-            alert("чипичипичапачапа");
         }
 
         // функция для рендеринга профиля
@@ -374,7 +370,6 @@
         // функция для загрузки постов
         async function loadMorePosts() {
             const posts = await fetchPosts();
-            alert("лоад мор пост");
             renderPosts(posts);
         }
 
@@ -394,7 +389,9 @@
         // загружаем профиль
         loadUser();
         // загружаем первые посты при загрузке страницы
-        loadMorePosts();
+        if (need === "post") {
+            loadMorePosts();
+        }
     </script>
 </body>
 </html>
