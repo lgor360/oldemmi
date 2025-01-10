@@ -242,7 +242,7 @@
         }
 
         async function fetchPosts() {
-            const response = await fetch(`${api}/user?username=${user}`, {
+            const response = await fetch(`${api}/user?username=${user}&page=${page}&limit=${limit}`, {
                 method: "GET",
                 headers: { "Content-Type": "application/json" }
             });
@@ -371,6 +371,7 @@
         async function loadMorePosts() {
             const posts = await fetchPosts();
             renderPosts(posts);
+            page++;
         }
 
         // функция для загрузки профиля
