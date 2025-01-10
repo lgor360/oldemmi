@@ -185,7 +185,7 @@
         // функция для получения постов
         async function fetchPosts() {
             try {
-                const response = await fetch(`${api}/post/list?page=${page}&limit=${limit}&sort=${filter}`, {
+                const response = await fetch(`${api}/search?q=${search}&type_=Posts&page=${page}&limit=${limit}`, {
                     method: "GET",
                     headers: { "Content-Type": "application/json" }
                 });
@@ -310,72 +310,46 @@
         // функция для рендеринга сообщества
         function renderCommunity(community_view) {
             try {
-                const date = new Date(community_view.community.published);
-                const profile = document.querySelector(".profile");
+                const postsContainer = document.getElementById("posts");
 
-                profile.innerHTML = `
-                    <div onclick="goToCommunity('${community_view.community.name}', '${getInstanceFromActorId(community_view.community.actor_id)}')" class="profile-header">
-                        <img src="${community_view.community.icon || 'https://lgor360.github.io/oldemmi/community.png'}" alt="avatar">
-                        <div class="person">
-                            ${community_view.community.title || community_view.community.name}
-                            <div class="instance">
-                                ${getInstanceFromActorId(community_view.community.actor_id)}
+                community_view.ForEach( community => {
+                    const date = new Date(community_view.community.published);
+                    const communityElement = document.createElement("div");
+                    communityElement.classList.add("post");
+
+                    communityElement.innerHTML = `
+                        <div onclick="goToCommunity('${community_view.community.name}', '${getInstanceFromActorId(community_view.community.actor_id)}')" class="profile-header">
+                            <img src="${community_view.community.icon || 'https://lgor360.github.io/oldemmi/community.png'}" alt="avatar">
+                            <div class="person">
+                                ${community_view.community.title || community_view.community.name}
+                                <div class="instance">
+                                    ${getInstanceFromActorId(community_view.community.actor_id)}
+                                </div>
+                            </div>
+                            <div class="counts">
+                                <div class="birthday">
+                                    🍰
+                                    ${date.toLocaleDateString('en-EN', { day: '2-digit', month: '2-digit', year: 'numeric' })}
+                                </div>
+                                <div class="counter">
+                                    📬
+                                    <span>${community_view.counts.posts}</span>
+                                </div>
+                                <div class="counter">
+                                    👥
+                                    <span>${community_view.counts.subscribers}</span>
+                                </div>
                             </div>
                         </div>
-                        <div class="counts">
-                            <div class="birthday">
-                                🍰
-                                ${date.toLocaleDateString('en-EN', { day: '2-digit', month: '2-digit', year: 'numeric' })}
-                            </div>
-                            <div class="counter">
-                                📬
-                                <span>${community_view.counts.posts}</span>
-                            </div>
-                            <div class="counter">
-                                👥
-                                <span>${community_view.counts.subscribers}</span>
-                            </div>
-                        </div>
-                    </div>
-                    ${community_view.community.description ? `<div class='bio'>${parseMarkdown(community_view.community.description)}</div>` : ''}
-                `;
+                        ${community_view.community.description ? `<div class='bio'>${parseMarkdown(community_view.community.description)}</div>` : ''}
+                    `;
+                    postsContainer.appendChild(communityElement);
+                });
             } catch (error) {
-                alert(`error while rendering community: ${error.message}`);
+               alert(`error while rendering community: ${error.message}`);
             }
         }
         
-        // функция для отображения постов
-        function renderPost(post_view) {
-            try {
-                const postContainer = document.getElementById("post");
-            
-                const postotourl = post_view.post.url && post_view.post.url !== post_view.post.thumbnail_url ? post_view.post.url : null;
-                const postElement = document.createElement("div");
-                postElement.classList.add("post");
-
-                postElement.innerHTML = `
-                    <div class="post-header">
-                        <img onclick="goToComments('${post_view.post.id}')" src="${post_view.creator.avatar || 'https://lgor360.github.io/oldemmi/user.png'}" alt="avatar">
-                        <div class="author">
-                            ${post_view.creator.display_name || post_view.creator.name}
-                            <div onclick="goToCommunity('${post_view.community.name}', '${getInstanceFromActorId(post_view.community.actor_id)}')" class="community">
-                                ${post_view.community.name}
-                                @
-                                ${getInstanceFromActorId(post_view.community.actor_id)}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="post-name">${post_view.post.name}</div>
-                    <div class="post-text">${parseMarkdown(post_view.post.body || "")}</div>
-                    ${post_view.post.thumbnail_url ? `<img src="${post_view.post.thumbnail_url}" class="post-image" alt="image">` : ""}
-                    ${postotourl ? `<div class="post-link"><a rel="noopener noreferrer" href="${postotourl}">${postotourl}</a></div>` : ""}
-                `;
-                postContainer.appendChild(postElement);
-            } catch (error) {
-                alert(`error while rendering post: ${error}`);
-            }
-        }
-
         function renderComments(comments) {
             try {
                 const commentsContainer = document.getElementById("posts");
@@ -446,13 +420,12 @@
         }
 
         function loadSomething() {
-            if (filter === "Post") {
+            if (filter === "Posts") {
                 loadMorePosts();
-            } else if (filter === "Comment") {
+            } else if (filter === "Comments") {
                 loadMorePosts();
-            }
             } else if (filter === "Communities") {
-                oadCommunity();
+                loadCommunity();
             }
         }
       
