@@ -293,10 +293,10 @@
         }
         
         // функция для отображения постов
-        function renderPosts(posts) {
+        function renderPosts(person_view) {
             const postsContainer = document.getElementById("posts");
 
-            posts.forEach(post => {
+            person_view.forEach(post => {
                 const postElement = document.createElement("div");
                 postElement.classList.add("post");
 
@@ -370,9 +370,8 @@
             
         // функция для загрузки постов
         async function loadMorePosts() {
-            const posts = await fetchPosts();
-            renderPosts(posts);
-            page++; // увеличиваем номер страницы
+            const person_view = await fetchPosts();
+            renderPosts(person_view);
         }
 
         // функция для загрузки профиля
