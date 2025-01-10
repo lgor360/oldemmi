@@ -242,13 +242,13 @@
         }
 
         // функция для получения постов
-        async function fetchUser() {
+        async function fetchPosts() {
             const response = await fetch(`${api}/user?username=${user}`, {
                 method: "GET",
                 headers: { "Content-Type": "application/json" }
             });
             const data = await response.json();
-            return data.person_view;
+            return data.person_view;  // предполагаем, что данные постов находятся в person_view
         }
 
         function parseMarkdown(text) {
@@ -296,37 +296,37 @@
         function renderPosts(person_view) {
             const postsContainer = document.getElementById("posts");
 
-            person_view.forEach(post => {
+            person_view.posts.forEach(post => {
                 const postElement = document.createElement("div");
                 postElement.classList.add("post");
 
                 postElement.innerHTML = `
                     <div class="post-header">
-                        <img src="${person_view.person.avatar || 'https://lgor360.github.io/oldemmi/user.png'}" alt="avatar">
+                        <img src="${post.creator.avatar || 'https://lgor360.github.io/oldemmi/user.png'}" alt="avatar">
                         <div class="author">
-                            ${person_view.person.display_name || person_view.person.name}
+                            ${post.creator.display_name || post.creator.name}
                             <div class="community">
-                                ${person_view.post.community.name}
+                                ${post.community.name}
                                 @
-                                ${getInstanceFromActorId(person_view.post.community.actor_id)}
+                                ${getInstanceFromActorId(post.community.actor_id)}
                             </div>
                         </div>
                     </div>
-                    <div class="post-name">${person_view.post.name}</div>
-                    <div class="post-text">${parseMarkdown(person_view.post.body || "")}</div>
-                    ${post.post.thumbnail_url ? `<img src="${person_view.post.thumbnail_url}" class="post-image" alt="image">` : ""}
+                    <div class="post-name">${post.post.name}</div>
+                    <div class="post-text">${parseMarkdown(post.post.body || "")}</div>
+                    ${post.post.thumbnail_url ? `<img src="${post.post.thumbnail_url}" class="post-image" alt="image">` : ""}
                     <div class="post-footer">
                         <div class="counter">
                             <button>👍</button>
-                            <span>${person_view.post.counts.upvotes}</span>
+                            <span>${post.counts.upvotes}</span>
                         </div>
                         <div class="counter">
                             <button>👎</button>
-                            <span>${person_view.post.counts.downvotes}</span>
+                            <span>${post.counts.downvotes}</span>
                         </div>
                         <div class="counter">
                             <button onclick="goToComments(${post.post.id})">💬</button>
-                            <span>${person_view.post.counts.comments}</span>
+                            <span>${post.counts.comments}</span>
                         </div>
                     </div>
                 `;
