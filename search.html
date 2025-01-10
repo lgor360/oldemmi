@@ -217,7 +217,7 @@
                     headers: { "Content-Type": "application/json" }
                 });
                 const data = await response.json();
-                return data.community;
+                return data.communities;
             } catch (error) {
                 alert(`error while loading community: ${error}`);
             }
