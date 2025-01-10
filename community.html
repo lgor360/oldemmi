@@ -228,7 +228,7 @@
 
         async function fetchPosts() {
             try {
-                const response = await fetch(`${api}/post/list?community_id=${community_id}&limit=${limit}&page=${page}`, {
+                const response = await fetch(`${api}/post/list?community_name=${community}&limit=${limit}&page=${page}`, {
                     method: "GET",
                     headers: { "Content-Type": "application/json" }
                 });
