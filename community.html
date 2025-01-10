@@ -199,7 +199,7 @@
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const server = urlParams.get('server') || "lemmy.world";
-        const user = urlParams.get('user') || "okelote360";
+        const community = urlParams.get('community') || "okelote360";
         let page = 1; // текущая страница для загрузки
         const limit = 9; // количество постов на одну загрузку
         const api = `https://${server}/api/v3`
@@ -212,14 +212,14 @@
         }
 
         // функция для получения профиля
-        async function fetchUser() {
+        async function fetchCommunity() {
             try {
-                const response = await fetch(`${api}/user?username=${user}`, {
+                const response = await fetch(`${api}/community?id=${community}`, {
                     method: "GET",
                     headers: { "Content-Type": "application/json" }
                 });
                 const data = await response.json();
-                return data.person_view;
+                return data.community_view;
             } catch (error) {
                 alert(`error while loading community: ${error}`);
             }
@@ -227,7 +227,7 @@
 
         async function fetchPosts() {
             try {
-                const response = await fetch(`${api}/user?username=${user}&page=${page}&limit=${limit}`, {
+                const response = await fetch(`${api}/post/list?community_id=${community}&limit=${limit}&page=${page}`, {
                     method: "GET",
                     headers: { "Content-Type": "application/json" }
                 });
@@ -328,17 +328,17 @@
         }
 
         // функция для рендеринга профиля
-        function renderUser(person_view) {
+        function renderUser(community_view) {
             try {
-                const date = new Date(person_view.person.published);
+                const date = new Date(community_view.community.published);
                 const profile = document.querySelector(".profile");
                 profile.innerHTML = `
                     <div class="profile-header">
-                        <img src="${person_view.person.avatar || 'https://lgor360.github.io/oldemmi/user.png'}" alt="avatar">
+                        <img src="${community_view.community.icon || 'https://lgor360.github.io/oldemmi/community.png'}" alt="avatar">
                         <div class="person">
-                            ${person_view.person.display_name || person_view.person.name}
+                            ${community_view.community.display_name || community_view.community.name}
                             <div class="instance">
-                                ${getInstanceFromActorId(person_view.person.actor_id)}
+                                ${getInstanceFromActorId(community_view.community.actor_id)}
                             </div>
                         </div>
                         <div class="counts">
@@ -347,19 +347,19 @@
                                 ${date.toLocaleDateString('en-EN', { day: '2-digit', month: '2-digit', year: 'numeric' })}
                             </div>
                             <div class="counter">
-                                💬
-                                <span>${person_view.counts.comment_count}</span>
+                                📬
+                                <span>${community_view.counts.posts}</span>
                             </div>
                             <div class="counter">
-                                📬
-                                <span>${person_view.counts.post_count}</span>
+                                👥
+                                <span>${community_view.counts.subscribers}</span>
                             </div>
                         </div>
                     </div>
-                    ${person_view.person.bio ? `<div class='bio'>${person_view.person.bio}</div>` : ''}
+                    ${community_view.community.description ? `<div class='bio'>${community_view.community.description}</div>` : ''}
                 `;
             } catch (error) {
-                alert(`error while rendering profile: ${error}`);
+                alert(`error while rendering community: ${error}`);
             }
         }
         
@@ -371,9 +371,9 @@
         }
 
         // функция для загрузки профиля
-        async function loadUser() {
-            const person_view = await fetchUser();
-            renderUser(person_view);
+        async function loadCommunity() {
+            const community_view = await fetchCommunity();
+            renderCommunity(community_view);
         }
 
         // функция для входа (заглушка)
@@ -384,7 +384,7 @@
         // вставляем название сервера в заголовок
         instanceapply();
         // загружаем профиль
-        loadUser();
+        loadCommunity();
         // загружаем первые посты при загрузке страницы
         loadMorePosts();
     </script>
