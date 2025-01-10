@@ -232,6 +232,7 @@
                     headers: { "Content-Type": "application/json" }
                 });
                 const dataCommunity = await response.json();
+                alert(dataCommunity.community_view.community.id);
                 const response = await fetch(`${api}/post/list?community_id=${dataCommunity.community_view.community.id}&limit=${limit}&page=${page}`, {
                     method: "GET",
                     headers: { "Content-Type": "application/json" }
