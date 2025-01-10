@@ -227,6 +227,14 @@
         const limit = 9; // количество постов на одну загрузку
         const api = `https://${server}/api/v3`
 
+        function goToCommentsTab() {
+            window.location.href = `https://lgor360.github.io/oldemmi/profile.html?server=${server}&user=${user}&need=comments`
+        }
+
+        function goToPostTab() {
+            window.location.href = `https://lgor360.github.io/oldemmi/profile.html?server=${server}&user=${user}&need=post`
+        }
+        
         function instanceapply() {
             const instdiv = document.querySelector(".navbar .oldemmi .text .instance");
             instdiv.innerHTML = `
