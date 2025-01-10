@@ -216,9 +216,16 @@
         <!-- <button class="login" onclick="login()">login</button> -->
     </div>
 
-    <div id="posts">
-        <!-- сюда будут добавляться посты через js -->
+    <div id="posts" style="display: none;">
+        <!-- сюда будут добавляться посты -->
     </div>
+    <div id="communities" style="display: none;">
+        <!-- сюда будут добавляться сообщества -->
+    </div>
+    <div id="comments" style="display: none;">
+        <!-- сюда будут добавляться комментарии -->
+    </div>
+
     <div class="load-more">
         <button onclick="loadSomething()">more</button>
     </div>
@@ -378,7 +385,7 @@
         // функция для рендеринга сообщества
         function renderCommunity(communities) {
             try {
-                const postsContainer = document.getElementById("posts");
+                const postsContainer = document.getElementById("communities");
 
                 communities.forEach( community => {
                     const date = new Date(community.community.published);
@@ -420,7 +427,7 @@
         
         function renderComments(comments) {
             try {
-                const commentsContainer = document.getElementById("posts");
+                const commentsContainer = document.getElementById("comments");
 
                 comments.forEach(comment => {
                     const commentElement = document.createElement("div");
@@ -445,33 +452,6 @@
             }
         }
 
-        async function clearDiv() {
-            const div = document.getElementById("posts");
-            div.innerHTML = `
-                `;
-        }
-
-        // функция для загрузки постов
-        async function loadMorePosts() {
-            const posts = await fetchPosts();
-            renderPosts(posts);
-            page++; // увеличиваем номер страницы
-        }
-        
-        // функция для загрузки комментариев
-        async function loadMoreComments() {
-            const comments = await fetchComments();
-            renderComments(comments);
-            page++; // увеличиваем номер страницы
-        }
-
-        // функция для загрузки профиля
-        async function loadCommunity() {
-            const communities = await fetchCommunity();
-            renderCommunity(communities);
-            page++;
-        }
-
         // функция для входа (заглушка)
         function login() {
             console.log("login");
@@ -485,14 +465,32 @@
             }
         }
 
+        function clearContainers() {
+            document.getElementById("posts").innerHTML = "";
+            document.getElementById("communities").innerHTML = "";
+            document.getElementById("comments").innerHTML = "";
+        }
+
+        function setActiveContainer(filter) {
+            document.getElementById("posts").style.display = filter === "Posts" ? "block" : "none";
+            document.getElementById("communities").style.display = filter === "Communities" ? "block" : "none";
+            document.getElementById("comments").style.display = filter === "Comments" ? "block" : "none";
+        }
+        
         function loadSomething() {
+            clearContainers();
+            setActiveContainer(filter);
             if (filter === "Posts") {
-                loadMorePosts();
+                const posts = await fetchPosts();
+                renderPosts(posts);
             } else if (filter === "Comments") {
-                loadMoreComments();
+                const comments = await fetchComments();
+                renderComments(comments);
             } else if (filter === "Communities") {
-                loadCommunity();
+                const communities = await fetchCommunity();
+                renderCommunity(communities);
             }
+            page++;
         }
       
         // загружаем первые посты при загрузке страницы
@@ -500,7 +498,6 @@
         // вставляем название сервера в заголовок
         instanceapply();
         // загружаем то, что нужно
-        clearDiv();
         loadSomething();
     </script>
 </body>
