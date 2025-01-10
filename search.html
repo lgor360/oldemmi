@@ -23,6 +23,16 @@
             background-color: #353535;
             color: #fff;
         }
+        input {
+            border: 1px solid #ccc;
+            border-radius: 0px;
+            background-color: #353535;
+            color: #fff;
+            box-sizing: border-box;
+            padding: 6px 20px;
+            margin: 10px 0;
+            cursor: text;
+        }
         a {
             color: #b3c46d;
             text-decoration: none;
@@ -58,7 +68,7 @@
         .navbar button {
             padding: 10px 15px;
         }
-        .navbar select {
+        select {
             padding: 10px 15px;
             border: 1px solid #ccc;
             border-radius: 0px;
@@ -165,6 +175,9 @@
             flex-direction: column;
             align-items: flex-end;
         }
+        .searchbar {
+            justlify-content: normal
+        }
     </style>
 </head>
 <body>
@@ -177,6 +190,15 @@
                     <!-- тут будет сервер -->
                 </div>
             </div>
+        </div>
+        <div class="searchbar">
+            <input placeholder="your request">
+            <select id="typeSelect" name="typeSelect">
+                <option value="Comments">comments</option>
+                <option value="Posts">posts</option>
+                <option value="Communities">communities</option>
+            </select>
+            <button onclick="letssearch()">search</button>
         </div>
         <!-- <button onclick="change_server()">change the instance</button> --->
         <!-- <button class="login" onclick="login()">login</button> -->
@@ -219,6 +241,12 @@
             }
         }
 
+        function letssearch() {
+            const type = document.getElementById("searchbar").value;
+            const request = document.getElementById("searchinput").value;
+            window.location.href = `https://lgor360.github.io/oldemmi/search?server=${server}&filter=${type}&search=${request}`
+        }
+        
         async function fetchComments() {
               try {
                   const response = await fetch(`${api}/search?q=${search}&type_=Comments&page=${page}&limit=${limit}`, {
@@ -430,7 +458,7 @@
         function change_server() {
             const prompto = prompt("enter instance url. example: lemmy.world");
             if (prompto) {
-                window.location.href = `https://lgor360.github.io/oldemmi/main.html?server=${prompto}`
+                window.location.href = `https://lgor360.github.io/oldemmi/search?server=${prompto}&filter=${filter}&search=${search}`
             }
         }
 
