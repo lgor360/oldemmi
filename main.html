@@ -199,7 +199,7 @@
                 const data = await response.json();
                 return data.posts;
             } catch (error) {
-                alert(error);
+                alert(`error while loading posts: ${error}`);
             }
         }
 
@@ -245,46 +245,50 @@
         }
         // функция для отображения постов
         function renderPosts(posts) {
-            const postsContainer = document.getElementById("posts");
+            try {
+                const postsContainer = document.getElementById("posts");
 
-            posts.forEach(post => {
-                const postotourl = post.post.url && post.post.url !== post.post.thumbnail_url ? post.post.url : null;
-                const postElement = document.createElement("div");
-                postElement.classList.add("post");
+                posts.forEach(post => {
+                    const postotourl = post.post.url && post.post.url !== post.post.thumbnail_url ? post.post.url : null;
+                    const postElement = document.createElement("div");
+                    postElement.classList.add("post");
 
-                postElement.innerHTML = `
-                    <div class="post-header">
-                        <img onclick="goToProfile('${post.creator.name}', '${getInstanceFromActorId(post.creator.actor_id)}')" src="${post.creator.avatar || 'https://lgor360.github.io/oldemmi/user.png'}" alt="avatar">
-                        <div class="author">
-                            ${post.creator.display_name || post.creator.name}
-                            <div class="community">
-                                ${post.community.name}
-                                @
-                                ${getInstanceFromActorId(post.community.actor_id)}
+                    postElement.innerHTML = `
+                        <div class="post-header">
+                            <img onclick="goToProfile('${post.creator.name}', '${getInstanceFromActorId(post.creator.actor_id)}')" src="${post.creator.avatar || 'https://lgor360.github.io/oldemmi/user.png'}" alt="avatar">
+                            <div class="author">
+                                ${post.creator.display_name || post.creator.name}
+                                <div class="community">
+                                    ${post.community.name}
+                                    @
+                                    ${getInstanceFromActorId(post.community.actor_id)}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="post-name">${post.post.name}</div>
-                    <div class="post-text">${parseMarkdown(post.post.body || "")}</div>
-                    ${post.post.thumbnail_url ? `<img src="${post.post.thumbnail_url}" class="post-image" alt="image">` : ""}
-                    ${postotourl ? `<div class="post-link"><a rel="noopener noreferrer" href="${postotourl}">${postotourl}</a></div>` : ""}
-                    <div class="post-footer">
-                        <div class="counter">
-                            <button>👍</button>
-                            <span>${post.counts.upvotes}</span>
+                        <div class="post-name">${post.post.name}</div>
+                        <div class="post-text">${parseMarkdown(post.post.body || "")}</div>
+                        ${post.post.thumbnail_url ? `<img src="${post.post.thumbnail_url}" class="post-image" alt="image">` : ""}
+                        ${postotourl ? `<div class="post-link"><a rel="noopener noreferrer" href="${postotourl}">${postotourl}</a></div>` : ""}
+                        <div class="post-footer">
+                            <div class="counter">
+                                <button>👍</button>
+                                <span>${post.counts.upvotes}</span>
+                            </div>
+                            <div class="counter">
+                                <button>👎</button>
+                                <span>${post.counts.downvotes}</span>
+                            </div>
+                            <div class="counter">
+                                <button onclick="goToComments(${post.post.id})">💬</button>
+                                <span>${post.counts.comments}</span>
+                            </div>
                         </div>
-                        <div class="counter">
-                            <button>👎</button>
-                            <span>${post.counts.downvotes}</span>
-                        </div>
-                        <div class="counter">
-                            <button onclick="goToComments(${post.post.id})">💬</button>
-                            <span>${post.counts.comments}</span>
-                        </div>
-                    </div>
-                `;
-                postsContainer.appendChild(postElement);
-            });
+                    `;
+                    postsContainer.appendChild(postElement);
+                });
+            } catch (error) {
+                alert(`error while rendering posts: ${error}`);
+            }
         }
 
         // функция для загрузки постов
