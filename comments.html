@@ -176,21 +176,29 @@
         
         // функция для получения постов
         async function fetchPost() {
-            const response = await fetch(`${api}/post?id=${post}`, {
-                method: "GET",
-                headers: { "Content-Type": "application/json" }
-            });
-            const data = await response.json();
-            return data.post_view;
+            try {
+                const response = await fetch(`${api}/post?id=${post}`, {
+                    method: "GET",
+                    headers: { "Content-Type": "application/json" }
+                });
+                const data = await response.json();
+                return data.post_view;
+            } catch (error) {
+                alert(error);
+            }
         }
 
         async function fetchComments() {
-            const response = await fetch(`${api}/comment/list?post_id=${post}&page=${page}&limit=${limit}&sort=New`, {
-                method: "GET",
-                headers: { "Content-Type": "application/json" }
-            });
-            const data = await response.json();
-            return data.comments;
+            try {
+                const response = await fetch(`${api}/comment/list?post_id=${post}&page=${page}&limit=${limit}&sort=New`, {
+                    method: "GET",
+                    headers: { "Content-Type": "application/json" }
+                });
+                const data = await response.json();
+                return data.comments;
+            } catch (error) {
+                alert(error);
+            }
         }
       
         function parseMarkdown(text) {
