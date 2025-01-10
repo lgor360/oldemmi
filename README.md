@@ -15,7 +15,7 @@ due to the client being under development, some features are not available
 |change instance (only for guests)|✓|
 |communities view||✓|
 |profiles view||✓|
-|filters||✓|
+|filters|✓|
 |post's link view|✓|
 |moderation functions||✓|
 |comment replies||✓|
