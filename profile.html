@@ -214,9 +214,6 @@
     <div id="posts">
         <!-- сюда будут добавляться посты через js -->
     </div>
-    <div class="comments">
-        <!-- сюда будут добавляться комментарии через js -->
-    </div>
     <div class="load-more">
         <button onclick="loadMoreSomething()">more</button>
     </div>
@@ -391,8 +388,8 @@
         }
 
         function renderComments(comments) {
-            const commentsContainer = document.getElementById("comments");
-            alert("hhh");
+            const commentsContainer = document.getElementById("posts");
+            alert(commentsContainer);
             comments.forEach(comment => {
                 alert("mi");
                 const commentElement = document.createElement("div");
