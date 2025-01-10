@@ -402,7 +402,7 @@
                     <div class="post-header">
                         <img src="${comment.creator.avatar || 'https://lgor360.github.io/oldemmi/user.png'}" alt="avatar">
                         <div class="author">
-                            ${comment.creator.name}
+                            ${comment.creator.display_name || comment.creator.name}
                         </div>
                     </div>
                     <div class="post-text">${parseMarkdown(comment.comment.content)}</div>
@@ -416,7 +416,7 @@
                             <span>${comment.counts.downvotes}</span>
                         </div>
                         <div class="counter">
-                            <button>💬</button>
+                            <button onclick="goToComments('${comment.comment.post_id}')>👁️</button>
                         </div>
                     </div>
                 `;
