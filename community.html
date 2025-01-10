@@ -214,7 +214,7 @@
         // функция для получения профиля
         async function fetchCommunity() {
             try {
-                const response = await fetch(`${api}/community?id=${community}`, {
+                const response = await fetch(`${api}/community?name=${community}`, {
                     method: "GET",
                     headers: { "Content-Type": "application/json" }
                 });
