@@ -345,8 +345,6 @@
         function renderPosts(posts) {
             try {
                 const postsContainer = document.getElementById("posts");
-                postsContainer.innerHTML = `
-                    `;
 
                 posts.forEach(post => {
                     const postotourl = post.post.url && post.post.url !== post.post.thumbnail_url ? post.post.url : null;
@@ -381,8 +379,6 @@
         function renderCommunity(communities) {
             try {
                 const postsContainer = document.getElementById("posts");
-                postsContainer.innerHTML = `
-                    `;
 
                 communities.forEach( community => {
                     const date = new Date(community.community.published);
@@ -425,8 +421,6 @@
         function renderComments(comments) {
             try {
                 const commentsContainer = document.getElementById("posts");
-                commentsContainer.innerHTML = `
-                    `;
 
                 comments.forEach(comment => {
                     const commentElement = document.createElement("div");
@@ -449,6 +443,12 @@
             } catch (error) {
                 alert(`error while loading post: ${error}`);
             }
+        }
+
+        async function clearDiv() {
+            const div = document.getElementById("posts");
+            div.innerHTML = `
+                `;
         }
 
         // функция для загрузки постов
@@ -500,6 +500,7 @@
         // вставляем название сервера в заголовок
         instanceapply();
         // загружаем то, что нужно
+        clearDiv();
         loadSomething();
     </script>
 </body>
