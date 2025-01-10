@@ -233,7 +233,11 @@
 
         // функция для получения постов
         async function fetchPosts() {
-            const response = await fetch(`${api}/post/list?username=${user}&page=${page}&limit=${limit}&sort=New`, {
+            const userResponse = await fetch(`${api}/user?username=${username}`);
+            const userData = await userResponse.json();
+            const creatorId = userData.person_view.person.id;
+            
+            const response = await fetch(`${api}/post/list?creator_id=${creatorId}&page=${page}&limit=${limit}&sort=New`, {
                 method: "GET",
                 headers: { "Content-Type": "application/json" }
             });
