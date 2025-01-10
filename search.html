@@ -93,15 +93,15 @@
         }
         .navbar .searchbar button {
             margin: 0px 0;
-            padding: 15px 20px;
+            padding: 10px 15px;
         }
         .navbar .searchbar input {
             margin: 0px 0;
-            padding: 15px 20px;
+            padding: 10px 15px;
         }
         .navbar .searchbar select {
             margin: 0px 0;
-            padding: 15px 20px;
+            padding: 10px 15px;
         }
         .post {
             min-width: 300px;
@@ -254,9 +254,13 @@
         }
 
         function letssearch() {
-            const type = document.getElementById("searchbar").value;
-            const request = document.getElementById("searchinput").value;
-            window.location.href = `https://lgor360.github.io/oldemmi/search?server=${server}&filter=${type}&search=${request}`
+            try {
+                const type = document.getElementById("searchbar").value;
+                const request = document.getElementById("searchinput").value;
+                window.location.href = `https://lgor360.github.io/oldemmi/search?server=${server}&filter=${type}&search=${request}`;
+            } catch (error) {
+                alert(`error in letssearch function: ${error}`)
+            }
         }
         
         async function fetchComments() {
