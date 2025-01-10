@@ -241,16 +241,6 @@
             return data.person_view;
         }
 
-        // функция для получения постов
-        async function fetchPosts() {
-            const response = await fetch(`${api}/user?username=${user}`, {
-                method: "GET",
-                headers: { "Content-Type": "application/json" }
-            });
-            const data = await response.json();
-            return data.person_view;  // предполагаем, что данные постов находятся в person_view
-        }
-
         function parseMarkdown(text) {
             // жирный текст (*текст*)
             text = text.replace(/\*{2}([^\*]+)\*{2}/g, '<strong>$1</strong>');
@@ -294,6 +284,7 @@
         
         // функция для отображения постов
         function renderPosts(person_view) {
+            alert("китикет")
             const postsContainer = document.getElementById("posts");
 
             person_view.posts.forEach(post => {
@@ -371,7 +362,8 @@
             
         // функция для загрузки постов
         async function loadMorePosts() {
-            const person_view = await fetchPosts();
+            const person_view = await fetchUser();
+            alert("лоад мор пост");
             renderPosts(person_view);
         }
 
@@ -391,9 +383,7 @@
         // загружаем профиль
         loadUser();
         // загружаем первые посты при загрузке страницы
-        if (need === "post") {
-            loadMorePosts();
-        }
+        loadMorePosts();
     </script>
 </body>
 </html>
