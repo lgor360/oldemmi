@@ -233,7 +233,8 @@
                     }
                 });
                 const data = await response.json();
-                return data.user_view;
+                alert(data.user_view);
+                return data.user_view.user;
             } catch (error) {
                 alert(`error while loading profile: ${error}`);
             }
@@ -300,12 +301,12 @@
                     changeServer.style.display = "none";
                     login.style.display = "none";
 
-                    const user_view = await getLoggined();
+                    const user = await getLoggined();
                     server = `${localStorage.getItem("accountServer")}`;
-                    alert(user_view.user);
+                    alert(user);
                     profileInBar.innerHTML = `
-                        <img src="${user_view.user.avatar || 'https://lgor360.github.io/oldemmi/user.png'}">
-                        ${user_view.user.display_name || user_view.user.name}
+                        <img src="${user.avatar || 'https://lgor360.github.io/oldemmi/user.png'}">
+                        ${user.display_name || user.name}
                     `;
                 }
                 return;
