@@ -194,7 +194,7 @@
 </head>
 <body>
     <div class="navbar">
-        <div class="oldemmi">
+        <div onclick="goToHome()" class="oldemmi">
             <img src="https://lgor360.github.io/oldemmi/logo.png" alt="oldemmi logo">
             <div class="text">
                 oldemmi
@@ -571,6 +571,9 @@
             } catch (error) {
                 alert(`eror in loadSomething() function: ${error}`)
             }
+        }
+        function goToHome() {
+            window.location.href = `https://lgor360.github.io/oldemmi/main.html?server=${server}`
         }
       
         // вставляем название сервера в заголовок
