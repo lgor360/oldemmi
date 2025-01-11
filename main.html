@@ -302,6 +302,7 @@
 
                     const user_view = await getLoggined();
                     server = `${localStorage.getItem("accountServer")}`;
+                    alert(user_view.user);
                     profileInBar.innerHTML = `
                         <img src="${user_view.user.avatar || 'https://lgor360.github.io/oldemmi/user.png'}">
                         ${user_view.user.display_name || user_view.user.name}
