@@ -201,7 +201,7 @@
                     // localStorage.setItem("lemmyToken", data.jwt);
                 } else {
                     console.error("ошибка входа после 2FA:", data);
-                    alert("login failed...");
+                    alert("login failed..." + (data.error || "unknown error"));
                 }
             })
             .catch(error => {
