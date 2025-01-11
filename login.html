@@ -108,9 +108,9 @@
             login to your account
         </div>
         <div class="login-form">
-            <input placeholder="username" type="text" id="username" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-autocomplete="list" required>
-            <input placeholder="password" type="password" id="password" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-autocomplete="list" required>
-            <input placeholder="instance" type="text" id="instance" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-autocomplete="list" required>
+            <input placeholder="username" type="text" id="username" required>
+            <input placeholder="password" type="password" id="password" required>
+            <input placeholder="instance" type="text" id="instance" required>
             <button onclick="handleSubmit()">login</button>
         </div>
     </div>
@@ -135,7 +135,6 @@
                 return;
             }
 
-            alert(usernameInput.value.trim());
             const username = document.getElementById('username').value.trim();
             const password = document.getElementById('password').value.trim();
             const instance = document.getElementById('instance').value.trim();
@@ -226,6 +225,22 @@
                 alert("request error... " + error.message);
             });
         }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const inputs = [usernameInput, passwordInput, instanceInput];
+
+            inputs.forEach(input => {
+                // обновляем значение явно
+                input.addEventListener('input', () => {
+                    input.setAttribute('value', input.value);
+                });
+
+                // при загрузке страницы или автозаполнении
+                input.addEventListener('change', () => {
+                    input.setAttribute('value', input.value);
+                });
+            });
+        });
     </script>
 </body>
 </html>
