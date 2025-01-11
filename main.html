@@ -223,7 +223,7 @@
             }
         }
 
-        async getLoggined() {
+        async function getLoggined() {
             try {
                 const response = await fetch(`${api}/user`, {
                     method: "GET",
