@@ -78,6 +78,11 @@
             font-weight: bold;
             font-size: 1.2em;
         }
+        .navbar .profileInBar {
+            margin-left: 5px;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
         .navbar .oldemmi .text .instance {
             font-size: 0.6em;
         }
@@ -173,8 +178,9 @@
         </select>
         <div class="normal">
             <button onclick="goToSearch()">🔎</button>
-            <button class="login" onclick="login()">login</button>
-            <button onclick="change_server()">change the instance</button>
+            <button id="login" class="login" onclick="login()">login</button>
+            <button id="changeServer" onclick="change_server()">change the instance</button>
+            <div class="profileInBar"></div>
         </div>
     </div>
 
@@ -194,6 +200,7 @@
         const api = `https://${server}/api/v3`
         let fSelect = document.querySelector(".navbar #filter");
         fSelect.value = filter;
+        const lemmyToken = localStorage.getItem("lemmyToken");
 
         function instanceapply() {
             const instdiv = document.querySelector(".navbar .oldemmi .text .instance");
@@ -215,7 +222,23 @@
                 alert(`error while loading posts: ${error}`);
             }
         }
-      
+
+        async getLoggined() {
+            try {
+                const response = await fetch(`${api}/user`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json"
+                        "Authorization": `Bearer ${lemmyToken}`
+                    }
+                });
+                const data = await response.json();
+                return data.user_view;
+            } catch (error) {
+                alert(`error while loading profile: ${error}`);
+            }
+        }
+        
         function parseMarkdown(text) {
             // жирный текст (*текст*)
             text = text.replace(/\*{2}([^\*]+)\*{2}/g, '<strong>$1</strong>');
@@ -264,6 +287,25 @@
         
         function goToCommunity(comname, servecom) {
             window.location.href = `https://lgor360.github.io/oldemmi/community.html?server=${servecom}&community=${comname}`
+        }
+
+        async function loginedornot() {
+            const profileInBar = document.querySelector(".navbar .normal .profileInBar");
+            const changeServer = document.getElementById("changeServer");
+            const login = document.getElementById("login");
+            
+            if (lemmyToken) {
+                profileInBar.style.display === "inline";
+                changeServer.style.display === "none";
+                login.style.display === "none";
+
+                const user_view = await getLoggined();
+                server = `${getInstanceFromActorId(user_view.user.actor_id)}`;
+                profileInBar.innerHTML = `
+                    <img src="${user_view.user.avatar || 'https://lgor360.github.io/oldemmi/user.png'}">
+                    ${user_view.user.display_name || user_view.user.name}
+                `;
+            }
         }
         
         // функция для отображения постов
@@ -356,6 +398,7 @@
             window.location.href = `https://lgor360.github.io/oldemmi/search.html?server=${server}&filter=Posts`;
         }
         
+        loginedornot();
         // загружаем первые посты при загрузке страницы
         loadMorePosts();
         // вставляем название сервера в заголовок
