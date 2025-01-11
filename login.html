@@ -118,7 +118,7 @@
         function goToHome() {
             window.location.href = 'https://lgor360.github.io/oldemmi/main.html'
         }
-        
+
         function handleSubmit() {
             const username = document.getElementById('username').value.trim();
             const password = document.getElementById('password').value.trim();
@@ -128,43 +128,87 @@
                 alert('not all inputs are filled');
                 return;
             }
-            // url прокси-сервера
+
             const proxyUrl = "https://tide-decisive-resolution.glitch.me/proxy";
 
-            // данные для входа
             const loginData = {
-                url: `https://${instance}/api/v3/user/login`, // замени на инстанс лемми
+                url: `https://${instance}/api/v3/user/login`,
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: {
-                    username_or_email: username, // имя пользователя или email
-                    password: password // пароль
+                    username_or_email: username,
+                    password: password
                 }
             };
 
-            // выполнение запроса через прокси
             fetch(proxyUrl, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(loginData)
             })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.jwt) {
-                        alert("успешный вход! токен:", data.jwt);
-                        // сохрани токен в локальном хранилище или cookie
-                        // localStorage.setItem("lemmyToken", data.jwt);
-                    } else {
-                        console.error("ошибка входа:", data);
-                        alert("вход не удался" + (data.error || "неизвестная ошибка"));
+            .then(response => response.json())
+            .then(data => {
+                if (data.jwt) {
+                    alert("successful login! token:", data.jwt);
+                    // сохранить токен в локальном хранилище или cookie
+                    // localStorage.setItem("lemmyToken", data.jwt);
+                } else if (data.error === 'missing-totp-token') {
+                    // если ошибка missing-totp, показываем prompt
+                    let totpCode = '';
+                    while (!totpCode) {
+                        totpCode = prompt("enter the two-factor authentication code");
+                        if (totpCode.trim() === '') {
+                            totpCode = ''; // если код пустой, снова запрашиваем
+                        }
                     }
-                })
-                .catch(error => {
-                    console.error("ошибка запроса:", error);
-                    alert("ошибка запроса" + error.message);
-                });
+                    // отправляем запрос с кодом 2FA
+                    handleTotpLogin(totpCode, username, password, instance);
+                } else {
+                    console.error("ошибка входа:", data);
+                    alert("login failed... " + (data.error || "unknown error"));
+                }
+            })
+            .catch(error => {
+                console.error("ошибка запроса:", error);
+                alert("request error: " + error.message);
+            });
+        }
 
-         }
+        function handleTotpLogin(totpCode, username, password, instance) {
+            const proxyUrl = "https://tide-decisive-resolution.glitch.me/proxy";
+
+            const totpLoginData = {
+                url: `https://${instance}/api/v3/user/login`,
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: {
+                    username_or_email: username,
+                    password: password,
+                    totp_code: totpCode // отправляем код двухфакторной аутентификации
+                }
+            };
+
+            fetch(proxyUrl, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(totpLoginData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.jwt) {
+                    alert("successful login! token: ", data.jwt);
+                    // сохранить токен в локальном хранилище или cookie
+                    // localStorage.setItem("lemmyToken", data.jwt);
+                } else {
+                    console.error("ошибка входа после 2FA:", data);
+                    alert("login failed...");
+                }
+            })
+            .catch(error => {
+                console.error("ошибка запроса после 2FA:", error);
+                alert("request error... " + error.message);
+            });
+        }
     </script>
 </body>
 </html>
