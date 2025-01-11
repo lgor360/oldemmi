@@ -1,8 +1,7 @@
 # about
 i wanted to make a light client for lemmy. i tried to make it look like from the old internet :P
 
-![preview](https://github.com/user-attachments/assets/e8d68af7-4939-4c61-a3b8-b928633f56d5)
-
+![preview](https://github.com/user-attachments/assets/a6941c69-cf37-49d5-be73-bc27d40093d8)
 
 # under development
 due to the client being under development, some features are not available
