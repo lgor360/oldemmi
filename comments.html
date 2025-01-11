@@ -137,6 +137,7 @@
             display: flex;
             flex-direction: column;
             align-items: flex-end;
+            font-size: 2.0em;
         }
     </style>
 </head>
@@ -277,10 +278,10 @@
                             </div>
                         </div>
                         <div class="post-status">
-                            <div class="locked">
+                            <div onclick="alert('this post is locked')" class="locked">
                                 ${locked}
                             </div>
-                            <div class="deleted">
+                            <div onclick="alert('this post is deleted')" class="deleted">
                                 ${deleted}
                             </div>
                         </div>
