@@ -233,7 +233,7 @@
                     }
                 });
                 const data = await response.json();
-                alert(response);
+                alert(await response.text());
                 return data.user_view.user;
             } catch (error) {
                 alert(`error while loading profile: ${error}`);
