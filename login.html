@@ -118,9 +118,6 @@
         const usernameInput = document.getElementById('username');
         const passwordInput = document.getElementById('password');
         const instanceInput = document.getElementById('instance');
-        const username = document.getElementById('username').value.trim();
-        const password = document.getElementById('password').value.trim();
-        const instance = document.getElementById('instance').value.trim();
         
         function goToHome() {
             window.location.href = 'https://lgor360.github.io/oldemmi/main.html'
@@ -138,6 +135,9 @@
                 return;
             }
             
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const instance = document.getElementById('instance').value.trim();
             const proxyUrl = "https://tide-decisive-resolution.glitch.me/proxy";
             
             const loginData = {
@@ -187,6 +187,9 @@
 
         function handleTotpLogin(totpCode, username, password, instance) {
             const proxyUrl = "https://tide-decisive-resolution.glitch.me/proxy";
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const instance = document.getElementById('instance').value.trim();
 
             const totpLoginData = {
                 url: `https://${instance}/api/v3/user/login`,
