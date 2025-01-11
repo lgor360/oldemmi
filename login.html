@@ -152,7 +152,7 @@
                     alert("successful login! token:", data.jwt);
                     // сохранить токен в локальном хранилище или cookie
                     // localStorage.setItem("lemmyToken", data.jwt);
-                } else if (data.error === 'missing-totp-token') {
+                } else if (data.error === 'missing_totp_token') {
                     // если ошибка missing-totp, показываем prompt
                     let totpCode = '';
                     while (!totpCode) {
