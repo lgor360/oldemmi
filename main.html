@@ -290,24 +290,28 @@
         }
 
         async function loginedornot() {
-            const profileInBar = document.querySelector(".navbar .normal .profileInBar");
-            const changeServer = document.getElementById("changeServer");
-            const login = document.getElementById("login");
+            try {
+                const profileInBar = document.querySelector(".navbar .normal .profileInBar");
+                const changeServer = document.getElementById("changeServer");
+                const login = document.getElementById("login");
             
-            if (lemmyToken) {
-                profileInBar.style.display === "inline";
-                changeServer.style.display === "none";
-                login.style.display === "none";
+                if (lemmyToken) {
+                    profileInBar.style.display === "inline";
+                    changeServer.style.display === "none";
+                    login.style.display === "none";
 
-                const user_view = await getLoggined();
-                server = `${getInstanceFromActorId(user_view.user.actor_id)}`;
-                profileInBar.innerHTML = `
-                    <img src="${user_view.user.avatar || 'https://lgor360.github.io/oldemmi/user.png'}">
-                    ${user_view.user.display_name || user_view.user.name}
-                `;
-                return;
-            } else {
-                return;
+                    const user_view = await getLoggined();
+                    server = `${getInstanceFromActorId(user_view.user.actor_id)}`;
+                    profileInBar.innerHTML = `
+                        <img src="${user_view.user.avatar || 'https://lgor360.github.io/oldemmi/user.png'}">
+                        ${user_view.user.display_name || user_view.user.name}
+                    `;
+                    return;
+                } else {
+                    return;
+                }
+            } catch (error) {
+                alert(`error while account login check: ${error}`);
             }
         }
         
