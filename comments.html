@@ -136,7 +136,7 @@
 </head>
 <body>
     <div class="navbar">
-        <div class="oldemmi">
+        <div onclick="goToHome()" class="oldemmi">
             <img src="https://lgor360.github.io/oldemmi/logo.png" alt="oldemmi logo">
             <div class="text">
                 oldemmi
@@ -174,7 +174,7 @@
                 ${server}
             `;
         }
-        
+
         // функция для получения постов
         async function fetchPost() {
             try {
@@ -351,7 +351,7 @@
             console.log("login");
         }
 
-        function back() {
+        function goToHome() {
             window.location.href = `https://lgor360.github.io/oldemmi/main.html?server=${server}`
         }
 
