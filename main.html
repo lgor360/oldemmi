@@ -232,8 +232,8 @@
                         "Authorization": `Bearer ${lemmyToken}`
                     }
                 });
-                const data = await response.json();
                 alert(await response.text());
+                const data = await response.json();
                 return data.user_view.user;
             } catch (error) {
                 alert(`error while loading profile: ${error}`);
