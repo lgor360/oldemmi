@@ -149,9 +149,9 @@
             .then(response => response.json())
             .then(data => {
                 if (data.jwt) {
-                    alert("successful login! token:", data.jwt);
+                    alert("successful login!");
                     // сохранить токен в локальном хранилище или cookie
-                    // localStorage.setItem("lemmyToken", data.jwt);
+                    localStorage.setItem("lemmyToken", data.jwt);
                 } else if (data.error === 'missing_totp_token') {
                     // если ошибка missing-totp, показываем prompt
                     let totpCode = '';
@@ -195,11 +195,10 @@
             })
             .then(response => response.json())
             .then(data => {
-                alert(data.jwt);
                 if (data.jwt) {
-                    alert("successful login! token: ", data.jwt);
+                    alert("successful login!");
                     // сохранить токен в локальном хранилище или cookie
-                    // localStorage.setItem("lemmyToken", data.jwt);
+                    localStorage.setItem("lemmyToken", data.jwt);
                 } else {
                     console.error("ошибка входа после 2FA:", data);
                     alert("login failed..." + (data.error || "unknown error"));
