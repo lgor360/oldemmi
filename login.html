@@ -195,6 +195,7 @@
             })
             .then(response => response.json())
             .then(data => {
+                alert(data);
                 if (data.jwt) {
                     alert("successful login! token: ", data.jwt);
                     // сохранить токен в локальном хранилище или cookie
