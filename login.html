@@ -141,8 +141,8 @@
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: {
-                    username_or_email: username.value,
-                    password: password.value
+                    username_or_email: `${username.value}`,
+                    password: `${password.value}`
                 }
             };
 
@@ -189,9 +189,9 @@
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: {
-                    username_or_email: username.value,
-                    password: password.value,
-                    totp_2fa_token: totpCode.value
+                    username_or_email: `${username.value}`,
+                    password: `${password.value}`,
+                    totp_2fa_token: `${totpCode.value}`
                 }
             };
 
