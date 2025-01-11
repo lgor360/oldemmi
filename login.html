@@ -115,6 +115,9 @@
         </div>
     </div>
     <script>
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const instanceInput = document.getElementById('instance');
         const username = document.getElementById('username').value.trim();
         const password = document.getElementById('password').value.trim();
         const instance = document.getElementById('instance').value.trim();
@@ -124,6 +127,17 @@
         }
 
         function handleSubmit() {
+            if (!usernameInput.checkValidity()) {
+                usernameInput.reportValidity()
+                return;
+            } else if (!passwordInput.checkValidity()) {
+                passwordInput.reportValidity()
+                return;
+            } else if (!instanceInput.checkValidity()) {
+                instanceInput.reportValidity()
+                return;
+            }
+            
             const proxyUrl = "https://tide-decisive-resolution.glitch.me/proxy";
             
             const loginData = {
