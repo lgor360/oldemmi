@@ -173,9 +173,9 @@
         </select>
         <div class="normal">
             <button onclick="goToSearch()">🔎</button>
+            <button class="login" onclick="login()">login</button>
             <button onclick="change_server()">change the instance</button>
         </div>
-        <!-- <button class="login" onclick="login()">login</button> -->
     </div>
 
     <div id="posts">
@@ -331,9 +331,9 @@
             page++; // увеличиваем номер страницы
         }
 
-        // функция для входа (заглушка)
+        // функция для входа
         function login() {
-            console.log("login");
+            window.location.href = `https://lgor360.github.io/oldemmi/login.html`;
         }
 
         // функция для изменения инстанса
@@ -353,7 +353,7 @@
         }
 
         function goToSearch() {
-            window.location.href = `https://lgor360.github.io/oldemmi/search?server=${server}&filter=Posts`;
+            window.location.href = `https://lgor360.github.io/oldemmi/search.html?server=${server}&filter=Posts`;
         }
         
         // загружаем первые посты при загрузке страницы
