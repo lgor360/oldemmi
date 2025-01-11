@@ -324,6 +324,10 @@
             const url = new URL(actorId);
             return url.hostname; // возвращает домен, например, "lemmy.world"
         }
+        
+        function goToCommunity(comname, servecom) {
+            window.location.href = `https://lgor360.github.io/oldemmi/community.html?server=${servecom}&community=${comname}`
+        }
 
         function goToComments(postoid) {
             window.location.href = `https://lgor360.github.io/oldemmi/comments.html?server=${server}&post=${postoid}`
@@ -344,7 +348,7 @@
                             <img src="${post.creator.avatar || 'https://lgor360.github.io/oldemmi/user.png'}" alt="avatar">
                             <div class="author">
                                 ${post.creator.display_name || post.creator.name}
-                                <div class="community">
+                                <div onclick="goToCommunity('${post.community.name}', '${getInstanceFromActorId(post.community.actor_id)}')" class="community">
                                     ${post.community.name}
                                     @
                                     ${getInstanceFromActorId(post.community.actor_id)}
