@@ -177,10 +177,10 @@
             <option value="Controversial">controversial</option>
         </select>
         <div class="normal">
+            <div style="display: none;" class="profileInBar"></div>
             <button onclick="goToSearch()">🔎</button>
             <button style="display: inline;" id="login" class="login" onclick="login()">login</button>
             <button style="display: inline;" id="changeServer" onclick="change_server()">change the instance</button>
-            <div style="display: none;" class="profileInBar"></div>
         </div>
     </div>
 
@@ -233,7 +233,7 @@
                     }
                 });
                 const data = await response.json();
-                alert(data.user_view);
+                alert(data);
                 return data.user_view.user;
             } catch (error) {
                 alert(`error while loading profile: ${error}`);
