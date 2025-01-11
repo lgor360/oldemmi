@@ -118,6 +118,22 @@
         const usernameInput = document.getElementById('username');
         const passwordInput = document.getElementById('password');
         const instanceInput = document.getElementById('instance');
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const inputs = [usernameInput, passwordInput, instanceInput];
+
+            inputs.forEach(input => {
+                // обновляем значение явно
+                input.addEventListener('input', () => {
+                    input.setAttribute('value', input.value);
+                });
+
+                // при загрузке страницы или автозаполнении
+                input.addEventListener('change', () => {
+                    input.setAttribute('value', input.value);
+                });
+            });
+        });
         
         function goToHome() {
             window.location.href = 'https://lgor360.github.io/oldemmi/main.html'
