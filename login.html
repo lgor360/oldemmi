@@ -118,9 +118,9 @@
         const usernameInput = document.getElementById('username');
         const passwordInput = document.getElementById('password');
         const instanceInput = document.getElementById('instance');
-        const username = document.getElementById('username').value.trim();
-        const password = document.getElementById('password').value.trim();
-        const instance = document.getElementById('instance').value.trim();
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        const instance = document.getElementById('instance').value;
         
         function goToHome() {
             window.location.href = 'https://lgor360.github.io/oldemmi/main.html'
@@ -138,7 +138,6 @@
                 return;
             }
 
-            alert(instanceInput.value);
             const proxyUrl = "https://tide-decisive-resolution.glitch.me/proxy";
             const loginData = {
                 url: `https://${instance}/api/v3/user/login`,
@@ -222,22 +221,6 @@
                 alert("request error... " + error.message);
             });
         }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const inputs = [usernameInput, passwordInput, instanceInput];
-
-            inputs.forEach(input => {
-                // обновляем значение явно
-                input.addEventListener('input', () => {
-                    input.setAttribute('value', input.value);
-                });
-
-                // при загрузке страницы или автозаполнении
-                input.addEventListener('change', () => {
-                    input.setAttribute('value', input.value);
-                });
-            });
-        });
     </script>
 </body>
 </html>
