@@ -261,7 +261,7 @@
                     method: "GET",
                     headers: { "Content-Type": "application/json" }
                 });
-                const data = await response.json();
+                const data = response.json();
                 const nedCos = data.cross_posts;
                 if (nedCos && nedCos.length > 0) {
                     // создаём массив ссылок
