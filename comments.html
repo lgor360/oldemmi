@@ -257,9 +257,15 @@
 
         function checkCross(post_view) {
             try {
-                if (post_view.cross_posts && post_view.cross_posts.length > 0) {
+                const response = await fetch(`${api}/post?id=${post}`, {
+                    method: "GET",
+                    headers: { "Content-Type": "application/json" }
+                });
+                const data = await response.json();
+                const nedCos = data.cross_posts;
+                if (nedCos && nedCos.length > 0) {
                     // создаём массив ссылок
-                    const crossLinks = post_view.cross_posts.map(crossPost => {
+                    const crossLinks = nedCos.map(crossPost => {
                         const server = getInstanceFromActorId(crossPost.post.ap_id);
                         return `<a rel="noopener noreferrer" href="https://lgor360.github.io/oldemmi/comments.html?server=${server}&post=${crossPost.post.id}">
                                     ${server}
