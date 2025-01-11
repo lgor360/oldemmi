@@ -178,9 +178,9 @@
         </select>
         <div class="normal">
             <button onclick="goToSearch()">🔎</button>
-            <button id="login" class="login" onclick="login()">login</button>
-            <button id="changeServer" onclick="change_server()">change the instance</button>
-            <div class="profileInBar"></div>
+            <button style="display: inline;" id="login" class="login" onclick="login()">login</button>
+            <button style="display: inline;" id="changeServer" onclick="change_server()">change the instance</button>
+            <div style="display: none;" class="profileInBar"></div>
         </div>
     </div>
 
@@ -296,20 +296,18 @@
                 const login = document.getElementById("login");
             
                 if (lemmyToken) {
-                    profileInBar.style.display === "inline";
-                    changeServer.style.display === "none";
-                    login.style.display === "none";
+                    profileInBar.style.display = "inline";
+                    changeServer.style.display = "none";
+                    login.style.display = "none";
 
                     const user_view = await getLoggined();
-                    server = `${getInstanceFromActorId(user_view.user.actor_id)}`;
+                    server = `${localStorage.getItem("accountServer")}`;
                     profileInBar.innerHTML = `
                         <img src="${user_view.user.avatar || 'https://lgor360.github.io/oldemmi/user.png'}">
                         ${user_view.user.display_name || user_view.user.name}
                     `;
-                    return;
-                } else {
-                    return;
                 }
+                return;
             } catch (error) {
                 alert(`error while account login check: ${error}`);
             }
