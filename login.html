@@ -152,6 +152,7 @@
                     alert("successful login!");
                     // сохранить токен в локальном хранилище или cookie
                     localStorage.setItem("lemmyToken", data.jwt);
+                    goToHome();
                 } else if (data.error === 'missing_totp_token') {
                     // если ошибка missing-totp, показываем prompt
                     let totpCode = '';
@@ -199,6 +200,7 @@
                     alert("successful login!");
                     // сохранить токен в локальном хранилище или cookie
                     localStorage.setItem("lemmyToken", data.jwt);
+                    goToHome();
                 } else {
                     console.error("ошибка входа после 2FA:", data);
                     alert("login failed..." + (data.error || "unknown error"));
