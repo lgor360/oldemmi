@@ -108,30 +108,24 @@
             login to your account
         </div>
         <div class="login-form">
-            <input placeholder="username" type="text" id="username">
-            <input placeholder="password" type="password" id="password">
-            <input placeholder="instance" type="text" id="instance">
+            <input placeholder="username" type="text" id="username" required>
+            <input placeholder="password" type="password" id="password" required>
+            <input placeholder="instance" type="text" id="instance" required>
             <button onclick="handleSubmit()">login</button>
         </div>
     </div>
     <script>
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
-        const instance = document.getElementById('instance').value;
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value.trim();
+        const instance = document.getElementById('instance').value.trim();
         
         function goToHome() {
             window.location.href = 'https://lgor360.github.io/oldemmi/main.html'
         }
 
         function handleSubmit() {
-
-            if (!username || !password || !instance) {
-                alert('not all inputs are filled');
-                return;
-            }
-
             const proxyUrl = "https://tide-decisive-resolution.glitch.me/proxy";
-
+            
             const loginData = {
                 url: `https://${instance}/api/v3/user/login`,
                 method: "POST",
