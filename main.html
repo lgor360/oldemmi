@@ -229,9 +229,10 @@
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
-                        "authorization": `Bearer ${lemmyToken}`
+                        "Authorization": `Bearer ${lemmyToken}`
                     }
                 });
+                alert(`Bearer ${lemmyToken}`);
                 alert(await response.text());
                 const data = await response.json();
                 return data.user_view.user;
