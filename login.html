@@ -108,9 +108,9 @@
             login to your account
         </div>
         <div class="login-form">
-            <input placeholder="username" type="text" id="username" required>
-            <input placeholder="password" type="password" id="password" required>
-            <input placeholder="instance" type="text" id="instance" required>
+            <input placeholder="username" type="text" id="username" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-autocomplete="list" required>
+            <input placeholder="password" type="password" id="password" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-autocomplete="list" required>
+            <input placeholder="instance" type="text" id="instance" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-autocomplete="list" required>
             <button onclick="handleSubmit()">login</button>
         </div>
     </div>
@@ -226,22 +226,6 @@
                 alert("request error... " + error.message);
             });
         }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const inputs = [usernameInput, passwordInput, instanceInput];
-
-            inputs.forEach(input => {
-                // обновляем значение явно
-                input.addEventListener('input', () => {
-                    input.setAttribute('value', input.value);
-                });
-
-                // при загрузке страницы или автозаполнении
-                input.addEventListener('change', () => {
-                    input.setAttribute('value', input.value);
-                });
-            });
-        });
     </script>
 </body>
 </html>
