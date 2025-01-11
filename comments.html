@@ -254,12 +254,35 @@
         function goToCommunity(comname, servecom) {
             window.location.href = `https://lgor360.github.io/oldemmi/community.html?server=${servecom}&community=${comname}`
         }
+
+        function checkCross(post_view) {
+            try {
+                if (post_view.cross_posts && post_view.cross_posts.length > 0) {
+                    // создаём массив ссылок
+                    const crossLinks = post_view.cross_posts.map(crossPost => {
+                        const server = getInstanceFromActorId(crossPost.post.ap_id);
+                        return `<a rel="noopener noreferrer" href="https://lgor360.github.io/oldemmi/comments.html?server=${server}&post=${crossPost.post.id}">
+                                    ${server}
+                                </a>`;
+                    });
+                    // объединяем массив ссылок в одну строку
+                    return crossLinks.join(", ");
+                } else {
+                    return null; // если кросс-постов нет
+                }
+            } catch (error) {
+                alert(`error while checking cross-posts: ${error}`);
+                return null;
+            }
+        }
+        
         
         // функция для отображения постов
         function renderPost(post_view) {
             try {
                 const postContainer = document.getElementById("post");
 
+                const cross = checkCross(post_view);
                 const locked = post_view.post.locked === true ? '🔒' : '';
                 const deleted = post_view.post.deleted === true ? '🗑️' : '';
                 const postotourl = post_view.post.url && post_view.post.url !== post_view.post.thumbnail_url ? post_view.post.url : null;
@@ -304,6 +327,7 @@
                             <span>${post_view.counts.comments}</span>
                         </div>
                     </div>
+                    ${cross}
                 `;
                 postContainer.appendChild(postElement);
             } catch (error) {
