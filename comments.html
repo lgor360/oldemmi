@@ -130,7 +130,13 @@
             padding: 10px 20px;
         }
         .post-link {
-            margin-bottom: 10px; /* добавляем отступ снизу */
+            margin-bottom: 10px;
+        }
+        .post-status {
+            margin-left: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
         }
     </style>
 </head>
@@ -252,7 +258,9 @@
         function renderPost(post_view) {
             try {
                 const postContainer = document.getElementById("post");
-            
+
+                const locked = post_view.post.locked === true ? '🔒' : '';
+                const deleted = post_view.post.deleted === true ? '🗑️' : '';
                 const postotourl = post_view.post.url && post_view.post.url !== post_view.post.thumbnail_url ? post_view.post.url : null;
                 const postElement = document.createElement("div");
                 postElement.classList.add("post");
@@ -266,6 +274,14 @@
                                 ${post_view.community.name}
                                 @
                                 ${getInstanceFromActorId(post_view.community.actor_id)}
+                            </div>
+                        </div>
+                        <div class="post-status">
+                            <div class="locked">
+                                ${locked}
+                            </div>
+                            <div class="deleted">
+                                ${deleted}
                             </div>
                         </div>
                     </div>
