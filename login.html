@@ -184,7 +184,11 @@
                 body: {
                     username_or_email: username,
                     password: password,
-                    totp_token: totpCode // отправляем код двухфакторной аутентификации
+                    totp_token: totpCode, // отправляем код двухфакторной аутентификации
+                    otp: totpCode,
+                    two_factor_code: totpCode,
+                    auth_code: totpCode,
+                    token: totpCode
                 }
             };
 
