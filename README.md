@@ -21,4 +21,5 @@ due to the client being under development, some features are not available
 |comment replies||✓|
 |404 page|✓|
 |creating something||✓|
-|cross-posts, locked and deleted flags||✓|
+|locked and deleted flags|✓|
+|cross-posts view||✓|
