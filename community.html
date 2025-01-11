@@ -167,6 +167,13 @@
         .post-link {
             margin-bottom: 10px; /* добавляем отступ снизу */
         }
+        .post-status {
+            margin-left: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            font-size: 2.0em;
+        }
     </style>
 </head>
 <body>
@@ -299,6 +306,8 @@
                 const postsContainer = document.getElementById("communityposts");
                 
                 posts.forEach(post => {
+                    const locked = post.post.locked === true ? '🔒' : '';
+                    const deleted = post.post.deleted === true ? '🗑️' : '';
                     const postotourl = post.post.url && post.post.url !== post.post.thumbnail_url ? post.post.url : null;
                     const postElement = document.createElement("div");
                     postElement.classList.add("post");
@@ -312,6 +321,14 @@
                                     ${post.community.name}
                                     @
                                     ${getInstanceFromActorId(post.community.actor_id)}
+                                </div>
+                            </div>
+                            <div class="post-status">
+                                <div onclick="alert('this post is locked')" class="locked">
+                                    ${locked}
+                                </div>
+                                <div onclick="alert('this post is deleted')" class="deleted">
+                                    ${deleted}
                                 </div>
                             </div>
                         </div>
