@@ -145,7 +145,7 @@
             post body*
             <input id="body" placeholder="post content" required>
             <input type="checkbox" id="nsfw">this post is nsfw (18+)</input>
-            <button id="publish">publish</button>
+            <button onclick="publish()" id="publish">publish</button>
         </div>
     </div>
     <script>
@@ -159,6 +159,65 @@
             instdiv.innerHTML = `
                 ${server}
             `;
+        }
+
+        function publish() {
+            const communityInput = document.getElementById("community");
+            const titleInput = document.getElementById("title");
+            const urlInput = document.getElementById("url");
+            const bodyInput = document.getElementById("body");
+            const nsfwInput = document.getElementById("nsfw");
+            const [communityName, communityInstance] = communityInput.value.split("@");
+            const proxyUrl = "https://tide-decisive-resolution.glitch.me/proxy"
+            
+            if (!communityInput.value.includes('@')) {
+                alert("please enter a valid community in the format 'community@instance'");
+                return;
+            }
+
+            if (!titleInput.checkValidity()) {
+                titleInput.reportValidity();
+                return;
+            } else if (!communityInput.checkValidity()) {
+                communityInput.reportValidity();
+                return;
+            } else if (!bodyInput.checkValidity()) {
+                bodyInput.reportValidity();
+                return;
+            }
+            
+            const postData = {
+                url: `https://${communityInstance}/api/v3/post`,
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${lemmyToken}`
+                },
+                body: {
+                    community_name: communityName,
+                    name: titleInput.value,
+                    body: bodyInput.value,
+                    url: urlInput.value,
+                    nsfw: nsfwInput.checked
+                }
+            };
+            fetch(proxyUrl, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(postData)
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`error: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    alert("post published:", data);
+                })
+                .catch(error => {
+                    alert("error publishing post:", error);
+                });
         }
 
         async function getLoggined() {
