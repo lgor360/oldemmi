@@ -224,9 +224,9 @@
         async function fetchPosts() {
             try {
                 const response = await client.getPosts({
-                    sort: filter, // убрал `?`, так как это некорректно в данном контексте
-                    limit: limit,
-                    page: page
+                    sort?: filter, 
+                    limit?: limit,
+                    page?: page
                 });
                 return response.posts;
             } catch (error) {
