@@ -223,7 +223,7 @@
                 body: JSON.stringify(postData)
             })
                 .then(response => {
-                    alert(response.text());
+                    alert(response.json());
                     if (!response.ok) {
                         return response.json().then(text => {
                             throw new Error(`error: ${text}`);
