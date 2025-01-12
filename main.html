@@ -201,6 +201,7 @@
         fSelect.value = filter;
         const lemmyToken = localStorage.getItem("lemmyToken");
         const server = localStorage.getItem("accountServer") || urlParams.get('server') || "lemmy.world";
+        alert(server);
 
         function instanceapply() {
             const instdiv = document.querySelector(".navbar .oldemmi .text .instance");
@@ -403,11 +404,15 @@
         }
 
         async function initPage() {
-            await loginedornot();
-            // загружаем первые посты при загрузке страницы
-            await loadMorePosts();
-            // вставляем название сервера в заголовок
-            instanceapply();
+            try {
+                await loginedornot();
+                // загружаем первые посты при загрузке страницы
+                await loadMorePosts();
+                // вставляем название сервера в заголовок
+                instanceapply();
+            } catch (error) {
+                alert(`error while initialization page: ${error}`);
+            }
         }
 
         initPage();
