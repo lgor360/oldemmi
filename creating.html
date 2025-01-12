@@ -225,7 +225,7 @@
             })
                 .then(response => {
                     if (!response.ok) {
-                        return response.text().then(text => {
+                        return response.json().then(text => {
                             throw new Error(`error: ${text}`);
                         });
                     }
