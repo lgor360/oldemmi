@@ -211,7 +211,9 @@
         let fSelect = document.querySelector(".navbar #filter");
         fSelect.value = filter;
         const lemmyToken = localStorage.getItem("lemmyToken");
+        alert("mikrik");
         const client = new window.LemmyHttp(`https://${server}`);
+        alert("jopa");
 
         function instanceapply() {
             const instdiv = document.querySelector(".navbar .oldemmi .text .instance");
@@ -224,9 +226,9 @@
         async function fetchPosts() {
             try {
                 const response = await client.getPosts({
-                    sort?: filter, 
-                    limit?: limit,
-                    page?: page
+                    sort: filter, 
+                    limit: limit,
+                    page: page
                 });
                 return response.posts;
             } catch (error) {
