@@ -179,7 +179,7 @@
         <div class="normal">
             <div style="display: none;" class="profileInBar"></div>
             <button onclick="goToSearch()">🔎</button>
-            <button style="display: none;" id="login" class="login" onclick="login()">login</button>
+            <button style="display: inline;" id="login" class="login" onclick="login()">login</button>
             <button style="display: inline;" id="changeServer" onclick="change_server()">change the instance</button>
         </div>
     </div>
@@ -225,14 +225,13 @@
 
         async function getLoggined() {
             try {
-                const response = await fetch(`${api}/user`, {
+                const response = await fetch(`${api}/site`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
                         "Authorization": `Bearer ${lemmyToken}`
                     }
                 });
-                alert(`Bearer ${lemmyToken}`);
                 alert(await response.text());
                 const data = await response.json();
                 return data.user_view.user;
