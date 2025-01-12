@@ -197,6 +197,18 @@
             align-items: flex-end;
             font-size: 2.0em;
         }
+        .normal {
+            justify-content: normal;
+            display: flex;
+        }
+        .profileInBar {
+            display: flex;
+            align-items: center;
+            justify-content: normal;
+        }
+        .profileInBar img {
+            border: 1px solid #ccc;
+        }
     </style>
 </head>
 <body>
@@ -220,8 +232,11 @@
             </select>
             <button onclick="letssearch()">search</button>
         </div>
-        <!-- <button onclick="change_server()">change the instance</button> --->
-        <!-- <button class="login" onclick="login()">login</button> -->
+        <div class="normal">
+            <button id="logout" style="display: none;" onclick="logout('userlogout')">logout</button>
+            <button style="display: inline;" id="login" class="login" onclick="login()">login</button>
+            <div style="display: inline;" class="neP"><div style="display: none;" class="profileInBar"></div></div>
+        </div>
     </div>
 
     <div id="posts" style="display: none;">
@@ -320,6 +335,47 @@
                 return data.users;
             } catch (error) {
                 alert(`error while loading profile: ${error}`);
+            }
+        }
+
+        async function getLoggined() {
+            try {
+                const response = await fetch(`${api}/site`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${lemmyToken}`
+                    }
+                });
+                const data = await response.json();
+                return data.my_user.local_user_view.person;
+            } catch (error) {
+                alert(`error while loading profile: ${error}`);
+            }
+        }
+
+        async function validateToken() {
+            const serverUrl = `https://${server}/api/v3/user/validate_auth`;
+
+            try {
+                const response = await fetch(serverUrl, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${lemmyToken}`
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                console.log("token is valid:", data);
+                return true; // токен валидный
+            } catch (error) {
+                console.error("token validation failed:", error);
+                return false; // токен не валидный
             }
         }
       
@@ -530,20 +586,83 @@
             }
         }
 
-        // функция для входа (заглушка)
+        async function loginedornot() {
+            try {
+                const profileInBar = document.querySelector(".navbar .normal .neP .profileInBar");
+                const login = document.getElementById("login");
+                const logout = document.getElementById("logout");
+            
+                if (lemmyToken) {
+                    const lemmyTokenValid = await validateToken();
+                    if (lemmyTokenValid) {
+                        profileInBar.style.display = "flex";
+                        logout.style.display = "flex";
+                        login.style.display = "none";
+
+                        const user = await getLoggined();
+                        profileInBar.innerHTML = `
+                            <img onclick="goToProfile('${user.name}', '${server}')" src="${user.avatar || 'https://lgor360.github.io/oldemmi/user.png'}">
+                            <div class="text">
+                                ${user.display_name || user.name}
+                            </div>
+                        `;
+                    } else {
+                        logout("notvalid");
+                    }
+                }
+                 return;
+            } catch (error) {
+                alert(`error while account login check: ${error}`);
+            }
+        }
+        
+        // функция для входа
         function login() {
-            console.log("login");
+            window.location.href = `https://lgor360.github.io/oldemmi/login.html`;
         }
         
         function goToProfile(id, servero) {
             window.location.href = `https://lgor360.github.io/oldemmi/profile.html?server=${servero}&user=${id}`
         }
 
-        // функция для изменения инстанса
-        function change_server() {
-            const prompto = prompt("enter instance url. example: lemmy.world");
-            if (prompto) {
-                window.location.href = `https://lgor360.github.io/oldemmi/search?server=${prompto}&filter=${filter}&search=${search}`
+        async function logout(option) {
+            const confirmation = confirm("are you sure want to logout?");
+            if (!confirmation) {
+                return; // если пользователь нажал "нет", ничего не делаем
+            }
+
+            const proxyUrl = "https://tide-decisive-resolution.glitch.me/proxy";
+            const logoutData = {
+                url: `https://${server}/api/v3/user/logout`,
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${lemmyToken}`
+                },
+                body: {}
+            };
+
+            try {
+                if (option === "userlogout") {
+                // выполняем запрос на выход через прокси
+                    const response = await fetch(proxyUrl, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(logoutData)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`logout failed: ${response.status} ${response.statusText}`);
+                    }
+                }
+                // удаляем токен и сервер из LocalStorage
+                localStorage.removeItem("lemmyToken");
+                localStorage.removeItem("accountServer");
+
+                // перезапускаем текущую страницу
+                location.reload();
+            } catch (error) {
+                alert(`error during logout: ${error}`);
             }
         }
 
@@ -571,6 +690,7 @@
         
         async function loadSomething() {
             try {
+                await loginedornot();
                 if (filter === "Posts") {
                     const posts = await fetchPosts();
                     renderPosts(posts);
