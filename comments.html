@@ -169,8 +169,8 @@
                 </div>
             </div>
         </div>
-        <button onclick="goToSearch()">🔎</button>
         <div class="normal">
+            <button onclick="goToSearch()">🔎</button>
             <button id="logout" style="display: none;" onclick="logout('userlogout')">logout</button>
             <button style="display: inline;" id="login" class="login" onclick="login()">login</button>
             <div style="display: inline;" class="neP"><div style="display: none;" class="profileInBar"></div></div>
@@ -514,7 +514,7 @@
         }
         
         // загружаем пост и комментарии при загрузке страницы
-        await loginedornot();
+        loginedornot();
         loadPost();
         loadMoreComments();
         // вставляем название сервера в заголовок
