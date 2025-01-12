@@ -193,7 +193,11 @@
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
-        let server = urlParams.get('server') || "lemmy.world";
+        if (localStorage.getItem("accountServer")) {
+            const server = `${localStorage.getItem("accountServer")}`;
+        } else {
+            const server = urlParams.get('server') || "lemmy.world";
+        }
         const filter = urlParams.get('filter') || "New";
         let page = 1; // текущая страница для загрузки
         const limit = 9; // количество постов на одну загрузку
@@ -233,7 +237,7 @@
                     }
                 });
                 const data = await response.json();
-                return data.my_user.user;
+                return data.my_user.local_user_view.person;
             } catch (error) {
                 alert(`error while loading profile: ${error}`);
             }
@@ -301,7 +305,6 @@
                     login.style.display = "none";
 
                     const user = await getLoggined();
-                    server = `${localStorage.getItem("accountServer")}`;
                     profileInBar.innerHTML = `
                         <img src="${user.avatar || 'https://lgor360.github.io/oldemmi/user.png'}">
                         ${user.display_name || user.name}
