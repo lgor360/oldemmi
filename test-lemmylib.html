@@ -213,7 +213,7 @@
         const lemmyToken = localStorage.getItem("lemmyToken");
         alert("mikrik");
         try {
-            const client = new window.LemmyHttp(`https://${server}`);
+            const client = new LemmyHttp(`https://${server}`);
         } catch (error) {
             alert(error);
         }
