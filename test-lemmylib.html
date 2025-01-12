@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    <script type="module">
+        import { LemmyHttp } from "https://cdn.jsdelivr.net/npm/lemmy-js-client@latest/dist/index.esm.js";
+        window.LemmyHttp = LemmyHttp;
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>oldemmi</title>
@@ -202,7 +206,6 @@
     </div>
 
     <script>
-        import { LemmyHttp } from "https://cdn.jsdelivr.net/npm/lemmy-js-client@latest/dist/index.esm.js";
         const urlParams = new URLSearchParams(window.location.search);
         const filter = urlParams.get('filter') || "New";
         let page = 1; // текущая страница для загрузки
@@ -212,7 +215,7 @@
         fSelect.value = filter;
         const lemmyToken = localStorage.getItem("lemmyToken");
         const api = `https://${server}/api/v3`;
-        const client = new LemmyHttp(`https://${server}`);
+        const client = new window.LemmyHttp(`https://${server}`);
 
         function instanceapply() {
             const instdiv = document.querySelector(".navbar .oldemmi .text .instance");
