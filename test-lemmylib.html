@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/lemmy-js-client@latest/dist/index.umd.js"></script>
+    <script type="module">
+        import { LemmyHttp } from "https://cdn.jsdelivr.net/npm/lemmy-js-client@latest/dist/index.esm.js";
+        
+        const server = localStorage.getItem("accountServer") || urlParams.get('server') || "lemmy.world";
+        const client = new LemmyHttp(`https://${server}`);
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>oldemmi</title>
@@ -212,11 +217,6 @@
         fSelect.value = filter;
         const lemmyToken = localStorage.getItem("lemmyToken");
         alert("mikrik");
-        try {
-            const client = new LemmyHttp(`https://${server}`);
-        } catch (error) {
-            alert(error);
-        }
 
         function instanceapply() {
             const instdiv = document.querySelector(".navbar .oldemmi .text .instance");
