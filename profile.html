@@ -275,7 +275,7 @@
         // функция для получения профиля
         async function fetchUser() {
             try {
-                const response = await fetch(`${api}/user?person_id=${user}`, {
+                const response = await fetch(`${api}/user?username=${user}`, {
                     method: "GET",
                     headers: { "Content-Type": "application/json" }
                 });
