@@ -183,11 +183,11 @@
             <option value="Controversial">controversial</option>
         </select>
         <div class="normal">
-            <div style="display: none;" class="profileInBar"></div>
             <button onclick="goToSearch()">🔎</button>
             <button style="display: inline;" id="login" class="login" onclick="login()">login</button>
             <button style="display: inline;" id="changeServer" onclick="change_server()">change the instance</button>
         </div>
+        <div style="display: none;" class="profileInBar"></div>
     </div>
 
     <div id="posts">
@@ -298,7 +298,7 @@
 
         async function loginedornot() {
             try {
-                const profileInBar = document.querySelector(".navbar .normal .profileInBar");
+                const profileInBar = document.querySelector(".navbar .profileInBar");
                 const changeServer = document.getElementById("changeServer");
                 const login = document.getElementById("login");
             
