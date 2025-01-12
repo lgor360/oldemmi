@@ -189,7 +189,7 @@
             <button onclick="goToSearch()">🔎</button>
             <button style="display: inline;" id="login" class="login" onclick="login()">login</button>
             <button style="display: inline;" id="changeServer" onclick="change_server()">change the instance</button>
-            <div style="display: none;" class="profileInBar"></div>
+            <div style="display: inline;" class="neP"><div style="display: none;" class="profileInBar"></div></div>
         </div>
     </div>
 
@@ -300,7 +300,7 @@
 
         async function loginedornot() {
             try {
-                const profileInBar = document.querySelector(".navbar .normal .profileInBar");
+                const profileInBar = document.querySelector(".navbar .normal .neP .profileInBar");
                 const changeServer = document.getElementById("changeServer");
                 const login = document.getElementById("login");
             
