@@ -169,7 +169,7 @@
                     headers: { "Content-Type": "application/json" }
                 });
                 const data = await response.json();
-                return data.community_view.community.id;
+                return data.community_view;
             } catch (error) {
                 alert(`error while loading community: ${error}`);
             }
@@ -187,7 +187,7 @@
             }
             const [communityName, communityInstance] = communityInput.value.split("@");
             const proxyUrl = "https://tide-decisive-resolution.glitch.me/proxy"
-            const communityId = await fetchCommunity(communityName, communityInstance);
+            const communityData = await fetchCommunity(communityName, communityInstance);
             alert(communityName);
 
             if (!titleInput.checkValidity()) {
@@ -209,7 +209,7 @@
                     "Authorization": `Bearer ${lemmyToken}`
                 },
                 body: {
-                    community_id: communityId,
+                    community_id: communityData.community.id,
                     name: titleInput.value,
                     body: bodyInput.value,
                     url: urlInput.value,
