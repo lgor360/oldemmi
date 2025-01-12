@@ -110,6 +110,11 @@
             display: flex;
             flex-direction: column;
         }
+        .publish {
+            margin-top: 30px;
+            padding: 10px 20px;
+            max-width: 70px;
+        }
     </style>
 </head>
 <body>
@@ -131,9 +136,13 @@
     </div>
     <div class="caca">
         <div class="creating-form">
-            <input id="community" placeholder="community (example: test@lemmy.world. enter 'profile' to publish post in your profile)" required>
+            community (example: test@lemmy.world. enter 'profile' to publish post in your profile)*
+            <input id="community" placeholder="community" required>
+            post title*
             <input id="title" placeholder="post title" required>
+            post url
             <input id="url" placeholder="post url">
+            post body*
             <input id="body" placeholder="post content" required>
             <input type="checkbox" id="nsfw">this post is nsfw (18+)</input>
             <button id="publish">publish</button>
