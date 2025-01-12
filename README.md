@@ -7,7 +7,7 @@ i wanted to make a light client for lemmy. i tried to make it look like from the
 due to the client being under development, some features are not available
 |function|available|not available|
 |-|-|-|
-|login||✓|
+|login|✓|
 |posts view|✓|
 |comments view|✓|
 |account settings||✓|
