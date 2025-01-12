@@ -153,7 +153,6 @@
         const server = localStorage.getItem("accountServer") || urlParams.get('server') || "lemmy.world";
         const api = `https://${server}/api/v3`
         const lemmyToken = localStorage.getItem("lemmyToken");
-        alert(lemmyToken);
         
         function instanceapply() {
             const instdiv = document.querySelector(".navbar .oldemmi .text .instance");
@@ -203,7 +202,7 @@
             }
             
             const postData = {
-                url: `https://${communityInstance}/api/v3/post`,
+                url: `https://${communityInstance}/api/v3/post/create`,
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -351,10 +350,14 @@
                 localStorage.removeItem("accountServer");
 
                 // перезапускаем текущую страницу
-                location.reload();
+                window.location.href = "https://lgor360.github.io/oldemmi/main.html";
             } catch (error) {
                 alert(`error during logout: ${error}`);
             }
+        }
+
+        function goToComments(postoid) {
+            window.location.href = `https://lgor360.github.io/oldemmi/comments.html?server=${server}&post=${postoid}`
         }
 
         function goToHome() {
