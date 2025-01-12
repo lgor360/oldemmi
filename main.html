@@ -341,13 +341,13 @@
 
                         const user = await getLoggined();
                         profileInBar.innerHTML = `
-                            <img src="${user.avatar || 'https://lgor360.github.io/oldemmi/user.png'}">
+                            <img onclick="goToProfile('${user.name}', '${server}')" src="${user.avatar || 'https://lgor360.github.io/oldemmi/user.png'}">
                             <div class="text">
                                 ${user.display_name || user.name}
                             </div>
                         `;
                     } else {
-                        alert("not valided");
+                        logout("notvalid");
                     }
                 }
                  return;
