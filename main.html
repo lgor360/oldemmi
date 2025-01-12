@@ -225,7 +225,7 @@
 
         async function getLoggined() {
             try {
-                const response = await fetch(`${api}/account`, {
+                const response = await fetch(`${api}/site`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
@@ -233,7 +233,7 @@
                     }
                 });
                 const data = await response.json();
-                return data.user_view.user;
+                return data.my_user;
             } catch (error) {
                 alert(`error while loading profile: ${error}`);
             }
