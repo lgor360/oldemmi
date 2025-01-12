@@ -188,7 +188,6 @@
             const [communityName, communityInstance] = communityInput.value.split("@");
             const proxyUrl = "https://tide-decisive-resolution.glitch.me/proxy"
             const communityData = await fetchCommunity(communityName, communityInstance);
-            alert(communityName);
 
             if (!titleInput.checkValidity()) {
                 titleInput.reportValidity();
@@ -202,7 +201,7 @@
             }
             
             const postData = {
-                url: `https://${communityInstance}/api/v3/create-post`,
+                url: `https://${communityInstance}/api/v3/post`,
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -224,6 +223,7 @@
                 body: JSON.stringify(postData)
             })
                 .then(response => {
+                    alert(response.text());
                     if (!response.ok) {
                         return response.json().then(text => {
                             throw new Error(`error: ${text}`);
