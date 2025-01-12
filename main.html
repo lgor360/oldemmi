@@ -401,12 +401,16 @@
         function goToSearch() {
             window.location.href = `https://lgor360.github.io/oldemmi/search.html?server=${server}&filter=Posts`;
         }
-        
-        loginedornot();
-        // загружаем первые посты при загрузке страницы
-        loadMorePosts();
-        // вставляем название сервера в заголовок
-        instanceapply();
+
+        async function initPage() {
+            await loginedornot();
+            // загружаем первые посты при загрузке страницы
+            await loadMorePosts();
+            // вставляем название сервера в заголовок
+            instanceapply();
+        }
+
+        initPage();
     </script>
 </body>
 </html>
