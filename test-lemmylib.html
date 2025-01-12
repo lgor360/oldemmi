@@ -2,8 +2,12 @@
 <html lang="ru">
 <head>
     <script type="module">
-        import { LemmyHttp } from "https://cdn.jsdelivr.net/npm/lemmy-js-client@latest/dist/index.esm.js";
-        window.LemmyHttp = LemmyHttp;
+        try {
+            import { LemmyHttp } from "https://cdn.jsdelivr.net/npm/lemmy-js-client@latest/dist/index.esm.js";
+            window.LemmyHttp = LemmyHttp;
+        } catch (error) {
+            alert(error);
+        }
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
