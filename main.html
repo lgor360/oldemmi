@@ -193,11 +193,6 @@
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
-        if (localStorage.getItem("accountServer")) {
-            const server = `${localStorage.getItem("accountServer")}`;
-        } else {
-            const server = urlParams.get('server') || "lemmy.world";
-        }
         const filter = urlParams.get('filter') || "New";
         let page = 1; // текущая страница для загрузки
         const limit = 9; // количество постов на одну загрузку
@@ -205,6 +200,11 @@
         let fSelect = document.querySelector(".navbar #filter");
         fSelect.value = filter;
         const lemmyToken = localStorage.getItem("lemmyToken");
+        if (localStorage.getItem("accountServer")) {
+            const server = localStorage.getItem("accountServer");
+        } else {
+            const server = urlParams.get('server') || "lemmy.world";
+        }
 
         function instanceapply() {
             const instdiv = document.querySelector(".navbar .oldemmi .text .instance");
