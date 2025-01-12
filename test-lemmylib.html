@@ -216,7 +216,7 @@
         let fSelect = document.querySelector(".navbar #filter");
         fSelect.value = filter;
         const lemmyToken = localStorage.getItem("lemmyToken");
-        alert("mikrik");
+        const api = `https://${server}/api/v3`;
 
         function instanceapply() {
             const instdiv = document.querySelector(".navbar .oldemmi .text .instance");
