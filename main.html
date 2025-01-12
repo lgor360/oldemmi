@@ -233,7 +233,7 @@
                     }
                 });
                 const data = await response.json();
-                return data.my_user;
+                return data.my_user.user;
             } catch (error) {
                 alert(`error while loading profile: ${error}`);
             }
