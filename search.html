@@ -443,6 +443,7 @@
                 posts.forEach(post => {
                     const locked = post.post.locked === true ? '🔒' : '';
                     const deleted = post.post.deleted === true ? '🗑️' : '';
+                    const nsfw = post.post.nsfw === true ? '🔞' : '';
                     const postotourl = post.post.url && post.post.url !== post.post.thumbnail_url ? post.post.url : null;
                     const postElement = document.createElement("div");
                     postElement.classList.add("post");
@@ -464,6 +465,9 @@
                                 </div>
                                 <div onclick="alert('this post is deleted')" class="deleted">
                                     ${deleted}
+                                </div>
+                                <div onclick="alert('this post is nsfw (18+)')" class="nsfw">
+                                    ${nsfw}
                                 </div>
                             </div>
                         </div>
