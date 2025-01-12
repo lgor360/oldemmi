@@ -99,6 +99,16 @@
             font-weight: bold;
             font-size: 1.2em;
         }
+        .caca {
+            margin: 40px 0;
+            text-align: center;
+        }
+        .creating-form {
+            max-width: 250px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+        }
     </style>
 </head>
 <body>
@@ -116,6 +126,16 @@
             <button id="logout" style="display: none;" onclick="logout('userlogout')">logout</button>
             <button style="display: inline;" id="login" class="login" onclick="login()">login</button>
             <div style="display: inline;" class="neP"><div style="display: none;" class="profileInBar"></div></div>
+        </div>
+    </div>
+    <div class="caca">
+        <div class="creating-form">
+            <input id="community" placeholder="community (example: test@lemmy.world. enter 'profile' to publish post in your profile)" required>
+            <input id="title" placeholder="post title" required>
+            <input id="url" placeholder="post url">
+            <input id="body" placeholder="post content" required>
+            <input type="checkbox" id="nsfw">this post is nsfw (18+)</input>
+            <button id="publish">publish</button>
         </div>
     </div>
     <script>
