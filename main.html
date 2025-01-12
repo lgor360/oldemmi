@@ -188,6 +188,7 @@
         </select>
         <div class="normal">
             <button onclick="goToSearch()">🔎</button>
+            <button onclick="logout()">logout</button>
             <button style="display: inline;" id="login" class="login" onclick="login()">login</button>
             <button style="display: inline;" id="changeServer" onclick="change_server()">change the instance</button>
             <div style="display: inline;" class="neP"><div style="display: none;" class="profileInBar"></div></div>
@@ -412,6 +413,46 @@
 
         function goToSearch() {
             window.location.href = `https://lgor360.github.io/oldemmi/search.html?server=${server}&filter=Posts`;
+        }
+
+        async function logout() {
+            const confirmation = confirm("are you sure want to logout?");
+            if (!confirmation) {
+                return; // если пользователь нажал "нет", ничего не делаем
+            }
+
+            const proxyUrl = "https://tide-decisive-resolution.glitch.me/proxy";
+            const logoutData = {
+                url: `https://${server}/api/v3/user/logout`,
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${lemmyToken}`
+                },
+                body: {}
+            };
+
+            try {
+                // выполняем запрос на выход через прокси
+                const response = await fetch(proxyUrl, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(logoutData)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`logout failed: ${response.status} ${response.statusText}`);
+                }
+
+                // удаляем токен и сервер из LocalStorage
+                localStorage.removeItem("lemmyToken");
+                localStorage.removeItem("accountServer");
+
+                // перезапускаем текущую страницу
+                location.reload();
+            } catch (error) {
+                alert(`error during logout: ${error}`);
+            }
         }
 
         async function initPage() {
