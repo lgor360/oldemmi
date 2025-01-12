@@ -169,7 +169,7 @@
             const nsfwInput = document.getElementById("nsfw");
             const [communityName, communityInstance] = communityInput.value.split("@");
             const proxyUrl = "https://tide-decisive-resolution.glitch.me/proxy"
-            
+            alert(communityName);
             if (!communityInput.value.includes('@')) {
                 alert("please enter a valid community in the format 'community@instance'");
                 return;
