@@ -188,7 +188,7 @@
         </select>
         <div class="normal">
             <button onclick="goToSearch()">🔎</button>
-            <button onclick="logout()">logout</button>
+            <button id="logout" style="display: none;" onclick="logout()">logout</button>
             <button style="display: inline;" id="login" class="login" onclick="login()">login</button>
             <button style="display: inline;" id="changeServer" onclick="change_server()">change the instance</button>
             <div style="display: inline;" class="neP"><div style="display: none;" class="profileInBar"></div></div>
@@ -305,9 +305,11 @@
                 const profileInBar = document.querySelector(".navbar .normal .neP .profileInBar");
                 const changeServer = document.getElementById("changeServer");
                 const login = document.getElementById("login");
+                const logout = document.getElementById("logout");
             
                 if (lemmyToken) {
                     profileInBar.style.display = "flex";
+                    logout.style.display = "flex";
                     changeServer.style.display = "none";
                     login.style.display = "none";
 
