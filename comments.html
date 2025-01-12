@@ -324,7 +324,7 @@
 
                 const locked = post_view.post.locked === true ? '🔒' : '';
                 const deleted = post_view.post.deleted === true ? '🗑️' : '';
-                    const nsfw = post.post.nsfw === true ? '🔞' : '';
+                const nsfw = post_view.post.nsfw === true ? '🔞' : '';
                 const postotourl = post_view.post.url && post_view.post.url !== post_view.post.thumbnail_url ? post_view.post.url : null;
                 const postElement = document.createElement("div");
                 postElement.classList.add("post");
