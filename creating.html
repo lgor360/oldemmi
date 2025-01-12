@@ -213,9 +213,9 @@
                     name: titleInput.value,
                     body: bodyInput.value,
                     url: urlInput.value || null,
-                    nsfw: nsfwInput.checked,
+                    nsfw: nsfwInput.checked || false,
                     language: 0,
-                    honeypot: "'
+                    honeypot: ""
                 }
             };
             fetch(proxyUrl, {
@@ -225,7 +225,9 @@
             })
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error(`error: ${response.text()}`);
+                        return response.text().then(text => {
+                            throw new Error(`error: ${text}`);
+                        });
                     }
                     return response.json();
                 })
