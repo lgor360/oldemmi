@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/lemmy-js-client/dist/index.js"></script>
+    <script type="module">
+      import lemmyJsClient from 'https://cdn.skypack.dev/lemmy-js-client';
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>oldemmi</title>
@@ -212,8 +214,9 @@
         fSelect.value = filter;
         const lemmyToken = localStorage.getItem("lemmyToken");
         const api = `https://${server}/api/v3`;
-        alert(window.LemmyHttp);
-        const client = new window.LemmyHttp(`https://${server}`);
+        import { LemmyHttp } from 'lemmy-js-client';
+        alert(lemmyHttp);
+        const client = new LemmyHttp(`https://${server}`);
         alert("ka");
         alert(client);
 
