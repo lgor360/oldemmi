@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oldemmi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #404040;
+            color: #f3f3f3;
+            margin: 0;
+            padding: 0;
+        }
+        button {
+            border: 1px solid #ccc;
+            border-radius: 0px;
+            cursor: pointer;
+            background-color: #353535;
+            color: #fff;
+        }
+        input {
+            border: 1px solid #ccc;
+            border-radius: 0px;
+            background-color: #353535;
+            color: #fff;
+            box-sizing: border-box;
+            padding: 6px 20px;
+            margin: 10px 0;
+            display: block;
+            width: 100%;
+            cursor: text;
+        }
+        a {
+            color: #b3c46d;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #a7b766;
+            text-decoration: none;
+        }
+        a:active {
+            color: #a0b742;
+            text-decoration: none;
+        }
+        a:visited {
+            color: #aab775;
+            text-decoration: none;
+        }
+        .navbar {
+            background-color: #282828;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ccc;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            overflow: hidden;
+        }
+        .navbar img {
+            height: 40px;
+            border: none;
+        }
+        .navbar button {
+            padding: 10px 15px;
+        }
+        .navbar .login {
+            background-color: #a3af74;
+        }
+        .navbar .oldemmi {
+            display: flex;
+            align-items: center;
+            justify-content: normal;
+        }
+        .navbar .oldemmi .text {
+            margin-left: 5px;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        .navbar .oldemmi .text .instance {
+            font-size: 0.6em;
+        }
+        .normal {
+            justify-content: normal;
+            display: flex;
+        }
+        .profileInBar {
+            display: flex;
+            align-items: center;
+            justify-content: normal;
+        }
+        .profileInBar img {
+            border: 1px solid #ccc;
+        }
+        .profileInBar .text {
+            margin-left: 5px;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div onclick="goToHome()" class="oldemmi">
+            <img src="https://lgor360.github.io/oldemmi/logo.png" alt="oldemmi logo">
+            <div class="text">
+                oldemmi
+                <div class="instance">
+                    <!-- тут будет сервер -->
+                </div>
+            </div>
+        </div>
+        <div class="normal">
+            <button id="logout" style="display: none;" onclick="logout('userlogout')">logout</button>
+            <button style="display: inline;" id="login" class="login" onclick="login()">login</button>
+            <div style="display: inline;" class="neP"><div style="display: none;" class="profileInBar"></div></div>
+        </div>
+    </div>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const server = localStorage.getItem("accountServer") || urlParams.get('server') || "lemmy.world";
+        const api = `https://${server}/api/v3`
+        const lemmyToken = localStorage.getItem("lemmyToken");
+        
+        function instanceapply() {
+            const instdiv = document.querySelector(".navbar .oldemmi .text .instance");
+            instdiv.innerHTML = `
+                ${server}
+            `;
+        }
+
+        async function getLoggined() {
+            try {
+                const response = await fetch(`${api}/site`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${lemmyToken}`
+                    }
+                });
+                const data = await response.json();
+                return data.my_user.local_user_view.person;
+            } catch (error) {
+                alert(`error while loading profile: ${error}`);
+            }
+        }
+
+        async function validateToken() {
+            const serverUrl = `https://${server}/api/v3/user/validate_auth`;
+
+            try {
+                const response = await fetch(serverUrl, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${lemmyToken}`
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                console.log("token is valid:", data);
+                return true; // токен валидный
+            } catch (error) {
+                console.error("token validation failed:", error);
+                return false; // токен не валидный
+            }
+        }
+
+        async function loginedornot() {
+            try {
+                const profileInBar = document.querySelector(".navbar .normal .neP .profileInBar");
+                const login = document.getElementById("login");
+                const logout = document.getElementById("logout");
+            
+                if (lemmyToken) {
+                    const lemmyTokenValid = await validateToken();
+                    if (lemmyTokenValid) {
+                        profileInBar.style.display = "flex";
+                        logout.style.display = "flex";
+                        login.style.display = "none";
+
+                        const user = await getLoggined();
+                        profileInBar.innerHTML = `
+                            <img onclick="goToProfile('${user.name}', '${server}')" src="${user.avatar || 'https://lgor360.github.io/oldemmi/user.png'}">
+                            <div class="text">
+                                ${user.display_name || user.name}
+                            </div>
+                        `;
+                    } else {
+                        logout("notvalid");
+                    }
+                }
+                 return;
+            } catch (error) {
+                alert(`error while account login check: ${error}`);
+            }
+        }
+        
+        // функция для входа
+        function login() {
+            window.location.href = `https://lgor360.github.io/oldemmi/login.html`;
+        }
+
+        async function logout(option) {
+            const confirmation = confirm("are you sure want to logout?");
+            if (!confirmation) {
+                return; // если пользователь нажал "нет", ничего не делаем
+            }
+
+            const proxyUrl = "https://tide-decisive-resolution.glitch.me/proxy";
+            const logoutData = {
+                url: `https://${server}/api/v3/user/logout`,
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${lemmyToken}`
+                },
+                body: {}
+            };
+
+            try {
+                if (option === "userlogout") {
+                // выполняем запрос на выход через прокси
+                    const response = await fetch(proxyUrl, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(logoutData)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`logout failed: ${response.status} ${response.statusText}`);
+                    }
+                }
+                // удаляем токен и сервер из LocalStorage
+                localStorage.removeItem("lemmyToken");
+                localStorage.removeItem("accountServer");
+
+                // перезапускаем текущую страницу
+                location.reload();
+            } catch (error) {
+                alert(`error during logout: ${error}`);
+            }
+        }
+
+        function goToHome() {
+            window.location.href = `https://lgor360.github.io/oldemmi/main.html?server=${server}`
+        }
+
+        function goToProfile(id, servero) {
+            window.location.href = `https://lgor360.github.io/oldemmi/profile.html?server=${servero}&user=${id}`
+        }
+        
+        // загружаем пост и комментарии при загрузке страницы
+        loginedornot();
+        // вставляем название сервера в заголовок
+        instanceapply();
+    </script>
+</body>
+</html>
