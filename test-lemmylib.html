@@ -212,8 +212,11 @@
         fSelect.value = filter;
         const lemmyToken = localStorage.getItem("lemmyToken");
         alert("mikrik");
-        const client = new window.LemmyHttp(`https://${server}`);
-        alert("jopa");
+        try {
+            const client = new window.LemmyHttp(`https://${server}`);
+        } catch (error) {
+            alert("fuc");
+        }
 
         function instanceapply() {
             const instdiv = document.querySelector(".navbar .oldemmi .text .instance");
