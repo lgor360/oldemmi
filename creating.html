@@ -208,13 +208,15 @@
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${lemmyToken}`
                 },
-                body: JSON.stringify({
+                body: {
                     community_id: communityData.community.id,
                     name: titleInput.value,
                     body: bodyInput.value,
-                    url: urlInput.value,
-                    nsfw: nsfwInput.checked
-                })
+                    url: urlInput.value || null,
+                    nsfw: nsfwInput.checked,
+                    language: 0,
+                    honeypot: "'
+                }
             };
             fetch(proxyUrl, {
                 method: "POST",
