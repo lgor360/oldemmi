@@ -189,7 +189,7 @@
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
-        const server = localStorage.getItem("accountServer") || urlParams.get('server') || "lemmy.world";
+        const server = urlParams.get('server') || "lemmy.world";
         const post = urlParams.get('post') || "826753";
         let page = 1; // текущая страница для загрузки
         const limit = 9; // количество постов на одну загрузку
@@ -232,7 +232,7 @@
 
         async function getLoggined() {
             try {
-                const response = await fetch(`${api}/site`, {
+                const response = await fetch(`https://${localStorage.getItem("accountServer")}/api/v3/site`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
@@ -247,7 +247,7 @@
         }
 
         async function validateToken() {
-            const serverUrl = `https://${server}/api/v3/user/validate_auth`;
+            const serverUrl = `https://${localStorage.getItem("accountServer")}/api/v3/user/validate_auth`;
 
             try {
                 const response = await fetch(serverUrl, {
@@ -444,7 +444,7 @@
 
                         const user = await getLoggined();
                         profileInBar.innerHTML = `
-                            <img onclick="goToProfile('${user.name}', '${server}')" src="${user.avatar || 'https://lgor360.github.io/oldemmi/user.png'}">
+                            <img onclick="goToProfile('${user.name}', '${localStorage.getItem("accountServer")}')" src="${user.avatar || 'https://lgor360.github.io/oldemmi/user.png'}">
                             <div class="text">
                                 ${user.display_name || user.name}
                             </div>
@@ -472,7 +472,7 @@
 
             const proxyUrl = "https://tide-decisive-resolution.glitch.me/proxy";
             const logoutData = {
-                url: `https://${server}/api/v3/user/logout`,
+                url: `https://${localStorage.getItem("accountServer")}/api/v3/user/logout`,
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
