@@ -434,7 +434,7 @@
                     const locked = post.post.locked === true ? '🔒' : '';
                     const deleted = post.post.deleted === true ? '🗑️' : '';
                     const nsfw = post.post.nsfw === true ? '🔞' : '';
-                    const cross = checkCross(post.post.id) === true ? '🔄' : '';
+                    const cross = await checkCross(post.post.id) === true ? '🔄' : '';
                     const postotourl = post.post.url && post.post.url !== post.post.thumbnail_url ? post.post.url : null;
                     const postElement = document.createElement("div");
                     postElement.classList.add("post");
