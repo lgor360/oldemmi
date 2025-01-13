@@ -438,8 +438,9 @@
             }
         }
 
-        function filters() {
+        async function filters() {
             filter = fSelect.value;
+            page = 1;
             document.getElementById("posts").innerHTML = "";
             await loadMorePosts();
         }
