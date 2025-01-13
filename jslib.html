@@ -2,10 +2,12 @@
 <html lang="ru">
 <head>
     <script type="module">
-        import { LemmyHTTP } from "https://cdn.jsdelivr.net/npm/lemmy-js-client@0.20.0-image-api-rework.8/dist/index.js";
-        const server = localStorage.getItem("accountServer") || urlParams.get('server') || "lemmy.world";
-        const client = new LemmyHttp(`https://${server}`);
-        window.client = client;
+        window.onload = () => {
+            import { LemmyHTTP } from "https://cdn.jsdelivr.net/npm/lemmy-js-client@0.20.0-image-api-rework.8/dist/index.js";
+            const server = localStorage.getItem("accountServer") || urlParams.get('server') || "lemmy.world";
+            const client = new LemmyHttp(`https://${server}`);
+            window.client = client;
+        };
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
