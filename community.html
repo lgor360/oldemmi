@@ -533,8 +533,8 @@
                             </div>
                         </div>
                     </div>
+                    ${community_view.community.description ? `<div class='bio'>${parseMarkdown(community_view.community.description)}</div>` : ''}
                     <div class="profile-bottom">
-                        ${community_view.community.description ? `<div class='bio'>${parseMarkdown(community_view.community.description)}</div>` : ''}
                         <div class="followButton">
                             <button onclick="subscribe(${community_view.community.id} ,${doisubornot})">${but}</button>
                         </div>
