@@ -233,6 +233,7 @@
         let page = 1; // текущая страница для загрузки
         const limit = 9; // количество постов на одну загрузку
         const api = `https://${server}/api/v3`
+        let comid = null;
 
         function goToSearch() {
             window.location.href = `https://lgor360.github.io/oldemmi/search?server=${server}&filter=Posts`;
@@ -253,6 +254,7 @@
                     headers: { "Content-Type": "application/json" }
                 });
                 const data = await response.json();
+                comid = data.community_view.community.id;
                 return data.community_view;
             } catch (error) {
                 alert(`error while loading community: ${error}`);
@@ -349,6 +351,51 @@
             });
             return text;
         }
+
+        function subscribe(id, follow) {
+            const proxyUrl = "https://tide-decisive-resolution.glitch.me/proxy";
+
+            const data = {
+                url: `https://${instance.value}/api/v3/community/follow`,
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: {
+                    community_id: `${id}`,
+                    follow: `${follow}`
+                }
+            };
+
+            fetch(proxyUrl, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.community_view.community.subscribed) {
+                    if (data.community_view.subscribed === "NotSubscribed") {
+                        const but = "+";
+                        const doisubornot = true;
+                    } else if (data.community_view.subscribed === "Subscribed") {
+                        const but = "-";
+                        const doisubornot = false;
+                    } else if (data.community_view.subscribed === "Pending") {
+                        const but = "•••";
+                        const doisubornot = false;
+                    }
+                    document.getElementById("followButton").innerHTML = `
+                        <button onclick="subscribe(${comid} ,${doisubornot})">${but}</button>
+                    `;
+                } else {
+                    console.error("ошибка входа после 2FA:", data);
+                    alert("login failed..." + (data.error || "unknown error"));
+                }
+            })
+            .catch(error => {
+                console.error("ошибка запроса для подписки:", error);
+                alert("request error... " + error.message);
+            });
+        }
         
         function getInstanceFromActorId(actorId) {
             const url = new URL(actorId);
@@ -434,6 +481,16 @@
 
                 const date = new Date(community_view.community.published);
                 const profile = document.querySelector(".profile");
+                if (community_view.subscribed === "NotSubscribed") {
+                    const but = "+";
+                    const doisubornot = true;
+                } else if (community_view.subscribed === "Subscribed") {
+                    const but = "-";
+                    const doisubornot = false;
+                } else if (community_view.subscribed === "Pending") {
+                    const but = "•••";
+                    const doisubornot = false;
+                }
 
                 profile.innerHTML = `
                     <div class="profile-header">
@@ -457,6 +514,9 @@
                                 👥
                                 <span>${community_view.counts.subscribers}</span>
                             </div>
+                        </div>
+                        <div class="followButton">
+                            <button onclick="subscribe(${community_view.community.id} ,${doisubornot})">${but}</button>
                         </div>
                     </div>
                     ${community_view.community.description ? `<div class='bio'>${parseMarkdown(community_view.community.description)}</div>` : ''}
