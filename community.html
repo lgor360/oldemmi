@@ -358,7 +358,10 @@
             const data = {
                 url: `https://${instance.value}/api/v3/community/follow`,
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${lemmyToken}`
+                },
                 body: {
                     community_id: `${id}`,
                     follow: `${follow}`
