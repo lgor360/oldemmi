@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/lemmy-js-client@0.20.0-image-api-rework.8/dist/index.js"></script>
+    <script type="module">
+        import { LemmyHTTP } from "https://cdn.jsdelivr.net/npm/lemmy-js-client@0.20.0-image-api-rework.8/dist/index.js";
+        const server = localStorage.getItem("accountServer") || urlParams.get('server') || "lemmy.world";
+        const client = new LemmyHttp(`https://${server}`);
+        window.client = client;
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>oldemmi</title>
@@ -207,14 +212,13 @@
         const filter = urlParams.get('filter') || "New";
         let page = 1; // текущая страница для загрузки
         const limit = 9; // количество постов на одну загрузку
-        const server = localStorage.getItem("accountServer") || urlParams.get('server') || "lemmy.world";
         let fSelect = document.querySelector(".navbar #filter");
         fSelect.value = filter;
         const lemmyToken = localStorage.getItem("lemmyToken");
         const api = `https://${server}/api/v3`;
         alert("a");
-        import { LemmyHttp } from 'lemmy-js-client';
-        const client = new LemmyHttp(`https://${server}`);
+        client = window.client;
+        alert(client);
 
         function instanceapply() {
             const instdiv = document.querySelector(".navbar .oldemmi .text .instance");
