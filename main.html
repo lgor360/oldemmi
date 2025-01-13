@@ -443,7 +443,7 @@
             page = 1;
             document.getElementById("posts").innerHTML = "";
             const url = new URL(window.location);
-            url.searchParams.set(filter, fSelect.value);
+            url.searchParams.set("filter", filter);
             window.history.replaceState({}, '', url);
             await loadMorePosts();
         }
