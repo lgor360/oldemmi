@@ -236,6 +236,7 @@
     </div>
 
     <script>
+        let logined = false;
         const lemmyToken = localStorage.getItem("lemmyToken");
         const urlParams = new URLSearchParams(window.location.search);
         const server = urlParams.get('server') || "lemmy.world";
@@ -259,10 +260,21 @@
         // функция для получения профиля
         async function fetchCommunity() {
             try {
-                const response = await fetch(`${api}/community?name=${community}`, {
-                    method: "GET",
-                    headers: { "Content-Type": "application/json" }
-                });
+                let response;
+                if (logined === true) {
+                    response = await fetch(`${api}/community?name=${community}`, {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${lemmyToken}`
+                        }
+                    });
+                } else {
+                    response = await fetch(`${api}/community?name=${community}`, {
+                        method: "GET",
+                        headers: { "Content-Type": "application/json" }
+                    });
+                }
                 const data = await response.json();
                 comid = data.community_view.community.id;
                 return data.community_view;
@@ -573,6 +585,7 @@
                 if (lemmyToken) {
                     const lemmyTokenValid = await validateToken();
                     if (lemmyTokenValid) {
+                        logined = true;
                         profileInBar.style.display = "flex";
                         logout.style.display = "flex";
                         login.style.display = "none";
@@ -653,4 +666,4 @@
         loadMorePosts();
     </script>
 </body>
-      </html>
+</html>
