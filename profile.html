@@ -299,24 +299,6 @@
             }
         }
 
-        // функция для получения постов
-        function checkCross(p) {
-            try {
-                const response = await fetch(`${api}/post?id=${p}`, {
-                    method: "GET",
-                    headers: { "Content-Type": "application/json" }
-                });
-                const data = response.json();
-                if (data.cross_posts) {
-                    return true;
-                } else {
-                    return false;
-                }
-            } catch (error) {
-                alert(`error while loading cross-posts for post: ${error}`);
-            }
-        }
-
         async function fetchComments() {
             try {
                 const response = await fetch(`${api}/user?username=${user}&page=${page}&limit=${limit}`, {
@@ -434,8 +416,6 @@
                     const locked = post.post.locked === true ? '🔒' : '';
                     const deleted = post.post.deleted === true ? '🗑️' : '';
                     const nsfw = post.post.nsfw === true ? '🔞' : '';
-                    const cr = checkCross(post.post.id);
-                    const cross = cr === true ? '🔄' : '';
                     const postotourl = post.post.url && post.post.url !== post.post.thumbnail_url ? post.post.url : null;
                     const postElement = document.createElement("div");
                     postElement.classList.add("post");
@@ -460,9 +440,6 @@
                                 </div>
                                 <div onclick="alert('this post is nsfw (18+)')" class="nsfw">
                                     ${nsfw}
-                                </div>
-                                <div onclick="alert('this post have cross-posts')" class="cross">
-                                    ${cross}
                                 </div>
                             </div>
                         </div>
