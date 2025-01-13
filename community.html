@@ -260,6 +260,7 @@
         // функция для получения профиля
         async function fetchCommunity() {
             try {
+                alert(lemmyToken);
                 let response;
                 if (lemmyToken) {
                     response = await fetch(`${api}/community?name=${community}`, {
