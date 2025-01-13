@@ -276,7 +276,6 @@
                         headers: { "Content-Type": "application/json" }
                     });
                 }
-                alert(await response.text());
                 const data = await response.json();
                 comid = data.community_view.community.id;
                 return data.community_view;
@@ -578,43 +577,6 @@
             renderCommunity(community_view);
         }
 
-        async function loginedornot() {
-            try {
-                const profileInBar = document.querySelector(".navbar .normal .neP .profileInBar");
-                const login = document.getElementById("login");
-                const logout = document.getElementById("logout");
-            
-                if (lemmyToken) {
-                    const lemmyTokenValid = await validateToken();
-                    if (lemmyTokenValid) {
-                        logined = true;
-                        alert("a");
-                        profileInBar.style.display = "flex";
-                        logout.style.display = "flex";
-                        login.style.display = "none";
-
-                        const user = await getLoggined();
-                        profileInBar.innerHTML = `
-                            <img onclick="goToProfile('${user.name}', '${localStorage.getItem("accountServer")}')" src="${user.avatar || 'https://lgor360.github.io/oldemmi/user.png'}">
-                            <div class="text">
-                                ${user.display_name || user.name}
-                            </div>
-                        `;
-                    } else {
-                        logout("notvalid");
-                    }
-                }
-                 return;
-            } catch (error) {
-                alert(`error while account login check: ${error}`);
-            }
-        }
-        
-        // функция для входа
-        function login() {
-            window.location.href = `https://lgor360.github.io/oldemmi/login.html`;
-        }
-
         async function logout(option) {
             const confirmation = confirm("are you sure want to logout?");
             if (!confirmation) {
@@ -654,6 +616,43 @@
             } catch (error) {
                 alert(`error during logout: ${error}`);
             }
+        }
+
+        async function loginedornot() {
+            try {
+                const profileInBar = document.querySelector(".navbar .normal .neP .profileInBar");
+                const login = document.getElementById("login");
+                const logout = document.getElementById("logout");
+            
+                if (lemmyToken) {
+                    const lemmyTokenValid = await validateToken();
+                    if (lemmyTokenValid) {
+                        logined = true;
+                        alert("a");
+                        profileInBar.style.display = "flex";
+                        logout.style.display = "flex";
+                        login.style.display = "none";
+
+                        const user = await getLoggined();
+                        profileInBar.innerHTML = `
+                            <img onclick="goToProfile('${user.name}', '${localStorage.getItem("accountServer")}')" src="${user.avatar || 'https://lgor360.github.io/oldemmi/user.png'}">
+                            <div class="text">
+                                ${user.display_name || user.name}
+                            </div>
+                        `;
+                    } else {
+                        await logout("notvalid");
+                    }
+                }
+                 return;
+            } catch (error) {
+                alert(`error while account login check: ${error}`);
+            }
+        }
+        
+        // функция для входа
+        function login() {
+            window.location.href = `https://lgor360.github.io/oldemmi/login.html`;
         }
         
         function goToHome() {
