@@ -300,13 +300,13 @@
         }
 
         // функция для получения постов
-        async function checkCross(p) {
+        function checkCross(p) {
             try {
                 const response = await fetch(`${api}/post?id=${p}`, {
                     method: "GET",
                     headers: { "Content-Type": "application/json" }
                 });
-                const data = await response.json();
+                const data = response.json();
                 if (data.cross_posts) {
                     return true;
                 } else {
@@ -434,7 +434,7 @@
                     const locked = post.post.locked === true ? '🔒' : '';
                     const deleted = post.post.deleted === true ? '🗑️' : '';
                     const nsfw = post.post.nsfw === true ? '🔞' : '';
-                    const cr = await checkCross(post.post.id);
+                    const cr = checkCross(post.post.id);
                     const cross = cr === true ? '🔄' : '';
                     const postotourl = post.post.url && post.post.url !== post.post.thumbnail_url ? post.post.url : null;
                     const postElement = document.createElement("div");
