@@ -343,7 +343,7 @@
         }
         
         // функция для отображения постов
-        function renderPost(post_view) {
+        async function renderPost(post_view) {
             try {
                 const postContainer = document.getElementById("post");
 
@@ -455,7 +455,7 @@
 
         async function loadPost() {
             const post_view = await fetchPost();
-            renderPost(post_view);
+            await renderPost(post_view);
         }
 
         async function loginedornot() {
