@@ -146,6 +146,11 @@
             align-items: center;
             margin-bottom: 10px;
         }
+        .profile-bottom {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
         .profile-header img {
             height: 50px;
             width: 50px;
@@ -520,11 +525,13 @@
                                 <span>${community_view.counts.subscribers}</span>
                             </div>
                         </div>
+                    </div>
+                    <div class="profile-bottom">
+                        ${community_view.community.description ? `<div class='bio'>${parseMarkdown(community_view.community.description)}</div>` : ''}
                         <div class="followButton">
                             <button onclick="subscribe(${community_view.community.id} ,${doisubornot})">${but}</button>
                         </div>
                     </div>
-                    ${community_view.community.description ? `<div class='bio'>${parseMarkdown(community_view.community.description)}</div>` : ''}
                 `;
             } catch (error) {
                 alert(`error while rendering community: ${error.message}`);
