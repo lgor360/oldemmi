@@ -180,7 +180,7 @@
         <!-- сюда будут добавляться посты через js -->
     </div>
     <hr width="93%" size="2" color="#c4db53">
-    <div id="comments">
+    <div id="posts">
         <!-- сюда будут добавляться комментарии через js -->
     </div>
     <div class="load-more">
@@ -439,46 +439,6 @@
                 postContainer.appendChild(postElement);
             } catch (error) {
                 alert(`error while rendering post: ${error}`);
-            }
-        }
-
-        function renderComments(comments) {
-            try {
-                const commentsContainer = document.getElementById("comments");
-
-                comments.forEach(comment => {
-                    const commentElement = document.createElement("div");
-                    commentElement.classList.add("post");
-
-                    commentElement.innerHTML = `
-                        <div class="post-header">
-                            <img onclick="goToProfile('${comment.creator.name}', '${getInstanceFromActorId(comment.creator.actor_id)}')" src="${comment.creator.avatar || 'https://lgor360.github.io/oldemmi/user.png'}" alt="avatar">
-                            <div class="author">
-                                ${comment.creator.display_name || comment.creator.name}
-                                <div class="community">
-                                    ${getInstanceFromActorId(comment.creator.actor_id)}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="post-text">${parseMarkdown(comment.comment.content)}</div>
-                        <div class="post-footer">
-                            <div class="counter">
-                                <button>👍</button>
-                                <span>${comment.counts.upvotes}</span>
-                            </div>
-                            <div class="counter">
-                                <button>👎</button>
-                                <span>${comment.counts.downvotes}</span>
-                            </div>
-                            <div class="counter">
-                                <button>💬</button>
-                            </div>
-                        </div>
-                    `;
-                    commentsContainer.appendChild(commentElement);
-                });
-            } catch (error) {
-                alert(`error while loading post: ${error}`);
             }
         }
         
