@@ -184,7 +184,7 @@
         <!-- сюда будут добавляться комментарии через js -->
     </div>
     <div class="load-more">
-        <button onclick="loadMoreCross()">more</button>
+        <button>more</button>
     </div>
 
     <script>
@@ -203,6 +203,10 @@
             `;
         }
 
+        function goToComments(postoid) {
+            window.location.href = `https://lgor360.github.io/oldemmi/comments.html?server=${server}&post=${postoid}`
+        }
+        
         // функция для получения постов
         async function fetchPost() {
             try {
