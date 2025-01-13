@@ -23,3 +23,4 @@ due to the client being under development, some features are not available
 |creating something||✓|
 |locked and deleted flags|✓|
 |cross-posts view|✓|
+|marked.js||✓|
