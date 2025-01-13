@@ -484,15 +484,17 @@
 
                 const date = new Date(community_view.community.published);
                 const profile = document.querySelector(".profile");
+                let but
+                let doisubornot
                 if (community_view.subscribed === "NotSubscribed") {
-                    const but = "+";
-                    const doisubornot = true;
+                    but = "+";
+                    doisubornot = true;
                 } else if (community_view.subscribed === "Subscribed") {
-                    const but = "-";
-                    const doisubornot = false;
+                    but = "-";
+                    doisubornot = false;
                 } else if (community_view.subscribed === "Pending") {
-                    const but = "•••";
-                    const doisubornot = false;
+                    but = "•••";
+                    doisubornot = false;
                 }
 
                 profile.innerHTML = `
