@@ -175,7 +175,7 @@
             align-items: flex-end;
         }
         .post-link {
-            margin-bottom: 10px; /* добавляем отступ снизу */
+            margin-bottom: 10px;
         }
         .post-status {
             margin-left: auto;
@@ -269,12 +269,14 @@
                             "Authorization": `Bearer ${lemmyToken}`
                         }
                     });
+                    alert("miki");
                 } else {
                     response = await fetch(`${api}/community?name=${community}`, {
                         method: "GET",
                         headers: { "Content-Type": "application/json" }
                     });
                 }
+                alert(await response.text());
                 const data = await response.json();
                 comid = data.community_view.community.id;
                 return data.community_view;
