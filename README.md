@@ -22,4 +22,4 @@ due to the client being under development, some features are not available
 |404 page|✓|
 |creating something||✓|
 |locked and deleted flags|✓|
-|cross-posts view||✓|
+|cross-posts view|✓|
