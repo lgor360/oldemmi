@@ -261,7 +261,7 @@
         async function fetchCommunity() {
             try {
                 let response;
-                if (logined === true) {
+                if (lemmyToken) {
                     response = await fetch(`${api}/community?name=${community}`, {
                         method: "GET",
                         headers: {
