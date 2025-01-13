@@ -373,8 +373,8 @@
                     "Authorization": `Bearer ${lemmyToken}`
                 },
                 body: {
-                    community_id: `${id}`,
-                    follow: `${follow}`
+                    community_id: id,
+                    follow: follow
                 }
             };
 
@@ -386,22 +386,24 @@
             .then(response => response.json())
             .then(data => {
                 if (data.community_view.community.subscribed) {
+                    let but;
+                    let doisubornot;
                     if (data.community_view.subscribed === "NotSubscribed") {
-                        const but = "+";
-                        const doisubornot = true;
+                        but = "+";
+                        doisubornot = true;
                     } else if (data.community_view.subscribed === "Subscribed") {
-                        const but = "-";
-                        const doisubornot = false;
+                        but = "-";
+                        doisubornot = false;
                     } else if (data.community_view.subscribed === "Pending") {
-                        const but = "•••";
-                        const doisubornot = false;
+                        but = "•••";
+                        doisubornot = false;
                     }
                     document.getElementById("followButton").innerHTML = `
                         <button onclick="subscribe(${comid} ,${doisubornot})">${but}</button>
                     `;
                 } else {
                     console.error("ошибка входа после 2FA:", data);
-                    alert("login failed..." + (data.error || "unknown error"));
+                    alert("action failed..." + (data.error || "unknown error"));
                 }
             })
             .catch(error => {
