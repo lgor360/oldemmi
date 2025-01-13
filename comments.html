@@ -229,6 +229,24 @@
                 alert(`error while loading comments: ${error}`);
             }
         }
+        
+        // функция для получения постов
+        async function checkCross() {
+            try {
+                const response = await fetch(`${api}/post?id=${post}`, {
+                    method: "GET",
+                    headers: { "Content-Type": "application/json" }
+                });
+                const data = await response.json();
+                if (data.cross_posts) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } catch (error) {
+                alert(`error while loading post: ${error}`);
+            }
+        }
 
         async function getLoggined() {
             try {
@@ -317,6 +335,13 @@
             window.location.href = `https://lgor360.github.io/oldemmi/community.html?server=${servecom}&community=${comname}`
         }
         
+        function goToCross() {
+            const anser = confirm('this post has cross-posts. want to see cross-posts?')
+            if (anser) {
+                window.location.href = `https://lgor360.github.io/oldemmi/cross-posts.html?post=${post}`
+            }
+        }
+        
         // функция для отображения постов
         function renderPost(post_view) {
             try {
@@ -325,6 +350,7 @@
                 const locked = post_view.post.locked === true ? '🔒' : '';
                 const deleted = post_view.post.deleted === true ? '🗑️' : '';
                 const nsfw = post_view.post.nsfw === true ? '🔞' : '';
+                const cross = await checkCross() === true ? '🔄' : '';
                 const postotourl = post_view.post.url && post_view.post.url !== post_view.post.thumbnail_url ? post_view.post.url : null;
                 const postElement = document.createElement("div");
                 postElement.classList.add("post");
@@ -349,6 +375,9 @@
                             </div>
                             <div onclick="alert('this post is nsfw (18+)')" class="nsfw">
                                 ${nsfw}
+                            </div>
+                            <div onclick="goToCross()" class="cross">
+                                ${cross}
                             </div>
                         </div>
                     </div>
