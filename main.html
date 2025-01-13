@@ -442,6 +442,9 @@
             filter = fSelect.value;
             page = 1;
             document.getElementById("posts").innerHTML = "";
+            const url = new URL(window.location);
+            url.searchParams.set(filter, fSelect.value);
+            window.history.replaceState({}, '', url);
             await loadMorePosts();
         }
 
