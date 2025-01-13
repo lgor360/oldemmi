@@ -238,7 +238,7 @@
                     headers: { "Content-Type": "application/json" }
                 });
                 const data = await response.json();
-                if (data.cross_posts.post) {
+                if (Array.isArray(data.cross_posts) && data.cross_posts.length > 0) {
                     return true;
                 } else {
                     return false;
