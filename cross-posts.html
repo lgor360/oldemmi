@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oldemmi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #404040;
+            color: #f3f3f3;
+            margin: 0;
+            padding: 0;
+        }
+        button {
+            border: 1px solid #ccc;
+            border-radius: 0px;
+            cursor: pointer;
+            background-color: #353535;
+            color: #fff;
+        }
+        a {
+            color: #b3c46d;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #a7b766;
+            text-decoration: none;
+        }
+        a:active {
+            color: #a0b742;
+            text-decoration: none;
+        }
+        a:visited {
+            color: #aab775;
+            text-decoration: none;
+        }
+        .navbar {
+            background-color: #282828;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ccc;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            overflow: hidden;
+        }
+        .navbar img {
+            height: 40px;
+            border: none;
+        }
+        .navbar button {
+            padding: 10px 15px;
+        }
+        .navbar .login {
+            background-color: #a3af74;
+        }
+        .navbar .oldemmi {
+            display: flex;
+            align-items: center;
+            justify-content: normal;
+        }
+        .navbar .oldemmi .text {
+            margin-left: 5px;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        .navbar .oldemmi .text .instance {
+            font-size: 0.6em;
+        }
+        .post {
+            min-width: 300px;
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin: 20px auto;
+            max-width: 600px;
+            background-color: #454545;
+            border-radius: 0px;
+        }
+        .post-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .post-header img {
+            border: 1px solid #ccc;
+            height: 50px;
+            width: 50px;
+            margin-right: 10px;
+        }
+        .post-header .author {
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        .post-header .author .community {
+            font-size: 0.6em;
+        }
+        .post-name {
+            margin-bottom: 10px;
+        }
+        .post-text {
+            margin-bottom: 10px;
+            font-size: 0.8em;
+        }
+        .post-image {
+            border: 1px solid #ccc;
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+        .post-footer {
+            display: flex;
+            justify-content: space-between;
+        }
+        .counter {
+            display: flex;
+            align-items: center;
+        }
+        .counter span {
+            margin-left: 5px;
+        }
+        .load-more {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .load-more button {
+            padding: 10px 20px;
+        }
+        .post-link {
+            margin-bottom: 10px;
+        }
+        .post-status {
+            margin-left: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            font-size: 2.0em;
+        }
+        .normal {
+            justify-content: normal;
+            display: flex;
+        }
+        .profileInBar {
+            display: flex;
+            align-items: center;
+            justify-content: normal;
+        }
+        .profileInBar img {
+            border: 1px solid #ccc;
+        }
+        .profileInBar .text {
+            margin-left: 5px;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div onclick="goToHome()" class="oldemmi">
+            <img src="https://lgor360.github.io/oldemmi/logo.png" alt="oldemmi logo">
+            <div class="text">
+                oldemmi
+                <div class="instance">
+                    <!-- тут будет сервер -->
+                </div>
+            </div>
+        </div>
+        <div class="normal">
+            <button onclick="goToSearch()">🔎</button>
+            <button id="logout" style="display: none;" onclick="logout('userlogout')">logout</button>
+            <button style="display: inline;" id="login" class="login" onclick="login()">login</button>
+            <div style="display: inline;" class="neP"><div style="display: none;" class="profileInBar"></div></div>
+        </div>
+    </div>
+    <div id="post">
+        <!-- сюда будут добавляться посты через js -->
+    </div>
+    <hr width="93%" size="2" color="#c4db53">
+    <div id="comments">
+        <!-- сюда будут добавляться комментарии через js -->
+    </div>
+    <div class="load-more">
+        <button onclick="loadMoreComments()">more</button>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const server = urlParams.get('server') || "lemmy.world";
+        const post = urlParams.get('post') || "826753";
+        let page = 1; // текущая страница для загрузки
+        const limit = 9; // количество постов на одну загрузку
+        const api = `https://${server}/api/v3`
+        const lemmyToken = localStorage.getItem("lemmyToken");
+        
+        function instanceapply() {
+            const instdiv = document.querySelector(".navbar .oldemmi .text .instance");
+            instdiv.innerHTML = `
+                ${server}
+            `;
+        }
+
+        // функция для получения постов
+        async function fetchPost() {
+            try {
+                const response = await fetch(`${api}/post?id=${post}`, {
+                    method: "GET",
+                    headers: { "Content-Type": "application/json" }
+                });
+                const data = await response.json();
+                return data.post_view;
+            } catch (error) {
+                alert(`error while loading post: ${error}`);
+            }
+        }
+
+        async function fetchCross() {
+            try {
+                const response = await fetch(`${api}/post?id=${post}`, {
+                    method: "GET",
+                    headers: { "Content-Type": "application/json" }
+                });
+                const data = await response.json();
+                return data.cross_posts;
+            } catch (error) {
+                alert(`error while loading comments: ${error}`);
+            }
+        }
+
+        async function getLoggined() {
+            try {
+                const response = await fetch(`https://${localStorage.getItem("accountServer")}/api/v3/site`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${lemmyToken}`
+                    }
+                });
+                const data = await response.json();
+                return data.my_user.local_user_view.person;
+            } catch (error) {
+                alert(`error while loading profile: ${error}`);
+            }
+        }
+
+        async function validateToken() {
+            const serverUrl = `https://${localStorage.getItem("accountServer")}/api/v3/user/validate_auth`;
+
+            try {
+                const response = await fetch(serverUrl, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${lemmyToken}`
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                console.log("token is valid:", data);
+                return true; // токен валидный
+            } catch (error) {
+                console.error("token validation failed:", error);
+                return false; // токен не валидный
+            }
+        }
+      
+        function parseMarkdown(text) {
+            // жирный текст (*текст*)
+            text = text.replace(/\*{2}([^\*]+)\*{2}/g, '<strong>$1</strong>');
+            // курсив (*текст*)
+            text = text.replace(/\*([^\*]+)\*/g, '<em>$1</em>');
+            // зачёркнутый текст (~~текст~~)
+            text = text.replace(/~~(.*?)~~/g, '<del>$1</del>');
+            // цитаты (> текст)
+            text = text.replace(/^>\s(.+)/gm, '<blockquote>$1</blockquote>');
+            // списки (- текст)
+            text = text.replace(/^- (.+)/gm, '<li>$1</li>');
+            text = text.replace(/(<li>.*<\/li>)/g, '<ul>$1</ul>'); // оборачиваем список в <ul>
+            // код (`текст`)
+            text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
+            // прописные (~текст~)
+            text = text.replace(/~(.*?)~/g, '<sub>$1</sub>');
+            // заглавные (^текст^)
+            text = text.replace(/\^(.*?)\^/g, '<sup>$1</sup>');
+            // спойлеры (::spoiler текст:::)
+            text = text.replace(/::: spoiler (.+?)\n([\s\S]+?)\n:::/g, 
+                '<details><summary>$1</summary><div>$2</div></details>');
+            // картинки
+            text = text.replace(/!\[([^\]]*)\]\((https?:\/\/[^\)]+\.(jpg|jpeg|png|gif|webp))\)/g, '<img src="$2" alt="$1" style="max-width: 100%; height: auto;">');
+            // ссылки ([текст](ссылка))
+            text = text.replace(/\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g, '<a href="$2" rel="noopener noreferrer" target="_blank">$1</a>');
+            // заголовки
+            text = text.replace(/^(#+)\s*(.+)$/gm, (_, hashes, content) => `<h${hashes.length}>${content}</h${hashes.length}>`);
+            // переносы строк
+            text = text.replace(/\\n/g, '<br>');
+            // обработка ссылок типа !сообщество@инстанс
+            text = text.replace(/!([\w\d_]+)@([\w\d\.-]+)/g, (match, community, instance) => {
+                const url = `https://lgor360.github.io/oldemmi/community.html?server=${instance}&community=${community}`;
+                return `<a href="${url}" rel="noopener noreferrer">${community}@${instance}</a>`;
+            });
+            return text;
+        }
+
+        function getInstanceFromActorId(actorId) {
+            const url = new URL(actorId);
+            return url.hostname; // возвращает домен, например, "lemmy.world"
+        }
+        
+        function goToCommunity(comname, servecom) {
+            window.location.href = `https://lgor360.github.io/oldemmi/community.html?server=${servecom}&community=${comname}`
+        }
+        
+        // функция для отображения постов
+        function renderPosts(posts) {
+            try {
+                const postsContainer = document.getElementById("posts");
+
+                posts.forEach(post => {
+                    const locked = post.post.locked === true ? '🔒' : '';
+                    const deleted = post.post.deleted === true ? '🗑️' : '';
+                    const nsfw = post.post.nsfw === true ? '🔞' : '';
+                    const postotourl = post.post.url && post.post.url !== post.post.thumbnail_url ? post.post.url : null;
+                    const postElement = document.createElement("div");
+                    postElement.classList.add("post");
+
+                    postElement.innerHTML = `
+                        <div class="post-header">
+                            <img onclick="goToProfile('${post.creator.name}', '${getInstanceFromActorId(post.creator.actor_id)}')" src="${post.creator.avatar || 'https://lgor360.github.io/oldemmi/user.png'}" alt="avatar">
+                            <div class="author">
+                                ${post.creator.display_name || post.creator.name}
+                                <div onclick="goToCommunity('${post.community.name}', '${getInstanceFromActorId(post.community.actor_id)}')" class="community">
+                                    ${post.community.name}
+                                    @
+                                    ${getInstanceFromActorId(post.community.actor_id)}
+                                </div>
+                            </div>
+                            <div class="post-status">
+                                <div onclick="alert('this post is locked')" class="locked">
+                                    ${locked}
+                                </div>
+                                <div onclick="alert('this post is deleted')" class="deleted">
+                                    ${deleted}
+                                </div>
+                                <div onclick="alert('this post is nsfw (18+)')" class="nsfw">
+                                    ${nsfw}
+                                </div>
+                                <div onclick="alert('this post is cross-post')" class="nsfw">
+                                    🔄
+                                </div>
+                            </div>
+                        </div>
+                        <div class="post-name">${post.post.name}</div>
+                        <div class="post-text">${parseMarkdown(post.post.body || "")}</div>
+                        ${post.post.thumbnail_url ? `<img src="${post.post.thumbnail_url}" class="post-image" alt="image">` : ""}
+                        ${postotourl ? `<div class="post-link"><a rel="noopener noreferrer" href="${postotourl}">${postotourl}</a></div>` : ""}
+                        <div class="post-footer">
+                            <div class="counter">
+                                <button>👍</button>
+                                <span>${post.counts.upvotes}</span>
+                            </div>
+                            <div class="counter">
+                                <button>👎</button>
+                                <span>${post.counts.downvotes}</span>
+                            </div>
+                            <div class="counter">
+                                <button onclick="goToComments(${post.post.id})">💬</button>
+                                <span>${post.counts.comments}</span>
+                            </div>
+                        </div>
+                    `;
+                    postsContainer.appendChild(postElement);
+                });
+            } catch (error) {
+                alert(`error while rendering posts: ${error}`);
+            }
+        }
+        
+        // функция для отображения постов
+        function renderPost(post_view) {
+            try {
+                const postContainer = document.getElementById("post");
+
+                const locked = post_view.post.locked === true ? '🔒' : '';
+                const deleted = post_view.post.deleted === true ? '🗑️' : '';
+                const nsfw = post_view.post.nsfw === true ? '🔞' : '';
+                const postotourl = post_view.post.url && post_view.post.url !== post_view.post.thumbnail_url ? post_view.post.url : null;
+                const postElement = document.createElement("div");
+                postElement.classList.add("post");
+
+                postElement.innerHTML = `
+                    <div class="post-header">
+                        <img onclick="goToProfile('${post_view.creator.name}', '${getInstanceFromActorId(post_view.creator.actor_id)}')" src="${post_view.creator.avatar || 'https://lgor360.github.io/oldemmi/user.png'}" alt="avatar">
+                        <div class="author">
+                            ${post_view.creator.display_name || post_view.creator.name}
+                            <div onclick="goToCommunity('${post_view.community.name}', '${getInstanceFromActorId(post_view.community.actor_id)}')" class="community">
+                                ${post_view.community.name}
+                                @
+                                ${getInstanceFromActorId(post_view.community.actor_id)}
+                            </div>
+                        </div>
+                        <div class="post-status">
+                            <div onclick="alert('this post is locked')" class="locked">
+                                ${locked}
+                            </div>
+                            <div onclick="alert('this post is deleted')" class="deleted">
+                                ${deleted}
+                            </div>
+                            <div onclick="alert('this post is nsfw (18+)')" class="nsfw">
+                                ${nsfw}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="post-name">${post_view.post.name}</div>
+                    <div class="post-text">${parseMarkdown(post_view.post.body || "")}</div>
+                    ${post_view.post.thumbnail_url ? `<img src="${post_view.post.thumbnail_url}" class="post-image" alt="image">` : ""}
+                    ${postotourl ? `<div class="post-link"><a rel="noopener noreferrer" href="${postotourl}">${postotourl}</a></div>` : ""}
+                    <div class="post-footer">
+                        <div class="counter">
+                            <button>👍</button>
+                            <span>${post_view.counts.upvotes}</span>
+                        </div>
+                        <div class="counter">
+                            <button>👎</button>
+                            <span>${post_view.counts.downvotes}</span>
+                        </div>
+                        <div class="answer">
+                            <button>💬</button>
+                            <span>${post_view.counts.comments}</span>
+                        </div>
+                    </div>
+                `;
+                postContainer.appendChild(postElement);
+            } catch (error) {
+                alert(`error while rendering post: ${error}`);
+            }
+        }
+
+        function renderComments(comments) {
+            try {
+                const commentsContainer = document.getElementById("comments");
+
+                comments.forEach(comment => {
+                    const commentElement = document.createElement("div");
+                    commentElement.classList.add("post");
+
+                    commentElement.innerHTML = `
+                        <div class="post-header">
+                            <img onclick="goToProfile('${comment.creator.name}', '${getInstanceFromActorId(comment.creator.actor_id)}')" src="${comment.creator.avatar || 'https://lgor360.github.io/oldemmi/user.png'}" alt="avatar">
+                            <div class="author">
+                                ${comment.creator.display_name || comment.creator.name}
+                                <div class="community">
+                                    ${getInstanceFromActorId(comment.creator.actor_id)}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="post-text">${parseMarkdown(comment.comment.content)}</div>
+                        <div class="post-footer">
+                            <div class="counter">
+                                <button>👍</button>
+                                <span>${comment.counts.upvotes}</span>
+                            </div>
+                            <div class="counter">
+                                <button>👎</button>
+                                <span>${comment.counts.downvotes}</span>
+                            </div>
+                            <div class="counter">
+                                <button>💬</button>
+                            </div>
+                        </div>
+                    `;
+                    commentsContainer.appendChild(commentElement);
+                });
+            } catch (error) {
+                alert(`error while loading post: ${error}`);
+            }
+        }
+        
+        // функция для загрузки комментариев
+        async function loadMoreCross() {
+            const cross = await fetchCross();
+            renderPosts(cross);
+            page++; // увеличиваем номер страницы
+        }
+
+        async function loadPost() {
+            const post_view = await fetchPost();
+            renderPost(post_view);
+        }
+
+        async function loginedornot() {
+            try {
+                const profileInBar = document.querySelector(".navbar .normal .neP .profileInBar");
+                const login = document.getElementById("login");
+                const logout = document.getElementById("logout");
+            
+                if (lemmyToken) {
+                    const lemmyTokenValid = await validateToken();
+                    if (lemmyTokenValid) {
+                        profileInBar.style.display = "flex";
+                        logout.style.display = "flex";
+                        login.style.display = "none";
+
+                        const user = await getLoggined();
+                        profileInBar.innerHTML = `
+                            <img onclick="goToProfile('${user.name}', '${localStorage.getItem("accountServer")}')" src="${user.avatar || 'https://lgor360.github.io/oldemmi/user.png'}">
+                            <div class="text">
+                                ${user.display_name || user.name}
+                            </div>
+                        `;
+                    } else {
+                        logout("notvalid");
+                    }
+                }
+                 return;
+            } catch (error) {
+                alert(`error while account login check: ${error}`);
+            }
+        }
+        
+        // функция для входа
+        function login() {
+            window.location.href = `https://lgor360.github.io/oldemmi/login.html`;
+        }
+
+        async function logout(option) {
+            const confirmation = confirm("are you sure want to logout?");
+            if (!confirmation) {
+                return; // если пользователь нажал "нет", ничего не делаем
+            }
+
+            const proxyUrl = "https://tide-decisive-resolution.glitch.me/proxy";
+            const logoutData = {
+                url: `https://${localStorage.getItem("accountServer")}/api/v3/user/logout`,
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${lemmyToken}`
+                },
+                body: {}
+            };
+
+            try {
+                if (option === "userlogout") {
+                // выполняем запрос на выход через прокси
+                    const response = await fetch(proxyUrl, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(logoutData)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`logout failed: ${response.status} ${response.statusText}`);
+                    }
+                }
+                // удаляем токен и сервер из LocalStorage
+                localStorage.removeItem("lemmyToken");
+                localStorage.removeItem("accountServer");
+
+                // перезапускаем текущую страницу
+                location.reload();
+            } catch (error) {
+                alert(`error during logout: ${error}`);
+            }
+        }
+
+        function goToHome() {
+            window.location.href = `https://lgor360.github.io/oldemmi/main.html?server=${server}`
+        }
+
+        function goToProfile(id, servero) {
+            window.location.href = `https://lgor360.github.io/oldemmi/profile.html?server=${servero}&user=${id}`
+        }
+
+        function goToSearch() {
+            window.location.href = `https://lgor360.github.io/oldemmi/search?server=${server}&filter=Posts`;
+        }
+        
+        // загружаем пост и комментарии при загрузке страницы
+        loginedornot();
+        loadPost();
+        // вставляем название сервера в заголовок
+        instanceapply();
+    </script>
+</body>
+</html>
