@@ -181,9 +181,7 @@
                     })
                 });
                 const data = await response.json();
-                alert(data.community.id);
-                alert(data.community.community.id);
-                alert(data.id);
+                alert(data.community.id || data.community.community.id || data.id || "fuc");
                 return data.community;
             } catch (error) {
                 alert(`error while loading community: ${error}`);
