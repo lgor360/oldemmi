@@ -157,13 +157,16 @@
             font-size: 1.2em;
         }
         .comments {
-            min-width: 300px;
             border: 1px solid #ccc;
             padding: 15px;
             margin: 20px auto;
-            max-width: 600px;
+            width: 100%;
             background-color: #454545;
             border-radius: 0px;
+        }
+        .comments-div {
+            min-width: 300px;
+            max-width: 600px;
         }
         .comment {
             box-sizing: border-box;
@@ -172,6 +175,8 @@
             margin: 10px 0;
             background-color: #454545;
             border-radius: 0px;
+            display: flex;
+            align-items: center;
         }
     </style>
 </head>
@@ -197,8 +202,10 @@
         <!-- сюда будут добавляться посты через js -->
     </div>
     <hr width="93%" size="2" color="#c4db53">
-    <div id="comments">
-        <!-- сюда будут добавляться комментарии через js -->
+    <div id="comments-div">
+        <div id="comments">
+            <!-- сюда будут добавляться комментарии через js -->
+        </div>
     </div>
     <div class="load-more">
         <button onclick="loadMoreComments()">more</button>
@@ -427,14 +434,21 @@
             try {
                 const commentsContainer = document.getElementById("comments");
 
+                // сортируем комментарии по path, чтобы родительские шли перед дочерними
+                comments.sort((a, b) => a.comment.path.localeCompare(b.comment.path));
+
+                // создаем мапу для хранения дочерних комментариев
+                const commentMap = new Map();
+
                 comments.forEach(comment => {
+                    // создаем элемент комментария
                     const commentElement = document.createElement("div");
                     commentElement.classList.add("comment");
 
                     // определяем уровень вложенности
                     const depth = comment.comment.path.split('.').length - 1;
-                    const width = Math.max(100 - depth, 50); // минимальная ширина 50%
-                    commentElement.style.width = `${width}%`;
+                    const indent = depth * 5; // отступ слева для вложенных комментариев
+                    commentElement.style.marginLeft = `${indent}px`;
 
                     commentElement.innerHTML = `
                         <div class="post-header">
@@ -461,6 +475,25 @@
                             </div>
                         </div>
                     `;
+
+                    // сохраняем комментарии в мапе
+                    commentMap.set(comment.comment.id, commentElement);
+
+                    // если есть родительский комментарий, добавляем как дочерний
+                    const parentPath = comment.comment.path.split('.').slice(0, -1).join('.');
+                    if (parentPath) {
+                        const parentId = parentPath.split('.').pop();
+                        const parentComment = commentMap.get(parseInt(parentId));
+                        if (parentComment) {
+                            const repliesContainer = parentComment.querySelector(".replies") || document.createElement("div");
+                            repliesContainer.classList.add("replies");
+                            parentComment.appendChild(repliesContainer);
+                            repliesContainer.appendChild(commentElement);
+                            return; // не добавляем в общий контейнер, если есть родитель
+                        }
+                    }
+
+                    // если нет родителя, добавляем в общий контейнер
                     commentsContainer.appendChild(commentElement);
                 });
             } catch (error) {
