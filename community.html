@@ -387,7 +387,6 @@
                     "follow": follow
                 }
             };
-            alert("heh");
 
             fetch(proxyUrl, {
                 method: "POST",
@@ -396,7 +395,6 @@
             })
             .then(response => response.json())
             .then(data => {
-                alert("pe");
                 if (data.community_view.subscribed) {
                     let but;
                     let doisubornot;
@@ -410,9 +408,7 @@
                         but = "•••";
                         doisubornot = false;
                     }
-                    alert("m");
-                    document.getElementById("followButton").innerHTML = `<button onclick="subscribe(${id} ,${doisubornot}, '${instance}')">${but}</button>`;
-                    alert("kre");
+                    document.querySelector(".profile .profile-bottom .followButton").innerHTML = `<button onclick="subscribe(${id} ,${doisubornot}, '${instance}')">${but}</button>`;
                 } else {
                     console.error("ошибка входа после 2FA:", data);
                     alert("action failed..." + (data.error || "unknown error"));
