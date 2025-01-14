@@ -238,7 +238,7 @@
                     headers: { "Content-Type": "application/json" }
                 });
                 const data = await response.json();
-                if (Array.isArray(data.cross_posts) && data.cross_posts.length > 0) {
+                if (data.cross_posts.post) {
                     return true;
                 } else {
                     return false;
@@ -414,6 +414,12 @@
                     const commentElement = document.createElement("div");
                     commentElement.classList.add("post");
 
+                    // определяем уровень вложенности на основе path
+                    const depth = comment.path.split('.').length - 1; // количество "." определяет уровень вложенности
+                    const widthReduction = Math.min(depth, 50); // максимальное уменьшение ширины - 50% (50 уровней)
+                    commentElement.style.marginLeft = `${depth * 20}px`; // отступ для визуального эффекта вложенности
+                    commentElement.style.width = `${100 - widthReduction}%`;
+
                     commentElement.innerHTML = `
                         <div class="post-header">
                             <img onclick="goToProfile('${comment.creator.name}', '${getInstanceFromActorId(comment.creator.actor_id)}')" src="${comment.creator.avatar || 'https://lgor360.github.io/oldemmi/user.png'}" alt="avatar">
@@ -442,10 +448,10 @@
                     commentsContainer.appendChild(commentElement);
                 });
             } catch (error) {
-                alert(`error while loading post: ${error}`);
+                alert(`error while loading comments: ${error}`);
             }
         }
-        
+ 
         // функция для загрузки комментариев
         async function loadMoreComments() {
             const comments = await fetchComments();
