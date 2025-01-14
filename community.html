@@ -384,10 +384,10 @@
                     "content-type": "application/json",
                     "authorization": `Bearer ${lemmyToken}`
                 },
-                body: {
+                body: JSON.stringify({
                     community_id: id,
                     follow: follow
-                }
+                })
             };
 
             fetch(proxyUrl, {
@@ -397,7 +397,7 @@
             })
             .then(response => response.json())
             .then(data => {
-                if (data.community_view.community.subscribed) {
+                if (data.community_view.subscribed) {
                     let but;
                     let doisubornot;
                     if (data.community_view.subscribed === "NotSubscribed") {
@@ -411,7 +411,7 @@
                         doisubornot = false;
                     }
                     document.getElementById("followButton").innerHTML = `
-                        <button onclick="subscribe(${comid} ,${doisubornot}, "${instance}")">${but}</button>
+                        <button onclick="subscribe(${comid} ,${doisubornot}, '${instance}')">${but}</button>
                     `;
                 } else {
                     console.error("ошибка входа после 2FA:", data);
