@@ -181,6 +181,9 @@
                     })
                 });
                 const data = await response.json();
+                alert(data.community.id);
+                alert(data.community.community.id);
+                alert(data.id);
                 return data.community;
             } catch (error) {
                 alert(`error while loading community: ${error}`);
@@ -234,7 +237,6 @@
                 body: JSON.stringify(postData)
             })
                 .then(response => {
-                    alert(response.json());
                     if (!response.ok) {
                         return response.json().then(text => {
                             throw new Error(`error: ${text}`);
