@@ -374,11 +374,11 @@
             return text;
         }
 
-        function subscribe(id, follow) {
+        function subscribe(id, follow, instance) {
             const proxyUrl = "https://tide-decisive-resolution.glitch.me/proxy";
 
             const data = {
-                url: `https://${instance.value}/api/v3/community/follow`,
+                url: `https://${instance}/api/v3/community/follow`,
                 method: "POST",
                 headers: {
                     "content-type": "application/json",
@@ -411,7 +411,7 @@
                         doisubornot = false;
                     }
                     document.getElementById("followButton").innerHTML = `
-                        <button onclick="subscribe(${comid} ,${doisubornot})">${but}</button>
+                        <button onclick="subscribe(${comid} ,${doisubornot}, "${instance}")">${but}</button>
                     `;
                 } else {
                     console.error("ошибка входа после 2FA:", data);
@@ -510,7 +510,6 @@
                 const profile = document.querySelector(".profile");
                 let but;
                 let doisubornot;
-                alert(community_view.subscribed);
                 if (community_view.subscribed === "NotSubscribed") {
                     but = "+";
                     doisubornot = true;
@@ -549,7 +548,7 @@
                     ${community_view.community.description ? `<div class='bio'>${parseMarkdown(community_view.community.description)}</div>` : ''}
                     <div class="profile-bottom">
                         <div class="followButton">
-                            <button onclick="subscribe(${community_view.community.id} ,${doisubornot})">${but}</button>
+                            <button onclick="subscribe(${community_view.community.id} ,${doisubornot}, "${getInstanceFromActorId(community_view.community.actor_id)}")">${but}</button>
                         </div>
                     </div>
                 `;
