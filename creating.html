@@ -181,7 +181,7 @@
                     })
                 });
                 const data = await response.json();
-                return data.community.community;
+                return data.community;
             } catch (error) {
                 alert(`error while loading community: ${error}`);
             }
@@ -219,7 +219,7 @@
                     "authorization": `Bearer ${lemmyToken}`
                 },
                 body: JSON.stringify({
-                    community_id: communityData.id,
+                    community_id: communityData.community.id,
                     name: titleInput.value,
                     body: bodyInput.value,
                     url: urlInput.value || null,
