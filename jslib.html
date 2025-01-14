@@ -213,10 +213,8 @@
         const lemmyToken = localStorage.getItem("lemmyToken");
         const api = `https://${server}/api/v3`;
         alert("a");
-        alert(LemmyHTTP);
-        alert(window.LemmyHTTP);
         const client = new LemmyHTTP(`https://${server}`);
-        alert(client);
+        alert('client');
 
         function instanceapply() {
             const instdiv = document.querySelector(".navbar .oldemmi .text .instance");
