@@ -274,7 +274,7 @@
                 } else {
                     response = await fetch(`${api}/community?name=${community}`, {
                         method: "GET",
-                        headers: { "Content-Type": "application/json" }
+                        headers: { "content-type": "application/json" }
                     });
                 }
                 const data = await response.json();
@@ -289,7 +289,7 @@
             try {
                 const response = await fetch(`${api}/post/list?community_name=${community}&limit=${limit}&page=${page}`, {
                     method: "GET",
-                    headers: { "Content-Type": "application/json" }
+                    headers: { "content-type": "application/json" }
                 });
                 const data = await response.json();
                 return data.posts;
@@ -303,8 +303,8 @@
                 const response = await fetch(`https://${localStorage.getItem("accountServer")}/api/v3/site`, {
                     method: "GET",
                     headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${lemmyToken}`
+                        "content-type": "application/json",
+                        "authorization": `Bearer ${lemmyToken}`
                     }
                 });
                 const data = await response.json();
@@ -321,8 +321,8 @@
                 const response = await fetch(serverUrl, {
                     method: "GET",
                     headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${lemmyToken}`
+                        "content-type": "application/json",
+                        "authorization": `Bearer ${lemmyToken}`
                     }
                 });
 
@@ -383,8 +383,8 @@
                 url: `https://${instance.value}/api/v3/community/follow`,
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${lemmyToken}`
+                    "content-type": "application/json",
+                    "authorization": `Bearer ${lemmyToken}`
                 },
                 body: {
                     community_id: id,
@@ -394,7 +394,7 @@
 
             fetch(proxyUrl, {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: { "content-type": "application/json" },
                 body: JSON.stringify(data)
             })
             .then(response => response.json())
@@ -589,8 +589,8 @@
                 url: `https://${localStorage.getItem("accountServer")}/api/v3/user/logout`,
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${lemmyToken}`
+                    "content-type": "application/json",
+                    "authorization": `Bearer ${lemmyToken}`
                 },
                 body: {}
             };
@@ -600,7 +600,7 @@
                 // выполняем запрос на выход через прокси
                     const response = await fetch(proxyUrl, {
                         method: "POST",
-                        headers: { "Content-Type": "application/json" },
+                        headers: { "content-type": "application/json" },
                         body: JSON.stringify(logoutData)
                     });
 
