@@ -165,6 +165,9 @@
             background-color: #454545;
             border-radius: 0px;
         }
+        .comment {
+            box-sizing: border-box;
+        }
     </style>
 </head>
 <body>
@@ -419,17 +422,14 @@
             try {
                 const commentsContainer = document.getElementById("comments");
 
-                // сортируем комментарии по path, чтобы ответы шли сразу после родительского комментария
-                comments.sort((a, b) => a.comment.path.localeCompare(b.comment.path));
-
                 comments.forEach(comment => {
                     const commentElement = document.createElement("div");
-                    commentElement.classList.add("post");
+                    commentElement.classList.add("comment");
 
-                    // определяем уровень вложенности комментария
+                    // определяем уровень вложенности
                     const depth = comment.comment.path.split('.').length - 1;
-                    const widthReduction = Math.min(depth, 50); // максимальное уменьшение ширины - 50% (50 уровней)
-                    commentElement.style.width = `${100 - widthReduction}%`;
+                    const width = Math.max(100 - depth, 50); // минимальная ширина 50%
+                    commentElement.style.width = `${width}%`;
 
                     commentElement.innerHTML = `
                         <div class="post-header">
