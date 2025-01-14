@@ -180,9 +180,8 @@
                         }
                     })
                 });
-                alert(response.text());
                 const data = await response.json();
-                return data.community;
+                return data.community.community;
             } catch (error) {
                 alert(`error while loading community: ${error}`);
             }
