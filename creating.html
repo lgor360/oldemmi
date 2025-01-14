@@ -162,14 +162,26 @@
         }
 
         // функция для получения профиля
-        async function fetchCommunity(communityName, communityInstance) {
+        async function fetchCommunity(q) {
             try {
-                const response = await fetch(`https://${communityInstance}/api/v3/community?name=${communityName}`, {
-                    method: "GET",
-                    headers: { "content-type": "application/json" }
+                const response = await fetch("https://tide-decisive-resolution.glitch.me/proxy", {
+                    method: "POST",
+                    headers: { "content-type": "application/json" },
+                    body: JSON.stringify({
+                        url: `https://${server}/api/v3/resolve_object`,
+                        method: "POST",
+                        headers: {
+                            "content-type": "application/json",
+                            "authorization": `Bearer ${lemmyToken}`
+                        },
+                        body: {
+                            "q": `${q}`,
+                            "type": "community"
+                        }
+                    })
                 });
                 const data = await response.json();
-                return data.community_view;
+                return data.community;
             } catch (error) {
                 alert(`error while loading community: ${error}`);
             }
@@ -185,9 +197,7 @@
                 alert("please enter a valid community in the format 'community@instance'");
                 return;
             }
-            const [communityName, communityInstance] = communityInput.value.split("@");
-            const proxyUrl = "https://tide-decisive-resolution.glitch.me/proxy"
-            const communityData = await fetchCommunity(communityName, communityInstance);
+            const proxyUrl = "https://tide-decisive-resolution.glitch.me/proxy";
 
             if (!titleInput.checkValidity()) {
                 titleInput.reportValidity();
@@ -199,6 +209,7 @@
                 bodyInput.reportValidity();
                 return;
             }
+            const communityData = await fetchCommunity(communityInput.value);
             
             const postData = {
                 url: `https://${server}/api/v3/post`,
@@ -207,15 +218,15 @@
                     "content-type": "application/json",
                     "authorization": `Bearer ${lemmyToken}`
                 },
-                body: {
-                    "community_id": communityData.community.id,
-                    "name": titleInput.value,
-                    "body": bodyInput.value,
-                    "url": urlInput.value || null,
-                    "nsfw": nsfwInput.checked || false,
-                    "language": 0,
-                    "honeypot": ""
-                }
+                body: JSON.stringify({
+                    community_id: communityData.id,
+                    name: titleInput.value,
+                    body: bodyInput.value,
+                    url: urlInput.value || null,
+                    nsfw: nsfwInput.checked || false,
+                    language: 0,
+                    honeypot: ""
+                })
             };
             fetch(proxyUrl, {
                 method: "POST",
