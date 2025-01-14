@@ -162,6 +162,9 @@
             margin: 20px auto;
             background-color: #454545;
             border-radius: 0px;
+            width: 100%;
+            justlify-content: center;
+            margin: auto;
         }
         .comment {
             border: 1px solid #ccc;
@@ -171,11 +174,6 @@
             max-width: 600px;
             background-color: #454545;
             border-radius: 0px;
-        }
-        #comments-div {
-            width: 100%;
-            justlify-content: center;
-            margin: auto;
         }
     </style>
 </head>
@@ -201,10 +199,8 @@
         <!-- сюда будут добавляться посты через js -->
     </div>
     <hr width="93%" size="2" color="#c4db53">
-    <div id="comments-div">
-        <div id="comments">
-            <!-- сюда будут добавляться комментарии через js -->
-        </div>
+    <div id="comments">
+        <!-- сюда будут добавляться комментарии через js -->
     </div>
     <div class="load-more">
         <button onclick="loadMoreComments()">more</button>
