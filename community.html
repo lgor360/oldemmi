@@ -410,7 +410,7 @@
                         but = "•••";
                         doisubornot = false;
                     }
-                    document.getElementById("followButton").innerHTML = `<button onclick="subscribe(${comid} ,${doisubornot}, '${instance}')">"${but}"</button>`;
+                    document.getElementById("followButton").innerHTML = `<button onclick="subscribe(${id} ,${doisubornot}, '${instance}')">${but}</button>`;
                 } else {
                     console.error("ошибка входа после 2FA:", data);
                     alert("action failed..." + (data.error || "unknown error"));
