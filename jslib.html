@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/lemmy-js-client@latest/dist/http.js"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/lemmy-js-client@latest/dist/http.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>oldemmi</title>
@@ -213,7 +213,7 @@
         const lemmyToken = localStorage.getItem("lemmyToken");
         const api = `https://${server}/api/v3`;
         alert("a");
-        const client = new LemmyHTTP(`https://${server}`);
+        const client = new LemmyHttp(`https://${server}`);
         alert('client');
 
         function instanceapply() {
