@@ -156,6 +156,15 @@
             font-weight: bold;
             font-size: 1.2em;
         }
+        .comments {
+            min-width: 300px;
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin: 20px auto;
+            max-width: 600px;
+            background-color: #454545;
+            border-radius: 0px;
+        }
     </style>
 </head>
 <body>
@@ -410,14 +419,16 @@
             try {
                 const commentsContainer = document.getElementById("comments");
 
+                // сортируем комментарии по path, чтобы ответы шли сразу после родительского комментария
+                comments.sort((a, b) => a.comment.path.localeCompare(b.comment.path));
+
                 comments.forEach(comment => {
                     const commentElement = document.createElement("div");
                     commentElement.classList.add("post");
 
-                    // определяем уровень вложенности на основе path
-                    const depth = comment.comment.path.split('.').length - 1; // количество "." определяет уровень вложенности
+                    // определяем уровень вложенности комментария
+                    const depth = comment.comment.path.split('.').length - 1;
                     const widthReduction = Math.min(depth, 50); // максимальное уменьшение ширины - 50% (50 уровней)
-                    commentElement.style.marginLeft = `${depth * 20}px`; // отступ для визуального эффекта вложенности
                     commentElement.style.width = `${100 - widthReduction}%`;
 
                     commentElement.innerHTML = `
@@ -451,7 +462,7 @@
                 alert(`error while loading comments: ${error}`);
             }
         }
- 
+
         // функция для загрузки комментариев
         async function loadMoreComments() {
             const comments = await fetchComments();
