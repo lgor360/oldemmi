@@ -382,10 +382,10 @@
                     "content-type": "application/json",
                     "authorization": `Bearer ${lemmyToken}`
                 },
-                body: JSON.stringify({
+                body: {
                     "community_id": id,
                     "follow": follow
-                })
+                }
             };
             alert("heh");
 
