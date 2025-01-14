@@ -548,7 +548,7 @@
                     ${community_view.community.description ? `<div class='bio'>${parseMarkdown(community_view.community.description)}</div>` : ''}
                     <div class="profile-bottom">
                         <div class="followButton">
-                            <button onclick="subscribe(${community_view.community.id} ,${doisubornot}, "${getInstanceFromActorId(community_view.community.actor_id)}")">${but}</button>
+                            <button onclick="subscribe(${community_view.community.id} ,${doisubornot}, '${getInstanceFromActorId(community_view.community.actor_id)}')">${but}</button>
                         </div>
                     </div>
                 `;
