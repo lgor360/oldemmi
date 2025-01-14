@@ -166,7 +166,7 @@
             try {
                 const response = await fetch(`https://${communityInstance}/api/v3/community?name=${communityName}`, {
                     method: "GET",
-                    headers: { "Content-Type": "application/json" }
+                    headers: { "content-type": "application/json" }
                 });
                 const data = await response.json();
                 return data.community_view;
@@ -204,8 +204,8 @@
                 url: `https://${communityInstance}/api/v3/post`,
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${lemmyToken}`
+                    "content-type": "application/json",
+                    "authorization": `Bearer ${lemmyToken}`
                 },
                 body: JSON.stringify({
                     community_id: communityData.community.id,
@@ -219,7 +219,7 @@
             };
             fetch(proxyUrl, {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: { "content-type": "application/json" },
                 body: JSON.stringify(postData)
             })
                 .then(response => {
@@ -244,8 +244,8 @@
                 const response = await fetch(`${api}/site`, {
                     method: "GET",
                     headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${lemmyToken}`
+                        "content-type": "application/json",
+                        "authorization": `Bearer ${lemmyToken}`
                     }
                 });
                 const data = await response.json();
@@ -262,8 +262,8 @@
                 const response = await fetch(serverUrl, {
                     method: "GET",
                     headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${lemmyToken}`
+                        "content-type": "application/json",
+                        "authorization": `Bearer ${lemmyToken}`
                     }
                 });
 
@@ -326,8 +326,8 @@
                 url: `https://${server}/api/v3/user/logout`,
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${lemmyToken}`
+                    "content-type": "application/json",
+                    "authorization": `Bearer ${lemmyToken}`
                 },
                 body: {}
             };
@@ -337,7 +337,7 @@
                 // выполняем запрос на выход через прокси
                     const response = await fetch(proxyUrl, {
                         method: "POST",
-                        headers: { "Content-Type": "application/json" },
+                        headers: { "content-type": "application/json" },
                         body: JSON.stringify(logoutData)
                     });
 
