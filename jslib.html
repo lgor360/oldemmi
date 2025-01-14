@@ -1,14 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <script type="module">
-        window.onload = () => {
-            import { LemmyHTTP } from "https://cdn.jsdelivr.net/npm/lemmy-js-client@0.20.0-image-api-rework.8/dist/index.js";
-            const server = localStorage.getItem("accountServer") || urlParams.get('server') || "lemmy.world";
-            const client = new LemmyHttp(`https://${server}`);
-            window.client = client;
-        };
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/lemmy-js-client@latest/dist/http.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>oldemmi</title>
@@ -220,7 +213,7 @@
         const lemmyToken = localStorage.getItem("lemmyToken");
         const api = `https://${server}/api/v3`;
         alert("a");
-        client = window.client;
+        const client = new LemmyHTTP(`https://${server}`);
         alert(client);
 
         function instanceapply() {
