@@ -260,7 +260,6 @@
         // функция для получения профиля
         async function fetchCommunity() {
             try {
-                alert(lemmyToken);
                 let response;
                 if (lemmyToken) {
                     response = await fetch(`${api}/community?name=${community}`, {
@@ -270,7 +269,6 @@
                             "authorization": `Bearer ${lemmyToken}`
                         }
                     });
-                    alert("miki");
                 } else {
                     response = await fetch(`${api}/community?name=${community}`, {
                         method: "GET",
@@ -629,7 +627,6 @@
                     const lemmyTokenValid = await validateToken();
                     if (lemmyTokenValid) {
                         logined = true;
-                        alert("a");
                         profileInBar.style.display = "flex";
                         logout.style.display = "flex";
                         login.style.display = "none";
