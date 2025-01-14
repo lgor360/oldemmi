@@ -213,6 +213,8 @@
         const lemmyToken = localStorage.getItem("lemmyToken");
         const api = `https://${server}/api/v3`;
         alert("a");
+        alert(LemmyHTTP);
+        alert(window.LemmyHTTP);
         const client = new LemmyHTTP(`https://${server}`);
         alert(client);
 
