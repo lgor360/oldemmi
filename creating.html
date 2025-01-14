@@ -201,21 +201,21 @@
             }
             
             const postData = {
-                url: `https://${communityInstance}/api/v3/post`,
+                url: `https://${server}/api/v3/post`,
                 method: "POST",
                 headers: {
                     "content-type": "application/json",
                     "authorization": `Bearer ${lemmyToken}`
                 },
-                body: JSON.stringify({
-                    community_id: communityData.community.id,
-                    name: titleInput.value,
-                    body: bodyInput.value,
-                    url: urlInput.value || null,
-                    nsfw: nsfwInput.checked || false,
-                    language: 0,
-                    honeypot: ""
-                })
+                body: {
+                    "community_id": communityData.community.id,
+                    "name": titleInput.value,
+                    "body": bodyInput.value,
+                    "url": urlInput.value || null,
+                    "nsfw": nsfwInput.checked || false,
+                    "language": 0,
+                    "honeypot": ""
+                }
             };
             fetch(proxyUrl, {
                 method: "POST",
