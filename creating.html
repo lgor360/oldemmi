@@ -180,6 +180,7 @@
                         }
                     })
                 });
+                alert(response.text());
                 const data = await response.json();
                 return data.community;
             } catch (error) {
