@@ -157,26 +157,25 @@
             font-size: 1.2em;
         }
         .comments {
+            min-width: 300px; /* минимальная ширина */
+            max-width: 600px; /* максимальная ширина */
+            margin: 20px auto; /* центрируем */
             border: 1px solid #ccc;
             padding: 15px;
-            margin: 20px auto;
-            width: 100%;
             background-color: #454545;
             border-radius: 0px;
-        }
-        .comments-div {
-            min-width: 300px;
-            max-width: 600px;
+            box-sizing: border-box;
+            width: 100%; /* всегда занимает ширину родителя */
         }
         .comment {
-            box-sizing: border-box;
+            width: 100%; /* растягивается на ширину контейнера */
+            margin: 10px 0; /* отступы между комментариями */
+            padding: 10px;
             border: 1px solid #ccc;
-            padding: 15px;
-            margin: 10px 0;
-            background-color: #454545;
+            background-color: #353535;
             border-radius: 0px;
+            box-sizing: border-box;
             display: block;
-            align-items: center;
         }
     </style>
 </head>
@@ -202,10 +201,8 @@
         <!-- сюда будут добавляться посты через js -->
     </div>
     <hr width="93%" size="2" color="#c4db53">
-    <div id="comments-div">
-        <div id="comments">
-            <!-- сюда будут добавляться комментарии через js -->
-        </div>
+    <div id="comments">
+        <!-- сюда будут добавляться комментарии через js -->
     </div>
     <div class="load-more">
         <button onclick="loadMoreComments()">more</button>
