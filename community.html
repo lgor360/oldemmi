@@ -411,7 +411,7 @@
                         doisubornot = false;
                     }
                     document.getElementById("followButton").innerHTML = `
-                        <button onclick="subscribe(${comid} ,${doisubornot}, '${instance}')">${but}</button>
+                        <button onclick="subscribe(${comid} ,${doisubornot}, '${instance}')">'${but}'</button>
                     `;
                 } else {
                     console.error("ошибка входа после 2FA:", data);
