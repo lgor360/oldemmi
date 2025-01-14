@@ -415,7 +415,7 @@
                     commentElement.classList.add("post");
 
                     // определяем уровень вложенности на основе path
-                    const depth = comment.path.split('.').length - 1; // количество "." определяет уровень вложенности
+                    const depth = comment.comment.path.split('.').length - 1; // количество "." определяет уровень вложенности
                     const widthReduction = Math.min(depth, 50); // максимальное уменьшение ширины - 50% (50 уровней)
                     commentElement.style.marginLeft = `${depth * 20}px`; // отступ для визуального эффекта вложенности
                     commentElement.style.width = `${100 - widthReduction}%`;
