@@ -396,24 +396,12 @@
                 return `<a href="${url}" rel="noopener noreferrer">${community}@${instance}</a>`;
             });
             // таблицы
-            text = text.replace(
-                /^\|(.+?)\|\n\|[-\s|]+\|\n((?:\|.+?\|\n)*)/gm,
-                (_, headers, rows) => {
-                    const headerCells = headers
-                        .split('|')
-                        .map(cell => `<td>${cell.trim()}</td>`)
-                        .join('');
-                    const bodyRows = rows
-                        .trim()
-                        .split('\n')
-                        .map(row => {
-                            const cells = row
-                                .split('|')
-                                .map(cell => `<td>${cell.trim()}</td>`)
-                                .join('');
-                            return `<tr>${cells}</tr>`;
-                        })
-                        .join('');
+            text = text.replace(/^\|(.+?)\|\n\|[-\s|]+\|\n((?:\|.+?\|\n)*)/gm, (_, headers, rows) => {
+                const headerCells = headers.split('|').map(cell => `<td>${cell.trim()}</td>`).join('');
+                const bodyRows = rows.trim().split('\n').map(row => {
+                        const cells = row.split('|').map(cell => `<td>${cell.trim()}</td>`).join('');
+                        return `<tr>${cells}</tr>`;
+                    }).join('');
                     return `<table><thead><tr>${headerCells}</tr></thead><tbody>${bodyRows}</tbody></table>`;
                 }
             );
