@@ -350,7 +350,7 @@
             }
         }
       
-        function markdownToHtml(markdown) {
+        function parseMarkdown(markdown) {
             return markdown
                 // экранирование символов
                 .replace(/\\([\\`*_{}\[\]()#+\-.!|>])/g, '$1')
