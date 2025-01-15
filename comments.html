@@ -299,10 +299,10 @@
                     headers: { "Content-Type": "application/json" }
                 });
                 const data = await response.json();
-                if (Array.isArray(data.cross_posts) && data.cross_posts.length === 0) {
-                    return false;
-                } else {
+                if (Array.isArray(data.cross_posts) && data.cross_posts.length !== 0) {
                     return true;
+                } else {
+                    return false;
                 }
             } catch (error) {
                 alert(`error while loading post: ${error}`);
