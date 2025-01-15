@@ -262,7 +262,10 @@
                 const data = await response.json();
                 const comments = data.comments;
 
-                if (!comments || comments.length === 0) break; // если комментариев больше нет, выходим из цикла
+                if (!comments || comments.length === 0) {
+                    progressBar.value = 100;
+                    break; // если комментариев больше нет, выходим из цикла
+                }
 
                 alkac.push(...comments); // добавляем комментарии в общий массив
 
