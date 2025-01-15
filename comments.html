@@ -121,14 +121,6 @@
         .counter span {
             margin-left: 5px;
         }
-        .load-more {
-            display: flex;
-            justify-content: center;
-            margin: 20px 0;
-        }
-        .load-more button {
-            padding: 10px 20px;
-        }
         .post-link {
             margin-bottom: 10px;
         }
@@ -170,6 +162,11 @@
             background-color: #454545;
             border-radius: 0px;
         }
+        progress {
+            border: 1px solid #ccc;
+            background-color: #454545;
+            border-radius: 0px;
+        }
     </style>
 </head>
 <body>
@@ -197,11 +194,13 @@
     <div id="comments">
         <!-- сюда будут добавляться комментарии через js -->
     </div>
-    <div class="load-more">
-        <button onclick="loadMoreComments()">more</button>
+    <div id="progress-container" style="display: none; text-align: center; margin: 10px 0;">
+        <progress id="progress-bar" value="0" max="100" style="width: 30%;"></progress>
     </div>
 
+
     <script>
+        let commentsCount = null;
         const allComments = []; // глобальный массив для хранения всех комментариев
         const urlParams = new URLSearchParams(window.location.search);
         const server = urlParams.get('server') || "lemmy.world";
@@ -226,22 +225,10 @@
                     headers: { "Content-Type": "application/json" }
                 });
                 const data = await response.json();
+                commentsCount = data.post_view.counts.comments;
                 return data.post_view;
             } catch (error) {
                 alert(`error while loading post: ${error}`);
-            }
-        }
-
-        async function fetchComments() {
-            try {
-                const response = await fetch(`${api}/comment/list?post_id=${post}&page=${page}&limit=${limit}&sort=Old`, {
-                    method: "GET",
-                    headers: { "Content-Type": "application/json" }
-                });
-                const data = await response.json();
-                return data.comments;
-            } catch (error) {
-                alert(`error while loading comments: ${error}`);
             }
         }
 
@@ -250,6 +237,11 @@
             let page = 1;
             const limit = 50; // максимальное значение
 
+            // показываем прогресс-бар
+            const progressContainer = document.getElementById("progress-container");
+            const progressBar = document.getElementById("progress-bar");
+            progressContainer.style.display = "block";
+            
             while (true) {
                 const response = await fetch(`${api}/comment/list?post_id=${post}&page=${page}&limit=${limit}&sort=New`, {
                     method: "GET",
@@ -261,8 +253,15 @@
                 if (!comments || comments.length === 0) break; // если комментариев больше нет, выходим из цикла
 
                 alkac.push(...comments); // добавляем комментарии в общий массив
+
+                // обновляем прогресс-бар
+                const progress = Math.min((alkac.length / commentsCount) * 100, 100); // ограничиваем до 100%
+                progressBar.value = progress;
                 page++; // увеличиваем страницу для следующего запроса
             }
+            // скрываем прогресс-бар после загрузки
+            progressContainer.style.display = "none";
+            
             return alkac;
         }
         
