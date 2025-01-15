@@ -426,8 +426,6 @@
 
                 // сортируем комментарии по path, чтобы родительские шли перед дочерними
                 comments.sort((a, b) => a.comment.path.localeCompare(b.comment.path));
-
-                // создаем мапу для хранения дочерних комментариев
                 const commentMap = new Map();
 
                 comments.forEach(comment => {
@@ -438,7 +436,6 @@
                     // определяем уровень вложенности
                     const depth = comment.comment.path.split('.').length - 1;
                     const indent = depth * 5; // отступ слева для вложенных комментариев
-                    commentElement.style.marginLeft = `${indent}px`;
 
                     commentElement.innerHTML = `
                         <div class="post-header">
