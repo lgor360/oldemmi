@@ -210,7 +210,7 @@
         <progress id="progress-bar" value="0" max="100" style="width: 30%;"></progress>
     </div>
 
-    <div style="align-items: center; text-align: center;" class="maxwell_cat">
+    <div style="display: none; align-items: center; text-align: center; text-size: 1em; margin-top: 15px;" class="maxwell_cat">
         <img alt="maxwell" src="https://media.tenor.com/U5N6j3pjGcIAAAAi/cat-meme-meme.gif">
         <div>
             the end :3
@@ -257,6 +257,7 @@
 
             // показываем прогресс-бар
             const progressContainer = document.getElementById("progress-container");
+            const maxwell = document.getElementById("maxwell_cat");
             const progressBar = document.getElementById("progress-bar");
             progressContainer.style.display = "block";
             
@@ -282,6 +283,7 @@
             }
             // скрываем прогресс-бар после загрузки
             progressContainer.style.display = "none";
+            maxwell.style.display = "block";
             
             return alkac;
         }
