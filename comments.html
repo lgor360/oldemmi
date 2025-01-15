@@ -8,6 +8,7 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #404040;
+            background-image: url(/oldemmi/back.png);
             color: #f3f3f3;
             margin: 0;
             padding: 0;
@@ -36,7 +37,9 @@
             text-decoration: none;
         }
         .navbar {
-            background-color: #282828;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            background: linear-gradient(#303030, #2d2d2d 45%, #2b2b2b 55%, #282828);
             padding: 10px 20px;
             display: flex;
             justify-content: space-between;
@@ -210,8 +213,8 @@
         <progress id="progress-bar" value="0" max="100" style="width: 30%;"></progress>
     </div>
 
-    <div style="display: none; align-items: center; text-align: center; font-weight: bold; text-size: 2em; margin-top: 15px;" id="maxwell_cat">
-        <img style="transform: scale(0.5);" alt="maxwell" src="https://media.tenor.com/U5N6j3pjGcIAAAAi/cat-meme-meme.gif">
+    <div style="transform: scale(0.5); display: none; align-items: center; text-align: center; font-weight: bold; text-size: 2em; margin-top: 15px;" id="maxwell_cat">
+        <img alt="maxwell" src="https://media.tenor.com/U5N6j3pjGcIAAAAi/cat-meme-meme.gif">
         <div style="margin-top: 10px; margin-bottom: 10px;">
             the end :3
         </div>
