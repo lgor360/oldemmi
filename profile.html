@@ -359,6 +359,16 @@
         function goToProfile(id, servero) {
             window.location.href = `https://lgor360.github.io/oldemmi/profile.html?server=${servero}&user=${id}`
         }
+
+        function makeHtmlFromMarkdown(texto) {
+            const renderer = new marked.Renderer();
+            renderer.text = (text) => {
+                return text.replace(/!([\w\d]+)@([\w\d.]+)/g, (match, community, instance) => {
+                    return `<a href="https://lgor360.github.io/oldemmi/community.html?server=${instance}&community=${community}" rel="noopener noreferrer">${community}@${instance}</a>`;
+                });
+            };
+            return marked(texto, { renderer });
+        }
       
         function parseMarkdown(text) {
             // жирный текст (*текст*)
@@ -447,7 +457,7 @@
                             </div>
                         </div>
                         <div class="post-name">${post.post.name}</div>
-                        <div class="post-text">${marked.parse(post.post.body || "")}</div>
+                        <div class="post-text">${makeHtmlFromMarkdown(post.post.body || "")}</div>
                         ${post.post.thumbnail_url ? `<img src="${post.post.thumbnail_url}" class="post-image" alt="image">` : ""}
                         ${postotourl ? `<div class="post-link"><a rel="noopener noreferrer" href="${postotourl}">${postotourl}</a></div>` : ""}
                         <div class="post-footer">
@@ -501,7 +511,7 @@
                             </div>
                         </div>
                     </div>
-                    ${person_view.person.bio ? `<div class='bio'>${parseMarkdown(person_view.person.bio)}</div>` : ''}
+                    ${person_view.person.bio ? `<div class='bio'>${makeHtmlFromMarkdown(person_view.person.bio)}</div>` : ''}
                 `;
             } catch (error) {
                 alert(`error while rendering profile: ${error}`);
