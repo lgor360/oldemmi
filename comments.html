@@ -398,6 +398,15 @@
                 const url = `https://lgor360.github.io/oldemmi/community.html?server=${instance}&community=${community}`;
                 return `<a href="${url}" rel="noopener noreferrer">${community}@${instance}</a>`;
             });
+            // таблицы
+            text = text.replace(/^\|(.+)\|\n\|(:?-+:?)+\|\n((?:\|.*\|\n)+)/gm, (_, header, align, rows) => {
+                const ths = header.split('|').map(th => `<th>${th.trim()}</th>`).join('');
+                const trs = rows.trim().split('\n').map(row => {
+                    const tds = row.split('|').map(td => `<td>${td.trim()}</td>`).join('');
+                    return `<tr>${tds}</tr>`;
+                }).join('');
+                return `<table><thead><tr>${ths}</tr></thead><tbody>${trs}</tbody></table>`;
+            });
             return text;
         }
         
