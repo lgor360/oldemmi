@@ -400,14 +400,15 @@
             });
             // таблицы
             text = text.replace(/^\|([^\|]+)\|\n\|([^\|]+)\|\n/gm, (match, header, align) => {
-                const headers = header.split('|').map(h => h.trim()).join(', ');
-                return `<table><tr><td>${headers}</td></tr>`;
+                return `<table><tr>`;
             });
             text = text.replace(/^\|([^\|]+)\|\n/gm, (match, row) => {
-                const values = row.split('|').map(cell => cell.trim()).join(', ');
-                return `<tr><td>${values}</td></tr>`;
+                // преобразуем строку таблицы в td
+                const cells = row.split('|').map(cell => cell.trim()).join(', ');
+                return `<td>${cells}</td>`;
             });
-            text = text.replace(/<\/table><\/tr><td><\/tr>/g, '</table>'); // закрываем таблицу
+            // завершаем таблицу
+            text = text.replace(/<\/td><\/tr><\/td>/g, '</tr></table>');
             
             return text;
         }
