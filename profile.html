@@ -7,6 +7,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-image: url(/oldemmi/back.png);
             background-color: #404040;
             color: #f3f3f3;
             margin: 0;
@@ -40,7 +41,9 @@
             text-decoration: none;
         }
         .navbar {
-            background-color: #282828;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            background: linear-gradient(#303030, #2d2d2d 45%, #2b2b2b 55%, #282828);
             padding: 10px 20px;
             display: flex;
             justify-content: space-between;
@@ -233,12 +236,14 @@
             <!-- здесь будет шапка профиля -->
         </div>
     </div>
+    <hr width="93%" size="2" color="#454545">
     <div class="buttons">
         <div class="somi">
             <button onclick="goToPostTab()">posts</button>
             <button onclick="goToCommentsTab()">comments</button>
         </div>
     </div>
+    <hr width="93%" size="2" color="#454545">
     
     <div id="posts">
         <!-- сюда будут добавляться посты через js -->
