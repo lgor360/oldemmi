@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -424,7 +424,7 @@
         function renderComments(comments) {
             try {
                 const commentsContainer = document.getElementById("comments");
-                comments.sort((a, b) => a.comment.path.localeCompare(b.comment.path)); // сортируем по path
+                comments.sort((a, b) => new Date(a.comment.published) - new Date(b.comment.published)); // сортируем по path
 
                 const commentMap = new Map(); // мапа для связи комментариев
                 comments.forEach(comment => {
