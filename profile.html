@@ -213,7 +213,6 @@
     </style>
 </head>
 <body>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <div class="navbar">
         <div onclick="goToHome()" class="oldemmi">
             <img src="https://lgor360.github.io/oldemmi/logo.png" alt="oldemmi logo">
@@ -250,7 +249,8 @@
         <button onclick="loadMoreSomething()">more</button>
     </div>
 
-    <script>
+    <script type="module">
+        import { marked } from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm";
         const lemmyToken = localStorage.getItem("lemmyToken");
         const urlParams = new URLSearchParams(window.location.search);
         const server = urlParams.get('server') || "lemmy.world";
