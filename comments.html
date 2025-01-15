@@ -396,13 +396,27 @@
                 return `<a href="${url}" rel="noopener noreferrer">${community}@${instance}</a>`;
             });
             // таблицы
-            text = text.replace(/^\|([^\|]+)\|/gm, (match, row) => {
-                const cells = row.split('|').map(cell => cell.trim()).map(cell => `<td>${cell}</td>`).join('');
-                return `<tr>${cells}</tr>`;
-            });
-            // Завершаем таблицу
-            text = text.replace(/<\/tr>/g, '</tr></table>');
-            text = text.replace(/<tr><td/g, '<table><tr><td'); // начнем таблицу с первого <tr><td>
+            text = text.replace(
+                /^\|(.+?)\|\n\|[-\s|]+\|\n((?:\|.+?\|\n)*)/gm,
+                (_, headers, rows) => {
+                    const headerCells = headers
+                        .split('|')
+                        .map(cell => `<td>${cell.trim()}</td>`)
+                        .join('');
+                    const bodyRows = rows
+                        .trim()
+                        .split('\n')
+                        .map(row => {
+                            const cells = row
+                                .split('|')
+                                .map(cell => `<td>${cell.trim()}</td>`)
+                                .join('');
+                            return `<tr>${cells}</tr>`;
+                        })
+                        .join('');
+                    return `<table><thead><tr>${headerCells}</tr></thead><tbody>${bodyRows}</tbody></table>`;
+                }
+            );
             return text;
         }
         
