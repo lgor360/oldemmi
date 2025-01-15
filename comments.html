@@ -399,14 +399,16 @@
                 return `<a href="${url}" rel="noopener noreferrer">${community}@${instance}</a>`;
             });
             // таблицы
-            text = text.replace(/^\|(.+)\|\n\|(:?-+:?)+\|\n((?:\|.*\|\n)+)/gm, (_, header, align, rows) => {
-                const ths = header.split('|').map(th => `<th>${th.trim()}</th>`).join('');
-                const trs = rows.trim().split('\n').map(row => {
-                    const tds = row.split('|').map(td => `<td>${td.trim()}</td>`).join('');
-                    return `<tr>${tds}</tr>`;
-                }).join('');
-                return `<table><thead><tr>${ths}</tr></thead><tbody>${trs}</tbody></table>`;
+            text = text.replace(/^\|([^\|]+)\|\n\|([^\|]+)\|\n/gm, (match, header, align) => {
+                const headers = header.split('|').map(h => h.trim()).join(', ');
+                return `<table><tr><td>${headers}</td></tr>`;
             });
+            text = text.replace(/^\|([^\|]+)\|\n/gm, (match, row) => {
+                const values = row.split('|').map(cell => cell.trim()).join(', ');
+                return `<tr><td>${values}</td></tr>`;
+            });
+            text = text.replace(/<\/table><\/tr><td><\/tr>/g, '</table>'); // закрываем таблицу
+            
             return text;
         }
         
