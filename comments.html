@@ -396,18 +396,13 @@
                 return `<a href="${url}" rel="noopener noreferrer">${community}@${instance}</a>`;
             });
             // таблицы
-            text = text.replace(/^\|([^\|]+)\|\n\|([^\|]+)\|\n/gm, (match, header1, header2) => {
-                return `<table><tr><th>${header1.trim()}</th><th>${header2.trim()}</th></tr>`;
-            });
-            // Обработка данных в таблицах
-            text = text.replace(/^\|([^\|]+)\|\n/gm, (match, row) => {
-                // Преобразуем строку таблицы в <td>
-                const cells = row.split('|').map(cell => `<td>${cell.trim()}</td>`).join('');
+            text = text.replace(/^\|([^\|]+)\|/gm, (match, row) => {
+                const cells = row.split('|').map(cell => cell.trim()).map(cell => `<td>${cell}</td>`).join('');
                 return `<tr>${cells}</tr>`;
             });
             // Завершаем таблицу
-            text = text.replace(/<\/tr><\/table>/g, '</table>');
-
+            text = text.replace(/<\/tr>/g, '</tr></table>');
+            text = text.replace(/<tr><td/g, '<table><tr><td'); // начнем таблицу с первого <tr><td>
             return text;
         }
         
