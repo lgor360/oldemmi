@@ -350,54 +350,41 @@
             }
         }
       
-        function parseMarkdown(markdown) {
-            return markdown
-                // экранирование символов
-                .replace(/\\([\\`*_{}\[\]()#+\-.!|>])/g, '$1')
-                // параграфы и разрывы строк
-                .replace(/\n{2,}/g, '</p><p>')
-                .replace(/\n/g, '<br>')
-                // заголовки
-                .replace(/^(#+) (.+)$/gm, (match, hashes, content) => {
-                    const level = Math.min(hashes.length, 6);
-                    return `<h${level}>${content}</h${level}>`;
-                })
-                // жирный, курсив, жирный курсив
-                .replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>')
-                .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-                .replace(/\*(.+?)\*/g, '<em>$1</em>')
-                // зачёркнутый, подчёркнутый
-                .replace(/~~(.+?)~~/g, '<del>$1</del>')
-                .replace(/__(.+?)__/g, '<u>$1</u>')
-                // разделители
-                .replace(/^\-{3,}$/gm, '<hr>')
-                // цитаты
-                .replace(/^> (.+)$/gm, '<blockquote>$1</blockquote>')
-                // чекбоксы
-                .replace(/^\s*-\s*\[x\] (.+)$/gm, '<input type="checkbox" checked disabled> $1')
-                .replace(/^\s*-\s*\[\s\] (.+)$/gm, '<input type="checkbox" disabled> $1')
-                // списки
-                .replace(/^\s*\d+\.\s+(.+)$/gm, '<ol><li>$1</li></ol>')
-                .replace(/^\s*-\s+(.+)$/gm, '<ul><li>$1</li></ul>')
-                // ссылки
-                .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" rel="noopener noreferrer" target="_blank">$1</a>')
-                // картинки
-                .replace(/!\[(.+?)\]\((.+?)\)/g, '<img src="$2" alt="$1">')
-                // вставка кода
-                .replace(/```([\s\S]+?)```/g, '<pre><code>$1</code></pre>')
-                .replace(/`(.+?)`/g, '<code>$1</code>')
-                // таблицы
-                .replace(/\|(.+?)\|/g, '<table><tr><td>$1</td></tr></table>')
-                // обработка community@instance
-                .replace(/!([\w\d_]+)@([\w\d\.-]+)/g, (match, community, instance) => {
-                    const url = `https://lgor360.github.io/oldemmi/community.html?server=${instance}&community=${community}`;
-                    return `<a href="${url}" rel="noopener noreferrer">${community}@${instance}</a>`;
-                })
-                // спойлеры
-                .replace(/::: spoiler (.+?)\n([\s\S]+?)\n:::/g, 
-                    '<details><summary>$1</summary><div>$2</div></details>')
-                // обёртка в параграф
-                .replace(/^(.+)$/gm, '<p>$1</p>');
+        function parseMarkdown(text) {
+            // жирный текст (*текст*)
+            text = text.replace(/\*{2}([^\*]+)\*{2}/g, '<strong>$1</strong>');
+            // курсив (*текст*)
+            text = text.replace(/\*([^\*]+)\*/g, '<em>$1</em>');
+            // зачёркнутый текст (~~текст~~)
+            text = text.replace(/~~(.*?)~~/g, '<del>$1</del>');
+            // цитаты (> текст)
+            text = text.replace(/^>\s(.+)/gm, '<blockquote>$1</blockquote>');
+            // списки (- текст)
+            text = text.replace(/^- (.+)/gm, '<li>$1</li>');
+            text = text.replace(/(<li>.*<\/li>)/g, '<ul>$1</ul>'); // оборачиваем список в <ul>
+            // код (`текст`)
+            text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
+            // прописные (~текст~)
+            text = text.replace(/~(.*?)~/g, '<sub>$1</sub>');
+            // заглавные (^текст^)
+            text = text.replace(/\^(.*?)\^/g, '<sup>$1</sup>');
+            // спойлеры (::spoiler текст:::)
+            text = text.replace(/::: spoiler (.+?)\n([\s\S]+?)\n:::/g, 
+                '<details><summary>$1</summary><div>$2</div></details>');
+            // картинки
+            text = text.replace(/!\[([^\]]*)\]\((https?:\/\/[^\)]+\.(jpg|jpeg|png|gif|webp))\)/g, '<img src="$2" alt="$1" style="max-width: 100%; height: auto;">');
+            // ссылки ([текст](ссылка))
+            text = text.replace(/\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g, '<a href="$2" rel="noopener noreferrer" target="_blank">$1</a>');
+            // заголовки
+            text = text.replace(/^(#+)\s*(.+)$/gm, (_, hashes, content) => `<h${hashes.length}>${content}</h${hashes.length}>`);
+            // переносы строк
+            text = text.replace(/\\n/g, '<br>');
+            // обработка ссылок типа !сообщество@инстанс
+            text = text.replace(/!([\w\d_]+)@([\w\d\.-]+)/g, (match, community, instance) => {
+                const url = `https://lgor360.github.io/oldemmi/community.html?server=${instance}&community=${community}`;
+                return `<a href="${url}" rel="noopener noreferrer">${community}@${instance}</a>`;
+            });
+            return text;
         }
 
         function getInstanceFromActorId(actorId) {
