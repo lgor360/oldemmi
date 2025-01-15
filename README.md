@@ -18,7 +18,7 @@ due to the client being under development, some features are not available
 |filters|✓|
 |post's link view|✓|
 |moderation functions||✓|
-|comment replies||✓|
+|comment replies|✓|
 |404 page|✓|
 |actions||✓|
 |locked and deleted flags|✓|
