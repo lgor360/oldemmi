@@ -319,8 +319,8 @@
             return url.hostname; // возвращает домен, например, "lemmy.world"
         }
 
-        function goToComments(postoid) {
-            window.location.href = `https://lgor360.github.io/oldemmi/comments.html?server=${server}&post=${postoid}`
+        function goToComments(postoid, serveromo) {
+            window.location.href = `https://lgor360.github.io/oldemmi/comments.html?server=${serveromo}&post=${postoid}`
         }
         
         function goToCommunity(comname, servecom) {
@@ -409,7 +409,7 @@
                                 <span>${post.counts.downvotes}</span>
                             </div>
                             <div class="counter">
-                                <button onclick="goToComments(${post.post.id})">💬</button>
+                                <button onclick="goToComments(${post.post.id}, ${getInstanceFromActorId(post.community.actor_id)})">💬</button>
                                 <span>${post.counts.comments}</span>
                             </div>
                         </div>
