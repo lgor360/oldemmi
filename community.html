@@ -263,6 +263,7 @@
         async function fetchCommunity() {
             try {
                 let response;
+                console.log(`${api}/community?name=${community}`);
                 if (lemmyToken) {
                     response = await fetch(`${api}/community?name=${community}`, {
                         method: "GET",
