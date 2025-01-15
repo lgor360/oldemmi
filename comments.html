@@ -244,6 +244,27 @@
                 alert(`error while loading comments: ${error}`);
             }
         }
+
+        async function fetchAllComments() {
+            const alkac = [];
+            let page = 1;
+            const limit = 50; // максимальное значение
+
+            while (true) {
+                const response = await fetch(`${api}/comment/list?post_id=${post}&page=${page}&limit=${limit}&sort=New`, {
+                    method: "GET",
+                    headers: { "Content-Type": "application/json" }
+                });
+                const data = await response.json();
+                const comments = data.comments;
+
+                if (!comments || comments.length === 0) break; // если комментариев больше нет, выходим из цикла
+
+                alkac.push(...comments); // добавляем комментарии в общий массив
+                page++; // увеличиваем страницу для следующего запроса
+            }
+            return alkac;
+        }
         
         // функция для получения постов
         async function checkCross() {
@@ -483,14 +504,13 @@
         // функция для загрузки комментариев
         async function loadMoreComments() {
             try {
-                const newComments = await fetchComments(); // загружаем новую порцию комментариев
+                const newComments = await fetchAllComments(); // загружаем новую порцию комментариев
                 allComments.push(...newComments); // сохраняем их в общий массив
 
                 // пересоздаём дерево комментариев
                 const commentsContainer = document.getElementById("comments");
                 commentsContainer.innerHTML = ""; // очищаем контейнер
                 renderComments(allComments); // перерисовываем все комментарии
-                page++
             } catch (error) {
                 alert(error);
             }
