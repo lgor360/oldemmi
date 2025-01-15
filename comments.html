@@ -373,9 +373,6 @@
             text = text.replace(/~~(.*?)~~/g, '<del>$1</del>');
             // цитаты (> текст)
             text = text.replace(/^>\s(.+)/gm, '<blockquote>”$1”</blockquote>');
-            // списки (- текст)
-            text = text.replace(/^- (.+)/gm, '<li>$1</li>');
-            text = text.replace(/(<li>.*<\/li>)/g, '<ul>$1</ul>'); // оборачиваем список в <ul>
             // код (`текст`)
             text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
             // прописные (~текст~)
@@ -399,17 +396,18 @@
                 return `<a href="${url}" rel="noopener noreferrer">${community}@${instance}</a>`;
             });
             // таблицы
-            text = text.replace(/^\|([^\|]+)\|\n\|([^\|]+)\|\n/gm, (match, header, align) => {
-                return `<table><tr>`;
+            text = text.replace(/^\|([^\|]+)\|\n\|([^\|]+)\|\n/gm, (match, header1, header2) => {
+                return `<table><tr><th>${header1.trim()}</th><th>${header2.trim()}</th></tr>`;
             });
+            // Обработка данных в таблицах
             text = text.replace(/^\|([^\|]+)\|\n/gm, (match, row) => {
-                // преобразуем строку таблицы в td
-                const cells = row.split('|').map(cell => cell.trim()).join(', ');
-                return `<td>${cells}</td>`;
+                // Преобразуем строку таблицы в <td>
+                const cells = row.split('|').map(cell => `<td>${cell.trim()}</td>`).join('');
+                return `<tr>${cells}</tr>`;
             });
-            // завершаем таблицу
-            text = text.replace(/<\/td><\/tr><\/td>/g, '</tr></table>');
-            
+            // Завершаем таблицу
+            text = text.replace(/<\/tr><\/table>/g, '</table>');
+
             return text;
         }
         
