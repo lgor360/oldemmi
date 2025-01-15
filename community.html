@@ -13,6 +13,25 @@
             margin: 0;
             padding: 0;
         }
+        blockquote {
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        table {
+            border: 0px;
+            background-color: #ccc;
+            border-radius: 0px;
+        }
+        thead {
+            border: 2px solid #fff;
+            background-color: #454545;
+            border-radius: 0px;
+        }
+        tbody {
+            border: 2px solid #1f1f1f;
+            background-color: #454545;
+            border-radius: 0px;
+        }
         img {
             border: 1px solid #ccc;
             border-radius: 0px;
@@ -339,6 +358,16 @@
         }
       
         function parseMarkdown(text) {
+            // списки
+            text = text.replace(/^(\s*)([-*+]|[0-9]+\.)\s+(.+)/gm, (_, space, bullet, item) => {
+                const tag = /^[0-9]+\./.test(bullet) ? 'ol' : 'ul';
+                return `${space}<${tag}><li>${item}</li></${tag}>`;
+            });
+            // чекбоксы
+            text = text.replace(/\[ \]\s(.+)/g, '<input type="checkbox" disabled>$1');
+            text = text.replace(/\[x\]\s(.+)/gi, '<input type="checkbox" checked disabled>$1');
+            // подчёркнутый текст
+            text = text.replace(/__([^_]+)__/g, '<u>$1</u>');
             // жирный текст (*текст*)
             text = text.replace(/\*{2}([^\*]+)\*{2}/g, '<strong>$1</strong>');
             // курсив (*текст*)
@@ -346,10 +375,7 @@
             // зачёркнутый текст (~~текст~~)
             text = text.replace(/~~(.*?)~~/g, '<del>$1</del>');
             // цитаты (> текст)
-            text = text.replace(/^>\s(.+)/gm, '<blockquote>$1</blockquote>');
-            // списки (- текст)
-            text = text.replace(/^- (.+)/gm, '<li>$1</li>');
-            text = text.replace(/(<li>.*<\/li>)/g, '<ul>$1</ul>'); // оборачиваем список в <ul>
+            text = text.replace(/^>\s(.+)/gm, '<blockquote>”$1”</blockquote>');
             // код (`текст`)
             text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
             // прописные (~текст~)
@@ -372,6 +398,16 @@
                 const url = `https://lgor360.github.io/oldemmi/community.html?server=${instance}&community=${community}`;
                 return `<a href="${url}" rel="noopener noreferrer">${community}@${instance}</a>`;
             });
+            // таблицы
+            text = text.replace(/^\|(.+?)\|\n\|[-\s|]+\|\n((?:\|.+?\|\n)*)/gm, (_, headers, rows) => {
+                const headerCells = headers.split('|').map(cell => `<td>${cell.trim()}</td>`).join('');
+                const bodyRows = rows.trim().split('\n').map(row => {
+                        const cells = row.split('|').filter(cell => cell.trim() !== '').map(cell => `<td>${cell.trim()}</td>`).join('');
+                        return `<tr>${cells}</tr>`;
+                    }).join('');
+                    return `<table><thead><tr>${headerCells}</tr></thead><tbody>${bodyRows}</tbody></table>`;
+                }
+            );
             return text;
         }
 
