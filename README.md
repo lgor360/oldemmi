@@ -23,3 +23,4 @@ due to the client being under development, some features are not available
 |actions||✓|
 |locked and deleted flags|✓|
 |cross-posts view|✓|
+|markdown full support||✓|
