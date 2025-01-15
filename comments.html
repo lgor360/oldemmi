@@ -182,6 +182,10 @@
             background-color: #c4db53;
             transition: width 0.5s;
         }
+        blockquote {
+            font-weight: bold;
+            font-size: 0.9em;
+        }
     </style>
 </head>
 <body>
@@ -368,7 +372,7 @@
             // зачёркнутый текст (~~текст~~)
             text = text.replace(/~~(.*?)~~/g, '<del>$1</del>');
             // цитаты (> текст)
-            text = text.replace(/^>\s(.+)/gm, '<blockquote>$1</blockquote>');
+            text = text.replace(/^>\s(.+)/gm, '<blockquote>”$1”</blockquote>');
             // списки (- текст)
             text = text.replace(/^- (.+)/gm, '<li>$1</li>');
             text = text.replace(/(<li>.*<\/li>)/g, '<ul>$1</ul>'); // оборачиваем список в <ul>
