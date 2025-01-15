@@ -264,27 +264,17 @@
             try {
                 let response;
                 if (lemmyToken) {
-                    response = await fetch("https://tide-decisive-resolution.glitch.me/proxy", {
-                        method: "POST",
-                        headers: { "content-type": "application/json" },
-                        body: {
-                            "url": `${api}/community?name=${community}`,
-                            "method": "GET",
-                            "headers": {
-                                "content-type": "application/json",
-                                "authorization": `Bearer ${lemmyToken}`
-                            }
+                    response = await fetch(`${api}/community?name=${community}`, {
+                        method: "GET",
+                        headers: {
+                            "content-type": "application/json",
+                            "authorization": `Bearer ${lemmyToken}`
                         }
                     });
                 } else {
-                    response = await fetch("https://tide-decisive-resolution.glitch.me/proxy", {
-                        method: "POST",
-                        headers: { "content-type": "application/json" },
-                        body: {
-                            "url": `${api}/community?name=${community}`,
-                            "method": "GET",
-                            "headers": { "content-type": "application/json" }
-                        }
+                    response = await fetch(`${api}/community?name=${community}`, {
+                        method: "GET",
+                        headers: { "content-type": "application/json" }
                     });
                 }
                 const data = await response.json();
@@ -325,6 +315,7 @@
 
         async function validateToken() {
             const serverUrl = `https://${localStorage.getItem("accountServer")}/api/v3/user/validate_auth`;
+
             try {
                 const response = await fetch(serverUrl, {
                     method: "GET",
