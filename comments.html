@@ -300,6 +300,7 @@
                 });
                 const data = await response.json();
                 if (data.cross_posts.post) {
+                    console.log("a");
                     return true;
                 } else {
                     return false;
