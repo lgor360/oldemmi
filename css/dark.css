@@ -127,6 +127,9 @@ a:visited {
 .post button {
     padding: 2px 2px;
 }
+.profile button {
+    padding: 2px 2px;
+}
 .post-header {
     display: flex;
     align-items: center;
@@ -166,7 +169,6 @@ a:visited {
     margin-left: auto;
     display: flex;
     align-items: flex-end;
-    padding: 2px 2px;
 }
 .counter {
     display: flex;
