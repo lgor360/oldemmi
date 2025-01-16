@@ -6,10 +6,6 @@ body {
     margin: 0;
     padding: 0;
 }
-img {
-    border: 1px solid #ccc;
-    border-radius: 0px;
-}
 blockquote {
     font-weight: bold;
     font-size: 0.9em;
@@ -19,165 +15,232 @@ table {
     background-color: #ccc;
     border-radius: 0px;
 }
-        thead {
-            border: 2px solid #fff;
-            background-color: #454545;
-            border-radius: 0px;
-        }
-        tbody {
-            border: 2px solid #1f1f1f;
-            background-color: #454545;
-            border-radius: 0px;
-        }
-        button {
-            border: 1px solid #ccc;
-            border-radius: 0px;
-            cursor: pointer;
-            background-color: #353535;
-            color: #fff;
-        }
-        a {
-            color: #b3c46d;
-            text-decoration: none;
-        }
-        a:hover {
-            color: #a7b766;
-            text-decoration: none;
-        }
-        a:active {
-            color: #a0b742;
-            text-decoration: none;
-        }
-        a:visited {
-            color: #aab775;
-            text-decoration: none;
-        }
-        .navbar {
-            border-bottom-left-radius: 5px;
-            border-bottom-right-radius: 5px;
-            background: linear-gradient(#303030, #2d2d2d 45%, #2b2b2b 55%, #282828);
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #ccc;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-            overflow: hidden;
-        }
-        .navbar img {
-            height: 40px;
-            border: none;
-        }
-        .navbar button {
-            padding: 10px 15px;
-        }
-        .navbar select {
-            padding: 10px 15px;
-            border: 1px solid #ccc;
-            border-radius: 0px;
-            background-color: #353535;
-            color: #fff
-        }
-        .navbar .login {
-            background-color: #a3af74;
-        }
-        .navbar .oldemmi {
-            display: flex;
-            align-items: center;
-            justify-content: normal;
-        }
-        .navbar .oldemmi .text {
-            margin-left: 5px;
-            font-weight: bold;
-            font-size: 1.2em;
-        }
-        .profileInBar .text {
-            margin-left: 5px;
-            font-weight: bold;
-            font-size: 1.2em;
-        }
-        .navbar .oldemmi .text .instance {
-            font-size: 0.6em;
-        }
-        .post {
-            min-width: 300px;
-            max-width: 600px;
-            border: 1px solid #ccc;
-            border-radius: 0px;
-            padding: 15px;
-            margin: 20px auto;
-            max-width: 600px;
-            background-color: #454545;
-        }
-        .post-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        .post-header img {
-            height: 50px;
-            width: 50px;
-            margin-right: 10px;
-        }
-        .post-header .author {
-            font-weight: bold;
-            font-size: 1.2em;
-        }
-        .post-header .author .community {
-            font-size: 0.6em;
-        }
-        .post-name {
-            margin-bottom: 10px;
-        }
-        .post-text {
-            margin-bottom: 10px;
-            font-size: 0.8em;
-        }
-        .post-image {
-            max-width: 100%;
-            height: auto;
-            margin-bottom: 10px;
-        }
-        .post-footer {
-            display: flex;
-            justify-content: space-between;
-        }
-        .counter {
-            display: flex;
-            align-items: center;
-        }
-        .counter span {
-            margin-left: 5px;
-        }
-        .load-more {
-            display: flex;
-            justify-content: center;
-            margin: 20px 0;
-        }
-        .load-more button {
-            padding: 10px 20px;
-        }
-        .post-link {
-            margin-bottom: 10px; /* добавляем отступ снизу */
-        }
-        .normal {
-            justify-content: normal;
-            display: flex;
-        }
-        .profileInBar {
-            display: flex;
-            align-items: center;
-            justify-content: normal;
-        }
-        .profileInBar img {
-            border: 1px solid #ccc;
-        }
-        .post-status {
-            margin-left: auto;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            font-size: 2.0em;
-          }
+thead {
+    border: 2px solid #fff;
+    background-color: #454545;
+    border-radius: 0px;
+}
+tbody {
+    border: 2px solid #1f1f1f;
+    background-color: #454545;
+    border-radius: 0px;
+}
+button {
+    border: 1px solid #ccc;
+    border-radius: 0px;
+    cursor: pointer;
+    background-color: #353535;
+    color: #fff;
+}
+a {
+    color: #b3c46d;
+    text-decoration: none;
+}
+a:hover {
+    color: #a7b766;
+    text-decoration: none;
+}
+a:active {
+    color: #a0b742;
+    text-decoration: none;
+}
+a:visited {
+    color: #aab775;
+    text-decoration: none;
+}
+.navbar {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background: linear-gradient(#303030, #2d2d2d 45%, #2b2b2b 55%, #282828);
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    overflow: hidden;
+}
+.navbar img {
+    height: 40px;
+    border: none;
+}
+.navbar button {
+    padding: 10px 15px;
+}
+.navbar .login {
+    background-color: #a3af74;
+}
+.navbar .oldemmi {
+    display: flex;
+    align-items: center;
+    justify-content: normal;
+}
+.navbar .oldemmi .text {
+    margin-left: 5px;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+.navbar .oldemmi .text .instance {
+    font-size: 0.6em;
+}
+.post {
+    min-width: 300px;
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin: 20px auto;
+    max-width: 600px;
+    background-color: #454545;
+    border-radius: 0px;
+}
+.post-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.post-header img {
+    border: 1px solid #ccc;
+    height: 50px;
+    width: 50px;
+    margin-right: 10px;
+}
+.post-header .author {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+.post-header .author .community {
+    font-size: 0.6em;
+}
+.post-name {
+    margin-bottom: 10px;
+}
+.post-text {
+    margin-bottom: 10px;
+    font-size: 0.8em;
+}
+.post-image {
+    border: 1px solid #ccc;
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+.post-footer {
+    display: flex;
+    justify-content: space-between;
+}
+.counter {
+    display: flex;
+    align-items: center;
+}
+.counter span {
+    margin-left: 5px;
+}
+.load-more {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+.load-more button {
+    padding: 10px 20px;
+}
+.profile {
+    min-width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 0px;
+    padding: 15px;
+    margin: 20px auto;
+    max-width: 600px;
+    background-color: #454545;
+}
+.profile-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.profile-bottom {
+    display: flex;
+    align-items: center;
+}
+.profile-header img {
+    height: 50px;
+    width: 50px;
+    margin-right: 10px;
+}
+.profile .profile-header .person {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+.profile .profile-header .person .instance {
+    font-size: 0.6em;
+}
+.counts {
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+.followButton {
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+.post-link {
+    margin-bottom: 10px;
+}
+.post-status {
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-size: 2.0em;
+}
+.normal {
+    justify-content: normal;
+    display: flex;
+}
+.profileInBar {
+    display: flex;
+    align-items: center;
+    justify-content: normal;
+}
+.profileInBar img {
+    border: 1px solid #ccc;
+}
+.profileInBar .text {
+    margin-left: 5px;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+.comments {
+    width: 100%;
+}
+.comment {
+    align-items: center;
+    margin-bottom: 10px;
+    min-width: 300px;
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin: 20px auto;
+    max-width: 600px;
+    background-color: #454545;
+    border-radius: 0px;
+}
+progress {
+    border: 1px solid #ccc;
+    background-color: #454545;
+    border-radius: 0px;
+    height: 30px;
+}
+progress::-webkit-progress-bar {
+    background-color: #454545;
+}
+progress::-webkit-progress-value {
+    background-color: #c4db53;
+    transition: width 0.5s;
+}
+progress::-moz-progress-bar {
+    background-color: #c4db53;
+    transition: width 0.5s;
+}
