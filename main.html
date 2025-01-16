@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>oldemmi</title>
+    <script>
+        const link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.href = "https://lgor360.github.io/oldemmi/css/dark.css?nocache=" + new Date().getTime();
+        document.head.appendChild(link);
+    </script>
 </head>
 <body>
     <div class="navbar">
@@ -39,10 +45,6 @@
     </div>
 
     <script>
-        const link = document.createElement("link");
-        link.rel = "stylesheet";
-        link.href = "https://lgor360.github.io/oldemmi/css/dark.css?nocache=" + new Date().getTime();
-        document.head.appendChild(link);
         const urlParams = new URLSearchParams(window.location.search);
         let filter = urlParams.get('filter') || "New";
         let page = 1; // текущая страница для загрузки
