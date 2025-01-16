@@ -61,6 +61,7 @@ button {
 .caca button {
     max-width: 80px;
     margin: 40px 0;
+    right: 0;
 }
 a {
     color: #b3c46d;
