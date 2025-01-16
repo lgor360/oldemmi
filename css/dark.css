@@ -6,6 +6,9 @@ body {
     margin: 0;
     padding: 0;
 }
+.maxwell_cat {
+    border: none;
+}
 img {
     border: 1px solid #ccc;
     border-radius: 0px;
