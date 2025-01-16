@@ -222,6 +222,7 @@
             .then(response => response.json())
             .then(data => {
                 if (data.community_view.subscribed) {
+                    console.log(data.community_view.subscribed);
                     let but;
                     let doisubornot;
                     if (data.community_view.subscribed === "NotSubscribed") {
