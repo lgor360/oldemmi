@@ -125,7 +125,7 @@ a:visited {
     border-radius: 0px;
 }
 .post button {
-    padding: 0;
+    padding: 2px 2px;
 }
 .post-header {
     display: flex;
@@ -167,6 +167,7 @@ a:visited {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    padding: 2px 0;
 }
 .counter {
     display: flex;
@@ -180,9 +181,6 @@ a:visited {
     justify-content: center;
     margin: 20px 0;
 }
-.load-more button {
-    padding: 10px 20px;
-}
 .profile {
     min-width: 300px;
     border: 1px solid #ccc;
@@ -191,9 +189,6 @@ a:visited {
     margin: 20px auto;
     max-width: 600px;
     background-color: #454545;
-}
-.profile button {
-    padding: 0;
 }
 .profile-header {
     display: flex;
@@ -217,12 +212,6 @@ a:visited {
     font-size: 0.6em;
 }
 .counts {
-    margin-left: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-}
-.followButton {
     margin-left: auto;
     display: flex;
     flex-direction: column;
