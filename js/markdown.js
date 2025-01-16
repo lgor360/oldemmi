@@ -1,6 +1,6 @@
 function parseMarkdown(text) {
-            // списки
-            text = text.replace(/^(\s*)([-*+]|[0-9]+\.)\s+(.+)/gm, (_, space, bullet, item) => {
+    // списки
+    text = text.replace(/^(\s*)([-*+]|[0-9]+\.)\s+(.+)/gm, (_, space, bullet, item) => {
                 const tag = /^[0-9]+\./.test(bullet) ? 'ol' : 'ul';
                 return `${space}<${tag}><li>${item}</li></${tag}>`;
             });
