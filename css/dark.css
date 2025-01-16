@@ -179,6 +179,7 @@ a:visited {
     margin-left: auto;
     display: flex;
     align-items: flex-end;
+    padding: 5px 5px;
 }
 .counter {
     display: flex;
@@ -273,6 +274,9 @@ a:visited {
 }
 .comments {
     width: 100%;
+}
+.comments button {
+    padding: 2px 2px;
 }
 .comment {
     align-items: center;
