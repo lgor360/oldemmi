@@ -127,9 +127,6 @@ a:visited {
 .post button {
     padding: 2px 2px;
 }
-.profile button {
-    padding: 2px 2px;
-}
 .post-header {
     display: flex;
     align-items: center;
@@ -320,4 +317,16 @@ progress::-moz-progress-bar {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
+}
+.creating-form {
+    max-width: 600px;
+    min-width: 300px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+.publish {
+    margin-top: 30px;
+    padding: 10px 20px;
+    max-width: 70px;
 }
