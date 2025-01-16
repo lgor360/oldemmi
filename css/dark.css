@@ -6,19 +6,19 @@ body {
     margin: 0;
     padding: 0;
 }
-        img {
-            border: 1px solid #ccc;
-            border-radius: 0px;
-        }
-        blockquote {
-            font-weight: bold;
-            font-size: 0.9em;
-        }
-        table {
-            border: 0px;
-            background-color: #ccc;
-            border-radius: 0px;
-        }
+img {
+    border: 1px solid #ccc;
+    border-radius: 0px;
+}
+blockquote {
+    font-weight: bold;
+    font-size: 0.9em;
+}
+table {
+    border: 0px;
+    background-color: #ccc;
+    border-radius: 0px;
+}
         thead {
             border: 2px solid #fff;
             background-color: #454545;
