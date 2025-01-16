@@ -56,6 +56,11 @@ button {
     cursor: pointer;
     background-color: #353535;
     color: #fff;
+    padding: 10px 20px;
+}
+.caca button {
+    max-width: 80px;
+    margin: 40px 0;
 }
 a {
     color: #b3c46d;
