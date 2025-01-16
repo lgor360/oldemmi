@@ -43,6 +43,10 @@
     </div>
 
     <script>
+        const link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.href = "https://lgor360.github.io/oldemmi/css/dark.css?nocache=" + new Date().getTime();
+        document.head.appendChild(link);
         const lemmyToken = localStorage.getItem("lemmyToken");
         const urlParams = new URLSearchParams(window.location.search);
         const server = urlParams.get('server') || "lemmy.world";
@@ -51,10 +55,6 @@
         let page = 1; // текущая страница для загрузки
         const limit = 9; // количество постов на одну загрузку
         const api = `https://${server}/api/v3`
-        const link = document.createElement("link");
-        link.rel = "stylesheet";
-        link.href = "https://lgor360.github.io/oldemmi/css/dark.css?nocache=" + new Date().getTime();
-        document.head.appendChild(link);
 
         function goToCommentsTab() {
             window.location.href = `https://lgor360.github.io/oldemmi/profile.html?server=${server}&user=${user}&need=comments`
