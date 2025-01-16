@@ -4,98 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>oldemmi</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #404040;
-            background-image: url(/oldemmi/back.png);
-            color: #f3f3f3;
-            margin: 0;
-            padding: 0;
-        }
-        button {
-            text-align: center;
-            border: 1px solid #ccc;
-            border-radius: 0px;
-            cursor: pointer;
-            background-color: #353535;
-            color: #fff;
-            max-width: 80px;
-            padding: 10px 20px;
-            margin: 40px 0;
-        }
-        input {
-            border: 1px solid #ccc;
-            border-radius: 0px;
-            background-color: #353535;
-            color: #fff;
-            box-sizing: border-box;
-            padding: 6px 20px;
-            margin: 10px 0;
-            display: block;
-            width: 100%;
-            cursor: text;
-        }
-        a {
-            color: #b3c46d;
-            text-decoration: none;
-        }
-        a:hover {
-            color: #a7b766;
-            text-decoration: none;
-        }
-        a:active {
-            color: #a0b742;
-            text-decoration: none;
-        }
-        a:visited {
-            color: #aab775;
-            text-decoration: none;
-        }
-        .navbar {
-            border-bottom-left-radius: 5px;
-            border-bottom-right-radius: 5px;
-            background: linear-gradient(#303030, #2d2d2d 45%, #2b2b2b 55%, #282828);
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #ccc;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-            overflow: hidden;
-        }
-        .navbar img {
-            height: 40px;
-            border: none;
-        }
-        .navbar .oldemmi {
-            display: flex;
-            align-items: center;
-        }
-        .navbar .oldemmi .text {
-            margin-left: 5px;
-            font-weight: bold;
-            font-size: 1.2em;
-        }
-        .caca {
-            margin: 40px 0;
-            text-align: center;
-        }
-        .login-text {
-            font-weight: bold;
-            font-size: 4.1em;
-            margin-bottom: 30px;
-        }
-        .login-form {
-            max-width: 250px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-        }
-
-    </style>
+    <script>
+        const link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.href = "https://lgor360.github.io/oldemmi/css/dark.css?nocache=" + new Date().getTime();
+        document.head.appendChild(link);
+    </script>
 </head>
 <body>
     <div class="navbar">
