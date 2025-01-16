@@ -6,7 +6,7 @@ body {
     margin: 0;
     padding: 0;
 }
-.maxwell_cat img {
+.maxwell_cat .imageofcat img {
     border: none;
 }
 img {
