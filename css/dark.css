@@ -116,6 +116,18 @@ a:visited {
 .navbar .oldemmi .text .instance {
     font-size: 0.6em;
 }
+.navbar .searchbar button {
+    margin: 0px 0;
+    padding: 10px 15px;
+}
+.navbar .searchbar input {
+    margin: 0px 0;
+    padding: 10px 15px;
+}
+.navbar .searchbar select {
+    margin: 0px 0;
+    padding: 10px 15px;
+}
 .post {
     min-width: 300px;
     border: 1px solid #ccc;
