@@ -211,6 +211,22 @@ a:visited {
     justify-content: normal;
     display: flex;
 }
+.buttons {
+    border: 1px solid #ccc;
+    border-radius: 0px;
+    margin: 20px auto;
+    margin-bottom: 20px;
+    background-color: #454545;
+    width: fit-content;
+}
+.buttons .somi {
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+.buttons .somi button {
+    padding: 10px 25px;
+}
 .profileInBar {
     display: flex;
     align-items: center;
