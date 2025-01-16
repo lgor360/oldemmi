@@ -4,121 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>oldemmi</title>
-    <style>
-        body {
-            background-image: url(/oldemmi/back.png);
-            font-family: Arial, sans-serif;
-            background-color: #404040;
-            color: #f3f3f3;
-            margin: 0;
-            padding: 0;
-        }
-        button {
-            border: 1px solid #ccc;
-            border-radius: 0px;
-            cursor: pointer;
-            background-color: #353535;
-            color: #fff;
-        }
-        input {
-            border: 1px solid #ccc;
-            border-radius: 0px;
-            background-color: #353535;
-            color: #fff;
-            box-sizing: border-box;
-            padding: 6px 20px;
-            margin: 10px 0;
-            display: block;
-            width: 100%;
-            cursor: text;
-        }
-        a {
-            color: #b3c46d;
-            text-decoration: none;
-        }
-        a:hover {
-            color: #a7b766;
-            text-decoration: none;
-        }
-        a:active {
-            color: #a0b742;
-            text-decoration: none;
-        }
-        a:visited {
-            color: #aab775;
-            text-decoration: none;
-        }
-        .navbar {
-            border-bottom-left-radius: 5px;
-            border-bottom-right-radius: 5px;
-            background: linear-gradient(#303030, #2d2d2d 45%, #2b2b2b 55%, #282828);
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #ccc;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-            overflow: hidden;
-        }
-        .navbar img {
-            height: 40px;
-            border: none;
-        }
-        .navbar button {
-            padding: 10px 15px;
-        }
-        .navbar .login {
-            background-color: #a3af74;
-        }
-        .navbar .oldemmi {
-            display: flex;
-            align-items: center;
-            justify-content: normal;
-        }
-        .navbar .oldemmi .text {
-            margin-left: 5px;
-            font-weight: bold;
-            font-size: 1.2em;
-        }
-        .navbar .oldemmi .text .instance {
-            font-size: 0.6em;
-        }
-        .normal {
-            justify-content: normal;
-            display: flex;
-        }
-        .profileInBar {
-            display: flex;
-            align-items: center;
-            justify-content: normal;
-        }
-        .profileInBar img {
-            border: 1px solid #ccc;
-        }
-        .profileInBar .text {
-            margin-left: 5px;
-            font-weight: bold;
-            font-size: 1.2em;
-        }
-        .caca {
-            margin: 40px 0;
-            text-align: center;
-        }
-        .creating-form {
-            max-width: 600px;
-            min-width: 300px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-        }
-        .publish {
-            margin-top: 30px;
-            padding: 10px 20px;
-            max-width: 70px;
-        }
-    </style>
+    <script>
+        const link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.href = "https://lgor360.github.io/oldemmi/css/dark.css?nocache=" + new Date().getTime();
+        document.head.appendChild(link);
+    </script>
 </head>
 <body>
     <div class="navbar">
