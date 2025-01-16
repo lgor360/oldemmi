@@ -124,6 +124,9 @@ a:visited {
     background-color: #454545;
     border-radius: 0px;
 }
+.post buttons {
+    padding: 0;
+}
 .post-header {
     display: flex;
     align-items: center;
@@ -188,6 +191,9 @@ a:visited {
     margin: 20px auto;
     max-width: 600px;
     background-color: #454545;
+}
+.profile buttons {
+    padding: 0;
 }
 .profile-header {
     display: flex;
