@@ -25,6 +25,13 @@ tbody {
     background-color: #454545;
     border-radius: 0px;
 }
+.select {
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 0px;
+    background-color: #353535;
+    color: #fff
+}
 button {
     border: 1px solid #ccc;
     border-radius: 0px;
