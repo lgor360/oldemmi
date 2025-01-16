@@ -275,7 +275,12 @@
                     commentElement.innerHTML = `
                         <div class="post-header">
                             <img onclick="goToProfile('${comment.creator.name}', '${getInstanceFromActorId(comment.creator.actor_id)}')" src="${comment.creator.avatar || 'https://lgor360.github.io/oldemmi/user.png'}" alt="avatar">
-                            <div class="author">${comment.creator.display_name || comment.creator.name}</div>
+                            <div class="author">
+                                ${comment.creator.display_name || comment.creator.name}
+                                <div class="community">
+                                    ${getInstanceFromActorId(comment.creator.actor_id)}
+                                </div>
+                            </div>
                         </div>
                         <div class="post-text">${parseMarkdown(comment.comment.content)}</div>
                         <div class="post-footer">
