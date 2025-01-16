@@ -271,3 +271,21 @@ progress::-moz-progress-bar {
     background-color: #c4db53;
     transition: width 0.5s;
 }
+.caca {
+    padding: 20px;
+    margin: 40px auto;
+    text-align: center;
+}
+.error {
+    font-weight: bold;
+    font-size: 5.5em;
+}
+.message {
+    font-weight: bold;
+    font-size: 2.1em;
+    margin: 10px 0;
+}
+.back {
+    margin: 20px 0;
+    padding: 10px 15px;
+}
