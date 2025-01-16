@@ -289,3 +289,14 @@ progress::-moz-progress-bar {
     margin: 20px 0;
     padding: 10px 15px;
 }
+.login-text {
+    font-weight: bold;
+    font-size: 4.1em;
+    margin-bottom: 30px;
+}
+.login-form {
+    max-width: 250px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
