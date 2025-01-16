@@ -10,6 +10,20 @@ img {
     border: 1px solid #ccc;
     border-radius: 0px;
 }
+input {
+    border: 1px solid #ccc;
+    border-radius: 0px;
+    background-color: #353535;
+    color: #fff;
+    box-sizing: border-box;
+    padding: 6px 20px;
+    margin: 10px 0;
+    cursor: text;
+}
+.caca input {
+    display: block;
+    width: 100%;
+}
 blockquote {
     font-weight: bold;
     font-size: 0.9em;
