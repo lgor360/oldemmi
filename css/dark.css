@@ -159,6 +159,12 @@ a:visited {
     display: flex;
     justify-content: space-between;
 }
+.followButton {
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
 .counter {
     display: flex;
     align-items: center;
