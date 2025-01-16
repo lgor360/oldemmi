@@ -165,7 +165,6 @@ a:visited {
 .followButton {
     margin-left: auto;
     display: flex;
-    flex-direction: column;
     align-items: flex-end;
     padding: 2px 2px;
 }
