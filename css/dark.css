@@ -131,6 +131,9 @@ a:visited {
     background-color: #454545;
     border-radius: 0px;
 }
+.post-footer a {
+    text-wrap: wrap;
+}
 .post button {
     padding: 2px 2px;
 }
