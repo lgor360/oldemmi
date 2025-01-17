@@ -14,6 +14,22 @@
     {
       "source": "/home",
       "destination": "/main.html"
+    },
+    {
+      "source": "/login",
+      "destination": "/login.html"
+    },
+    {
+      "source": "/profile",
+      "destination": "/profile.html"
+    },
+    {
+      "source": "/community",
+      "destination": "/community.html"
+    },
+    {
+      "source": "/comments",
+      "destination": "/comments.html"
     }
   ]
 }
