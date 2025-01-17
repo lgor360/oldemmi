@@ -1,11 +1,4 @@
 {
-  "redirects": [
-    {
-      "source": "/",
-      "destination": "/main.html",
-      "permanent": true
-    }
-  ],
   "rewrites": [
     {
       "source": "/search",
@@ -28,8 +21,23 @@
       "destination": "/community.html"
     },
     {
+      "source": "/creating",
+      "destination": "/creating.html"
+    },
+    {
+      "source": "/cross-posts",
+      "destination": "/cross-posts.html"
+    },
+    {
       "source": "/comments",
       "destination": "/comments.html"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/home",
+      "permanent": true
     }
   ]
 }
