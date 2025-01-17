@@ -243,14 +243,14 @@
 
         // функция для входа
         function login() {
-            window.location.href = `https://oldemmi.vercel.app/resources/login.html`;
+            window.location.href = `https://oldemmi.vercel.app/login.html`;
         }
 
         // функция для изменения инстанса
         function change_server() {
             const prompto = prompt("enter instance url. example: lemmy.world");
             if (prompto) {
-                window.location.href = `https://oldemmi.vercel.app/resources/home?server=${prompto}`
+                window.location.href = `https://oldemmi.vercel.app/home?server=${prompto}`
             }
         }
 
@@ -265,11 +265,11 @@
         }
 
         function goToProfile(id, servero) {
-            window.location.href = `https://oldemmi.vercel.app/resources/profile?server=${servero}&user=${id}`
+            window.location.href = `https://oldemmi.vercel.app/profile?server=${servero}&user=${id}`
         }
 
         function goToSearch() {
-            window.location.href = `https://oldemmi.vercel.app/resources/search?server=${server}&filter=Posts`;
+            window.location.href = `https://oldemmi.vercel.app/search?server=${server}&filter=Posts`;
         }
 
         async function logout(option) {
