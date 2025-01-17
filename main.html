@@ -16,7 +16,7 @@
         }
         const link = document.createElement("link");
         link.rel = "stylesheet";
-        link.href = "https://lgor360.github.io/oldemmi/css/dark.css?nocache=" + new Date().getTime();
+        link.href = "https://oldemmi.vercel.app/resources/css/dark.css?nocache=" + new Date().getTime();
         document.head.appendChild(link);
     </script>
 </head>
@@ -53,7 +53,7 @@
         <button onclick="loadMorePosts()">more</button>
     </div>
 
-    <script src="https://lgor360.github.io/oldemmi/js/markdown.js"></script>
+    <script src="https://oldemmi.vercel.app/resources/js/markdown.js"></script>
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         let filter = urlParams.get('filter') || "New";
@@ -133,11 +133,11 @@
         }
 
         function goToComments(postoid, serveromo) {
-            window.location.href = `https://lgor360.github.io/oldemmi/comments.html?server=${server}&post=${postoid}`
+            window.location.href = `https://oldemmi.vercel.app/resources/comments?server=${server}&post=${postoid}`
         }
         
         function goToCommunity(comname, servecom) {
-            window.location.href = `https://lgor360.github.io/oldemmi/community.html?server=${servecom}&community=${comname}`
+            window.location.href = `https://oldemmi.vercel.app/resources/community?server=${servecom}&community=${comname}`
         }
 
         async function loginedornot() {
@@ -243,14 +243,14 @@
 
         // функция для входа
         function login() {
-            window.location.href = `https://lgor360.github.io/oldemmi/login.html`;
+            window.location.href = `https://oldemmi.vercel.app/resources/login.html`;
         }
 
         // функция для изменения инстанса
         function change_server() {
             const prompto = prompt("enter instance url. example: lemmy.world");
             if (prompto) {
-                window.location.href = `https://lgor360.github.io/oldemmi/main.html?server=${prompto}`
+                window.location.href = `https://oldemmi.vercel.app/resources/home?server=${prompto}`
             }
         }
 
@@ -265,11 +265,11 @@
         }
 
         function goToProfile(id, servero) {
-            window.location.href = `https://lgor360.github.io/oldemmi/profile.html?server=${servero}&user=${id}`
+            window.location.href = `https://oldemmi.vercel.app/resources/profile?server=${servero}&user=${id}`
         }
 
         function goToSearch() {
-            window.location.href = `https://lgor360.github.io/oldemmi/search.html?server=${server}&filter=Posts`;
+            window.location.href = `https://oldemmi.vercel.app/resources/search?server=${server}&filter=Posts`;
         }
 
         async function logout(option) {
@@ -278,24 +278,16 @@
                 return; // если пользователь нажал "нет", ничего не делаем
             }
 
-            const proxyUrl = "https://tide-decisive-resolution.glitch.me/proxy";
-            const logoutData = {
-                url: `https://${server}/api/v3/user/logout`,
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${lemmyToken}`
-                },
-                body: {}
-            };
-
             try {
                 if (option === "userlogout") {
                 // выполняем запрос на выход через прокси
-                    const response = await fetch(proxyUrl, {
+                    const response = await fetch(`https://${server}/api/v3/user/logout`, {
                         method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify(logoutData)
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${lemmyToken}`
+                        },
+                        body: {}
                     });
 
                     if (!response.ok) {
