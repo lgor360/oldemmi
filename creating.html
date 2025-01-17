@@ -1,20 +1,29 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>oldemmi</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="https://oldemmi.vercel.app/resources/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://oldemmi.vercel.app/resources/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://oldemmi.vercel.app/resources/favicon/favicon-16x16.png">
+    <link rel="manifest" href="https://oldemmi.vercel.app/resources/favicon/site.webmanifest">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#cfec66">
     <script>
+        if (window.innerWidth < 550) {
+            document.querySelector('meta[name="viewport"]').setAttribute('content', 'width=550, initial-scale=1.0');
+        }
         const link = document.createElement("link");
         link.rel = "stylesheet";
-        link.href = "https://lgor360.github.io/oldemmi/css/dark.css?nocache=" + new Date().getTime();
+        link.href = "https://oldemmi.vercel.app/css/dark.css?nocache=" + new Date().getTime();
         document.head.appendChild(link);
     </script>
 </head>
 <body>
     <div class="navbar">
         <div onclick="goToHome()" class="oldemmi">
-            <img src="https://lgor360.github.io/oldemmi/logo.png" alt="oldemmi logo">
+            <img src="https://oldemmi.vercel.app/resources/logo.png" alt="oldemmi logo">
             <div class="text">
                 oldemmi
                 <div class="instance">
@@ -58,7 +67,7 @@
         // функция для получения профиля
         async function fetchCommunity(q) {
             try {
-                const response = await fetch("https://tide-decisive-resolution.glitch.me/proxy", {
+                const response = await fetch("https://oldemmi.vercel.app/api/server.js", {
                     method: "POST",
                     headers: { "content-type": "application/json" },
                     body: JSON.stringify({
@@ -92,7 +101,7 @@
                 alert("please enter a valid community in the format 'community@instance'");
                 return;
             }
-            const proxyUrl = "https://tide-decisive-resolution.glitch.me/proxy";
+            const proxyUrl = "https://oldemmi.vercel.app/api/server.js";
 
             if (!titleInput.checkValidity()) {
                 titleInput.reportValidity();
@@ -217,7 +226,7 @@
         
         // функция для входа
         function login() {
-            window.location.href = `https://lgor360.github.io/oldemmi/login.html`;
+            window.location.href = `https://oldemmi.vercel.app/login`;
         }
 
         async function logout(option) {
@@ -226,7 +235,7 @@
                 return; // если пользователь нажал "нет", ничего не делаем
             }
 
-            const proxyUrl = "https://tide-decisive-resolution.glitch.me/proxy";
+            const proxyUrl = "https://oldemmi.vercel.app/api/server.js";
             const logoutData = {
                 url: `https://${server}/api/v3/user/logout`,
                 method: "POST",
@@ -255,22 +264,22 @@
                 localStorage.removeItem("accountServer");
 
                 // перезапускаем текущую страницу
-                window.location.href = "https://lgor360.github.io/oldemmi/main.html";
+                window.location.href = "https://oldemmi.vercel.app";
             } catch (error) {
                 alert(`error during logout: ${error}`);
             }
         }
 
         function goToComments(postoid) {
-            window.location.href = `https://lgor360.github.io/oldemmi/comments.html?server=${server}&post=${postoid}`
+            window.location.href = `https://lgor360.github.io/oldemmi/comments?server=${server}&post=${postoid}`
         }
 
         function goToHome() {
-            window.location.href = `https://lgor360.github.io/oldemmi/main.html?server=${server}`
+            window.location.href = `https://oldemmi.vercel.app/home?server=${server}`
         }
 
         function goToProfile(id, servero) {
-            window.location.href = `https://lgor360.github.io/oldemmi/profile.html?server=${servero}&user=${id}`
+            window.location.href = `https://oldemmi.vercel.app/profile?server=${servero}&user=${id}`
         }
         
         // загружаем пост и комментарии при загрузке страницы
