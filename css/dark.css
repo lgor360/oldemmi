@@ -91,7 +91,7 @@ a:visited {
     position: sticky;
     top: 0;
     z-index: 10;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 .navbar img {
     max-height: 40px;
