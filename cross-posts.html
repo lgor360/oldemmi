@@ -4,17 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>oldemmi</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="https://oldemmi.vercel.app/resources/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://oldemmi.vercel.app/resources/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://oldemmi.vercel.app/resources/favicon/favicon-16x16.png">
+    <link rel="manifest" href="https://oldemmi.vercel.app/resources/favicon/site.webmanifest">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#cfec66">
     <script>
+        if (window.innerWidth < 550) {
+            document.querySelector('meta[name="viewport"]').setAttribute('content', 'width=550, initial-scale=1.0');
+        }
         const link = document.createElement("link");
         link.rel = "stylesheet";
-        link.href = "https://lgor360.github.io/oldemmi/css/dark.css?nocache=" + new Date().getTime();
+        link.href = "https://oldemmi.vercel.app/css/dark.css?nocache=" + new Date().getTime();
         document.head.appendChild(link);
     </script>
 </head>
 <body>
     <div class="navbar">
         <div onclick="goToHome()" class="oldemmi">
-            <img src="https://lgor360.github.io/oldemmi/logo.png" alt="oldemmi logo">
+            <img src="https://oldemmi.vercel.app/resources/logo.png" alt="oldemmi logo">
             <div class="text">
                 oldemmi
                 <div class="instance">
@@ -40,7 +49,7 @@
         <button>more</button>
     </div>
 
-    <script src="https://lgor360.github.io/oldemmi/js/markdown.js"></script>
+    <script src="https://oldemmi.vercel.app/js/markdown.js"></script>
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const server = urlParams.get('server') || "lemmy.world";
@@ -58,7 +67,7 @@
         }
 
         function goToComments(postoid) {
-            window.location.href = `https://lgor360.github.io/oldemmi/comments.html?server=${server}&post=${postoid}`
+            window.location.href = `https://oldemmi.vercel.app/comments?server=${server}&post=${postoid}`
         }
         
         // функция для получения постов
@@ -135,7 +144,7 @@
         }
         
         function goToCommunity(comname, servecom) {
-            window.location.href = `https://lgor360.github.io/oldemmi/community.html?server=${servecom}&community=${comname}`
+            window.location.href = `https://oldemmi.vercel.app/community?server=${servecom}&community=${comname}`
         }
         
         // функция для отображения постов
@@ -153,7 +162,7 @@
 
                     postElement.innerHTML = `
                         <div class="post-header">
-                            <img onclick="goToProfile('${post.creator.name}', '${getInstanceFromActorId(post.creator.actor_id)}')" src="${post.creator.avatar || 'https://lgor360.github.io/oldemmi/user.png'}" alt="avatar">
+                            <img onclick="goToProfile('${post.creator.name}', '${getInstanceFromActorId(post.creator.actor_id)}')" src="${post.creator.avatar || 'https://oldemmi.vercel.app/resources/user.png'}" alt="avatar">
                             <div class="author">
                                 ${post.creator.display_name || post.creator.name}
                                 <div onclick="goToCommunity('${post.community.name}', '${getInstanceFromActorId(post.community.actor_id)}')" class="community">
@@ -217,7 +226,7 @@
 
                 postElement.innerHTML = `
                     <div class="post-header">
-                        <img onclick="goToProfile('${post_view.creator.name}', '${getInstanceFromActorId(post_view.creator.actor_id)}')" src="${post_view.creator.avatar || 'https://lgor360.github.io/oldemmi/user.png'}" alt="avatar">
+                        <img onclick="goToProfile('${post_view.creator.name}', '${getInstanceFromActorId(post_view.creator.actor_id)}')" src="${post_view.creator.avatar || 'https://oldemmi.vercel.app/resources/user.png'}" alt="avatar">
                         <div class="author">
                             ${post_view.creator.display_name || post_view.creator.name}
                             <div onclick="goToCommunity('${post_view.community.name}', '${getInstanceFromActorId(post_view.community.actor_id)}')" class="community">
@@ -307,7 +316,7 @@
         
         // функция для входа
         function login() {
-            window.location.href = `https://lgor360.github.io/oldemmi/login.html`;
+            window.location.href = `https://oldemmi.vercel.app/login`;
         }
 
         async function logout(option) {
@@ -316,7 +325,7 @@
                 return; // если пользователь нажал "нет", ничего не делаем
             }
 
-            const proxyUrl = "https://tide-decisive-resolution.glitch.me/proxy";
+            const proxyUrl = "https://oldemmi.vercel.app/api/server.js";
             const logoutData = {
                 url: `https://${localStorage.getItem("accountServer")}/api/v3/user/logout`,
                 method: "POST",
@@ -352,15 +361,15 @@
         }
 
         function goToHome() {
-            window.location.href = `https://lgor360.github.io/oldemmi/main.html?server=${server}`
+            window.location.href = `https://oldemmi.vercel.app/home?server=${server}`
         }
 
         function goToProfile(id, servero) {
-            window.location.href = `https://lgor360.github.io/oldemmi/profile.html?server=${servero}&user=${id}`
+            window.location.href = `https://oldemmi.vercel.app/profile?server=${servero}&user=${id}`
         }
 
         function goToSearch() {
-            window.location.href = `https://lgor360.github.io/oldemmi/search?server=${server}&filter=Posts`;
+            window.location.href = `https://oldemmi.vercel.app/search?server=${server}&filter=Posts`;
         }
         
         // загружаем пост и комментарии при загрузке страницы
