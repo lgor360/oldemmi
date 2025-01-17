@@ -1,7 +1,7 @@
 {
-  "name": "proxy-server",
+  "name": "oldemmi",
   "version": "1.0.0",
-  "description": "Proxy server for CORS",
+  "description": "lemmy client which is like from the old internet :P",
   "main": "api/proxy.js",
   "scripts": {
     "start": "node api/proxy.js"
