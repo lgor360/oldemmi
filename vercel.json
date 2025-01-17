@@ -5,5 +5,15 @@
       "destination": "/main.html",
       "permanent": true
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/search",
+      "destination": "/search.html"
+    },
+    {
+      "source": "/home",
+      "destination": "/main.html"
+    }
   ]
 }
