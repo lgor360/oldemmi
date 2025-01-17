@@ -130,8 +130,6 @@ a:visited {
     max-width: 600px;
     background-color: #454545;
     border-radius: 0px;
-}
-.post-footer a {
     text-wrap: wrap;
 }
 .post button {
