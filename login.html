@@ -97,7 +97,11 @@
                     handleTotpLogin(totpCode, username, password, instance);
                 } else {
                     console.error("ошибка входа:", data);
-                    alert("login failed... " + (data.error || "unknown error"));
+                    if (data.error === "uncorrect_login") {
+                        alert("password or login isnt correct!");
+                    } else {
+                        alert("login failed... " + (data.error || "unknown error"));
+                    }
                 }
             })
             .catch(error => {
@@ -133,7 +137,11 @@
                     goToHome();
                 } else {
                     console.error("ошибка входа после 2FA:", data);
-                    alert("login failed..." + (data.error || "unknown error"));
+                    if (data.error === "uncorrect_login") {
+                        alert("password or login isnt correct!");
+                    } else {
+                        alert("login failed... " + (data.error || "unknown error"));
+                    }
                 }
             })
             .catch(error => {
