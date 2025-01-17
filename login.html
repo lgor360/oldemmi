@@ -11,6 +11,9 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#cfec66">
     <script>
+        if (window.innerWidth < 550) {
+            document.querySelector('meta[name="viewport"]').setAttribute('content', 'width=550, initial-scale=1.0');
+        }
         const link = document.createElement("link");
         link.rel = "stylesheet";
         link.href = "https://oldemmi.vercel.app/css/dark.css?nocache=" + new Date().getTime();
