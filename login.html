@@ -4,17 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>oldemmi</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="https://oldemmi.vercel.app/resources/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://oldemmi.vercel.app/resources/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://oldemmi.vercel.app/resources/favicon/favicon-16x16.png">
+    <link rel="manifest" href="https://oldemmi.vercel.app/resources/favicon/site.webmanifest">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#cfec66">
     <script>
         const link = document.createElement("link");
         link.rel = "stylesheet";
-        link.href = "https://lgor360.github.io/oldemmi/css/dark.css?nocache=" + new Date().getTime();
+        link.href = "https://oldemmi.vercel.app/css/dark.css?nocache=" + new Date().getTime();
         document.head.appendChild(link);
     </script>
 </head>
 <body>
     <div class="navbar">
         <div onclick="goToHome()" class="oldemmi">
-            <img src="https://lgor360.github.io/oldemmi/logo.png" alt="oldemmi logo">
+            <img src="https://oldemmi.vercel.app/logo.png" alt="oldemmi logo">
             <div class="text">
                 oldemmi
             </div>
@@ -37,7 +43,7 @@
         const instanceInput = document.getElementById('instance');
         
         function goToHome() {
-            window.location.href = 'https://lgor360.github.io/oldemmi/main.html'
+            window.location.href = 'https://oldemmi.vercel.app/main.html'
         }
 
         function helomi() {
@@ -52,9 +58,7 @@
                 return;
             }
 
-            const proxyUrl = "https://tide-decisive-resolution.glitch.me/proxy";
             const loginData = {
-                url: `https://${instance.value}/api/v3/user/login`,
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: {
@@ -63,7 +67,7 @@
                 }
             };
 
-            fetch(proxyUrl, {
+            fetch('https://${instance.value}/api/v3/user/login', {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(loginData)
@@ -99,10 +103,7 @@
         }
 
         function handleTotpLogin(totpCode, username, password, instance) {
-            const proxyUrl = "https://tide-decisive-resolution.glitch.me/proxy";
-
             const totpLoginData = {
-                url: `https://${instance.value}/api/v3/user/login`,
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: {
@@ -112,7 +113,7 @@
                 }
             };
 
-            fetch(proxyUrl, {
+            fetch('https://${instance.value}/api/v3/user/login', {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(totpLoginData)
