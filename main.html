@@ -23,7 +23,7 @@
 <body>
     <div class="navbar">
         <div class="oldemmi">
-            <img src="https://lgor360.github.io/oldemmi/logo.png" alt="oldemmi logo">
+            <img src="https://oldemmi.vercel.app/resources/logo.png" alt="oldemmi logo">
             <div class="text">
                 oldemmi
                 <div class="instance">
@@ -187,7 +187,7 @@
 
                     postElement.innerHTML = `
                         <div class="post-header">
-                            <img onclick="goToProfile('${post.creator.name}', '${getInstanceFromActorId(post.creator.actor_id)}')" src="${post.creator.avatar || 'https://lgor360.github.io/oldemmi/user.png'}" alt="avatar">
+                            <img onclick="goToProfile('${post.creator.name}', '${getInstanceFromActorId(post.creator.actor_id)}')" src="${post.creator.avatar || 'https://oldemmi.vercel.app/resources/user.png'}" alt="avatar">
                             <div class="author">
                                 ${post.creator.display_name || post.creator.name}
                                 <div onclick="goToCommunity('${post.community.name}', '${getInstanceFromActorId(post.community.actor_id)}')" class="community">
