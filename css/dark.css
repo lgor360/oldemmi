@@ -92,6 +92,7 @@ a:visited {
     top: 0;
     z-index: 10;
     overflow: hidden;
+    width: 100%;
 }
 .navbar img {
     height: 40px;
