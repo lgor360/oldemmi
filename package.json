@@ -4,7 +4,7 @@
   "description": "Proxy server for CORS",
   "main": "api/proxy.js",
   "scripts": {
-    "start": "node proxy.js"
+    "start": "node api/proxy.js"
   },
   "dependencies": {
     "express": "^4.21.2",
