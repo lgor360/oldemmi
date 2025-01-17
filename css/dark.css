@@ -346,6 +346,7 @@ progress::-moz-progress-bar {
         overflow: none;
         overflow-x: none;
         width: 100%;
+        text-wrap: wrap;
     }
     .navbar button {
         padding: 5px 10px;
@@ -358,6 +359,8 @@ progress::-moz-progress-bar {
     }
     .navbar .searchbar button
     .navbar .searchbar input
+    .navbar button
+    .navbar select
     .navbar .searchbar select {
         padding: 5px 10px;
     }
