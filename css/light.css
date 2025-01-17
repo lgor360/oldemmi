@@ -7,11 +7,11 @@ body {
     padding: 0;
 }
 img {
-    border: 1px solid #ccc;
+    border: 1px solid #333333;
     border-radius: 0px;
 }
 input {
-    border: 1px solid #ccc;
+    border: 1px solid #333333;
     border-radius: 0px;
     background-color: #353535;
     color: #fff;
@@ -30,11 +30,11 @@ blockquote {
 }
 table {
     border: 0px;
-    background-color: #ccc;
+    background-color: #333333;
     border-radius: 0px;
 }
 thead {
-    border: 2px solid #fff;
+    border: 2px solid #000000;
     background-color: #454545;
     border-radius: 0px;
 }
@@ -45,17 +45,17 @@ tbody {
 }
 select {
     padding: 10px 15px;
-    border: 1px solid #ccc;
+    border: 1px solid #333333;
     border-radius: 0px;
     background-color: #353535;
     color: #fff
 }
 button {
-    border: 1px solid #ccc;
+    border: 1px solid #333333;
     border-radius: 0px;
     cursor: pointer;
-    background-color: #353535;
-    color: #fff;
+    background-color: #cacaca;
+    color: #000000;
     padding: 10px 20px;
 }
 .caca button {
