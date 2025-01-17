@@ -116,14 +116,8 @@ a:visited {
 .navbar .oldemmi .text .instance {
     font-size: 0.6em;
 }
-.navbar .searchbar button {
-    margin: 0px 0;
-    padding: 10px 15px;
-}
-.navbar .searchbar input {
-    margin: 0px 0;
-    padding: 10px 15px;
-}
+.navbar .searchbar button
+.navbar .searchbar input
 .navbar .searchbar select {
     margin: 0px 0;
     padding: 10px 15px;
@@ -346,4 +340,27 @@ progress::-moz-progress-bar {
     margin-top: 30px;
     padding: 10px 20px;
     max-width: 70px;
+}
+@media (max-width: 420px) {
+    .navbar {
+        overflow: none;
+        overflow-x: none;
+    }
+    .navbar button {
+        padding: 5px 10px;
+    }
+    .navbar img {
+        max-width: 20px;
+    }
+    .navbar .oldemmi .text .instance {
+        font-size: 0.4em;
+    }
+    .navbar .oldemmi .text {
+        font-size: 0.9em;
+    }
+    .navbar .searchbar button
+    .navbar .searchbar input
+    .navbar .searchbar select {
+        padding: 5px 10px;
+    }
 }
