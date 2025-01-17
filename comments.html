@@ -218,7 +218,7 @@
 
                 postElement.innerHTML = `
                     <div class="post-header">
-                        <img onclick="goToProfile('${post_view.creator.name}', '${getInstanceFromActorId(post_view.creator.actor_id)}')" src="${post_view.creator.avatar || 'https://lgor360.github.io/oldemmi/user.png'}" alt="avatar">
+                        <img onclick="goToProfile('${post_view.creator.name}', '${getInstanceFromActorId(post_view.creator.actor_id)}')" src="${post_view.creator.avatar || 'https://oldemmi.vercel.app/resources/user.png'}" alt="avatar">
                         <div class="author">
                             ${post_view.creator.display_name || post_view.creator.name}
                             <div onclick="goToCommunity('${post_view.community.name}', '${getInstanceFromActorId(post_view.community.actor_id)}')" class="community">
@@ -283,7 +283,7 @@
 
                     commentElement.innerHTML = `
                         <div class="post-header">
-                            <img onclick="goToProfile('${comment.creator.name}', '${getInstanceFromActorId(comment.creator.actor_id)}')" src="${comment.creator.avatar || 'https://lgor360.github.io/oldemmi/user.png'}" alt="avatar">
+                            <img onclick="goToProfile('${comment.creator.name}', '${getInstanceFromActorId(comment.creator.actor_id)}')" src="${comment.creator.avatar || 'https://oldemmi.vercel.app/resources/user.png'}" alt="avatar">
                             <div class="author">
                                 ${comment.creator.display_name || comment.creator.name}
                                 <div class="community">
