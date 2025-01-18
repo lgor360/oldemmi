@@ -103,6 +103,7 @@
                 const data = await response.json();
                 if (getInstanceFromActorId(data.community_view.community.actor_id) !== server) {
                     const dedid = await getFederated(data.community_view.community.actor_id);
+                    alert(dedit);
                     const responsebutfed = await fetch(`${api}/community?id=${dedid}`, {
                         method: "GET",
                         headers: {
@@ -348,7 +349,7 @@
                     ${community_view.community.description ? `<div class='bio'>${parseMarkdown(community_view.community.description)}</div>` : ''}
                     <div class="profile-bottom">
                         <div class="followButton">
-                            <button onclick="subscribe(${community_view.community.id}, ${community_view.community.actor_id}, ${doisubornot}')">${but}</button>
+                            <button onclick="subscribe(${community_view.community.id}, ${community_view.community.actor_id}, ${doisubornot})">${but}</button>
                         </div>
                     </div>
                 `;
