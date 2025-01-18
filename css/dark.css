@@ -1,5 +1,14 @@
+@font-face {
+	font-family: 'Segoe Print';
+	src: url('https://oldemmi.vercel.app/fonts/segoe_print.eot'); /* IE 9 Compatibility Mode */
+	src: url('https://oldemmi.vercel.app/fonts/segoe_print.eot?#iefix') format('embedded-opentype'), /* IE < 9 */
+		url('https://oldemmi.vercel.app/fonts/segoe_print.woff2') format('woff2'), /* Super Modern Browsers */
+        url('https://oldemmi.vercel.app/fonts/segoe_print.woff') format('woff'), /* Firefox >= 3.6, any other modern browser */
+	   	url('https://oldemmi.vercel.app/fonts/segoe_print.ttf') format('truetype'), /* Safari, Android, iOS */
+		url('https://oldemmi.vercel.app/fonts/segoe_print.svg#segoe_print') format('svg'); /* Chrome < 4, Legacy iOS */
+}
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe Print';
     background-color: #404040;
     background-image: url(https://oldemmi.vercel.app/resources/back.png);
     color: #f3f3f3;
