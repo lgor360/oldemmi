@@ -1,3 +1,3 @@
 async function readPost(postid) {
-    d
+    const response = await;
 }
