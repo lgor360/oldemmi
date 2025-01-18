@@ -95,6 +95,10 @@
                     }
                 });
                 const fedata = await fedresponse.json();
+                console.log(JSON.stringify(fedata, null, 2));
+                console.log('a');
+                console.log(JSON.stringify(fedata.community, null, 2));
+                console.log(JSON.stringify(fedata.community_view, null, 2));
                 return fedata.community;
             } catch (error) {
                 alert(`error while loading profile: ${error}`);
