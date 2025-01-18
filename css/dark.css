@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'Trebuchet MS';
-    src: url('https://oldemmi.vercel.app/fonts/trebuchet_ms.eot'); /* iE 9 Compatibility Mode */
+    src: url('https://oldemmi.vercel.app/fonts/trebuchet_ms.eot'); /* IE 9 Compatibility Mode */
     src: url('https://oldemmi.vercel.app/fonts/trebuchet_ms.eot?#iefix') format('embedded-opentype'), /* IE < 9 */
 	url('https://oldemmi.vercel.app/fonts/trebuchet_ms.woff2') format('woff2'), /* Super Modern Browsers */
 	url('https://oldemmi.vercel.app/fonts/trebuchet_ms.woff') format('woff'), /* Firefox >= 3.6, any other modern browser */
