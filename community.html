@@ -135,6 +135,7 @@
                     })
                 });
                 const data = await response.json();
+                console.log(JSON.stringify(data, null, 2));
                 return data.community.community.id;
             } catch (error) {
                 alert(`error while loading profile: ${error}`);
