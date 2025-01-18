@@ -147,7 +147,6 @@
         }
 
         function subscribe(id, follow, instance) {
-            alert("fu");
             fetch("https://oldemmi.vercel.app/api/server.js", {
                 method: "POST",
                 headers: { "content-type": "application/json" },
@@ -166,8 +165,6 @@
             })
             .then(response => response.json())
             .then(data => {
-                alert(JSON.stringify(data, null, 2));
-                alert(data.community_view.subscribed);
                 if (data.community_view.subscribed) {
                     console.log(data.community_view.subscribed);
                     let but;
