@@ -52,3 +52,8 @@ function parseMarkdown(text) {
     );
     return text;
 }
+
+function linkMax(link) {
+    const maxLink = truncate(link, 40);
+    alert(maxLink);
+}
