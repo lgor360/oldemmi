@@ -115,6 +115,7 @@
                 if (accountServer) {
                     if (getInstanceFromActorId(data.community_view.community.actor_id) !== accountServer) {
                         const fedata = fetchFedCom(data.community_view.community.actor_id);
+                        console.log(JSON.stringify(fedata, null, 2));
                         return fedata.community_view;
                     }
                 }
