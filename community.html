@@ -176,10 +176,11 @@
         }
 
         function subscribe(subid, actorid, follow) {
+            let id
             if (getInstanceFromActorId(actorid) !== server) {
-                const id = getFederated(actorid);
+                id = getFederated(actorid);
             } else {
-                const id = subid;
+                id = subid;
             }
             fetch("https://oldemmi.vercel.app/api/server.js", {
                 method: "POST",
