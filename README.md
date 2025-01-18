@@ -5,8 +5,8 @@ i wanted to make a light client for lemmy. i tried to make it look like from the
 
 # under development
 due to the client being under development, some features are not available
-|function|available|not available|
-|-|-|-|
+|function|available|not available|under development|
+|-|-|-|-|
 |login|✓|
 |posts view|✓|
 |comments view|✓|
@@ -20,7 +20,7 @@ due to the client being under development, some features are not available
 |moderation functions||✓|
 |comment replies|✓|
 |404 page|✓|
-|actions||✓|
+|actions|||✓|
 |locked and deleted flags|✓|
 |cross-posts view|✓|
 |markdown full support|✓|
