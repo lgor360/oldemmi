@@ -53,6 +53,11 @@ function parseMarkdown(text) {
     return text;
 }
 
+function truncate(str, maxlength) {
+  return (str.length > maxlength) ?
+    str.slice(0, maxlength - 1) + '…' : str;
+}
+
 function linkMax(link) {
     const maxLink = truncate(link, 40);
     alert(maxLink);
