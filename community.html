@@ -178,8 +178,10 @@
         function subscribe(subid, actorid, follow) {
             let id
             if (getInstanceFromActorId(actorid) !== server) {
+                alert("a");
                 id = getFederated(actorid);
             } else {
+                alert("b");
                 id = subid;
             }
             fetch("https://oldemmi.vercel.app/api/server.js", {
@@ -200,6 +202,8 @@
             })
             .then(response => response.json())
             .then(data => {
+                console.log(JSON.stringify(data, null, 2));
+        
                 if (data.community_view.subscribed) {
                     console.log(data.community_view.subscribed);
                     let but;
