@@ -213,6 +213,7 @@
 
         async function subscribefed(acid, follow) {
             const id = await fedCheck(acid);
+            console.log(id);
             fetch("https://oldemmi.vercel.app/api/server.js", {
                 method: "POST",
                 headers: { "content-type": "application/json" },
