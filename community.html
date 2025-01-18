@@ -88,19 +88,7 @@
                 const data = await response.json();
                 console.log("hi");
                 console.log(JSON.stringify(data, null, 2));
-                const fedresponse = await fetch(`${api}/community?id=${data.community.community.id}`, {
-                    method: "GET",
-                    headers: {
-                        "content-type": "application/json",
-                        "authorization": `Bearer ${lemmyToken}`
-                    }
-                });
-                const fedata = await fedresponse.json();
-                console.log(JSON.stringify(fedata, null, 2));
-                console.log('a');
-                console.log(JSON.stringify(fedata.community, null, 2));
-                console.log(JSON.stringify(fedata.community_view, null, 2));
-                return fedata.community;
+                return data.community;
             } catch (error) {
                 alert(`error while loading profile: ${error}`);
                 return;
