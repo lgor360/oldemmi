@@ -177,11 +177,11 @@
 
         function subscribe(subid, actorid, follow) {
             let id
-            if (getInstanceFromActorId(actorid) !== server) {
+            if (getInstanceFromActorId(actorid) !== accountServer) {
                 alert("a");
                 id = getFederated(actorid);
             } else {
-                alert(server);
+                alert(accountServer);
                 alert(getInstanceFromActorId(actorid));
                 alert("b");
                 id = subid;
@@ -190,7 +190,7 @@
                 method: "POST",
                 headers: { "content-type": "application/json" },
                 body: JSON.stringify({
-                    "url": `https://${server}/api/v3/community/follow`,
+                    "url": `https://${accountServer}/api/v3/community/follow`,
                     "method": "POST",
                     "headers": {
                         "content-type": "application/json",
