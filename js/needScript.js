@@ -57,3 +57,10 @@ function linkMax(str) {
   return (str.length > 43) ?
     str.slice(0, 43 - 1) + '…' : str;
 }
+
+function instanceapply() {
+    const instdiv = document.querySelector(".navbar .oldemmi .text .instance");
+    instdiv.innerHTML = `
+        ${server}
+    `;
+}
