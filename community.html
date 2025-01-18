@@ -87,6 +87,8 @@
                     "type_": "Community"
                 })
             });
+
+            console.log(response.text());
             const data = await response.json();
             return data.community.community.id;
         }
