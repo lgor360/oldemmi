@@ -103,21 +103,27 @@ a:visited {
 .navbar .login {
     background-color: #a3af74;
 }
-.navbar .oldemmi {
+.oldemmi {
     display: flex;
     align-items: center;
     justify-content: normal;
 }
-.navbar .oldemmi .text {
+.text {
     margin-left: 5px;
     font-weight: bold;
     font-size: 1.2em;
 }
-.navbar .oldemmi .text .instance {
+.text .instance {
     font-size: 0.6em;
 }
-.navbar .searchbar button
-.navbar .searchbar input
+.navbar .searchbar button {
+    margin: 0px 0;
+    padding: 10px 15px;
+}
+.navbar .searchbar input {
+    margin: 0px 0;
+    padding: 10px 15px;
+}
 .navbar .searchbar select {
     margin: 0px 0;
     padding: 10px 15px;
