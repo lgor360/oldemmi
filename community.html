@@ -75,6 +75,21 @@
             `;
         }
 
+        function getFederated(actor) {
+            const response = await fetch(`https://${accountServer}/api/v3/resolve_object`, {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json"
+                },
+                body: JSON.stringify({
+                    "q": actor,
+                    "type_": "Community"
+                })
+            });
+            const data = await response.json();
+            return data.community.community.id;
+        }
+
         // функция для получения профиля
         async function fetchCommunity() {
             try {
@@ -86,7 +101,20 @@
                     }
                 });
                 const data = await response.json();
-                return data.community_view;
+                if (getInstanceFromActorId(data.community_view.community.actor_id) !== server) {
+                    const dedid = getFederated(data.community_view.community.actor_id);
+                    const responsebutfed = await fetch(`${api}/community?id=${dedid}`, {
+                        method: "GET",
+                        headers: {
+                            "content-type": "application/json",
+                            "authorization": `Bearer ${lemmyToken}`
+                        }
+                    });
+                    const fedata = responsebutfed.json();
+                    return fedata.community_view;
+                } else {
+                    return data.community_view;
+                }
             } catch (error) {
                 alert(`error while loading community: ${error}`);
             }
@@ -146,13 +174,17 @@
             }
         }
 
-        function subscribe(id, follow, instance) {
-            alert("fu");
+        function subscribe(subid, actorid, follow) {
+            if (instance !== server) {
+                const id = getFederated(actorid);
+            } else {
+                const id = subid;
+            }
             fetch("https://oldemmi.vercel.app/api/server.js", {
                 method: "POST",
                 headers: { "content-type": "application/json" },
                 body: JSON.stringify({
-                    "url": `https://${instance}/api/v3/community/follow`,
+                    "url": `https://${server}/api/v3/community/follow`,
                     "method": "POST",
                     "headers": {
                         "content-type": "application/json",
@@ -166,8 +198,6 @@
             })
             .then(response => response.json())
             .then(data => {
-                alert(JSON.stringify(data, null, 2));
-                alert(data.community_view.subscribed);
                 if (data.community_view.subscribed) {
                     console.log(data.community_view.subscribed);
                     let but;
@@ -318,7 +348,7 @@
                     ${community_view.community.description ? `<div class='bio'>${parseMarkdown(community_view.community.description)}</div>` : ''}
                     <div class="profile-bottom">
                         <div class="followButton">
-                            <button onclick="subscribe(${community_view.community.id} ,${doisubornot}, '${getInstanceFromActorId(community_view.community.actor_id)}')">${but}</button>
+                            <button onclick="subscribe(${community_view.community.id}, ${community_view.community.actor_id}, ${doisubornot}')">${but}</button>
                         </div>
                     </div>
                 `;
