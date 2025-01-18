@@ -57,6 +57,7 @@
     <script defer>
         let logined = false;
         const lemmyToken = localStorage.getItem("lemmyToken");
+        console.log(lemmyToken);
         const urlParams = new URLSearchParams(window.location.search);
         const server = urlParams.get('server') || "lemmy.world";
         const community = urlParams.get('community') || "okelote360";
