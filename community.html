@@ -148,28 +148,25 @@
         }
 
         function subscribe(id, follow, instance) {
-            const proxyUrl = "https://oldemmi.vercel.app/api/server.js";
-
-            const data = {
-                url: `https://${instance}/api/v3/community/follow`,
-                method: "POST",
-                headers: {
-                    "content-type": "application/json",
-                    "authorization": `Bearer ${lemmyToken}`
-                },
-                body: {
-                    "community_id": id,
-                    "follow": follow
-                }
-            };
-
-            fetch(proxyUrl, {
+            fetch("https://oldemmi.vercel.app/api/server.js", {
                 method: "POST",
                 headers: { "content-type": "application/json" },
-                body: JSON.stringify(data)
+                body: JSON.stringify({
+                    "url": `https://${instance}/api/v3/community/follow`,
+                    "method": "POST",
+                    "headers": {
+                        "content-type": "application/json",
+                        "authorization": `Bearer ${lemmyToken}`
+                    },
+                    "body": {
+                        "community_id": id,
+                        "follow": follow
+                    }
+                })
             })
             .then(response => response.json())
             .then(data => {
+                alert(data.community_view.subscribed);
                 if (data.community_view.subscribed) {
                     console.log(data.community_view.subscribed);
                     let but;
