@@ -258,7 +258,7 @@
         }
 
         function subticom(id, acid, follow, instance) {
-            if (accountServer & lemmyToken) {
+            if (accountServer) {
                 if (instance !== accountServer) {
                     subscribefed(acid, follow);
                 } else {
