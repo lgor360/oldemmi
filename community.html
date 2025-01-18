@@ -57,6 +57,7 @@
     <script defer>
         let logined = false;
         const lemmyToken = localStorage.getItem("lemmyToken");
+        const accountServer = localStorage.getItem("accountServer");
         const urlParams = new URLSearchParams(window.location.search);
         const server = urlParams.get('server') || "lemmy.world";
         const community = urlParams.get('community') || "okelote360";
@@ -121,6 +122,25 @@
             }
         }
 
+        async function fedCheck(acid) {
+            try {
+                const response = await fetch(`https://${accountServer}/api/v3/resolve_object`, {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        "q": acid,
+                        "type_": "Community"
+                    })
+                });
+                const data = await response.json();
+                return data.community.community.id;
+            } catch (error) {
+                alert(`error while loading profile: ${error}`);
+            }
+        }
+
         async function validateToken() {
             const serverUrl = `https://${localStorage.getItem("accountServer")}/api/v3/user/validate_auth`;
 
@@ -146,7 +166,7 @@
             }
         }
 
-        function subscribe(id, follow, instance) {
+        function subscribelocal(id, follow, instance) {
             fetch("https://oldemmi.vercel.app/api/server.js", {
                 method: "POST",
                 headers: { "content-type": "application/json" },
@@ -189,6 +209,64 @@
                 console.error("ошибка запроса для подписки:", error);
                 alert("request error... " + error.message);
             });
+        }
+
+        async function subscribefed(acid, follow) {
+            const id = await fedCheck(acid);
+            fetch("https://oldemmi.vercel.app/api/server.js", {
+                method: "POST",
+                headers: { "content-type": "application/json" },
+                body: JSON.stringify({
+                    "url": `https://${instance}/api/v3/community/follow`,
+                    "method": "POST",
+                    "headers": {
+                        "content-type": "application/json",
+                        "authorization": `Bearer ${lemmyToken}`
+                    },
+                    "body": {
+                        "community_id": id,
+                        "follow": follow
+                    }
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.community_view.subscribed) {
+                    console.log(data.community_view.subscribed);
+                    let but;
+                    let doisubornot;
+                    if (data.community_view.subscribed === "NotSubscribed") {
+                        but = "+";
+                        doisubornot = true;
+                    } else if (data.community_view.subscribed === "Subscribed") {
+                        but = "-";
+                        doisubornot = false;
+                    } else if (data.community_view.subscribed === "Pending") {
+                        but = "•••";
+                        doisubornot = false;
+                    }
+                    document.querySelector(".profile .profile-bottom .followButton").innerHTML = `<button onclick="subscribe(${id} ,${doisubornot}, '${instance}')">${but}</button>`;
+                } else {
+                    console.error("ошибка входа после 2FA:", data);
+                    alert("action failed..." + (data.error || "unknown error"));
+                }
+            })
+            .catch(error => {
+                console.error("ошибка запроса для подписки:", error);
+                alert("request error... " + error.message);
+            });
+        }
+
+        function subtocom(id, acid, follow, instance) {
+            if (accountServer & lemmyToken) {
+                if (instance !== accountServer) {
+                    subscribefed(acid, follow);
+                } else {
+                    subscribelocal(id, follow, instance);
+                }
+            } else {
+                login();
+            }
         }
         
         function getInstanceFromActorId(actorId) {
@@ -315,7 +393,7 @@
                     ${community_view.community.description ? `<div class='bio'>${parseMarkdown(community_view.community.description)}</div>` : ''}
                     <div class="profile-bottom">
                         <div class="followButton">
-                            <button onclick="subscribe(${community_view.community.id} ,${doisubornot}, '${getInstanceFromActorId(community_view.community.actor_id)}')">${but}</button>
+                            <button onclick="subticom(${community_view.community.id}, '${community_view.community.actor_id}', ${doisubornot}, '${getInstanceFromActorId(community_view.community.actor_id)}')">${but}</button>
                         </div>
                     </div>
                 `;
