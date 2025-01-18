@@ -176,7 +176,7 @@
             }
         }
 
-        function subscribe(subid, actorid, follow) {
+        async function subscribe(subid, actorid, follow) {
             let id
             if (getInstanceFromActorId(actorid) !== accountServer) {
                 alert("a");
