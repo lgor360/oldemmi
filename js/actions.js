@@ -1,2 +1,3 @@
-async function readPost(postid, acid) {
+async function readPost(postid) {
+    d
 }
