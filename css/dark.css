@@ -137,7 +137,7 @@ a:visited {
     background-color: #454545;
     border-radius: 0px;
     text-wrap: wrap;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 .post button {
     padding: 2px 2px;
