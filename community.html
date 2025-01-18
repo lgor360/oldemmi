@@ -199,7 +199,7 @@
                         but = "•••";
                         doisubornot = false;
                     }
-                    document.querySelector(".profile .profile-bottom .followButton").innerHTML = `<button onclick="subscribe(${id}, 'itslocal', ${doisubornot}, '${instance}')">${but}</button>`;
+                    document.querySelector(".profile .profile-bottom .followButton").innerHTML = `<button onclick="subticom(${id}, 'itslocal', ${doisubornot}, '${instance}')">${but}</button>`;
                 } else {
                     console.error("ошибка входа после 2FA:", data);
                     alert("action failed..." + (data.error || "unknown error"));
@@ -245,7 +245,7 @@
                         but = "•••";
                         doisubornot = false;
                     }
-                    document.querySelector(".profile .profile-bottom .followButton").innerHTML = `<button onclick="subscribe(64777, '${acid}', ${doisubornot}, '${getInstanceFromActorId(acid)}')">${but}</button>`;
+                    document.querySelector(".profile .profile-bottom .followButton").innerHTML = `<button onclick="subticom(64777, '${acid}', ${doisubornot}, '${getInstanceFromActorId(acid)}')">${but}</button>`;
                 } else {
                     console.error("ошибка входа после 2FA:", data);
                     alert("action failed..." + (data.error || "unknown error"));
