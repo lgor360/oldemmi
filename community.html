@@ -124,15 +124,12 @@
 
         async function fedCheck(acid) {
             try {
-                const response = await fetch(`https://${accountServer}/api/v3/resolve_object`, {
-                    method: "POST",
+                const response = await fetch(`https://${accountServer}/api/v3/resolve_object?q=${acid}&type=community`, {
+                    method: "GET",
                     headers: {
-                        "content-type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        "q": acid,
-                        "type_": "Community"
-                    })
+                        "content-type": "application/json",
+                        "authorization": `Bearer ${lemmyToken}`
+                    }
                 });
                 const data = await response.json();
                 console.log(JSON.stringify(data, null, 2));
