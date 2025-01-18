@@ -64,6 +64,13 @@
         let fSelect = document.querySelector(".navbar #filter");
         fSelect.value = filter;
         const lemmyToken = localStorage.getItem("lemmyToken");
+        
+        function instanceapply() {
+            const instdiv = document.querySelector(".navbar .oldemmi .text .instance");
+            instdiv.innerHTML = `
+                ${server}
+            `;
+        }
 
         // функция для получения постов
         async function fetchPosts() {
