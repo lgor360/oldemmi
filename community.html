@@ -57,7 +57,6 @@
     <script defer>
         let logined = false;
         const lemmyToken = localStorage.getItem("lemmyToken");
-        console.log(lemmyToken);
         const urlParams = new URLSearchParams(window.location.search);
         const server = urlParams.get('server') || "lemmy.world";
         const community = urlParams.get('community') || "okelote360";
@@ -86,7 +85,6 @@
                         "authorization": `Bearer ${lemmyToken}`
                     }
                 });
-                alert(response.text());
                 const data = await response.json();
                 return data.community_view;
             } catch (error) {
@@ -167,6 +165,7 @@
             })
             .then(response => response.json())
             .then(data => {
+                console.log(JSON.stringify(data, null, 2));
                 alert(data.community_view.subscribed);
                 if (data.community_view.subscribed) {
                     console.log(data.community_view.subscribed);
@@ -280,7 +279,6 @@
                 const profile = document.querySelector(".profile");
                 let but;
                 let doisubornot;
-                console.log(community_view.subscribed);
                 if (community_view.subscribed === "NotSubscribed") {
                     but = "+";
                     doisubornot = true;
