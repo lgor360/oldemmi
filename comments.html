@@ -56,8 +56,8 @@
         </div>
     </div>
 
-    <script src="https://oldemmi.vercel.app/js/markdown.js"></script>
-    <script>
+    <script src="https://oldemmi.vercel.app/js/needScript.js" defer></script>
+    <script defer>
         let commentsCount = null;
         const allComments = []; // глобальный массив для хранения всех комментариев
         const urlParams = new URLSearchParams(window.location.search);
@@ -245,7 +245,7 @@
                     <div class="post-name">${post_view.post.name}</div>
                     <div class="post-text">${parseMarkdown(post_view.post.body || "")}</div>
                     ${post_view.post.thumbnail_url ? `<img src="${post_view.post.thumbnail_url}" class="post-image" alt="image">` : ""}
-                    ${postotourl ? `<div class="post-link"><a rel="noopener noreferrer" href="${postotourl}">${postotourl}</a></div>` : ""}
+                    ${postotourl ? `<div class="post-link"><a rel="noopener noreferrer" href="${postotourl}">${linkMax(postotourl)}</a></div>` : ""}
                     <div class="post-footer">
                         <div class="counter">
                             <button>👍</button>
