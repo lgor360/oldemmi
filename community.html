@@ -83,7 +83,7 @@
                     method: "GET",
                     headers: {
                         "content-type": "application/json",
-                        "Authorization": `Bearer ${lemmyToken}`
+                        "authorization": `Bearer ${lemmyToken}`
                     }
                 });
                 const data = await response.json();
