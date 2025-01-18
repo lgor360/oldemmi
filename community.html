@@ -52,8 +52,8 @@
         <button onclick="loadMorePosts()">more</button>
     </div>
 
-    <script src="https://oldemmi.vercel.app/js/markdown.js"></script>
-    <script>
+    <script src="https://oldemmi.vercel.app/js/markdown.js" defer></script>
+    <script defer>
         let logined = false;
         const lemmyToken = localStorage.getItem("lemmyToken");
         const urlParams = new URLSearchParams(window.location.search);
@@ -254,7 +254,7 @@
                         <div class="post-name">${post.post.name}</div>
                         <div class="post-text">${parseMarkdown(post.post.body || "")}</div>
                         ${post.post.thumbnail_url ? `<img src="${post.post.thumbnail_url}" class="post-image" alt="image">` : ""}
-                        ${postotourl ? `<div class="post-link"><a rel="noopener noreferrer" href="${postotourl}">${postotourl}</a></div>` : ""}
+                        ${postotourl ? `<div class="post-link"><a rel="noopener noreferrer" href="${postotourl}">${linkMax(postotourl)}</a></div>` : ""}
                         <div class="post-footer">
                             <div class="counter">
                                 <button>👍</button>
