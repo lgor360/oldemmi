@@ -87,8 +87,6 @@
                     "type_": "Community"
                 })
             });
-
-            console.log(response.text());
             const data = await response.json();
             return data.community.community.id;
         }
@@ -178,18 +176,16 @@
             }
         }
 
-        async function subscribe(subid, actorid, follow) {
+        function subscribe(subid, actorid, follow) {
             let id
             if (getInstanceFromActorId(actorid) !== accountServer) {
                 alert("a");
-                id = await getFederated(actorid);
-                console.log(JSON.stringify(id, null, 2));
+                id = getFederated(actorid);
             } else {
                 alert(accountServer);
                 alert(getInstanceFromActorId(actorid));
                 alert("b");
                 id = subid;
-                console.log(JSON.stringify(id, null, 2));
             }
             fetch("https://oldemmi.vercel.app/api/server.js", {
                 method: "POST",
