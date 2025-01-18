@@ -94,11 +94,7 @@
                         "authorization": `Bearer ${lemmyToken}`
                     }
                 });
-                const fedata = fedresponse.json();
-                console.log(JSON.stringify(fedata, null, 2));
-                console.log('a');
-                console.log(JSON.stringify(fedata.community, null, 2));
-                console.log(JSON.stringify(fedata.community_view, null, 2));
+                const fedata = fedresponse.community.json();
                 return fedata;
             } catch (error) {
                 alert(`error while loading profile: ${error}`);
@@ -120,7 +116,7 @@
                 if (accountServer) {
                     if (getInstanceFromActorId(data.community_view.community.actor_id) !== accountServer) {
                         const fedata = fetchFedCom(data.community_view.community.actor_id);
-                        return fedata.community;
+                        return fedata;
                     }
                 }
                 return data.community_view;
