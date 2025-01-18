@@ -211,11 +211,12 @@ a:visited {
     width: 50px;
     margin-right: 10px;
 }
-.profile .profile-header .person {
+.person {
     font-weight: bold;
     font-size: 1.2em;
 }
-.profile .profile-header .person .instance {
+.instance {
+    font-weight: bold;
     font-size: 0.6em;
 }
 .counts {
