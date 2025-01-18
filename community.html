@@ -94,8 +94,8 @@
                         "authorization": `Bearer ${lemmyToken}`
                     }
                 });
-                const fedata = fedresponse.community.json();
-                return fedata;
+                const fedata = await fedresponse.json();
+                return fedata.community;
             } catch (error) {
                 alert(`error while loading profile: ${error}`);
                 return;
