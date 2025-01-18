@@ -75,7 +75,7 @@
             `;
         }
 
-        function getFederated(actor) {
+        async function getFederated(actor) {
             const response = await fetch(`https://${accountServer}/api/v3/resolve_object`, {
                 method: "POST",
                 headers: {
@@ -102,7 +102,7 @@
                 });
                 const data = await response.json();
                 if (getInstanceFromActorId(data.community_view.community.actor_id) !== server) {
-                    const dedid = getFederated(data.community_view.community.actor_id);
+                    const dedid = await getFederated(data.community_view.community.actor_id);
                     const responsebutfed = await fetch(`${api}/community?id=${dedid}`, {
                         method: "GET",
                         headers: {
