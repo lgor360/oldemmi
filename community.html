@@ -176,7 +176,7 @@
         }
 
         function subscribe(subid, actorid, follow) {
-            if (instance !== server) {
+            if (await getInstanceFromActorId(actorid) !== server) {
                 const id = getFederated(actorid);
             } else {
                 const id = subid;
