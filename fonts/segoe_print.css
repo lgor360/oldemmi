@@ -1,0 +1,9 @@
+@font-face {
+	font-family: 'Segoe Print';
+	src: url('../fonts/segoe_print.eot'); /* IE 9 Compatibility Mode */
+	src: url('../fonts/segoe_print.eot?#iefix') format('embedded-opentype'), /* IE < 9 */
+		url('../fonts/segoe_print.woff2') format('woff2'), /* Super Modern Browsers */
+		url('../fonts/segoe_print.woff') format('woff'), /* Firefox >= 3.6, any other modern browser */
+		url('../fonts/segoe_print.ttf') format('truetype'), /* Safari, Android, iOS */
+		url('../fonts/segoe_print.svg#segoe_print') format('svg'); /* Chrome < 4, Legacy iOS */
+}
