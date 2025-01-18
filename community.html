@@ -79,21 +79,13 @@
         // функция для получения профиля
         async function fetchCommunity() {
             try {
-                let response;
-                if (lemmyToken) {
-                    response = await fetch(`${api}/community?name=${community}`, {
-                        method: "GET",
-                        headers: {
-                            "content-type": "application/json",
-                            "authorization": `Bearer ${lemmyToken}`
-                        }
-                    });
-                } else {
-                    response = await fetch(`${api}/community?name=${community}`, {
-                        method: "GET",
-                        headers: { "content-type": "application/json" }
-                    });
-                }
+                const response = await fetch(`${api}/community?name=${community}`, {
+                    method: "GET",
+                    headers: {
+                        "content-type": "application/json",
+                        "authorization": `Bearer ${lemmyToken}`
+                    }
+                });
                 const data = await response.json();
                 return data.community_view;
             } catch (error) {
