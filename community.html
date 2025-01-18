@@ -258,6 +258,7 @@
         }
 
         function subticom(id, acid, follow, instance) {
+            console.log(follow);
             if (accountServer) {
                 if (instance !== accountServer) {
                     subscribefed(acid, follow);
