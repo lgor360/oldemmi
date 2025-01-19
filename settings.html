@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oldemmi</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="https://oldemmi.vercel.app/resources/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://oldemmi.vercel.app/resources/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://oldemmi.vercel.app/resources/favicon/favicon-16x16.png">
+    <link rel="manifest" href="https://oldemmi.vercel.app/resources/favicon/site.webmanifest">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#cfec66">
+    <script>
+        if (window.innerWidth < 550) {
+            document.querySelector('meta[name="viewport"]').setAttribute('content', 'width=550, initial-scale=1.0');
+        }
+        const link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.href = "https://oldemmi.vercel.app/css/dark.css?nocache=" + new Date().getTime();
+        document.head.appendChild(link);
+    </script>
+</head>
+<body>
+    <div class="navbar">
+        <div onclick="goToHome()" class="oldemmi">
+            <img src="https://oldemmi.vercel.app/resources/logo.png" alt="oldemmi logo">
+            <div class="text">
+                oldemmi
+                <div class="instance">
+                    <!-- тут будет сервер -->
+                </div>
+            </div>
+        </div>
+        <div class="normal">
+            <button onclick="goToSearch()">🔎</button>
+            <button id="logout" style="display: none;" onclick="logout('userlogout')">logout</button>
+            <button style="display: inline;" id="login" class="login" onclick="login()">login</button>
+            <div style="display: inline;" class="neP"><div style="display: none;" class="profileInBar"></div></div>
+        </div>
+    </div>
+
+    <div class="profile">
+        <div class="profile-header">
+            <!-- здесь будет шапка профиля -->
+        </div>
+    </div>
+    <div class="buttons">
+        <div class="somi">
+            <button onclick="goToPostTab()">posts</button>
+            <button onclick="goToCommentsTab()">comments</button>
+        </div>
+    </div>
+    <div id="posts">
+        <!-- сюда будут добавляться посты через js -->
+    </div>
+    <div class="load-more">
+        <button onclick="loadMoreSomething()">more</button>
+    </div>
+
+    <script src="https://oldemmi.vercel.app/js/markdown.js"></script>
+    <script src="https://oldemmi.vercel.app/js/needScript.js"></script>
+    <script defer>
+        const lemmyToken = localStorage.getItem("lemmyToken");
+        const urlParams = new URLSearchParams(window.location.search);
+        const server = urlParams.get('server') || "lemmy.world";
+        const need = urlParams.get('need') || "post";
+        const user = urlParams.get('user') || "okelote360";
+        let page = 1; // текущая страница для загрузки
+        const limit = 9; // количество постов на одну загрузку
+        const api = `https://${server}/api/v3`
+
+        function goToCommentsTab() {
+            window.location.href = `https://oldemmi.vercel.app/profile?server=${server}&user=${user}&need=comments`
+        }
+
+        function goToPostTab() {
+            window.location.href = `https://oldemmi.vercel.app/profile?server=${server}&user=${user}&need=post`
+        }
+        
+        function instanceapply() {
+            const instdiv = document.querySelector(".navbar .oldemmi .text .instance");
+            instdiv.innerHTML = `
+                ${server}
+            `;
+        }
+
+        // функция для получения профиля
+        async function fetchUser() {
+            try {
+                const response = await fetch(`${api}/user?username=${user}`, {
+                    method: "GET",
+                    headers: { "Content-Type": "application/json" }
+                });
+                const data = await response.json();
+                return data.person_view;
+            } catch (error) {
+                alert(`error while loading profile: ${error}`);
+            }
+        }
+
+        async function fetchPosts() {
+            try {
+                const response = await fetch(`${api}/user?username=${user}&page=${page}&limit=${limit}`, {
+                    method: "GET",
+                    headers: { "Content-Type": "application/json" }
+                });
+                const data = await response.json();
+                return data.posts;
+            } catch (error) {
+                alert(`error while loading posts: ${error}`);
+            }
+        }
+
+        async function fetchComments() {
+            try {
+                const response = await fetch(`${api}/user?username=${user}&page=${page}&limit=${limit}`, {
+                    method: "GET",
+                    headers: { "Content-Type": "application/json" }
+                });
+                const data = await response.json();
+                return data.comments;
+            } catch (error) {
+                alert(`error while loading comments: ${error}`);
+            }
+        }
+
+        async function getLoggined() {
+            try {
+                const response = await fetch(`https://${localStorage.getItem("accountServer")}/api/v3/site`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${lemmyToken}`
+                    }
+                });
+                const data = await response.json();
+                return data.my_user.local_user_view.person;
+            } catch (error) {
+                alert(`error while loading profile: ${error}`);
+            }
+        }
+
+        async function validateToken() {
+            const serverUrl = `https://${localStorage.getItem("accountServer")}/api/v3/user/validate_auth`;
+
+            try {
+                const response = await fetch(serverUrl, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${lemmyToken}`
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                console.log("token is valid:", data);
+                return true; // токен валидный
+            } catch (error) {
+                console.error("token validation failed:", error);
+                return false; // токен не валидный
+            }
+        }
+        
+        function goToProfile(id, servero) {
+            window.location.href = `https://oldemmi.vercel.app/profile?server=${servero}&user=${id}`
+        }
+        
+        function getInstanceFromActorId(actorId) {
+            const url = new URL(actorId);
+            return url.hostname; // возвращает домен, например, "lemmy.world"
+        }
+        
+        function goToCommunity(comname, servecom) {
+            window.location.href = `https://oldemmi.vercel.app/community?server=${servecom}&community=${comname}`
+        }
+
+        function goToComments(postoid) {
+            window.location.href = `https://oldemmi.vercel.app/comments?server=${server}&post=${postoid}`
+        }
+        
+        // функция для отображения постов
+        function renderPosts(posts) {
+            try {
+                const postsContainer = document.getElementById("posts");
+
+                posts.forEach(post => {
+                    const locked = post.post.locked === true ? '🔒' : '';
+                    const deleted = post.post.deleted === true ? '🗑️' : '';
+                    const nsfw = post.post.nsfw === true ? '🔞' : '';
+                    const postotourl = post.post.url && post.post.url !== post.post.thumbnail_url ? post.post.url : null;
+                    const postElement = document.createElement("div");
+                    postElement.classList.add("post");
+
+                    postElement.innerHTML = `
+                        <div class="post-header">
+                            <img src="${post.creator.avatar || 'https://oldemmi.vercel.app/resources/user.png'}" alt="avatar">
+                            <div class="author">
+                                ${post.creator.display_name || post.creator.name}
+                                <div onclick="goToCommunity('${post.community.name}', '${getInstanceFromActorId(post.community.actor_id)}')" class="community">
+                                    ${post.community.name}
+                                    @
+                                    ${getInstanceFromActorId(post.community.actor_id)}
+                                </div>
+                            </div>
+                            <div class="post-status">
+                                <div onclick="alert('this post is locked')" class="locked">
+                                    ${locked}
+                                </div>
+                                <div onclick="alert('this post is deleted')" class="deleted">
+                                    ${deleted}
+                                </div>
+                                <div onclick="alert('this post is nsfw (18+)')" class="nsfw">
+                                    ${nsfw}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="post-name">${post.post.name}</div>
+                        <div class="post-text">${parseMarkdown(post.post.body || "")}</div>
+                        ${post.post.thumbnail_url ? `<img src="${post.post.thumbnail_url}" class="post-image" alt="image">` : ""}
+                        ${postotourl ? `<div class="post-link"><a rel="noopener noreferrer" href="${postotourl}">${linkMax(postotourl)}</a></div>` : ""}
+                        <div class="post-footer">
+                            <div class="counter">
+                                <button>👍</button>
+                                <span>${post.counts.upvotes}</span>
+                            </div>
+                            <div class="counter">
+                                <button>👎</button>
+                                <span>${post.counts.downvotes}</span>
+                            </div>
+                            <div class="counter">
+                                <button onclick="goToComments(${post.post.id})">💬</button>
+                                <span>${post.counts.comments}</span>
+                            </div>
+                        </div>
+                    `;
+                    postsContainer.appendChild(postElement);
+                });
+            } catch (error) {
+                alert(`error while rendering post: ${error}`);
+            }
+        }
+
+        // функция для рендеринга профиля
+        function renderUser(person_view) {
+            try {
+                const date = new Date(person_view.person.published);
+                const profile = document.querySelector(".profile");
+                profile.innerHTML = `
+                    <div class="profile-header">
+                        <img src="${person_view.person.avatar || 'https://oldemmi.vercel.app/resources/user.png'}" alt="avatar">
+                        <div class="person">
+                            ${person_view.person.display_name || person_view.person.name}
+                            <div class="instance">
+                                ${getInstanceFromActorId(person_view.person.actor_id)}
+                            </div>
+                        </div>
+                        <div class="counts">
+                            <div class="birthday">
+                                🍰
+                                ${date.toLocaleDateString('en-EN', { day: '2-digit', month: '2-digit', year: 'numeric' })}
+                            </div>
+                            <div class="counter">
+                                💬
+                                <span>${person_view.counts.comment_count}</span>
+                            </div>
+                            <div class="counter">
+                                📬
+                                <span>${person_view.counts.post_count}</span>
+                            </div>
+                        </div>
+                    </div>
+                    ${person_view.person.bio ? `<div class='bio'>${parseMarkdown(person_view.person.bio)}</div>` : ''}
+                `;
+            } catch (error) {
+                alert(`error while rendering profile: ${error}`);
+            }
+        }
+
+        function renderComments(comments) {
+            try {
+                const commentsContainer = document.getElementById("posts");
+                comments.forEach(comment => {
+                    const commentElement = document.createElement("div");
+                    commentElement.classList.add("post");
+
+                    commentElement.innerHTML = `
+                        <div class="post-header">
+                            <img src="${comment.creator.avatar || 'https://lgor360.github.io/oldemmi/resources/user.png'}" alt="avatar">
+                            <div class="author">
+                                ${comment.creator.display_name || comment.creator.name}
+                                <div class="community">
+                                    ${getInstanceFromActorId(comment.creator.actor_id)}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="post-text">${parseMarkdown(comment.comment.content)}</div>
+                        <div class="post-footer">
+                            <div class="counter">
+                                <button>👍</button>
+                                <span>${comment.counts.upvotes}</span>
+                            </div>
+                            <div class="counter">
+                                <button>👎</button>
+                                <span>${comment.counts.downvotes}</span>
+                            </div>
+                            <div class="gotoco">
+                                <button onclick="goToComments('${comment.comment.post_id}')">👁️</button>
+                            </div>
+                        </div>
+                    `;
+                    commentsContainer.appendChild(commentElement);
+                });
+            } catch (error) {
+                alert(`error while rendering comments: ${error}`);
+            }
+        }
+        
+        // функция для загрузки постов
+        async function loadMorePosts() {
+            const posts = await fetchPosts();
+            renderPosts(posts);
+            page++;
+        }
+
+        // функция для загрузки профиля
+        async function loadUser() {
+            const person_view = await fetchUser();
+            renderUser(person_view);
+        }
+        
+        // функция для загрузки комментариев
+        async function loadMoreComments() {
+            const comments = await fetchComments();
+            renderComments(comments);
+            page++; // увеличиваем номер страницы
+        }
+
+        async function loginedornot() {
+            try {
+                const profileInBar = document.querySelector(".navbar .normal .neP .profileInBar");
+                const login = document.getElementById("login");
+                const logout = document.getElementById("logout");
+            
+                if (lemmyToken) {
+                    const lemmyTokenValid = await validateToken();
+                    if (lemmyTokenValid) {
+                        profileInBar.style.display = "flex";
+                        logout.style.display = "flex";
+                        login.style.display = "none";
+
+                        const user = await getLoggined();
+                        profileInBar.innerHTML = `
+                            <img onclick="goToProfile('${user.name}', '${localStorage.getItem("accountServer")}')" src="${user.avatar || 'https://lgor360.github.io/oldemmi/user.png'}">
+                            <div class="text">
+                                ${user.display_name || user.name}
+                            </div>
+                        `;
+                    } else {
+                        logout("notvalid");
+                    }
+                }
+                 return;
+            } catch (error) {
+                alert(`error while account login check: ${error}`);
+            }
+        }
+        
+        // функция для входа
+        function login() {
+            window.location.href = `https://oldemmi.vercel.app/login`;
+        }
+
+        async function logout(option) {
+            const confirmation = confirm("are you sure want to logout?");
+            if (!confirmation) {
+                return; // если пользователь нажал "нет", ничего не делаем
+            }
+
+            const proxyUrl = "https://oldemmi.vercel.app/api/server.js";
+            const logoutData = {
+                url: `https://${localStorage.getItem("accountServer")}/api/v3/user/logout`,
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${lemmyToken}`
+                },
+                body: {}
+            };
+
+            try {
+                if (option === "userlogout") {
+                // выполняем запрос на выход через прокси
+                    const response = await fetch(proxyUrl, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(logoutData)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`logout failed: ${response.status} ${response.statusText}`);
+                    }
+                }
+                // удаляем токен и сервер из LocalStorage
+                localStorage.removeItem("lemmyToken");
+                localStorage.removeItem("accountServer");
+
+                // перезапускаем текущую страницу
+                location.reload();
+            } catch (error) {
+                alert(`error during logout: ${error}`);
+            }
+        }
+
+        function loadMoreSomething() {
+            if (need === "post") {
+                loadMorePosts();
+            } else {
+                loadMoreComments();
+            }
+        }
+
+        function goToSearch() {
+            window.location.href = `https://oldemmi.vercel.app/search?server=${server}&filter=Posts`;
+        }
+        
+        function goToHome() {
+            window.location.href = `https://oldemmi.vercel.app/home?server=${server}`
+        }
+
+        loginedornot();
+        // вставляем название сервера в заголовок
+        instanceapply();
+        // загружаем профиль
+        loadUser();
+        // загружаем первые посты при загрузке страницы
+        loadMoreSomething();
+    </script>
+</body>
+</html>
