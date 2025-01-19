@@ -1,15 +1,6 @@
-@font-face {
-    font-family: 'Littera Text Light';
-    src: url('https://oldemmi.vercel.app/fonts/LitteraTextLight.eot');
-    src: url('https://oldemmi.vercel.app/fonts/LitteraTextLight.eot?#iefix') format('embedded-opentype'),
-    url('https://oldemmi.vercel.app/fonts/LitteraTextLight.woff') format('woff'),
-    url('https://oldemmi.vercel.app/fonts/LitteraTextLight.ttf') format('truetype');
-    font-weight: normal; 
-    font-style: normal;
-}
 body {
-    -webkit-text-stroke: 1px #44403d;
-    font-family: 'Littera Text Light';
+    -webkit-text-stroke: 0.3px #44403d;
+    font-family: Arial, sans-serif;
     background-color: #abbf54;
     background-image: url(https://oldemmi.vercel.app/resources/wallpaper.png);
     background-attachment: fixed;
