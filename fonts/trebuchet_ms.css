@@ -1,9 +1,0 @@
-@font-face {
-	font-family: 'Trebuchet MS';
-	src: url('../fonts/trebuchet_ms.eot'); /* IE 9 Compatibility Mode */
-	src: url('../fonts/trebuchet_ms.eot?#iefix') format('embedded-opentype'), /* IE < 9 */
-		url('../fonts/trebuchet_ms.woff2') format('woff2'), /* Super Modern Browsers */
-		url('../fonts/trebuchet_ms.woff') format('woff'), /* Firefox >= 3.6, any other modern browser */
-		url('../fonts/trebuchet_ms.ttf') format('truetype'), /* Safari, Android, iOS */
-		url('../fonts/trebuchet_ms.svg#trebuchet_ms') format('svg'); /* Chrome < 4, Legacy iOS */
-}
