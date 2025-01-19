@@ -351,3 +351,19 @@ progress::-moz-progress-bar {
     padding: 10px 20px;
     max-width: 70px;
 }
+.accountsettings {
+    min-width: 300px;
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin: 20px auto;
+    max-width: 600px;
+    background-color: #454545;
+    border-radius: 0px;
+    text-wrap: wrap;
+    overflow: hidden;
+}
+.accountsettings .header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
