@@ -10,7 +10,7 @@ due to the client being under development, some features are not available
 |login|✓|
 |posts view|✓|
 |comments view|✓|
-|account settings||✓|
+|account settings|||✓|
 |search in lemmy|✓|
 |change instance (only for guests)|✓|
 |communities view|✓|
