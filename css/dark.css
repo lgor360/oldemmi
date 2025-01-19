@@ -8,7 +8,7 @@
     font-style: normal;
 }
 body {
-    -webkit-text-stroke: 8px #e1e1e1;
+    -webkit-text-stroke: 1px #e1e1e1;
     font-family: 'Littera Text Light';
     background-color: #abbf54;
     background-image: url(https://oldemmi.vercel.app/resources/wallpaper.png);
