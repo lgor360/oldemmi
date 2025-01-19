@@ -1,26 +1,8 @@
-# about
-i wanted to make a light client for lemmy. i tried to make it look like from the old internet :P
+# about this branch
 
-![preview](https://github.com/user-attachments/assets/71a55300-3673-49e0-b0f3-d9e0718bba9e)
+this is a dev branch! i create this branch for new functions!\
+the function that is under development right now: account settings
 
-# under development
-due to the client being under development, some features are not available
-|function|available|not available|under development|
-|-|-|-|-|
-|login|✓|
-|posts view|✓|
-|comments view|✓|
-|account settings||✓|
-|search in lemmy|✓|
-|change instance (only for guests)|✓|
-|communities view|✓|
-|profiles view|✓|
-|filters|✓|
-|post's link view|✓|
-|moderation functions||✓|
-|comment replies|✓|
-|404 page|✓|
-|actions|||✓|
-|locked and deleted flags|✓|
-|cross-posts view|✓|
-|markdown full support|✓|
+# how to browse this branch?
+
+https://lgor360.github.com/oldemmi/main.html
