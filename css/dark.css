@@ -375,3 +375,13 @@ progress::-moz-progress-bar {
 .accountsettings .body .bioinput {
     min-height: 150px;
 }
+textarea {
+    border: 1px solid #ccc;
+    border-radius: 0px;
+    background-color: #353535;
+    color: #fff;
+    box-sizing: border-box;
+    padding: 6px 20px;
+    margin: 10px 0;
+    cursor: text;
+}
