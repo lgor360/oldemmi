@@ -360,10 +360,13 @@ progress::-moz-progress-bar {
     background-color: #454545;
     border-radius: 0px;
     text-wrap: wrap;
-    overflow: hidden;
+    display: block;
 }
 .accountsettings .header {
     display: flex;
-    align-items: center;
     margin-bottom: 10px;
+}
+.accountsettings .body { 
+    display: flex;
+    align-items: center;
 }
