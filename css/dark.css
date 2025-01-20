@@ -365,8 +365,10 @@ progress::-moz-progress-bar {
 .accountsettings .header {
     display: flex;
     margin-bottom: 10px;
+    text-size: 1.2em;
 }
 .accountsettings .body { 
+    flex-direction: column;
     display: flex;
     align-items: center;
 }
