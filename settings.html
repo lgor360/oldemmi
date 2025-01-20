@@ -49,7 +49,7 @@
                 <input class="displayname" type="text" placeholder="display name">
                 <textarea maxlength="300" class="bioinput" placeholder="bio"></textarea>
                 <input class="shownsfw" style="margin-bottom: 10px;" type="checkbox">show nsfw</input>
-                <button onclick="putAllSettings()">save</button>
+                <button onclick="setAccSettings()">save</button>
             </div>
         </div>
     </div>
@@ -154,7 +154,7 @@
             const newName = document.querySelector(".displayname").value;
             const proxyUrl = "https://oldemmi.vercel.app/api/server.js";
             const needData = {
-                url: `https://${localStorage.getItem("accountServer")}/api/v3/user`,
+                url: `https://${localStorage.getItem("accountServer")}/api/v3/user/save_user_settings`,
                 method: "PUT",
                 headers: {
                     "content-type": "application/json",
@@ -162,37 +162,7 @@
                 },
                 body: {
                     bio: bio !== newBio ? newBio : bio, 
-                    display_name: namedis !== newName ? newName : namedis
-                }
-            };
-
-            try {
-                // выполняем запрос на выход через прокси
-                const response = await fetch(proxyUrl, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(needData)
-                });
-
-                if (!response.ok) {
-                    throw new Error(`saving failed: ${response.status} ${response.statusText}`);
-                }
-            } catch (error) {
-                alert(`error during saving settings: ${error}`);
-                return;
-            }
-        }
-
-        async function putNSFW() {
-            const proxyUrl = "https://oldemmi.vercel.app/api/server.js";
-            const needData = {
-                url: `https://${localStorage.getItem("accountServer")}/api/v3/user/settings`,
-                method: "PUT",
-                headers: {
-                    "content-type": "application/json",
-                    "authorization": `Bearer ${lemmyToken}`
-                },
-                body: {
+                    display_name: namedis !== newName ? newName : namedis,
                     show_nsfw: nsfwcheck
                 }
             };
@@ -208,16 +178,11 @@
                 if (!response.ok) {
                     throw new Error(`saving failed: ${response.status} ${response.statusText}`);
                 }
+                goToHome();
             } catch (error) {
                 alert(`error during saving settings: ${error}`);
                 return;
             }
-        }
-
-        async function putAllSettings() {
-            await putNSFW();
-            await setAccSettings();
-            goToHome();
         }
         
         function goToProfile(id, servero) {
