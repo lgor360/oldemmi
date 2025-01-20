@@ -202,9 +202,15 @@
 
         async function setAvatar(status, files) {
             if (status === "set") {
-                avedit = 1;
-                document.querySelector(".avatar").src = files;
-                document.querySelector(".avbutton").style.display = "flex";
+                if (files.length > 0) {
+                    const fileReader = new FileReader();
+                    fileReader.onload = function(event) {
+                        avedit = 1;
+                        document.querySelector(".avatar").src = event.target.result;
+                        document.querySelector(".avbutton").style.display = "flex";
+                    };
+                    fileReader.readAsDataURL(files[0]); // читаем файл как dataURL
+                }
             } else if (status === "reset") {
                 document.querySelector(".avbutton").style.display = "none";
                 avedit = 0;
