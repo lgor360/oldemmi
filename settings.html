@@ -182,10 +182,10 @@
         }
 
         function setSettings(settings, user) {
-            document.guerySelecter(".shownsfw").value = settings.show_nsfw;
-            document.guerySelecter(".displayname").value = user.person.display_name;
-            document.guerySelecter(".bioinput").value = user.person.bio;
-            document.guerySelecter(".avatar").src = user.person.avatar;
+            document.querySelector(".shownsfw").value = settings.show_nsfw;
+            document.querySelector(".displayname").value = user.person.display_name;
+            document.querySelector(".bioinput").value = user.person.bio;
+            document.querySelector(".avatar").src = user.person.avatar;
         }
 
         async function loadSettings() {
