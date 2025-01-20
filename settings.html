@@ -215,8 +215,8 @@
         }
 
         async function putAllSettings() {
-            putNSFW();
-            setAccSettings();
+            await putNSFW();
+            await setAccSettings();
             goToHome();
         }
         
@@ -260,7 +260,7 @@
         }
 
         function setSettings(settings, user) {
-            document.querySelector(".shownsfw").value = settings.show_nsfw;
+            document.querySelector(".shownsfw").checked = settings.show_nsfw;
             document.querySelector(".displayname").value = user.person.display_name;
             document.querySelector(".bioinput").value = user.person.bio;
             document.querySelector(".avatar").src = user.person.avatar;
