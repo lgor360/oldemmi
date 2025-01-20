@@ -49,7 +49,7 @@
                 <input class="displayname" type="text" placeholder="display name">
                 <textarea maxlength="300" class="bioinput" placeholder="bio"></textarea>
                 <input class="shownsfw" style="margin-bottom: 10px;" type="checkbox">show nsfw</input>
-                <button>save</button>
+                <button onclick="putAllSettings()">save</button>
             </div>
         </div>
     </div>
@@ -147,6 +147,77 @@
                 console.error("token validation failed:", error);
                 return false; // токен не валидный
             }
+        }
+        
+        async function setAccSettings() {
+            const newBio = document.querySelector(".bioinput").value;
+            const newName = document.querySelector(".displayname").value;
+            const proxyUrl = "https://oldemmi.vercel.app/api/server.js";
+            const needData = {
+                url: `https://${localStorage.getItem("accountServer")}/api/v3/user`,
+                method: "PUT",
+                headers: {
+                    "content-type": "application/json",
+                    "authorization": `Bearer ${lemmyToken}`
+                },
+                body: {
+                    bio: bio !== newBio ? newBio : bio, 
+                    display_name: namedis !== newName ? newName : namedis
+                }
+            };
+
+            try {
+                // выполняем запрос на выход через прокси
+                const response = await fetch(proxyUrl, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(needData)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`saving failed: ${response.status} ${response.statusText}`);
+                }
+            } catch (error) {
+                alert(`error during saving settings: ${error}`);
+                return;
+            }
+        }
+
+        async function putNSFW() {
+            const proxyUrl = "https://oldemmi.vercel.app/api/server.js";
+            const needData = {
+                url: `https://${localStorage.getItem("accountServer")}/api/v3/user/settings`,
+                method: "PUT",
+                headers: {
+                    "content-type": "application/json",
+                    "authorization": `Bearer ${lemmyToken}`
+                },
+                body: {
+                    show_nsfw: nsfwcheck
+                }
+            };
+
+            try {
+                // выполняем запрос на выход через прокси
+                const response = await fetch(proxyUrl, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(needData)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`saving failed: ${response.status} ${response.statusText}`);
+                }
+            } catch (error) {
+                alert(`error during saving settings: ${error}`);
+                return;
+            }
+        }
+
+        async function putAllSettings() {
+            putNSFW();
+            setAccSettings();
+            goToHome();
         }
         
         function goToProfile(id, servero) {
