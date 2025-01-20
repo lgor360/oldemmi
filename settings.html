@@ -39,12 +39,13 @@
         </div>
     </div>
 
-    <input type="file" id="fileInput" hidden>
+    <input onchange="setAvatar(set, this.files)" type="file" id="fileInput" hidden>
     <div class="settings">
         <div class="accountsettings">
             <div style="font-weight: bold;" class="header">account settings</div>
             <div style="text-align: center;" class="body">
                 <img onclick="document.getElementById('fileInput').click();" class="avatar" alt="avatar" style="margin-bottom: 10px; height: 120px; width: 120px;">
+                <button class="avbutton" style="display: none;" onclick="setAvatar(reset, 0)">×</button>
                 <input class="displayname" type="text" placeholder="display name">
                 <textarea maxlength="300" class="bioinput" placeholder="bio"></textarea>
                 <input class="shownsfw" style="margin-bottom: 10px;" type="checkbox">show nsfw</input>
@@ -61,7 +62,12 @@
         const user = urlParams.get('user') || "okelote360";
         let page = 1; // текущая страница для загрузки
         const limit = 9; // количество постов на одну загрузку
-        const api = `https://${server}/api/v3`
+        const api = `https://${server}/api/v3`;
+        let namedis;
+        let bio;
+        let avedit = 0;
+        let nsfwcheck;
+        let avnorm;
         
         function instanceapply() {
             const instdiv = document.querySelector(".navbar .oldemmi .text .instance");
@@ -187,6 +193,23 @@
             document.querySelector(".displayname").value = user.person.display_name;
             document.querySelector(".bioinput").value = user.person.bio;
             document.querySelector(".avatar").src = user.person.avatar;
+            bio = user.person.bio;
+            avedit = 0;
+            avnorm = user.person.avatar;
+            namedis = user.person.display_name;
+            nsfwcheck = settings.show_nsfw;
+        }
+
+        async function setAvatar(status, files) {
+            if (status === "set") {
+                avedit = 1;
+                document.querySelector(".avatar").src = files;
+                document.querySelector(".avbutton").style.display = "flex";
+            } else if (status === "reset") {
+                document.querySelector(".avbutton").style.display = "none";
+                avedit = 0;
+                document.querySelector(".avatar").src = avnorm;
+            }
         }
 
         async function loadSettings() {
