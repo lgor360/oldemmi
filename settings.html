@@ -46,7 +46,7 @@
                 <img style="margin-bottom: 10px; height: 120px; width: 120px;">
                 <input type="text" placeholder="display name">
                 <textarea maxlength="300" class="bioinput" placeholder="bio"></textarea>
-                <input type="checkbox">show nsfw</input>
+                <input style="margin-bottom: 10px;" type="checkbox">show nsfw</input>
                 <button>save</button>
             </div>
         </div>
@@ -80,6 +80,7 @@
                 return data.person_view;
             } catch (error) {
                 alert(`error while loading profile: ${error}`);
+                return;
             }
         }
         
@@ -220,7 +221,8 @@
        if (!lemmyToken) {
             login();
         }
-        
+
+        // loadSettings();
         loginedornot();
         // вставляем название сервера в заголовок
         instanceapply();
