@@ -41,7 +41,7 @@
 
     <div class="settings">
         <div class="accountsettings">
-            <div class="header">account settings</div>
+            <div style="font-weight: bold;" class="header">account settings</div>
         </div>
     </div>
 
@@ -210,9 +210,9 @@
             window.location.href = `https://oldemmi.vercel.app/home?server=${server}`
         }
 
-        if (!lemmyToken) {
-            login();
-        }
+        // if (!lemmyToken) {
+            // login();
+        // }
         
         loginedornot();
         // вставляем название сервера в заголовок
