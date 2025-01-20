@@ -43,10 +43,10 @@
         <div class="accountsettings">
             <div style="font-weight: bold;" class="header">account settings</div>
             <div style="text-align: center;" class="body">
-                <img style="margin-bottom: 10px; height: 120px; width: 120px;">
-                <input type="text" placeholder="display name">
+                <img class="avatar" alt="avatar" style="margin-bottom: 10px; height: 120px; width: 120px;">
+                <input class="displayname" type="text" placeholder="display name">
                 <textarea maxlength="300" class="bioinput" placeholder="bio"></textarea>
-                <input style="margin-bottom: 10px;" type="checkbox">show nsfw</input>
+                <input class="shownsfw" style="margin-bottom: 10px;" type="checkbox">show nsfw</input>
                 <button>save</button>
             </div>
         </div>
@@ -80,6 +80,23 @@
                 return data.person_view;
             } catch (error) {
                 alert(`error while loading profile: ${error}`);
+                return;
+            }
+        }
+
+        async function getSettings() {
+            try {
+                const response = await fetch(`${api}/user?username=${user}`, {
+                    method: "GET",
+                    headers: {
+                        "content-type": "application/json",
+                        "authorization": `Bearer ${lemmyToken}`
+                    }
+                });
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                alert(`error while loading account settings: ${error}`);
                 return;
             }
         }
@@ -163,6 +180,19 @@
                 alert(`error while account login check: ${error}`);
             }
         }
+
+        function setSettings(settings, user) {
+            document.guerySelecter(".shownsfw").value = settings.show_nsfw;
+            document.guerySelecter(".displayname").value = user.person.display_name;
+            document.guerySelecter(".bioinput").value = user.person.bio;
+            document.guerySelecter(".avatar").src = user.person.avatar;
+        }
+
+        async function loadSettings() {
+            const accset = await getSettings();
+            const user = await fetchUser();
+            setSettings(accset, user);
+        }
         
         // функция для входа
         function login() {
@@ -222,7 +252,7 @@
             login();
         }
 
-        // loadSettings();
+        loadSettings();
         loginedornot();
         // вставляем название сервера в заголовок
         instanceapply();
