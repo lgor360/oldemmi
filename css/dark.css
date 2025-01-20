@@ -365,10 +365,13 @@ progress::-moz-progress-bar {
 .accountsettings .header {
     display: flex;
     margin-bottom: 10px;
-    text-size: 1.2em;
+    text-size: 1.7em;
 }
 .accountsettings .body { 
     flex-direction: column;
     display: flex;
     align-items: center;
+}
+.accountsettings .body .bioinput {
+    min-height: 150px;
 }
