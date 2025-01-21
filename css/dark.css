@@ -11,6 +11,16 @@ img {
     border: 1px solid #ccc;
     border-radius: 0px;
 }
+textarea {
+    border: 1px solid #ccc;
+    border-radius: 0px;
+    background-color: #353535;
+    color: #fff;
+    box-sizing: border-box;
+    padding: 6px 20px;
+    margin: 10px 0;
+    cursor: text;
+}
 input {
     border: 1px solid #ccc;
     border-radius: 0px;
@@ -350,4 +360,28 @@ progress::-moz-progress-bar {
     margin-top: 30px;
     padding: 10px 20px;
     max-width: 70px;
+}
+.accountsettings {
+    min-width: 300px;
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin: 20px auto;
+    max-width: 600px;
+    background-color: #454545;
+    border-radius: 0px;
+    text-wrap: wrap;
+    display: block;
+}
+.accountsettings .header {
+    display: flex;
+    margin-bottom: 10px;
+    text-size: 1.7em;
+}
+.accountsettings .body { 
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+}
+.accountsettings .body .bioinput {
+    min-height: 150px;
 }
