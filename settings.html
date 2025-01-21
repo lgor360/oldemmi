@@ -176,7 +176,6 @@
         
         
         async function setAccSettings() {
-            const avurl = uploadFileToLemmy();
             const newBio = document.querySelector(".bioinput").value;
             const newName = document.querySelector(".displayname").value;
             const proxyUrl = "https://oldemmi.vercel.app/api/server.js";
@@ -191,7 +190,7 @@
                     bio: bio !== newBio ? newBio : bio, 
                     display_name: namedis !== newName ? newName : namedis,
                     show_nsfw: nsfwcheck,
-                    avatar: avurl
+                    avatar: avedit !== 0 ? await uploadFileToLemmy() : avnorm
                 }
             };
 
