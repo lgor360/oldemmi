@@ -374,7 +374,9 @@
         async function loadPost() {
             const post_view = await fetchPost();
             await renderPost(post_view);
-            await readPost();
+            if (lemmyToken) {
+                await readPost();
+            }
         }
 
         async function loginedornot() {
