@@ -93,7 +93,7 @@
 
         async function getSettings() {
             try {
-                const response = await fetch(`${api}/user?username=${user}`, {
+                const response = await fetch(`${api}/user/settings`, {
                     method: "GET",
                     headers: {
                         "content-type": "application/json",
