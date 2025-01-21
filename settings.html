@@ -152,7 +152,7 @@
         // функция для загрузки файла на сервер лемми
         async function uploadFileToLemmy() {
             const formData = new FormData();
-            formData.append('image', document.querySelector(".avatar").src); // добавляем файл в запрос
+            formData.append('image', document.getElementById("fileInput").files); // добавляем файл в запрос
             formData.append('auth', lemmyToken); // добавляем токен авторизации
 
             try {
