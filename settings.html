@@ -207,7 +207,7 @@
                 body: {
                     bio: bio !== newBio ? newBio : bio, 
                     display_name: namedis !== newName ? newName : namedis,
-                    show_nsfw: nsfwcheck,
+                    show_nsfw: document.querySelector(".shownsfw").checked,
                     avatar: avedit !== 0 ? avurl : avnorm
                 }
             };
