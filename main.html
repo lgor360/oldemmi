@@ -38,6 +38,7 @@
             <option value="Controversial">controversial</option>
         </select>
         <div class="normal">
+            <button id="settings" style="display: none;" onclick="goToSettings()">⚙️</button>
             <button onclick="goToSearch()">🔎</button>
             <button id="logout" style="display: none;" onclick="logout('userlogout')">logout</button>
             <button style="display: inline;" id="login" class="login" onclick="login()">login</button>
@@ -147,11 +148,13 @@
                 const changeServer = document.getElementById("changeServer");
                 const login = document.getElementById("login");
                 const logout = document.getElementById("logout");
+                const settings = document.getElementById("settings");
             
                 if (lemmyToken) {
                     const lemmyTokenValid = await validateToken();
                     if (lemmyTokenValid) {
                         profileInBar.style.display = "flex";
+                        settings.style.display = "flex";
                         logout.style.display = "flex";
                         changeServer.style.display = "none";
                         login.style.display = "none";
@@ -245,6 +248,10 @@
         // функция для входа
         function login() {
             window.location.href = `https://oldemmi.vercel.app/login.html`;
+        }
+        
+        function goToSettings() {
+            window.location.href = `https://oldemmi.vercel.app/settings`;
         }
 
         // функция для изменения инстанса
