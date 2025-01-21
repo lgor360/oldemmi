@@ -1,7 +1,7 @@
 # about
 i wanted to make a light client for lemmy. i tried to make it look like from the old internet :P
 
-![preview](https://github.com/user-attachments/assets/71a55300-3673-49e0-b0f3-d9e0718bba9e)
+![preview](https://github.com/user-attachments/assets/ea474101-9363-47a9-821c-c94294493657)
 
 # under development
 due to the client being under development, some features are not available
@@ -10,7 +10,7 @@ due to the client being under development, some features are not available
 |login|✓|
 |posts view|✓|
 |comments view|✓|
-|account settings|||✓|
+|account settings|✓|
 |search in lemmy|✓|
 |change instance (only for guests)|✓|
 |communities view|✓|
