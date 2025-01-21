@@ -166,6 +166,7 @@
                     body: formData
                 });
                 alert("oldemmi!");
+                console.log(JSON.stringify(response.json(), null, 2));
 
                 if (!response.ok) {
                     throw new Error(`Ошибка загрузки файла: ${response.statusText}`);
