@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oldemmi</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="https://oldemmi.vercel.app/resources/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://oldemmi.vercel.app/resources/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://oldemmi.vercel.app/resources/favicon/favicon-16x16.png">
+    <link rel="manifest" href="https://oldemmi.vercel.app/resources/favicon/site.webmanifest">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#cfec66">
+    <script>
+        if (window.innerWidth < 550) {
+            document.querySelector('meta[name="viewport"]').setAttribute('content', 'width=550, initial-scale=1.0');
+        }
+        const link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.href = "https://lgor360.github.io/oldemmi/css/dark.css";
+        document.head.appendChild(link);
+    </script>
+</head>
+<body>
+    <div class="navbar">
+        <div onclick="goToHome()" class="oldemmi">
+            <img src="https://oldemmi.vercel.app/resources/logo.png" alt="oldemmi logo">
+            <div class="text">
+                oldemmi
+                <div class="instance">
+                    <!-- тут будет сервер -->
+                </div>
+            </div>
+        </div>
+        <div class="normal">
+            <button onclick="goToSearch()">🔎</button>
+            <button id="logout" style="display: none;" onclick="logout('userlogout')">logout</button>
+            <button style="display: inline;" id="login" class="login" onclick="login()">login</button>
+            <div style="display: inline;" class="neP"><div style="display: none;" class="profileInBar"></div></div>
+        </div>
+    </div>
+
+    <input accept="image/*" onchange="setAvatar('set', this.files)" type="file" id="fileInput" hidden>
+    <div class="settings">
+        <div class="accountsettings">
+            <div style="font-weight: bold;" class="header">account settings</div>
+            <div style="text-align: center;" class="body">
+                <img onclick="document.getElementById('fileInput').click();" class="avatar" alt="avatar" style="margin-bottom: 10px; height: 120px; width: 120px;">
+                <button class="avbutton" style="display: none;" onclick="setAvatar('reset', 0)">×</button>
+                <input class="displayname" type="text" placeholder="display name" maxlength="29">
+                <textarea maxlength="300" class="bioinput" placeholder="bio"></textarea>
+                <input class="shownsfw" style="margin-bottom: 10px;" type="checkbox">show nsfw</input>
+                <button onclick="setAccSettings()">save</button>
+            </div>
+        </div>
+    </div>
+
+    <script defer>
+        const lemmyToken = localStorage.getItem("lemmyToken");
+        const urlParams = new URLSearchParams(window.location.search);
+        const server = urlParams.get('server') || "lemmy.world";
+        const need = urlParams.get('need') || "post";
+        const user = urlParams.get('user') || "okelote360";
+        let page = 1; // текущая страница для загрузки
+        const limit = 9; // количество постов на одну загрузку
+        const api = `https://${server}/api/v3`;
+        let namedis;
+        let bio;
+        let avedit = 0;
+        let nsfwcheck;
+        let avnorm;
+        
+        function instanceapply() {
+            const instdiv = document.querySelector(".navbar .oldemmi .text .instance");
+            instdiv.innerHTML = `
+                ${server}
+            `;
+        }
+
+        // функция для получения профиля
+        async function fetchUser() {
+            try {
+                const response = await fetch(`${api}/user?username=${user}`, {
+                    method: "GET",
+                    headers: { "Content-Type": "application/json" }
+                });
+                const data = await response.json();
+                return data.person_view;
+            } catch (error) {
+                alert(`error while loading profile: ${error}`);
+                return;
+            }
+        }
+
+        async function getSettings() {
+            try {
+                const response = await fetch(`${api}/user?username=${user}`, {
+                    method: "GET",
+                    headers: {
+                        "content-type": "application/json",
+                        "authorization": `Bearer ${lemmyToken}`
+                    }
+                });
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                alert(`error while loading account settings: ${error}`);
+                return;
+            }
+        }
+        
+        async function getLoggined() {
+            try {
+                const response = await fetch(`https://${localStorage.getItem("accountServer")}/api/v3/site`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${lemmyToken}`
+                    }
+                });
+                const data = await response.json();
+                return data.my_user.local_user_view.person;
+            } catch (error) {
+                alert(`error while loading profile: ${error}`);
+            }
+        }
+
+        async function validateToken() {
+            const serverUrl = `https://${localStorage.getItem("accountServer")}/api/v3/user/validate_auth`;
+
+            try {
+                const response = await fetch(serverUrl, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${lemmyToken}`
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                console.log("token is valid:", data);
+                return true; // токен валидный
+            } catch (error) {
+                console.error("token validation failed:", error);
+                return false; // токен не валидный
+            }
+        }
+
+        // функция для загрузки файла на сервер лемми
+        async function uploadFileToLemmy() {
+            try {
+                const formData = new FormData();
+                formData.append('image', document.getElementById("fileInput").files);
+                const needData = {
+                    url: `https://${server}/api/v3/pictrs/image`,
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json",
+                        "Authorization": `Bearer ${lemmyToken}`
+                    },
+                    body: formData
+                };
+
+                alert("oldemmi!");
+                const response = await fetch("https://oldemmi.vercel.app/api/server.js", {
+                    method: 'POST',
+                    headers: {
+                        "content-type": "application/json"
+                    },
+                    body: JSON.stringify(needData)
+                });
+                alert("oldemmi!");
+                alert(JSON.stringify(response.json(), null, 2));
+
+                if (!response.ok) {
+                    throw new Error(`Ошибка загрузки файла: ${response.statusText}`);
+                }
+                alert("oldemmi!");
+
+                const data = await response.json();
+                alert("oldemmi!");
+                return `https://${server}/pictrs/image/${data.files[0].url}`; // возвращаем URL загруженного файла
+            } catch (error) {
+                console.error('Ошибка при загрузке файла:', error);
+                throw error; // пробрасываем ошибку выше
+            }
+        }
+        
+        async function setAccSettings() {
+            const newBio = document.querySelector(".bioinput").value;
+            const newName = document.querySelector(".displayname").value;
+            const proxyUrl = "https://oldemmi.vercel.app/api/server.js";
+            let avurl;
+            if (avedit === 1) {
+                avurl = await uploadFileToLemmy();
+            }
+            const needData = {
+                url: `https://${localStorage.getItem("accountServer")}/api/v3/user/save_user_settings`,
+                method: "PUT",
+                headers: {
+                    "content-type": "application/json",
+                    "authorization": `Bearer ${lemmyToken}`
+                },
+                body: {
+                    bio: bio !== newBio ? newBio : bio, 
+                    display_name: namedis !== newName ? newName : namedis,
+                    show_nsfw: nsfwcheck,
+                    avatar: avedit !== 0 ? avurl : avnorm
+                }
+            };
+
+            try {
+                // выполняем запрос на выход через прокси
+                const response = await fetch(proxyUrl, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(needData)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`saving failed: ${response.status} ${response.statusText}`);
+                }
+                goToHome();
+            } catch (error) {
+                alert(`error during saving settings: ${error}`);
+                return;
+            }
+        }
+        
+        function goToProfile(id, servero) {
+            window.location.href = `https://oldemmi.vercel.app/profile?server=${servero}&user=${id}`
+        }
+        
+        function getInstanceFromActorId(actorId) {
+            const url = new URL(actorId);
+            return url.hostname; // возвращает домен, например, "lemmy.world"
+        }
+        
+        async function loginedornot() {
+            try {
+                const profileInBar = document.querySelector(".navbar .normal .neP .profileInBar");
+                const login = document.getElementById("login");
+                const logout = document.getElementById("logout");
+            
+                if (lemmyToken) {
+                    const lemmyTokenValid = await validateToken();
+                    if (lemmyTokenValid) {
+                        profileInBar.style.display = "flex";
+                        logout.style.display = "flex";
+                        login.style.display = "none";
+
+                        const user = await getLoggined();
+                        profileInBar.innerHTML = `
+                            <img onclick="goToProfile('${user.name}', '${localStorage.getItem("accountServer")}')" src="${user.avatar || 'https://lgor360.github.io/oldemmi/user.png'}">
+                            <div class="text">
+                                ${user.display_name || user.name}
+                            </div>
+                        `;
+                    } else {
+                        logout("notvalid");
+                    }
+                }
+                 return;
+            } catch (error) {
+                alert(`error while account login check: ${error}`);
+            }
+        }
+
+        function setSettings(settings, user) {
+            document.querySelector(".shownsfw").checked = settings.show_nsfw;
+            document.querySelector(".displayname").value = user.person.display_name;
+            document.querySelector(".bioinput").value = user.person.bio;
+            document.querySelector(".avatar").src = user.person.avatar;
+            bio = user.person.bio;
+            avedit = 0;
+            avnorm = user.person.avatar;
+            namedis = user.person.display_name;
+            nsfwcheck = settings.show_nsfw;
+        }
+
+        async function setAvatar(status, files) {
+            if (status === "set") {
+                if (files.length > 0) {
+                    const fileReader = new FileReader();
+                    fileReader.onload = function(event) {
+                        avedit = 1;
+                        document.querySelector(".avatar").src = event.target.result;
+                        document.querySelector(".avbutton").style.display = "flex";
+                    };
+                    fileReader.readAsDataURL(files[0]); // читаем файл как dataURL
+                }
+            } else if (status === "reset") {
+                document.querySelector(".avbutton").style.display = "none";
+                avedit = 0;
+                document.querySelector(".avatar").src = avnorm;
+            }
+        }
+
+        async function loadSettings() {
+            const accset = await getSettings();
+            const user = await fetchUser();
+            setSettings(accset, user);
+        }
+        
+        // функция для входа
+        function login() {
+            window.location.href = `https://oldemmi.vercel.app/login`;
+        }
+
+        async function logout(option) {
+            const confirmation = confirm("are you sure want to logout?");
+            if (!confirmation) {
+                return; // если пользователь нажал "нет", ничего не делаем
+            }
+
+            const proxyUrl = "https://oldemmi.vercel.app/api/server.js";
+            const logoutData = {
+                url: `https://${localStorage.getItem("accountServer")}/api/v3/user/logout`,
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${lemmyToken}`
+                },
+                body: {}
+            };
+
+            try {
+                if (option === "userlogout") {
+                // выполняем запрос на выход через прокси
+                    const response = await fetch(proxyUrl, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(logoutData)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`logout failed: ${response.status} ${response.statusText}`);
+                    }
+                }
+                // удаляем токен и сервер из LocalStorage
+                localStorage.removeItem("lemmyToken");
+                localStorage.removeItem("accountServer");
+
+                // перезапускаем текущую страницу
+                location.reload();
+            } catch (error) {
+                alert(`error during logout: ${error}`);
+            }
+        }
+
+        function goToSearch() {
+            window.location.href = `https://oldemmi.vercel.app/search?server=${server}&filter=Posts`;
+        }
+        
+        function goToHome() {
+            window.location.href = `https://oldemmi.vercel.app/home?server=${server}`
+        }
+
+        // вставляем название сервера в заголовок
+        instanceapply();
+
+        if (!lemmyToken) {
+            login();
+        }
+        loginedornot();
+        loadSettings();
+    </script>
+</body>
+</html>
