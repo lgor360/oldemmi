@@ -166,7 +166,7 @@
                     body: formData
                 });
                 alert("oldemmi!");
-                console.log(JSON.stringify(response.json(), null, 2));
+                alert(JSON.stringify(response.json(), null, 2));
 
                 if (!response.ok) {
                     throw new Error(`Ошибка загрузки файла: ${response.statusText}`);
@@ -187,6 +187,10 @@
             const newBio = document.querySelector(".bioinput").value;
             const newName = document.querySelector(".displayname").value;
             const proxyUrl = "https://oldemmi.vercel.app/api/server.js";
+            let avurl;
+            if (avedit === 1) {
+                avurl = await uploadFileToLemmy();
+            }
             const needData = {
                 url: `https://${localStorage.getItem("accountServer")}/api/v3/user/save_user_settings`,
                 method: "PUT",
@@ -198,7 +202,7 @@
                     bio: bio !== newBio ? newBio : bio, 
                     display_name: namedis !== newName ? newName : namedis,
                     show_nsfw: nsfwcheck,
-                    avatar: avedit !== 0 ? await uploadFileToLemmy() : avnorm
+                    avatar: avedit !== 0 ? avurl : avnorm
                 }
             };
 
