@@ -5,6 +5,10 @@
       "destination": "/search.html"
     },
     {
+      "source": "/settings", 
+      "destination": "/settings.html"
+    },
+    {
       "source": "/home",
       "destination": "/main.html"
     },
