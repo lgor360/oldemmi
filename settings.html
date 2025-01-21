@@ -151,22 +151,26 @@
 
         // функция для загрузки файла на сервер лемми
         async function uploadFileToLemmy() {
-            const formData = new FormData();
-            formData.append('image', document.getElementById("fileInput").files); // добавляем файл в запрос
-            formData.append('auth', lemmyToken); // добавляем токен авторизации
-
             try {
+                const formData = new FormData();
+                formData.append('image', document.getElementById("fileInput").files); // добавляем файл в запрос
+                formData.append('auth', lemmyToken); // добавляем токен авторизации
+
+                alert("oldemmi!"):
                 const response = await fetch("https://oldemmi.vercel.app/api/server.js", {
                     url: `https://${server}/api/v3/pic`,
                     method: 'POST',
                     body: formData
                 });
+                alert("oldemmi!"):
 
                 if (!response.ok) {
                     throw new Error(`Ошибка загрузки файла: ${response.statusText}`);
                 }
+                alert("oldemmi!"):
 
                 const data = await response.json();
+                alert("oldemmi!"):
                 return data.files[0].url; // возвращаем URL загруженного файла
             } catch (error) {
                 console.error('Ошибка при загрузке файла:', error);
