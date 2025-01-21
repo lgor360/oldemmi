@@ -190,7 +190,7 @@
                     bio: bio !== newBio ? newBio : bio, 
                     display_name: namedis !== newName ? newName : namedis,
                     show_nsfw: nsfwcheck,
-                    avatar: avedit !== 0 ? uploadFileToLemmy() : avnorm
+                    avatar: avedit !== 0 ? await uploadFileToLemmy() : avnorm
                 }
             };
 
