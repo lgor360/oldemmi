@@ -153,13 +153,13 @@
         async function uploadFileToLemmy() {
             try {
                 const formData = new FormData();
-                formData.append('image', document.getElementById("fileInput").files); // добавляем файл в запрос
-                formData.append('auth', lemmyToken); // добавляем токен авторизации
+                formData.append('image', document.getElementById("fileInput").files);
                 const needData = {
-                    url: `https://${server}/api/v3/pic`,
+                    url: `https://${server}/api/v3/pictrs/image`,
                     method: "POST",
                     headers: {
                         "content-type": "application/json",
+                        "Authorization": `Bearer ${lemmyToken}`
                     },
                     body: formData
                 };
