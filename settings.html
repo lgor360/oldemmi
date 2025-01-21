@@ -342,14 +342,14 @@
             window.location.href = `https://oldemmi.vercel.app/home?server=${server}`
         }
 
-       if (!lemmyToken) {
-            login();
-        }
-
-        loadSettings();
-        loginedornot();
         // вставляем название сервера в заголовок
         instanceapply();
+
+        if (!lemmyToken) {
+            login();
+        }
+        loginedornot();
+        loadSettings();
     </script>
 </body>
 </html>
