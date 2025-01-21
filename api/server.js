@@ -15,20 +15,11 @@ module.exports = async (req, res) => {
         return res.status(405).json({ error: "Method not allowed" });
     }
 
-    const { url, method = 'POST', headers, body } = req.body;
-    
-    // если тело запроса содержит FormData, передаем его как есть
+    const { url, method = 'GET', headers, body } = req.body;
     try {
-        const response = await fetch(url, { method, headers, body });
-        const contentType = response.headers.get('content-type');
-        
-        if (contentType && contentType.includes('application/json')) {
-            const data = await response.json();
-            res.status(response.status).json(data);
-        } else {
-            const text = await response.text();
-            res.status(response.status).send(text); // возвращаем текстовый ответ (например, для изображения)
-        }
+        const response = await fetch(url, { method, headers, body: JSON.stringify(body) });
+        const data = await response.json();
+        res.status(response.status).json(data);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
