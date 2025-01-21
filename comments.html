@@ -110,7 +110,7 @@
                         }
                     })
                 });
-                console.log(JSON.stringify(response.json(), null, 2));
+                console.log(JSON.stringify(await response.json(), null, 2));
             } catch (error) {
                 alert(`error while loading community: ${error}`);
             }
