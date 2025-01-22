@@ -24,6 +24,7 @@ due to the client being under development, some features are not available
 |locked and deleted flags|✓|
 |cross-posts view|✓|
 |markdown full support|✓|
+|themes||✓|
 
 # i want to view "under development" functions!
 
