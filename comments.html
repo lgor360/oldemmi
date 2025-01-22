@@ -58,6 +58,7 @@
 
     <script src="https://oldemmi.vercel.app/js/needScript.js"></script>
     <script src="https://oldemmi.vercel.app/js/markdown.js"></script>
+    <script src="https://lgor360.github.io/oldemmi/js/actions.js" defer></script>
     <script defer>
         let commentsCount = null;
         const allComments = []; // глобальный массив для хранения всех комментариев
@@ -274,11 +275,11 @@
                     ${postotourl ? `<div class="post-link"><a rel="noopener noreferrer" href="${postotourl}">${linkMax(postotourl)}</a></div>` : ""}
                     <div class="post-footer">
                         <div class="counter">
-                            <button>👍</button>
+                            <button onclick="upOrDownPost(1, post, ${Number(post_view.post.id)})">👍</button>
                             <span>${post_view.counts.upvotes}</span>
                         </div>
                         <div class="counter">
-                            <button>👎</button>
+                            <button onclick="upOrDownPost(-1, post, ${Number(post_view.post.id)})">👎</button>
                             <span>${post_view.counts.downvotes}</span>
                         </div>
                         <div class="answer">
