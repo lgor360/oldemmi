@@ -15,7 +15,7 @@ async function upOrDownPost(like, type, id) {
                 },
                 body: {
                     "score": like,
-                    `${type}_id`: id
+                    [type + "_id"]: id
                 }
             })
         });
