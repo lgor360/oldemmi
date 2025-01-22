@@ -1,4 +1,4 @@
-const api = `https://${localStorage.getItem("accountServer")}/api/v3`
+const api = `https://${localStorage.getItem("accountServer")}/api/v3`;
 const lemmyToken = localStorage.getItem("lemmyToken");
 
 async function upOrDownPost(like, type, id) {
