@@ -299,11 +299,11 @@
                     ${postotourl ? `<div class="post-link"><a rel="noopener noreferrer" href="${postotourl}">${linkMax(postotourl)}</a></div>` : ""}
                     <div class="post-footer">
                         <div class="counter">
-                            <button onclick="upOrDownPost(1, post, ${Number(post_view.post.id)})">👍</button>
+                            <button onclick="upOrDownPost(1, post, ${post_view.post.id})">👍</button>
                             <span>${post_view.counts.upvotes}</span>
                         </div>
                         <div class="counter">
-                            <button onclick="upOrDownPost(-1, post, ${Number(post_view.post.id)})">👎</button>
+                            <button onclick="upOrDownPost(-1, post, ${post_view.post.id})">👎</button>
                             <span>${post_view.counts.downvotes}</span>
                         </div>
                         <div class="answer">
