@@ -261,21 +261,37 @@
             }
         }
 
-        async function voteContent(spanid, like, type, id, nowlike) {
+        async function voteContent(spanid, mlike, type, id, nowlike, nowscore) {
+            let like;
+            let downorup;
+            if (like === -1) {
+                downorup = "down";
+            } else if (like === 1) {
+                downorup = "vote";
+            }
+            if (downorup === spanid) {
+                like = 0;
+            } else {
+                like = mlike;
+            }
+            
             const action = await upOrDownPost(like, type, id);
+            const typev = type + "_view";
             if (action !== "not") {
                 if (like === 0) {
-                    document.getElementById(spanid).textContent = nowlike - 1;
-                    document.getElementById(spanid).style.color = "#ffffff";
-                } else if (like === -1) {
-                    document.getElementById("vote").textContent = action.post_view.counts.upvotes;
+                    document.getElementById("vote").textContent = `action.${typev}.counts.upvotes`;
                     document.getElementById("vote").style.color = "#ffffff";
-                    document.getElementById(spanid).textContent = action.post_view.counts.downvotes;
+                    document.getElementById("down").textContent = `action.${typev}.counts.upvotes`;
+                    document.getElementById("down").style.color = "#ffffff";
+                } else if (like === -1) {
+                    document.getElementById("vote").textContent = `action.${typev}.counts.upvotes`;
+                    document.getElementById("vote").style.color = "#ffffff";
+                    document.getElementById(spanid).textContent = `action.${typev}.counts.downvotes`;
                     document.getElementById(spanid).style.color = "#b3c46d";
                 } else if (like === 1) {
-                    document.getElementById("down").textContent = action.post_view.counts.downvotes;
+                    document.getElementById("down").textContent = `action.${typev}.counts.downvotes`;
                     document.getElementById("down").style.color = "#ffffff";
-                    document.getElementById(spanid).textContent = action.post_view.counts.upvotes;
+                    document.getElementById(spanid).textContent = `action.${typev}.counts.upvotes`;
                     document.getElementById(spanid).style.color = "#b3c46d";
                 }
             }
@@ -326,11 +342,11 @@
                     ${postotourl ? `<div class="post-link"><a rel="noopener noreferrer" href="${postotourl}">${linkMax(postotourl)}</a></div>` : ""}
                     <div class="post-footer">
                         <div class="counter">
-                            <button onclick="voteContent('vote', 1, 'post', ${post_view.post.id}, ${post_view.counts.upvotes})">👍</button>
+                            <button onclick="voteContent('vote', 1, 'post', ${post_view.post.id}, ${post_view.counts.upvotes}, ${post_view.counts.score})">👍</button>
                             <span id="vote">${post_view.counts.upvotes}</span>
                         </div>
                         <div class="counter">
-                            <button onclick="voteContent('down', -1, 'post', ${post_view.post.id}, ${post_view.counts.downvotes})">👎</button>
+                            <button onclick="voteContent('down', -1, 'post', ${post_view.post.id}, ${post_view.counts.downvotes}, ${post_view.counts.score})">👎</button>
                             <span id="down">${post_view.counts.downvotes}</span>
                         </div>
                         <div class="answer">
