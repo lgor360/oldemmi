@@ -34,6 +34,7 @@ function parseMarkdown(text) {
     text = text.replace(/^(#+)\s*(.+)$/gm, (_, hashes, content) => `<h${hashes.length}>${content}</h${hashes.length}>`);
     // переносы строк
     text = text.replace(/\\n/g, '<br>');
+    text = text.replace(/\\\\n/g, '<br>');
     text = text.replace(/\\/g, '<br>');
     // обработка ссылок типа !сообщество@инстанс
     text = text.replace(/!([\w\d_]+)@([\w\d\.-]+)/g, (match, community, instance) => {
