@@ -112,7 +112,7 @@
                 });
                 console.log(JSON.stringify(await response.json(), null, 2));
                 if (response.ok) {
-                    return "ok";
+                    return response.json();
                 } else {
                     alert("sorry, but action failed :(");
                     return "not";
@@ -262,12 +262,19 @@
 
         async function voteContent(spanid, like, type, id, nowlike) {
             const action = await upOrDownPost(like, type, id);
-            if (action === "ok") {
+            if (action !== "not") {
                 if (like === 0) {
                     document.getElementById(spanid).textContent = nowlike - 1;
                     document.getElementById(spanid).style.color = "#ffffff";
-                } else if (like === -1 || like === 1) {
-                    document.getElementById(spanid).textContent = nowlike + 1;
+                } else if (like === -1) {
+                    document.getElementById("vote").textContent = action.post_view.counts.upvotes;
+                    document.getElementById("vote").style.color = "#ffffff";
+                    document.getElementById(spanid).textContent = action.post_view.counts.downvotes;
+                    document.getElementById(spanid).style.color = "#b3c46d";
+                } else if (like === 1) {
+                    document.getElementById("down").textContent = action.post_view.counts.downvotes;
+                    document.getElementById("down").style.color = "#ffffff";
+                    document.getElementById(spanid).textContent = action.post_view.counts.upvotes;
                     document.getElementById(spanid).style.color = "#b3c46d";
                 }
             }
