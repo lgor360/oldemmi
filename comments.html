@@ -79,23 +79,10 @@
         // функция для получения постов
         async function fetchPost() {
             try {
-                let response;
-                if (lemmyRoken) {
-                    const response = await fetch(`${api}/post?id=${post}`, {
-                        method: "GET",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "authorization": `Bearer ${lemmyToken}`
-                        }
-                    });
-                } else {
-                    const response = await fetch(`${api}/post?id=${post}`, {
-                        method: "GET",
-                        headers: {
-                            "Content-Type": "application/json"
-                        }
-                    });
-                }
+                const response = await fetch(`${api}/post?id=${post}`, {
+                    method: "GET",
+                    headers: { "Content-Type": "application/json" }
+                });
                 const data = await response.json();
                 commentsCount = data.post_view.counts.comments;
                 return data.post_view;
