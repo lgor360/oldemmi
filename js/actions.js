@@ -1,6 +1,3 @@
-const api = `https://${localStorage.getItem("accountServer")}/api/v3`;
-const lemmyToken = localStorage.getItem("lemmyToken");
-
 async function upOrDownPost(like, type, id) {
     try {
         const response = await fetch("https://oldemmi.vercel.app/api/server.js", {
