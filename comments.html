@@ -263,13 +263,8 @@
 
         async function voteContent(spanid, mlike, type, id, nowlike, nowscore) {
             let like;
-            let downorup;
-            if (like === -1) {
-                downorup = "down";
-            } else if (like === 1) {
-                downorup = "vote";
-            }
-            alert(like);
+            const downorup = like === -1 ? "down" : "vote";
+            alert(mlike);
             alert(downorup);
             alert(spanid);
             if (downorup === spanid) {
