@@ -276,22 +276,33 @@
             }
             
             const action = await upOrDownPost(like, type, id);
-            const typev = type + "_view";
+            let up;
+            let down;
+            let celike;
+            if (type === "post") {
+                up = actions.post_view.counts.upvotes;
+                down = actions.post_view.counts.downvotes;
+                celike = actions.post_view.counts.score;
+            } else {
+                up = actions.comment_view.counts.upvotes;
+                down = actions.comment_view.counts.downvotes;
+                celike = actions.comment_view.counts.score;
+            }
             if (action !== "not") {
-                if (like === 0) {
-                    document.getElementById("vote").textContent = `action.${typev}.counts.upvotes`;
+                if (celike === 0) {
+                    document.getElementById("vote").textContent = up;
                     document.getElementById("vote").style.color = "#ffffff";
-                    document.getElementById("down").textContent = `action.${typev}.counts.upvotes`;
+                    document.getElementById("down").textContent = down;
                     document.getElementById("down").style.color = "#ffffff";
-                } else if (like === -1) {
-                    document.getElementById("vote").textContent = `action.${typev}.counts.upvotes`;
+                } else if (celike === -1) {
+                    document.getElementById("vote").textContent = up;
                     document.getElementById("vote").style.color = "#ffffff";
-                    document.getElementById(spanid).textContent = `action.${typev}.counts.downvotes`;
+                    document.getElementById(spanid).textContent = down;
                     document.getElementById(spanid).style.color = "#b3c46d";
-                } else if (like === 1) {
-                    document.getElementById("down").textContent = `action.${typev}.counts.downvotes`;
+                } else if (celike === 1) {
+                    document.getElementById("down").textContent = down;
                     document.getElementById("down").style.color = "#ffffff";
-                    document.getElementById(spanid).textContent = `action.${typev}.counts.upvotes`;
+                    document.getElementById(spanid).textContent = up;
                     document.getElementById(spanid).style.color = "#b3c46d";
                 }
             }
