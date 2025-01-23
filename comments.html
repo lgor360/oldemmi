@@ -283,11 +283,11 @@
                 if (type === "post") {
                     up = action.post_view.counts.upvotes;
                     down = action.post_view.counts.downvotes;
-                    celike = action.post_view.counts.score;
+                    celike = action.post_view.my_vote;
                 } else {
                     up = action.comment_view.counts.upvotes;
                     down = action.comment_view.counts.downvotes;
-                    celike = action.comment_view.counts.score;
+                    celike = action.comment_view.my_vote;
                 }
                 if (celike === 0) {
                     document.getElementById("vote").textContent = up;
