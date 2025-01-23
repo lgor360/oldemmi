@@ -279,16 +279,16 @@
             let up;
             let down;
             let celike;
-            if (type === "post") {
-                up = actions.post_view.counts.upvotes;
-                down = actions.post_view.counts.downvotes;
-                celike = actions.post_view.counts.score;
-            } else {
-                up = actions.comment_view.counts.upvotes;
-                down = actions.comment_view.counts.downvotes;
-                celike = actions.comment_view.counts.score;
-            }
             if (action !== "not") {
+                if (type === "post") {
+                    up = action.post_view.counts.upvotes;
+                    down = action.post_view.counts.downvotes;
+                    celike = action.post_view.counts.score;
+                } else {
+                    up = action.comment_view.counts.upvotes;
+                    down = action.comment_view.counts.downvotes;
+                    celike = action.comment_view.counts.score;
+                }
                 if (celike === 0) {
                     document.getElementById("vote").textContent = up;
                     document.getElementById("vote").style.color = "#ffffff";
