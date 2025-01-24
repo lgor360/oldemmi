@@ -80,10 +80,10 @@
         async function fetchPost() {
             try {
                 let response;
-                if (lemmyToken) {
+                if (localStorage.getItem("lemmyToken")) {
                     response = await fetch(`${api}/post?id=${post}`, {
                         method: "GET",
-                        headers: { "Content-Type": "application/json", "authorization": `Bearer ${lemmyToken}` }
+                        headers: { "Content-Type": "application/json", "authorization": `Bearer ${localStorage.getItem("lemmyToken")}` }
                     });
                 } else {
                     response = await fetch(`${api}/post?id=${post}`, {
