@@ -269,7 +269,7 @@
             const action = await upOrDownPost(like, type, id);
             const up = type === "post" ? action.post_view.counts.upvotes : action.comment_view.counts.upvotes;
             const down = type === "post" ? action.post_view.counts.downvotes : action.comment_view.counts.downvotes;
-            const celike = type === "post" ? action.post_view.my_vote : action.comment_view.my_vote;
+            const celike = type === "post" ? action.post_view.post.my_vote : action.comment_view.comment.my_vote;
             if (action !== "not") {
                 if (celike === 0) {
                     document.getElementById("vote").textContent = up;
@@ -335,11 +335,11 @@
                     ${postotourl ? `<div class="post-link"><a rel="noopener noreferrer" href="${postotourl}">${linkMax(postotourl)}</a></div>` : ""}
                     <div class="post-footer">
                         <div class="counter">
-                            <button onclick="voteContent('vote', 1, 'post', ${post_view.post.id}, ${post_view.counts.upvotes}, ${post_view.my_vote})">👍</button>
+                            <button onclick="voteContent('vote', 1, 'post', ${post_view.post.id}, ${post_view.counts.upvotes}, ${post_view.post.my_vote})">👍</button>
                             <span id="vote">${post_view.counts.upvotes}</span>
                         </div>
                         <div class="counter">
-                            <button onclick="voteContent('down', -1, 'post', ${post_view.post.id}, ${post_view.counts.downvotes}, ${post_view.my_vote})">👎</button>
+                            <button onclick="voteContent('down', -1, 'post', ${post_view.post.id}, ${post_view.counts.downvotes}, ${post_view.post.my_vote})">👎</button>
                             <span id="down">${post_view.counts.downvotes}</span>
                         </div>
                         <div class="answer">
