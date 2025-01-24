@@ -262,27 +262,13 @@
         }
 
         async function voteContent(spanid, mlike, type, id, nowlike, nowscore) {
-            let like;
-            const downorup = like === -1 ? "down" : "vote";
-            const checkscore = nowscore === -1 ? "down" : "vote";
-            alert(mlike);
-            alert(downorup);
-            alert(nowscore);
-            alert(checkscore);
-            if (downorup === checkscore) {
-                like = 0;
-            } else {
-                like = mlike;
-            }
-            
+            const like = mlike === checkscore ? 0 : mlike;
+            alert(like);
             const action = await upOrDownPost(like, type, id);
-            let up;
-            let down;
-            let celike;
+            const up = type === "post" ? action.post_view.counts.upvotes : action.comment_view.counts.upvotes;
+            const down = type === "post" ? action.post_view.counts.downvotes : action.comment_view.counts.downvotes;
+            const celike = type === "post" ? action.post_view.my_vote : action.comment_view.my_vote;
             if (action !== "not") {
-                const up = type === "post" ? action.post_view.counts.upvotes : action.comment_view.counts.upvotes;
-                const down = type === "post" ? action.post_view.counts.downvotes : action.comment_view.counts.downvotes;
-                const celike = type === "post" ? action.post_view.my_vote : action.comment_view.my_vote;
                 if (celike === 0) {
                     document.getElementById("vote").textContent = up;
                     document.getElementById("vote").style.color = "#ffffff";
@@ -347,11 +333,11 @@
                     ${postotourl ? `<div class="post-link"><a rel="noopener noreferrer" href="${postotourl}">${linkMax(postotourl)}</a></div>` : ""}
                     <div class="post-footer">
                         <div class="counter">
-                            <button onclick="voteContent('vote', 1, 'post', ${post_view.post.id}, ${post_view.counts.upvotes}, ${post_view.counts.my_vote})">👍</button>
+                            <button onclick="voteContent('vote', 1, 'post', ${post_view.post.id}, ${post_view.counts.upvotes}, ${post_view.my_vote})">👍</button>
                             <span id="vote">${post_view.counts.upvotes}</span>
                         </div>
                         <div class="counter">
-                            <button onclick="voteContent('down', -1, 'post', ${post_view.post.id}, ${post_view.counts.downvotes}, ${post_view.counts.my_vote})">👎</button>
+                            <button onclick="voteContent('down', -1, 'post', ${post_view.post.id}, ${post_view.counts.downvotes}, ${post_view.my_vote})">👎</button>
                             <span id="down">${post_view.counts.downvotes}</span>
                         </div>
                         <div class="answer">
