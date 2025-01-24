@@ -37,7 +37,7 @@ function parseMarkdown(text) {
     text = text.replace(/\\/g, '<br>');
     // обработка ссылок типа !сообщество@инстанс
     text = text.replace(/!([\w\d_]+)@([\w\d\.-]+)/g, (match, community, instance) => {
-        const url = `https://lgor360.github.io/oldemmi/community.html?server=${instance}&community=${community}`;
+        const url = `https://oldemmi.vercel.app/community?server=${instance}&community=${community}`;
         return `<a href="${url}" rel="noopener noreferrer">${community}@${instance}</a>`;
     });
     // таблицы
