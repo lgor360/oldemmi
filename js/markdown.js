@@ -1,5 +1,5 @@
 async function parseMarkdown(text) {
-    const response = await fetch("https://oldemmi.vercel.app/api/server.js", {
+    const response = await fetch("https://oldemmi.vercel.app/api/markApi.js", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
