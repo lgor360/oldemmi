@@ -1,5 +1,5 @@
 async function parseMarkdown(text) {
-    const response = await fetch("https://oldemmi.vercel.app/api/markApi.js", {
+    const response = await fetch("https://oldemmi.vercel.app/api/mark.js", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -8,7 +8,7 @@ async function parseMarkdown(text) {
     });
 
     if (!response.ok) {
-        throw new Error(`server returned error: ${response.status}`);
+        throw new Error(`server returned error: ${response.status}, ${response.error}, ${response.message}, ${response.stack}`);
     }
 
     const marktextgotovo = await response.text(); // получаем текст
