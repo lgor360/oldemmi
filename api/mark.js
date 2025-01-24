@@ -5,6 +5,7 @@ const { marked } = require('marked');
 const app = express();
 app.use(bodyParser.json()); // используем json, так как это основной формат данных
 
+// изменим путь на /api/mark.js
 app.post('/api/mark.js', (req, res) => {
     let markdownText = req.body.marktext;
 
