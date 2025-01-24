@@ -262,7 +262,7 @@
         }
 
         async function voteContent(spanid, mlike, type, id, nowlike, nowscore) {
-            const like = mlike === checkscore ? 0 : mlike;
+            const like = mlike === nowscore ? 0 : mlike;
             alert(like);
             const action = await upOrDownPost(like, type, id);
             const up = type === "post" ? action.post_view.counts.upvotes : action.comment_view.counts.upvotes;
