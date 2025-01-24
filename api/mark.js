@@ -3,16 +3,17 @@ const bodyParser = require('body-parser');
 const { marked } = require('marked');
 
 const app = express();
-app.use(bodyParser.json()); // используем json, так как это основной формат данных
+app.use(bodyParser.json()); // используем json для парсинга тела запросов
 
-// изменим путь на /api/mark.js
 app.post('/api/mark.js', (req, res) => {
     let markdownText = req.body.marktext;
 
     // если marktext не передан
     if (!markdownText) {
+        console.log('error: no marktext found, received body:', req.body); // логируем тело запроса
         return res.status(400).json({ 
             error: "No marktext field found in request body", 
+            received: req.body, // возвращаем тело запроса
             status: 400 
         });
     }
@@ -32,13 +33,12 @@ app.post('/api/mark.js', (req, res) => {
         const html = marked(markdownText);
         res.send(html);
     } catch (err) {
-        console.error('Error processing markdown:', err); // логируем ошибку на сервере
-
-        // возвращаем полную ошибку с деталями
+        console.error('error processing markdown:', err); // логируем ошибку
         res.status(500).json({
             error: "Error processing markdown",
             message: err.message,
             stack: err.stack, // возвращаем стек ошибки для отладки
+            received: req.body, // возвращаем тело запроса
             status: 500
         });
     }
