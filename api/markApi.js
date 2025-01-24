@@ -8,7 +8,7 @@ app.use(bodyParser.json()); // изменено на json, так как мы п
 app.post('/convert', (req, res) => {
     let markdownText = req.body.marktext;
 
-    // если marktext не передан
+    // если marktext не переданo
     if (!markdownText) {
         return res.status(400).send('No marktext field found in request body');
     }
