@@ -27,7 +27,7 @@ function parseMarkdown(text) {
     text = text.replace(/::: spoiler (.+?)\n([\s\S]+?)\n:::/g, 
         '<details><summary>$1</summary><div>$2</div></details>');
     // картинки
-    text = text.replace(/!\[([^\]]*)\]\((https?:\/\/[^\)]+)\)/g, '<img src="$2" alt="$1" style="max-width: 100%; height: auto;">');
+    text = text.replace(/!\[([^\]]*)\]\((https?:\/\/[^\)]+)\)/g, '<br><img src="$2" alt="$1" style="max-width: 100%; height: auto;"><br>');
     // ссылки ([текст](ссылка))
     text = text.replace(/\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g, '<a href="$2" rel="noopener noreferrer" target="_blank">$1</a>');
     // заголовки
