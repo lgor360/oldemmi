@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 // маршрут для обработки post-запросов
 app.post("/api", async (req, res) => {
   try {
-    const { instance, needresponse, ...params } = req.body;
+    const { instance, needresponse, auth, ...params } = req.body;
 
     // проверяем наличие instance и needresponse
     if (!instance || !needresponse) {
@@ -22,6 +22,11 @@ app.post("/api", async (req, res) => {
 
     // создаём клиент lemmy с указанным инстансом
     const lemmy = new LemmyHttp(instance);
+
+    // если токен передан, добавляем его в заголовки
+    if (auth) {
+      lemmy.setHeaders({ Authorization: `Bearer ${auth}` });
+    }
 
     // проверяем, существует ли метод
     if (typeof lemmy[needresponse] !== "function") {
