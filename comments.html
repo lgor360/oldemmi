@@ -80,8 +80,14 @@
         async function fetchPost() {
             try {
                 const response = await fetch(`${api}/post?id=${post}`, {
-                    method: "GET",
-                    headers: { "Content-Type": "application/json" }
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        instance: server,
+                        needresponse: "GetPost",
+                        auth: `Bearer ${localStorage.getItem("lemmyToken")}`,
+                        id: post
+                    })
                 });
                 const data = await response.json();
                 commentsCount = data.post_view.counts.comments;
@@ -171,6 +177,39 @@
             }
         }
 
+        // функция для получения профиля
+        async function upOrDownPost(like, type, id) {
+            try {
+                const response = await fetch("https://oldemmi.vercel.app/api/server.js", {
+                    method: "POST",
+                    headers: { "content-type": "application/json", "cache-control": "no-cache" },
+                    body: JSON.stringify({
+                        url: `https://${server}/api/v3/${type}/like`,
+                        method: "POST",
+                        headers: {
+                            "content-type": "application/json",
+                            "cache-control": "no-cache",
+                            "authorization": `Bearer ${localStorage.getItem("lemmyToken")}`
+                        },
+                        body: {
+                            "score": like,
+                            [type + "_id"]: id
+                        }
+                    })
+                });
+                const data = await response.json();
+                console.log(JSON.stringify(data, null, 2));
+                if (response.ok) {
+                    return data;
+                } else {
+                    alert("sorry, but action failed :(");
+                    return "not";
+                }
+            } catch (error) {
+                alert(`action failed: ${error}`);
+            }
+        }
+        
         async function getLoggined() {
             try {
                 const response = await fetch(`https://${localStorage.getItem("accountServer")}/api/v3/site`, {
