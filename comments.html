@@ -311,7 +311,7 @@
                 const postotourl = post_view.post.url && post_view.post.url !== post_view.post.thumbnail_url ? post_view.post.url : null;
                 const postElement = document.createElement("div");
                 postElement.classList.add("post");
-                alert(post_view.my_vote);
+                alert(post_view.counts.my_vote);
 
                 postElement.innerHTML = `
                     <div class="post-header">
