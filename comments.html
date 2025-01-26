@@ -106,7 +106,7 @@
                     method: "POST",
                     headers: { "content-type": "application/json", "cache-control": "no-cache" },
                     body: JSON.stringify({
-                        url: `https://${server}/api/v3/${type}/like`,
+                        url: `https://${server}/api/v3/${type}/like?nope=${Date.now()}`,
                         method: "POST",
                         headers: {
                             "content-type": "application/json",
@@ -271,10 +271,7 @@
         }
 
         async function voteContent(spanid, mlike, type, id, nowlike, nowscore) {
-            alert(mlike);
-            alert(nowscore);
             const like = mlike === nowscore ? 0 : mlike;
-            alert(like);
             const action = await upOrDownPost(like, type, id);
             const up = type === "post" ? action.post_view.counts.upvotes : action.comment_view.counts.upvotes;
             const down = type === "post" ? action.post_view.counts.downvotes : action.comment_view.counts.downvotes;
@@ -311,9 +308,8 @@
                 const postotourl = post_view.post.url && post_view.post.url !== post_view.post.thumbnail_url ? post_view.post.url : null;
                 const postElement = document.createElement("div");
                 postElement.classList.add("post");
-                alert(JSON.stringify(post_view.counts, null, 2));
-                alert(JSON.stringify(post_view, null, 2));
-                alert(JSON.stringify(post_view.post, null, 2));
+                const likecolor = post_view.my_vote === 1 ? "#b3c46d" : "#ffffff";
+                const dislikecolor = post_view.my_vote === -1 ? "#b3c46d" : "#ffffff";
 
                 postElement.innerHTML = `
                     <div class="post-header">
@@ -348,11 +344,11 @@
                     <div class="post-footer">
                         <div class="counter">
                             <button onclick="voteContent('vote', 1, 'post', ${post_view.post.id}, ${post_view.counts.upvotes}, ${post_view.my_vote})">👍</button>
-                            <span id="vote">${post_view.counts.upvotes}</span>
+                            <span style="color: ${likecolor};" id="vote">${post_view.counts.upvotes}</span>
                         </div>
                         <div class="counter">
                             <button onclick="voteContent('down', -1, 'post', ${post_view.post.id}, ${post_view.counts.downvotes}, ${post_view.my_vote})">👎</button>
-                            <span id="down">${post_view.counts.downvotes}</span>
+                            <span style="color: ${dislikecolor};" id="down">${post_view.counts.downvotes}</span>
                         </div>
                         <div class="answer">
                             <button>💬</button>
