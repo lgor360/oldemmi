@@ -80,17 +80,10 @@
         async function fetchPost() {
             try {
                 const response = await fetch(`${api}/post?id=${post}`, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        instance: server,
-                        needresponse: "likePost",
-                        auth: `Bearer ${localStorage.getItem("lemmyToken")}`,
-                        id: post
-                    })
+                    method: "GET",
+                    headers: { "Content-Type": "application/json" }
                 });
                 const data = await response.json();
-                console.log(JSON.stringify(data, null, 2));
                 commentsCount = data.post_view.counts.comments;
                 return data.post_view;
             } catch (error) {
@@ -119,62 +112,6 @@
                 console.log(JSON.stringify(await response.json(), null, 2));
             } catch (error) {
                 alert(`error while loading community: ${error}`);
-            }
-        }
-        
-        // функция для получения профиля
-        async function upOrDownPost(like, id) {
-            try {
-                const response = await fetch("https://oldemmi.vercel.app/api/client.js", {
-                    method: "POST",
-                    headers: { "content-type": "application/json" },
-                    body: JSON.stringify({
-                        instance: server,
-                        needresponse: "CreatePostLike",
-                        auth: `Bearer ${localStorage.getItem("lemmyToken")}`,
-                        score: like,
-                        post_id: id
-                    })
-                });
-                const data = await response.json();
-                console.log(JSON.stringify(data, null, 2));
-                if (response.ok) {
-                    return data;
-                } else {
-                    alert("sorry, but action failed :(");
-                    return "not";
-                }
-            } catch (error) {
-                alert(`action failed: ${error}`);
-            }
-        }
-
-        async function voteContent(spanid, mlike, type, id, nowlike, nowscore) {
-            alert(mlike);
-            alert(nowscore);
-            const like = mlike === nowscore ? 0 : mlike;
-            alert(like);
-            const action = await upOrDownPost(like, id);
-            const up = type === "post" ? action.post_view.counts.upvotes : action.comment_view.counts.upvotes;
-            const down = type === "post" ? action.post_view.counts.downvotes : action.comment_view.counts.downvotes;
-            const celike = type === "post" ? action.post_view.my_vote : action.comment_view.my_vote;
-            if (action !== "not") {
-                if (celike === 0) {
-                    document.getElementById("vote").textContent = up;
-                    document.getElementById("vote").style.color = "#ffffff";
-                    document.getElementById("down").textContent = down;
-                    document.getElementById("down").style.color = "#ffffff";
-                } else if (celike === -1) {
-                    document.getElementById("vote").textContent = up;
-                    document.getElementById("vote").style.color = "#ffffff";
-                    document.getElementById(spanid).textContent = down;
-                    document.getElementById(spanid).style.color = "#b3c46d";
-                } else if (celike === 1) {
-                    document.getElementById("down").textContent = down;
-                    document.getElementById("down").style.color = "#ffffff";
-                    document.getElementById(spanid).textContent = up;
-                    document.getElementById(spanid).style.color = "#b3c46d";
-                }
             }
         }
         
@@ -233,7 +170,7 @@
                 alert(`error while loading post: ${error}`);
             }
         }
-        
+
         async function getLoggined() {
             try {
                 const response = await fetch(`https://${localStorage.getItem("accountServer")}/api/v3/site`, {
@@ -303,9 +240,6 @@
                 const postotourl = post_view.post.url && post_view.post.url !== post_view.post.thumbnail_url ? post_view.post.url : null;
                 const postElement = document.createElement("div");
                 postElement.classList.add("post");
-                alert(JSON.stringify(post_view.counts, null, 2));
-                alert(JSON.stringify(post_view, null, 2));
-                alert(JSON.stringify(post_view.post, null, 2));
 
                 postElement.innerHTML = `
                     <div class="post-header">
@@ -339,12 +273,12 @@
                     ${postotourl ? `<div class="post-link"><a rel="noopener noreferrer" href="${postotourl}">${linkMax(postotourl)}</a></div>` : ""}
                     <div class="post-footer">
                         <div class="counter">
-                            <button onclick="voteContent('vote', 1, 'post', ${post_view.post.id}, ${post_view.counts.upvotes}, ${post_view.my_vote})">👍</button>
-                            <span id="vote">${post_view.counts.upvotes}</span>
+                            <button>👍</button>
+                            <span>${post_view.counts.upvotes}</span>
                         </div>
                         <div class="counter">
-                            <button onclick="voteContent('down', -1, 'post', ${post_view.post.id}, ${post_view.counts.upvotes}, ${post_view.my_vote})">👎</button>
-                            <span id="down">${post_view.counts.downvotes}</span>
+                            <button>👎</button>
+                            <span>${post_view.counts.downvotes}</span>
                         </div>
                         <div class="answer">
                             <button>💬</button>
