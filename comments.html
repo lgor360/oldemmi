@@ -277,15 +277,15 @@
                     <div class="post-footer">
                         <div class="counter">
                             <button onclick="voteContent(1, 'post', ${post_view.post.id}, ${post_view.my_vote})">👍</button>
-                            <span>${post_view.counts.upvotes}</span>
+                            <span style="color: ${likecolor};" id="vote${post_view.post.id}">${post_view.counts.upvotes}</span>
                         </div>
                         <div class="counter">
                             <button onclick="voteContent(-1, 'post', ${post_view.post.id}, ${post_view.my_vote})">👎</button>
-                            <span style="color: ${likecolor};" id="vote${post_view.post.id}">${post_view.counts.downvotes}</span>
+                            <span style="color: ${dislikecolor};" id="down${post_view.post.id}">${post_view.counts.downvotes}</span>
                         </div>
                         <div class="answer">
                             <button>💬</button>
-                            <span style="color: ${dislikecolor};" id="down${post_view.post.id}">${post_view.counts.comments}</span>
+                            <span>${post_view.counts.comments}</span>
                         </div>
                     </div>
                 `;
@@ -325,7 +325,7 @@
                         <div class="post-footer">
                             <div class="counter">
                                 <button onclick="voteContent(1, 'comment', ${comment.comment.id}, ${comment.my_vote})">👍</button>
-                                <span style="color: ${likecolor};" id="down${comment.comment.id}">${comment.counts.upvotes}</span>
+                                <span style="color: ${likecolor};" id="vote${comment.comment.id}">${comment.counts.upvotes}</span>
                             </div>
                             <div class="counter">
                                 <button onclick="voteContent(-1, 'comment', ${comment.comment.id}, ${comment.my_vote})">👎</button>
