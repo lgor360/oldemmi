@@ -280,12 +280,7 @@
             const down = type === "post" ? action.post_view.counts.downvotes : action.comment_view.counts.downvotes;
             const celike = type === "post" ? action.post_view.my_vote : action.comment_view.my_vote;
             if (action !== "not") {
-                if (celike === 0) {
-                    document.getElementById("vote").textContent = up;
-                    document.getElementById("vote").style.color = "#ffffff";
-                    document.getElementById("down").textContent = down;
-                    document.getElementById("down").style.color = "#ffffff";
-                } else if (celike === -1) {
+                if (celike === -1) {
                     document.getElementById("vote").textContent = up;
                     document.getElementById("vote").style.color = "#ffffff";
                     document.getElementById(spanid).textContent = down;
@@ -295,6 +290,11 @@
                     document.getElementById("down").style.color = "#ffffff";
                     document.getElementById(spanid).textContent = up;
                     document.getElementById(spanid).style.color = "#b3c46d";
+                } else {
+                    document.getElementById("vote").textContent = up;
+                    document.getElementById("vote").style.color = "#ffffff";
+                    document.getElementById("down").textContent = down;
+                    document.getElementById("down").style.color = "#ffffff";
                 }
             }
         }
