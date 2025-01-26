@@ -368,6 +368,8 @@
                     // определяем уровень вложенности
                     const depth = comment.comment.path.split('.').length - 1;
                     const indent = depth * 20; 
+                    const likecolor = comment.my_vote === 1 ? "#b3c46d" : "#ffffff";
+                    const dislikecolor = comment.my_vote === -1 ? "#b3c46d" : "#ffffff";
 
                     commentElement.innerHTML = `
                         <div class="post-header">
@@ -382,12 +384,12 @@
                         <div class="post-text">${parseMarkdown(comment.comment.content)}</div>
                         <div class="post-footer">
                             <div class="counter">
-                                <button>👍</button>
-                                <span>${comment.counts.upvotes}</span>
+                                <button onclick="voteContent(1, 'comment', ${comment.comment.id}, ${comment.my_vote})">👍</button>
+                                <span style="color: ${likecolor};" id="down${comment.comment.id}">${comment.counts.upvotes}</span>
                             </div>
                             <div class="counter">
-                                <button>👎</button>
-                                <span>${comment.counts.downvotes}</span>
+                                <button onclick="voteContent(-1, 'comment', ${comment.comment.id}, ${comment.my_vote})">👎</button>
+                                <span style="color: ${dislikecolor};" id="down${comment.comment.id}">${comment.counts.downvotes}</span>
                             </div>
                             <div class="counter">
                                 <button>💬</button>
