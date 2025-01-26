@@ -370,6 +370,7 @@
                     const indent = depth * 20; 
                     const likecolor = comment.my_vote === 1 ? "#b3c46d" : "#ffffff";
                     const dislikecolor = comment.my_vote === -1 ? "#b3c46d" : "#ffffff";
+                    alert(JSON.stringify(comment, null, 2));
 
                     commentElement.innerHTML = `
                         <div class="post-header">
