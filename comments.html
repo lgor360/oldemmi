@@ -57,6 +57,7 @@
     </div>
 
     <script src="https://oldemmi.vercel.app/js/needScript.js"></script>
+    <script src="https://oldemmi.vercel.app/js/actions.js"></script>
     <script src="https://oldemmi.vercel.app/js/markdown.js"></script>
     <script defer>
         let commentsCount = null;
@@ -81,7 +82,7 @@
             try {
                 const response = await fetch(`${api}/post?id=${post}`, {
                     method: "GET",
-                    headers: { "Content-Type": "application/json" }
+                    headers: { "Content-Type": "application/json", "authorization": `Bearer ${lemmyToken}` }
                 });
                 const data = await response.json();
                 commentsCount = data.post_view.counts.comments;
@@ -129,7 +130,7 @@
             while (true) {
                 const response = await fetch(`${api}/comment/list?post_id=${post}&page=${page}&limit=${limit}&sort=New`, {
                     method: "GET",
-                    headers: { "Content-Type": "application/json" }
+                    headers: { "Content-Type": "application/json", "authorization": `Bearer ${lemmyToken}` }
                 });
                 const data = await response.json();
                 const comments = data.comments;
@@ -240,6 +241,8 @@
                 const postotourl = post_view.post.url && post_view.post.url !== post_view.post.thumbnail_url ? post_view.post.url : null;
                 const postElement = document.createElement("div");
                 postElement.classList.add("post");
+                const likecolor = post_view.my_vote === 1 ? "#b3c46d" : "#ffffff";
+                const dislikecolor = post_view.my_vote === -1 ? "#b3c46d" : "#ffffff";
 
                 postElement.innerHTML = `
                     <div class="post-header">
@@ -273,16 +276,16 @@
                     ${postotourl ? `<div class="post-link"><a rel="noopener noreferrer" href="${postotourl}">${linkMax(postotourl)}</a></div>` : ""}
                     <div class="post-footer">
                         <div class="counter">
-                            <button>👍</button>
+                            <button onclick="voteContent(1, 'post', ${post_view.post.id}, ${post_view.my_vote})">👍</button>
                             <span>${post_view.counts.upvotes}</span>
                         </div>
                         <div class="counter">
-                            <button>👎</button>
-                            <span>${post_view.counts.downvotes}</span>
+                            <button onclick="voteContent(-1, 'post', ${post_view.post.id}, ${post_view.my_vote})">👎</button>
+                            <span style="color: ${likecolor};" id="vote${post_view.post.id}">${post_view.counts.downvotes}</span>
                         </div>
                         <div class="answer">
                             <button>💬</button>
-                            <span>${post_view.counts.comments}</span>
+                            <span style="color: ${dislikecolor};" id="down${post_view.post.id}">${post_view.counts.comments}</span>
                         </div>
                     </div>
                 `;
@@ -305,6 +308,8 @@
                     // определяем уровень вложенности
                     const depth = comment.comment.path.split('.').length - 1;
                     const indent = depth * 20; 
+                    const likecolor = comment.my_vote === 1 ? "#b3c46d" : "#ffffff";
+                    const dislikecolor = comment.my_vote === -1 ? "#b3c46d" : "#ffffff";
 
                     commentElement.innerHTML = `
                         <div class="post-header">
@@ -319,12 +324,12 @@
                         <div class="post-text">${parseMarkdown(comment.comment.content)}</div>
                         <div class="post-footer">
                             <div class="counter">
-                                <button>👍</button>
-                                <span>${comment.counts.upvotes}</span>
+                                <button onclick="voteContent(1, 'comment', ${comment.comment.id}, ${comment.my_vote})">👍</button>
+                                <span style="color: ${likecolor};" id="down${comment.comment.id}">${comment.counts.upvotes}</span>
                             </div>
                             <div class="counter">
-                                <button>👎</button>
-                                <span>${comment.counts.downvotes}</span>
+                                <button onclick="voteContent(-1, 'comment', ${comment.comment.id}, ${comment.my_vote})">👎</button>
+                                <span style="color: ${dislikecolor};" id="down${comment.comment.id}">${comment.counts.downvotes}</span>
                             </div>
                             <div class="counter">
                                 <button>💬</button>
