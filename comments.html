@@ -379,7 +379,7 @@
                         <div class="post-footer">
                             <div class="counter">
                                 <button onclick="voteContent(1, 'comment', ${comment.comment.id}, ${comment.my_vote})">👍</button>
-                                <span style="color: ${likecolor};" id="down${comment.comment.id}">${comment.counts.upvotes}</span>
+                                <span style="color: ${likecolor};" id="vote${comment.comment.id}">${comment.counts.upvotes}</span>
                             </div>
                             <div class="counter">
                                 <button onclick="voteContent(-1, 'comment', ${comment.comment.id}, ${comment.my_vote})">👎</button>
