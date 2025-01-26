@@ -80,18 +80,10 @@
         // функция для получения постов
         async function fetchPost() {
             try {
-                let response;
-                if (localStorage.getItem("lemmyToken")) {
-                    response = await fetch(`${api}/post?id=${post}`, {
-                        method: "GET",
-                        headers: { "Content-Type": "application/json", "cache-control": "no-cache", "authorization": `Bearer ${localStorage.getItem("lemmyToken")}` }
-                    });
-                } else {
-                    response = await fetch(`${api}/post?id=${post}`, {
-                        method: "GET",
-                        headers: { "Content-Type": "application/json", "cache-control": "no-cache" }
-                    });
-                }
+                const response = await fetch(`${api}/post?id=${post}`, {
+                    method: "GET",
+                    headers: { "Content-Type": "application/json", "cache-control": "no-cache", "authorization": `Bearer ${localStorage.getItem("lemmyToken")}` }
+                });
                 const data = await response.json();
                 commentsCount = data.post_view.counts.comments;
                 return data.post_view;
@@ -172,7 +164,7 @@
             while (true) {
                 const response = await fetch(`${api}/comment/list?post_id=${post}&page=${page}&limit=${limit}&sort=New`, {
                     method: "GET",
-                    headers: { "Content-Type": "application/json", "cache-control": "no-cache" }
+                    headers: { "Content-Type": "application/json", "cache-control": "no-cache", "authorization": `Bearer ${localStorage.getItem("lemmyToken")}` }
                 });
                 const data = await response.json();
                 const comments = data.comments;
