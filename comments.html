@@ -264,6 +264,7 @@
         }
 
         async function voteContent(mlike, type, id, mylike) {
+            alert(id);
             const currentVote = likeMap.get(id) || mylike;
             const like = mlike === currentVote ? 0 : mlike; // отменяем лайк, если кликнули повторно
             const action = await upOrDownPost(like, type, id);
