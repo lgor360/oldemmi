@@ -275,10 +275,10 @@
                 likeMap.set(id, userVote);
 
                 // обновляем счетчики и стили кнопок
-                document.getElementById(`vote${id}`).textContent = upvotes;
-                document.getElementById(`vote${id}`).style.color = userVote === 1 ? "#b3c46d" : "#ffffff";
-                document.getElementById(`down${id}`).textContent = downvotes;
-                document.getElementById(`down${id}`).style.color = userVote === -1 ? "#b3c46d" : "#ffffff";
+                document.querySelector(`#vote${id}`).textContent = upvotes;
+                document.querySelector(`#vote${id}`).style.color = userVote === 1 ? "#b3c46d" : "#ffffff";
+                document.querySelector(`#down${id}`).textContent = downvotes;
+                document.querySelector(`#down${id}`).style.color = userVote === -1 ? "#b3c46d" : "#ffffff";
             }
         }
       
