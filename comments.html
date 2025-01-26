@@ -271,8 +271,8 @@
             }
         }
 
-        async function voteContent(spanid, mlike, type, id, nowlike, nowscore) {
-            const currentVote = likeMap.get(id) || nowscore;
+        async function voteContent(mlike, type, id, mylike) {
+            const currentVote = likeMap.get(id) || mylike;
             const like = mlike === currentVote ? 0 : mlike; // отменяем лайк, если кликнули повторно
             const action = await upOrDownPost(like, type, id);
             if (action !== "not") {
@@ -281,13 +281,11 @@
                 const userVote = type === "post" ? action.post_view.my_vote : action.comment_view.my_vote;
                 likeMap.set(id, userVote);
 
-                // обновляем счетчики
-                document.getElementById("vote").textContent = upvotes;
-                document.getElementById("down").textContent = downvotes;
-
-                // обновляем стили кнопок
-                document.getElementById("vote").style.color = userVote === 1 ? "#b3c46d" : "#ffffff";
-                document.getElementById("down").style.color = userVote === -1 ? "#b3c46d" : "#ffffff";
+                // обновляем счетчики и стили кнопок
+                document.getElementById(`vote${id}`).textContent = upvotes;
+                document.getElementById(`vote${id}`).style.color = userVote === 1 ? "#b3c46d" : "#ffffff";
+                document.getElementById(`down${id}`).textContent = downvotes;
+                document.getElementById(`down${id}`).style.color = userVote === -1 ? "#b3c46d" : "#ffffff";
             }
         }
       
@@ -338,12 +336,12 @@
                     ${postotourl ? `<div class="post-link"><a rel="noopener noreferrer" href="${postotourl}">${linkMax(postotourl)}</a></div>` : ""}
                     <div class="post-footer">
                         <div class="counter">
-                            <button onclick="voteContent('vote', 1, 'post', ${post_view.post.id}, ${post_view.counts.upvotes}, ${post_view.my_vote})">👍</button>
-                            <span style="color: ${likecolor};" id="vote">${post_view.counts.upvotes}</span>
+                            <button onclick="voteContent(1, 'post', ${post_view.post.id}, ${post_view.my_vote})">👍</button>
+                            <span style="color: ${likecolor};" id="vote${post_view.post.id}">${post_view.counts.upvotes}</span>
                         </div>
                         <div class="counter">
-                            <button onclick="voteContent('down', -1, 'post', ${post_view.post.id}, ${post_view.counts.downvotes}, ${post_view.my_vote})">👎</button>
-                            <span style="color: ${dislikecolor};" id="down">${post_view.counts.downvotes}</span>
+                            <button onclick="voteContent(-1, 'post', ${post_view.post.id}, ${post_view.my_vote})">👎</button>
+                            <span style="color: ${dislikecolor};" id="down${post_view.post.id}">${post_view.counts.downvotes}</span>
                         </div>
                         <div class="answer">
                             <button>💬</button>
