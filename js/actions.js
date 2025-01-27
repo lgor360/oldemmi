@@ -34,6 +34,9 @@ async function upOrDownPost(like, type, id) {
 }
 
 async function voteContent(mlike, type, id, mylike) {
+    if (!localStorage.getItem("lemmyToken")) {
+        window.location.href = `https://oldemmi.vercel.app/login`;
+    }
     const currentVote = likeMap.get(id) || mylike;
     const like = mlike === currentVote ? 0 : mlike; // отменяем лайк, если кликнули повторно
     const action = await upOrDownPost(like, type, id);
