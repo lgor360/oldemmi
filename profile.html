@@ -59,6 +59,7 @@
 
     <script src="https://oldemmi.vercel.app/js/markdown.js"></script>
     <script src="https://oldemmi.vercel.app/js/needScript.js"></script>
+    <script src="https://oldemmi.vercel.app/js/actions.js"></script>
     <script defer>
         const lemmyToken = localStorage.getItem("lemmyToken");
         const urlParams = new URLSearchParams(window.location.search);
@@ -194,6 +195,8 @@
                     const postotourl = post.post.url && post.post.url !== post.post.thumbnail_url ? post.post.url : null;
                     const postElement = document.createElement("div");
                     postElement.classList.add("post");
+                    const likecolor = post.my_vote === 1 ? "#b3c46d" : "#ffffff";
+                    const dislikecolor = post.my_vote === -1 ? "#b3c46d" : "#ffffff";
 
                     postElement.innerHTML = `
                         <div class="post-header">
@@ -224,12 +227,12 @@
                         ${postotourl ? `<div class="post-link"><a rel="noopener noreferrer" href="${postotourl}">${linkMax(postotourl)}</a></div>` : ""}
                         <div class="post-footer">
                             <div class="counter">
-                                <button>👍</button>
-                                <span>${post.counts.upvotes}</span>
+                                <button onclick="voteContent(1, 'post', ${post.post.id}, ${post.my_vote})">👍</button>
+                                <span style="color: ${likecolor};" id="vote${post.post.id}">${post.counts.upvotes}</span>
                             </div>
                             <div class="counter">
-                                <button>👎</button>
-                                <span>${post.counts.downvotes}</span>
+                                <button onclick="voteContent(-1, 'post', ${post.post.id}, ${post.my_vote})">👎</button>
+                                <span style="color: ${dislikecolor};" id="down${post.post.id}">${post.counts.downvotes}</span>
                             </div>
                             <div class="counter">
                                 <button onclick="goToComments(${post.post.id})">💬</button>
@@ -286,6 +289,8 @@
                 comments.forEach(comment => {
                     const commentElement = document.createElement("div");
                     commentElement.classList.add("post");
+                    const likecolor = comment.my_vote === 1 ? "#b3c46d" : "#ffffff";
+                    const dislikecolor = comment.my_vote === -1 ? "#b3c46d" : "#ffffff";
 
                     commentElement.innerHTML = `
                         <div class="post-header">
@@ -300,12 +305,12 @@
                         <div class="post-text">${parseMarkdown(comment.comment.content)}</div>
                         <div class="post-footer">
                             <div class="counter">
-                                <button>👍</button>
-                                <span>${comment.counts.upvotes}</span>
+                                <button onclick="voteContent(1, 'comment', ${comment.comment.id}, ${comment.my_vote})">👍</button>
+                                <span style="color: ${likecolor};" id="vote${comment.comment.id}">${comment.counts.upvotes}</span>
                             </div>
                             <div class="counter">
-                                <button>👎</button>
-                                <span>${comment.counts.downvotes}</span>
+                                <button onclick="voteContent(-1, 'comment', ${comment.comment.id}, ${comment.my_vote})">👎</button>
+                                <span style="color: ${dislikecolor};" id="down${comment.comment.id}">${comment.counts.downvotes}</span>
                             </div>
                             <div class="gotoco">
                                 <button onclick="goToComments('${comment.comment.post_id}')">👁️</button>
