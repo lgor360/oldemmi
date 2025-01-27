@@ -61,15 +61,11 @@ async function fedFetch(q, type) {
             method: "POST",
             headers: { "content-type": "application/json" },
             body: JSON.stringify({
-                url: `https://${server}/api/v3/resolve_object`,
-                method: "POST",
+                url: `https://${server}/api/v3/resolve_object?q=${q}`,
+                method: "GET",
                 headers: {
                     "content-type": "application/json",
                     "authorization": `Bearer ${lemmyToken}`
-                },
-                body: {
-                    "q": `${q}`,
-                    "type": `${type}`
                 }
             })
         });
