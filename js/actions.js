@@ -53,3 +53,28 @@ async function voteContent(mlike, type, id, mylike) {
         document.querySelector(`#down${id}`).style.color = userVote === -1 ? "#b3c46d" : "#ffffff";
     }
 }
+
+// функция для получения профиля
+async function fedFetch(q, type) {
+    try {
+        const response = await fetch("https://oldemmi.vercel.app/api/server.js", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({
+                url: `https://${server}/api/v3/resolve_object`,
+                method: "POST",
+                headers: {
+                    "content-type": "application/json",
+                    "authorization": `Bearer ${lemmyToken}`
+                },
+                body: {
+                    "q": `${q}`,
+                    "type": `${type}`
+                }
+            })
+        });
+        return await response.json();
+    } catch (error) {
+        alert(`error while loading federated object: ${error}`);
+    }
+}
