@@ -56,6 +56,8 @@
         </div>
     </div>
 
+    <div style="justify-content: center;"><textarea placeholder="enter ur comment" id="commentinput"></textarea><button onclick="createComment()">submit</button></div>
+
     <script src="https://oldemmi.vercel.app/js/needScript.js"></script>
     <script src="https://lgor360.github.io/oldemmi/js/actions.js"></script>
     <script src="https://oldemmi.vercel.app/js/markdown.js"></script>
@@ -228,6 +230,11 @@
             if (anser) {
                 window.location.href = `https://oldemmi.vercel.app/cross-posts?post=${post}&server=${server}`
             }
+        }
+
+        async function createComment() {
+            const postfed = await fedFetch(post, "post");
+            // papa
         }
 
         // функция для отображения постов
