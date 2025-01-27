@@ -233,7 +233,7 @@
         }
 
         async function createHappyComment() {
-            const postfed = await fedFetch(Number(post), "post");
+            const postfed = await fedFetch(post, "post");
             try {
                 const response = await fetch("https://oldemmi.vercel.app/api/server.js", {
                     method: "POST",
