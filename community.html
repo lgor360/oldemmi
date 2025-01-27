@@ -124,7 +124,7 @@
             try {
                 const response = await fetch(`${api}/post/list?community_name=${community}&limit=${limit}&page=${page}`, {
                     method: "GET",
-                    headers: { "content-type": "application/json" }
+                    headers: { "content-type": "application/json", "authorization": `Bearer ${localStorage.getItem("lemmyToken")}` }
                 });
                 const data = await response.json();
                 return data.posts;
