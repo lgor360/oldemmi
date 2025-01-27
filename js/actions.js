@@ -73,6 +73,7 @@ async function fedFetch(q, type) {
                 }
             })
         });
+        alert(response.text());
         return await response.json();
     } catch (error) {
         alert(`error while loading federated object: ${error}`);
