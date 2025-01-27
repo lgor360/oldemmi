@@ -77,7 +77,7 @@
             try {
                 const response = await fetch(`${api}/post?id=${post}`, {
                     method: "GET",
-                    headers: { "Content-Type": "application/json" }
+                    headers: { "Content-Type": "application/json", "authorization": `Bearer ${localStorage.getItem("lemmyToken")}` }
                 });
                 const data = await response.json();
                 return data.post_view;
@@ -90,7 +90,7 @@
             try {
                 const response = await fetch(`${api}/post?id=${post}`, {
                     method: "GET",
-                    headers: { "Content-Type": "application/json" }
+                    headers: { "Content-Type": "application/json", "authorization": `Bearer ${localStorage.getItem("lemmyToken")}` }
                 });
                 const data = await response.json();
                 return data.cross_posts;
