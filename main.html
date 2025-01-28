@@ -229,7 +229,7 @@
                                 <span style="color: ${dislikecolor};" id="down${post.post.id}">${post.counts.downvotes}</span>
                             </div>
                             <div class="counter">
-                                <button onclick="goToComments(${post.post.id}, '${getInstanceFromActorId(post.creator.actor_id)}')">💬</button>
+                                <button onclick="goToComments(${post.post.id}, '${getInstanceFromActorId(post.post.ap_id)}')">💬</button>
                                 <span>${post.counts.comments}</span>
                             </div>
                         </div>
