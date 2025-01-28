@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ф<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -246,10 +246,10 @@
                             "content-type": "application/json",
                             "authorization": `Bearer ${localStorage.getItem("lemmyToken")}`
                         },
-                        body: JSON.stringify({
-                            post_id: postfed.post.post.id,
-                            content: `${document.getElementById("commentinput").value}`
-                        })
+                        body: {
+                            "post_id": `${postfed.post.post.id}`,
+                            "content": `${document.getElementById("commentinput").value}`
+                        }
                     })
                 });
                 if (!response.ok) {
