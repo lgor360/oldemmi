@@ -76,6 +76,7 @@
         const limit = 9; // количество постов на одну загрузку
         const api = `https://${server}/api/v3`
         const lemmyToken = localStorage.getItem("lemmyToken");
+        let mebicy = null;
 
         function pathzero(num, dis, mes) {
             compath = num;
@@ -99,6 +100,7 @@
                 });
                 const data = await response.json();
                 commentsCount = data.post_view.counts.comments;
+                mebicy = getInstanceFromActorId(data.post_view.post.actor_id)
                 return data.post_view;
             } catch (error) {
                 alert(`error while loading post: ${error}`);
@@ -249,7 +251,7 @@
         async function createHappyComment() {
             alert(post);
             alert(`https://${server}/post/${post}`);
-            const postfed = await fedFetch(`https://${server}/post/${post}`, "post");
+            const postfed = await fedFetch(`https://${mebicy}/post/${post}`, "post");
             alert(JSON.stringify(postfed, null, 2));
             alert("ka");
             try {
