@@ -58,13 +58,14 @@
 
     <div style="display: table; margin-bottom: 10px; justify-content: center; margin: 20px auto; align-content: center; align-items: center;">
         <div style="display: flex"><textarea placeholder="enter your comment" id="commentinput"></textarea><button onclick="createHappyComment()">submit</button></div>
-        <span style="border: 1px solid #ccc; background-color: #353535;" id="pathstatus">path_status</span>
+        <span onclick="pathzero(0, 'none', 'a')" style="display: none; border: 1px solid #ccc; background-color: #353535;" id="pathstatus">path_status</span>
     </div>
 
     <script src="https://oldemmi.vercel.app/js/needScript.js"></script>
     <script src="https://oldemmi.vercel.app/js/actions.js"></script>
     <script src="https://oldemmi.vercel.app/js/markdown.js"></script>
     <script defer>
+        let compath = 0;
         let commentsCount = null;
         let allComments = []; // глобальный массив для хранения всех комментариев
         const urlParams = new URLSearchParams(window.location.search);
@@ -74,6 +75,12 @@
         const limit = 9; // количество постов на одну загрузку
         const api = `https://${server}/api/v3`
         const lemmyToken = localStorage.getItem("lemmyToken");
+
+        function pathzero(num, dis, mes) {
+            compath = num;
+            document.getElementById("pathstatus").style.display = dis;
+            document.getElementById("pathstatus").textContent = mes;
+        }
         
         function instanceapply() {
             const instdiv = document.querySelector(".navbar .oldemmi .text .instance");
@@ -250,7 +257,8 @@
                         },
                         body: {
                             "post_id": postfed.post.post.id,
-                            "content": `${document.getElementById("commentinput").value}`
+                            "content": `${document.getElementById("commentinput").value}`,
+                            "path": compath
                         }
                     })
                 });
@@ -258,6 +266,7 @@
                 allComments = [];
                 page = 1;
                 commentsCount = null;
+                pathzero(0, 'none', 'a');
                 loadMoreComments();
             } catch (error) {
                 alert(`action failed: ${error}`);
@@ -345,6 +354,7 @@
                     const indent = depth * 20; 
                     const likecolor = comment.my_vote === 1 ? "#b3c46d" : "#ffffff";
                     const dislikecolor = comment.my_vote === -1 ? "#b3c46d" : "#ffffff";
+                    const cerotinicosi = comment.comment.body.length > 10 ? comment.comment.body.slice(0, 10 - 1) + '…' : comment.comment.body;
 
                     commentElement.innerHTML = `
                         <div class="post-header">
@@ -367,7 +377,7 @@
                                 <span style="color: ${dislikecolor};" id="down${comment.comment.id}">${comment.counts.downvotes}</span>
                             </div>
                             <div class="counter">
-                                <button>💬</button>
+                                <button onclick="pathzero(${comment.comment.path}, 'table', 'you answering on the comment ${cerotinicosi}')">💬</button>
                             </div>
                         </div>
                     `;
