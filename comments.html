@@ -248,6 +248,7 @@
         
         async function createHappyComment() {
             alert(post);
+            alert(`https://${server}/post/${post}`);
             const postfed = await fedFetch(`https://${server}/post/${post}`, "post");
             alert(JSON.stringify(postfed, null, 2));
             alert("ka");
