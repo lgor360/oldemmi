@@ -4,7 +4,7 @@ async function parseMarkdown(text) {
         headers: {
             "content-type": "application/json"
         },
-        body: JSON.stringify({ marktext: text })
+        body: JSON.stringify({ marktext: `${text}` })
     });
 
     if (!response.ok) {
