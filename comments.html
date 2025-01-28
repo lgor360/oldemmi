@@ -56,7 +56,7 @@
         </div>
     </div>
 
-    <div style="justify-content: center;"><textarea placeholder="enter your comment" id="commentinput"></textarea><button onclick="createHappyComment()">submit</button></div>
+    <div style="align-content: center; align-items: center;"><textarea placeholder="enter your comment" id="commentinput"></textarea><button onclick="createHappyComment()">submit</button></div>
 
     <script src="https://oldemmi.vercel.app/js/needScript.js"></script>
     <script src="https://oldemmi.vercel.app/js/actions.js"></script>
@@ -240,7 +240,7 @@
                     method: "POST",
                     headers: { "content-type": "application/json" },
                     body: JSON.stringify({
-                        url: `https://${server}/api/v3/comment/create`,
+                        url: `https://${server}/api/v3/comment`,
                         method: "POST",
                         headers: {
                             "content-type": "application/json",
@@ -251,7 +251,6 @@
                             "content": `${document.getElementById("commentinput").value}`
                         }
                     })
-                });
                 if (!response.ok) {
                     alert(await response.text());
                 } else {
