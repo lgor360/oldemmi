@@ -164,7 +164,9 @@
             // скрываем прогресс-бар после загрузки
             progressContainer.style.display = "none";
             maxwell.style.display = "block";
-            pasa.style.display = "table";
+            if (localStorage.getItem("lemmyToken")) {
+                pasa.style.display = "table";
+            }
             
             return alkac;
         }
