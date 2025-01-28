@@ -354,7 +354,7 @@
                     const indent = depth * 20; 
                     const likecolor = comment.my_vote === 1 ? "#b3c46d" : "#ffffff";
                     const dislikecolor = comment.my_vote === -1 ? "#b3c46d" : "#ffffff";
-                    const cerotinicosi = comment.comment.content.length > 10 ? comment.comment.body.slice(0, 10 - 1) + '…' : comment.comment.body;
+                    const cerotinicosi = comment.comment.content.length > 10 ? comment.comment.content.slice(0, 10 - 1) + '…' : comment.comment.content;
 
                     commentElement.innerHTML = `
                         <div class="post-header">
