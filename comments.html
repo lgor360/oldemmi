@@ -76,7 +76,6 @@
         const limit = 9; // количество постов на одну загрузку
         const api = `https://${server}/api/v3`
         const lemmyToken = localStorage.getItem("lemmyToken");
-        let mebicy = null;
 
         function pathzero(num, dis, mes) {
             compath = num;
@@ -100,8 +99,6 @@
                 });
                 const data = await response.json();
                 commentsCount = data.post_view.counts.comments;
-                alert(JSON.stringify(data, null, 2));
-                mebicy = getInstanceFromActorId(data.post_view.post.ap_id)
                 return data.post_view;
             } catch (error) {
                 alert(`error while loading post: ${error}`);
@@ -250,11 +247,8 @@
         }
         
         async function createHappyComment() {
-            alert(post);
-            alert(`https://${server}/post/${post}`);
             const postfed = await fedFetch(`https://${mebicy}/post/${post}`, "post");
-            alert(JSON.stringify(postfed, null, 2));
-            alert("ka");
+            let nedfedpostid = localStorage.getItem("accountServer") === server ? post : postfed.post.post.id;
             try {
                 const response = await fetch("https://oldemmi.vercel.app/api/server.js", {
                     method: "POST",
@@ -267,7 +261,7 @@
                             "authorization": `Bearer ${localStorage.getItem("lemmyToken")}`
                         },
                         body: {
-                            "post_id": postfed.post.post.id,
+                            "post_id": nedfedpostid,
                             "content": `${document.getElementById("commentinput").value}`,
                             "parent_id": compath
                         }
