@@ -1,9 +1,12 @@
 function parseMarkdown(text) {
-    // списки
-    text = text.replace(/^(\s*)([-*+]|[0-9]+\.)\s+(.+)/gm, (_, space, bullet, item) => {
-        const tag = /^[0-9]+\./.test(bullet) ? 'ol' : 'ul';
-        return `${space}<${tag}><li>${item}</li></${tag}>`;
+    // списки с учётом вложенности
+    text = text.replace(/^(\s*)([-*+]|\d+\.)\s+(.+)/gm, (_, space, bullet, item) => {
+        const level = space.length / 2; // определяем уровень вложенности (2 пробела = 1 уровень)
+        const tag = /^\d+\./.test(bullet) ? 'ol' : 'ul';
+        return `${'  '.repeat(level)}<${tag}><li>${item}</li></${tag}>`;
     });
+    // объединение соседних списков на одном уровне
+    text = text.replace(/<\/(ul|ol)>\s*<\1>/g, '');
     // чекбоксы
     text = text.replace(/\[ \]\s(.+)/g, '<input type="checkbox" disabled>$1');
     text = text.replace(/\[x\]\s(.+)/gi, '<input type="checkbox" checked disabled>$1');
