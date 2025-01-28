@@ -100,7 +100,8 @@
                 });
                 const data = await response.json();
                 commentsCount = data.post_view.counts.comments;
-                mebicy = getInstanceFromActorId(data.post_view.post.actor_id)
+                alert(JSON.stringify(data, null, 2));
+                mebicy = getInstanceFromActorId(data.post_view.post.ap_id)
                 return data.post_view;
             } catch (error) {
                 alert(`error while loading post: ${error}`);
