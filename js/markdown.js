@@ -8,7 +8,7 @@ async function parseMarkdown(text) {
         throw new Error(`server returned error: ${response.status}`);
     }
 
-    const marktextgotovo = await response.text(); // получаем текст
-    alert(marktextgotovo);
+    const marktextgotovo = await response.json(); // получаем текст
+    alert(JSON.stringify(marktextgotovo, null, 2));;
     return marktextgotovo;
 }
