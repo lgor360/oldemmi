@@ -101,7 +101,7 @@
 
         async function fetchPosts() {
             try {
-                const response = await fetch(`${api}/user?username=${user}&page=${page}&limit=${limit}`, {
+                const response = await fetch(`${api}/user?sort=New&username=${user}&page=${page}&limit=${limit}`, {
                     method: "GET",
                     headers: { "Content-Type": "application/json", "authorization": `Bearer ${localStorage.getItem("lemmyToken")}` }
                 });
