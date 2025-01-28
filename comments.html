@@ -43,6 +43,11 @@
     </div>
     <hr width="93%" size="2" color="#454545">
     
+    <div id="ancksokrinca" style="display: none; margin-bottom: 10px; justify-content: center; margin: 20px auto; align-content: center; align-items: center;">
+        <div style="display: flex; max-width: 450px;"><textarea placeholder="enter your comment" id="commentinput"></textarea><button onclick="createHappyComment()">submit</button></div>
+        <span onclick="pathzero(0, 'none', 'a')" style="display: none; border: 1px solid #ccc; background-color: #353535;" id="pathstatus">path_status</span>
+    </div>
+    
     <div id="comments">
         <!-- сюда будут добавляться комментарии через js -->
     </div>
@@ -55,11 +60,6 @@
         <div style="margin-top: 10px; margin-bottom: 10px;">
             the end :3
         </div>
-    </div>
-    
-    <div id="ancksokrinca" style="display: none; margin-bottom: 10px; justify-content: center; margin: 20px auto; align-content: center; align-items: center;">
-        <div style="display: flex; max-width: 450px;"><textarea placeholder="enter your comment" id="commentinput"></textarea><button onclick="createHappyComment()">submit</button></div>
-        <span onclick="pathzero(0, 'none', 'a')" style="display: none; border: 1px solid #ccc; background-color: #353535;" id="pathstatus">path_status</span>
     </div>
 
     <script src="https://oldemmi.vercel.app/js/needScript.js"></script>
