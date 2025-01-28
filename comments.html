@@ -246,10 +246,10 @@
                             "content-type": "application/json",
                             "authorization": `Bearer ${localStorage.getItem("lemmyToken")}`
                         },
-                        body: {
+                        body: JSON.stringify({
                             "post_id": postfed.post.post.id,
                             "content": `${document.getElementById("commentinput").value}`
-                        }
+                        })
                     })
                 });
                 alert(JSON.stringify(await response.json(), null, 2));
