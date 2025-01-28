@@ -253,7 +253,7 @@
                     })
                 });
                 if (!response.ok) {
-                    alert(response.text());
+                    alert(await response.text());
                 } else {
                     alert(JSON.stringify(await response.json(), null, 2));
                 }
