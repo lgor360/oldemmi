@@ -247,7 +247,7 @@
         }
         
         async function createHappyComment() {
-            const postfed = await fedFetch(`https://${mebicy}/post/${post}`, "post");
+            const postfed = await fedFetch(`https://${server}/post/${post}`, "post");
             let nedfedpostid = localStorage.getItem("accountServer") === server ? post : postfed.post.post.id;
             try {
                 const response = await fetch("https://oldemmi.vercel.app/api/server.js", {
