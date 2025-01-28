@@ -191,7 +191,6 @@
                     postElement.classList.add("post");
                     const likecolor = post.my_vote === 1 ? "#b3c46d" : "#ffffff";
                     const dislikecolor = post.my_vote === -1 ? "#b3c46d" : "#ffffff";
-                    const markbio = await parseMarkdown(post.post.body || "");
 
                     postElement.innerHTML = `
                         <div class="post-header">
@@ -217,7 +216,7 @@
                             </div>
                         </div>
                         <div class="post-name">${post.post.name}</div>
-                        <div class="post-text">${markbio}</div>
+                        <div class="post-text">${parseMarkdown(post.post.body || "")}</div>
                         ${post.post.thumbnail_url ? `<img src="${post.post.thumbnail_url}" class="post-image" alt="image">` : ""}
                         ${postotourl ? `<div class="post-link"><a rel="noopener noreferrer" href="${postotourl}">${linkMax(postotourl)}</a></div>` : ""}
                         <div class="post-footer">
