@@ -44,7 +44,7 @@ function parseMarkdown(text) {
         return `<a href="${url}" rel="noopener noreferrer">${community}@${instance}</a>`;
     });
     // таблицы
-    text = text.replace(/^\|(.+?)\|\n\|[-\s|]+\|\n((?:\|.+?\|\n*)*)/gm, (_, headers, rows) => {
+    text = text.replace(/^\|(.+?)\|\n\|[-\s|]+\|\n((?:\|.+?\|\n)*)/gm, (_, headers, rows) => {
         const headerCells = headers.split('|').map(cell => `<th>${cell.trim()}</th>`).join('');
         const bodyRows = rows.trim().split('\n').filter(row => row.trim() !== '').map(row => {
             const cells = row.split('|').filter(cell => cell.trim() !== '').map(cell => `<td>${cell.trim()}</td>`).join('');
@@ -52,6 +52,8 @@ function parseMarkdown(text) {
         }).join('');
         return `<table><thead><tr>${headerCells}</tr></thead><tbody>${bodyRows}</tbody></table>`;
     });
-
+    // удаление лишних пустых строк после таблицы
+    text = text.replace(/<\/table>\s*\n/g, '</table>\n');
+    
     return text;
 }
