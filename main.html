@@ -191,8 +191,6 @@
                     postElement.classList.add("post");
                     const likecolor = post.my_vote === 1 ? "#b3c46d" : "#ffffff";
                     const dislikecolor = post.my_vote === -1 ? "#b3c46d" : "#ffffff";
-                    const correcaidma = post.post.ap_id.match(/\/post\/(\d+)/);
-                    const coremacitochi = correcaidma[1];
 
                     postElement.innerHTML = `
                         <div class="post-header">
@@ -231,7 +229,7 @@
                                 <span style="color: ${dislikecolor};" id="down${post.post.id}">${post.counts.downvotes}</span>
                             </div>
                             <div class="counter">
-                                <button onclick="goToComments(${coremacitochi}, '${getInstanceFromActorId(post.post.ap_id)}')">💬</button>
+                                <button onclick="goToComments(${post.post.id}, '${server}')">💬</button>
                                 <span>${post.counts.comments}</span>
                             </div>
                         </div>
