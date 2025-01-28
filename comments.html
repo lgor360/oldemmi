@@ -247,7 +247,7 @@
                             "authorization": `Bearer ${localStorage.getItem("lemmyToken")}`
                         },
                         body: {
-                            "post_id": postfed.post.post.id},
+                            "post_id": postfed.post.post.id,
                             "content": `${document.getElementById("commentinput").value}`
                         }
                     })
