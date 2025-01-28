@@ -122,7 +122,7 @@
 
         async function fetchPosts() {
             try {
-                const response = await fetch(`${api}/post/list?community_name=${community}&limit=${limit}&page=${page}`, {
+                const response = await fetch(`${api}/post/list?sort=New&community_name=${community}&limit=${limit}&page=${page}`, {
                     method: "GET",
                     headers: { "content-type": "application/json", "authorization": `Bearer ${localStorage.getItem("lemmyToken")}` }
                 });
