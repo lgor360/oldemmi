@@ -139,6 +139,7 @@
             const progressContainer = document.getElementById("progress-container");
             const maxwell = document.getElementById("maxwell_cat");
             const progressBar = document.getElementById("progress-bar");
+            const pasa = document.getElementById("pathstatus");
             progressContainer.style.display = "block";
             
             while (true) {
@@ -164,7 +165,7 @@
             // скрываем прогресс-бар после загрузки
             progressContainer.style.display = "none";
             maxwell.style.display = "block";
-            document.getElementById("pathstatus").style.display = "table";
+            pasa.style.display = "table";
             
             return alkac;
         }
