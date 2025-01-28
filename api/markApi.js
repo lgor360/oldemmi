@@ -5,7 +5,7 @@ const { marked } = require('marked');
 const app = express();
 app.use(bodyParser.json()); // изменено на json, так как мы передаем JSON
 
-app.post('/convert', (req, res) => {
+app.post('/api/markApi.js', (req, res) => {
     let markdownText = req.body.marktext;
 
     // если marktext не передан
