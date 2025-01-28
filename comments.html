@@ -258,7 +258,7 @@
                         body: {
                             "post_id": postfed.post.post.id,
                             "content": `${document.getElementById("commentinput").value}`,
-                            "path": compath
+                            "parent_id": compath
                         }
                     })
                 });
@@ -377,7 +377,7 @@
                                 <span style="color: ${dislikecolor};" id="down${comment.comment.id}">${comment.counts.downvotes}</span>
                             </div>
                             <div class="counter">
-                                <button onclick="pathzero(${comment.comment.path}, 'table', 'you answering on the comment ${cerotinicosi}')">💬</button>
+                                <button onclick="pathzero(${comment.comment.id}, 'table', 'you answering on the comment ${cerotinicosi}')">💬</button>
                             </div>
                         </div>
                     `;
