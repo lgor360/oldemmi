@@ -247,8 +247,11 @@
         }
         
         async function createHappyComment() {
+            alert(post);
+            alert(`https://${server}/post/${post}`);
             const postfed = await fedFetch(`https://${server}/post/${post}`, "post");
-            let nedfedpostid = localStorage.getItem("accountServer") === server ? post : postfed.post.post.id;
+            alert(JSON.stringify(postfed, null, 2));
+            alert("ka");
             try {
                 const response = await fetch("https://oldemmi.vercel.app/api/server.js", {
                     method: "POST",
@@ -261,7 +264,7 @@
                             "authorization": `Bearer ${localStorage.getItem("lemmyToken")}`
                         },
                         body: {
-                            "post_id": nedfedpostid,
+                            "post_id": postfed.post.post.id,
                             "content": `${document.getElementById("commentinput").value}`,
                             "parent_id": compath
                         }
