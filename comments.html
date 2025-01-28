@@ -56,7 +56,16 @@
         </div>
     </div>
 
-    <div style="display: flex; justify-content: center; margin: 20px auto; align-content: center; align-items: center;"><textarea placeholder="enter your comment" style="margin-right: 10px;" id="commentinput"></textarea><button onclick="createHappyComment()">submit</button></div>
+    <div style="display: block; justify-content: center; margin: 20px auto; align-content: center; align-items: center;">
+        <div style="display: flex;">
+            <textarea placeholder="enter your comment" style="margin-right: 10px;" id="commentinput"></textarea>
+            <button onclick="createHappyComment()">submit</button>
+        </div>
+        <div style="display: flex; border: 1px solid #ccc; border-radius: 0px; background-color: #353535;">
+            <span id="pathstatus">path_status</span>
+            <button style="padding: 2px 2px;" id="cancelpath">×</button>
+        </div>
+    </div>
 
     <script src="https://oldemmi.vercel.app/js/needScript.js"></script>
     <script src="https://oldemmi.vercel.app/js/actions.js"></script>
@@ -251,6 +260,7 @@
                         }
                     })
                 });
+                document.getElementById("commentinput").value = "";
                 allComments = [];
                 page = 1;
                 commentsCount = null;
