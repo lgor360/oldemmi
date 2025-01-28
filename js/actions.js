@@ -57,17 +57,9 @@ async function voteContent(mlike, type, id, mylike) {
 // функция для получения профиля
 async function fedFetch(q, type) {
     try {
-        const response = await fetch("https://oldemmi.vercel.app/api/server.js", {
-            method: "POST",
-            headers: { "content-type": "application/json" },
-            body: JSON.stringify({
-                url: `https://${server}/api/v3/resolve_object?q=${q}`,
-                method: "GET",
-                headers: {
-                    "content-type": "application/json",
-                    "authorization": `Bearer ${lemmyToken}`
-                }
-            })
+        const response = await fetch(`https://${localStorage.getItem("accountServer")}/api/v3/resolve_object?q=${q}`, {
+            method: "GET",
+            headers: { "content-type": "application/json", "authorization": `Bearer ${lemmyToken}` }
         });
         return await response.json();
     } catch (error) {
