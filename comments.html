@@ -63,7 +63,7 @@
     <script src="https://oldemmi.vercel.app/js/markdown.js"></script>
     <script defer>
         let commentsCount = null;
-        const allComments = []; // глобальный массив для хранения всех комментариев
+        let allComments = []; // глобальный массив для хранения всех комментариев
         const urlParams = new URLSearchParams(window.location.search);
         const server = urlParams.get('server') || "lemmy.world";
         const post = urlParams.get('post') || "826753";
@@ -251,6 +251,7 @@
                         }
                     })
                 });
+                allComments = [];
                 page = 1;
                 commentsCount = null;
                 loadMoreComments();
