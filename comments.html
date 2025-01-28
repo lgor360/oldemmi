@@ -57,7 +57,7 @@
         </div>
     </div>
     
-    <div style="display: none; margin-bottom: 10px; justify-content: center; margin: 20px auto; align-content: center; align-items: center;">
+    <div id="ancksokrinca" style="display: none; margin-bottom: 10px; justify-content: center; margin: 20px auto; align-content: center; align-items: center;">
         <div style="display: flex; max-width: 450px;"><textarea placeholder="enter your comment" id="commentinput"></textarea><button onclick="createHappyComment()">submit</button></div>
         <span onclick="pathzero(0, 'none', 'a')" style="display: none; border: 1px solid #ccc; background-color: #353535;" id="pathstatus">path_status</span>
     </div>
@@ -139,7 +139,7 @@
             const progressContainer = document.getElementById("progress-container");
             const maxwell = document.getElementById("maxwell_cat");
             const progressBar = document.getElementById("progress-bar");
-            const pasa = document.getElementById("pathstatus");
+            const pasa = document.getElementById("ancksokrinca");
             progressContainer.style.display = "block";
             
             while (true) {
