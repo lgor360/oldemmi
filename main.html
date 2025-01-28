@@ -178,7 +178,7 @@
         }
         
         // функция для отображения постов
-        function renderPosts(posts) {
+        async function renderPosts(posts) {
             try {
                 const postsContainer = document.getElementById("posts");
 
@@ -245,7 +245,7 @@
         // функция для загрузки постов
         async function loadMorePosts() {
             const posts = await fetchPosts();
-            renderPosts(posts);
+            await renderPosts(posts);
             page++; // увеличиваем номер страницы
         }
 
