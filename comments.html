@@ -260,7 +260,7 @@
                             "authorization": `Bearer ${localStorage.getItem("lemmyToken")}`
                         },
                         body: {
-                            "post_id": post,
+                            "post_id": Number(post),
                             "content": `${document.getElementById("commentinput").value}`,
                             "parent_id": compath
                         }
