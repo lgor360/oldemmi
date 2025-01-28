@@ -1,17 +1,7 @@
 async function parseMarkdown(text) {
-    const response = await fetch("https://oldemmi.vercel.app/convert", {
-        method: "POST",
-        headers: {
-            "content-type": "application/json"
-        },
-        body: JSON.stringify({ marktext: `${text}` })
-    });
-
-    if (!response.ok) {
-        throw new Error(`server returned error: ${response.status}`);
-    }
-
-    const marktextgotovo = await response.json(); // получаем текст
-    alert(JSON.stringify(marktextgotovo, null, 2));;
-    return marktextgotovo;
+    const scriptmark = document.createElement("script");
+    scriptmark.src = "https://cdn.jsdelivr.net/remarkable/1.7.1/remarkable.min.js";
+    document.head.appendChild(scriptmark);
+    var md = new Remarkable();
+    return md.render(`${text}`);
 }
