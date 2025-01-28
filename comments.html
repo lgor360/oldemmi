@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+бебра<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -239,18 +239,18 @@
                 const response = await fetch("https://oldemmi.vercel.app/api/server.js", {
                     method: "POST",
                     headers: { "content-type": "application/json" },
-                    body: JSON.stringify({
-                        url: `https://${server}/api/v3/comment/`,
-                        method: "POST",
-                        headers: {
+                    body: {
+                        "url": `https://${server}/api/v3/comment/`,
+                        "method": "POST",
+                        "headers": {
                             "content-type": "application/json",
                             "authorization": `Bearer ${localStorage.getItem("lemmyToken")}`
                         },
-                        body: {
+                        "body": {
                             "post_id": `${postfed.post.post.id}`,
                             "content": `${document.getElementById("commentinput").value}`
                         }
-                    })
+                    }
                 });
                 if (!response.ok) {
                     alert(await response.text());
