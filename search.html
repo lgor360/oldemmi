@@ -76,6 +76,7 @@
         const limit = 9; // количество постов на одну загрузку
         const api = `https://${server}/api/v3`
         const typeSelect = document.getElementById("typeSelect");
+        document.getElementById("searchinput").value = search;
         typeSelect.value = filter;
         const lemmyToken = localStorage.getItem("lemmyToken");
 
