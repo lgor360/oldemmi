@@ -1,4 +1,4 @@
-# about
+# aboute
 i wanted to make a light client for lemmy. i tried to make it look like from the old internet :P
 
 ![preview](https://github.com/user-attachments/assets/ea474101-9363-47a9-821c-c94294493657)
