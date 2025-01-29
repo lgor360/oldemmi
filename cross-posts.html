@@ -161,8 +161,8 @@
                     const postotourl = post.post.url && post.post.url !== post.post.thumbnail_url ? post.post.url : null;
                     const postElement = document.createElement("div");
                     postElement.classList.add("post");
-                    const likecolor = post.my_vote === 1 ? "#b3c46d" : "#ffffff";
-                    const dislikecolor = post.my_vote === -1 ? "#b3c46d" : "#ffffff";
+                    const likecolor = post.my_vote && post.my_vote === 1 ? "#b3c46d" : "#ffffff";
+                    const dislikecolor = post.my_vote && post.my_vote === -1 ? "#b3c46d" : "#ffffff";
 
                     postElement.innerHTML = `
                         <div class="post-header">
