@@ -32,8 +32,7 @@ input {
     cursor: text;
 }
 input[type="checkbox"] {
-    appearance: none; /* убираем стандартный стиль */
-    display: block;
+    appearance: none;
     padding: 10px 10px;
     border: 1px solid #ccc;
     border-radius: 0px;
