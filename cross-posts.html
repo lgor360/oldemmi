@@ -161,11 +161,9 @@
                     const postotourl = post.post.url && post.post.url !== post.post.thumbnail_url ? post.post.url : null;
                     const postElement = document.createElement("div");
                     postElement.classList.add("post");
-                    const likecolor = post.my_vote && post.my_vote === 1 ? "#b3c46d" : "#ffffff";
-                    const dislikecolor = post.my_vote && post.my_vote === -1 ? "#b3c46d" : "#ffffff";
 
                     postElement.innerHTML = `
-                        <div class="post-header">
+                        <div onclick="goToComments(${post.post.id})" class="post-header">
                             <img onclick="goToProfile('${post.creator.name}', '${getInstanceFromActorId(post.creator.actor_id)}')" src="${post.creator.avatar || 'https://oldemmi.vercel.app/resources/user.png'}" alt="avatar">
                             <div class="author">
                                 ${post.creator.display_name || post.creator.name}
@@ -194,20 +192,6 @@
                         <div class="post-text">${parseMarkdown(post.post.body || "")}</div>
                         ${post.post.thumbnail_url ? `<img src="${post.post.thumbnail_url}" class="post-image" alt="image">` : ""}
                         ${postotourl ? `<div class="post-link"><a rel="noopener noreferrer" href="${postotourl}">${linkMax(postotourl)}</a></div>` : ""}
-                        <div class="post-footer">
-                            <div class="counter">
-                                <button onclick="voteContent(1, 'post', ${post.post.id}, ${post.my_vote})">👍</button>
-                                <span style="color: ${likecolor};" id="vote${post.post.id}">${post.counts.upvotes}</span>
-                            </div>
-                            <div class="counter">
-                                <button onclick="voteContent(-1, 'post', ${post.post.id}, ${post.my_vote})">👎</button>
-                                <span style="color: ${dislikecolor};" id="down${post.post.id}">${post.counts.downvotes}</span>
-                            </div>
-                            <div class="counter">
-                                <button onclick="goToComments(${post.post.id})">💬</button>
-                                <span>${post.counts.comments}</span>
-                            </div>
-                        </div>
                     `;
                     postsContainer.appendChild(postElement);
                 });
@@ -267,7 +251,7 @@
                             <span style="color: ${dislikecolor};" id="down${post_view.post.id}">${post_view.counts.downvotes}</span>
                         </div>
                         <div class="answer">
-                            <button>💬</button>
+                            <button onclick="goToComments(${post_view.post.id})">💬</button>
                             <span>${post_view.counts.comments}</span>
                         </div>
                     </div>
