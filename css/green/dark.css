@@ -7,6 +7,34 @@ body {
     margin: 0;
     padding: 0;
 }
+input[type="checkbox"] {
+    appearance: none;
+    padding: 10px 10px;
+    border: 1px solid #ccc;
+    border-radius: 0px;
+    background-color: #353535;
+    color: #fff;
+    box-sizing: border-box;
+    cursor: pointer;
+    font-size: 10px;
+    line-height: 10px;
+}
+input[type="checkbox"]::before {
+    content: "";
+}
+input[type="checkbox"]:checked {
+    padding: 5px 5px;
+    background-color: #abbf54;
+}
+input[type="checkbox"]:disabled {
+    background-color: #797979;
+}
+input[type="checkbox"]:checked:disabled {
+    background-color: #797979;
+}
+input[type="checkbox"]:checked::before {
+    content: "✔";
+}
 img {
     border: 1px solid #ccc;
     border-radius: 0px;
