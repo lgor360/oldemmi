@@ -32,18 +32,26 @@ input {
     cursor: text;
 }
 input[type="checkbox"] {
-  appearance: none; /* убираем стандартный стиль */
-  width: 3px;
-  height: 3px;
-  border: 1px solid #ccc;
-  border-radius: 0px;
-  background-color: #353535;
-  color: #fff;
-  box-sizing: border-box;
-  cursor: pointer;
+    appearance: none; /* убираем стандартный стиль */
+    width: 3px;
+    height: 3px;
+    border: 1px solid #ccc;
+    border-radius: 0px;
+    background-color: #353535;
+    color: #fff;
+    box-sizing: border-box;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 18px;
+    content: " ";
 }
 input[type="checkbox"]:checked {
-  background-color: #bf5654;
+    background-color: #bf5654;
+}
+input[type="checkbox"]:checked::before {
+    content: "✔";
+    display: block;
+    text-align: center;
 }
 .caca input {
     display: block;
