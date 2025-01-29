@@ -48,8 +48,6 @@ input[type="checkbox"] {
 }
 input[type="checkbox"]:checked {
     background-color: #bf5654;
-}
-input[type="checkbox"]:checked::before {
     content: "✔";
 }
 .caca input {
