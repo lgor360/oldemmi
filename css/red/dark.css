@@ -34,7 +34,7 @@ input {
 input[type="checkbox"] {
     appearance: none; /* убираем стандартный стиль */
     display: block;
-    padding: 18px 18px;
+    padding: 14px 14px;
     border: 1px solid #ccc;
     border-radius: 0px;
     background-color: #353535;
@@ -48,7 +48,7 @@ input[type="checkbox"]::before {
     content: "";
 }
 input[type="checkbox"]:checked {
-    padding: 13px 13px;
+    padding: 9px 9px;
     background-color: #bf5654;
 }
 input[type="checkbox"]:checked::before {
