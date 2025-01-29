@@ -34,20 +34,21 @@ input {
 input[type="checkbox"] {
     appearance: none; /* убираем стандартный стиль */
     display: block;
-    padding: 10px 8px;
+    padding: 16px 16px;
     border: 1px solid #ccc;
     border-radius: 0px;
     background-color: #353535;
     color: #fff;
     box-sizing: border-box;
     cursor: pointer;
-    font-size: 7px;
+    font-size: 9px;
     line-height: 10px;
 }
 input[type="checkbox"]::before {
     content: "";
 }
 input[type="checkbox"]:checked {
+    padding: 14px 14px;
     background-color: #bf5654;
 }
 input[type="checkbox"]:checked::before {
