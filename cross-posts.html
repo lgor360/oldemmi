@@ -227,6 +227,8 @@
                 const postotourl = post_view.post.url && post_view.post.url !== post_view.post.thumbnail_url ? post_view.post.url : null;
                 const postElement = document.createElement("div");
                 postElement.classList.add("post");
+                const likecolor = post_view.my_vote === 1 ? "#b3c46d" : "#ffffff";
+                const dislikecolor = post_view.my_vote === -1 ? "#b3c46d" : "#ffffff";
 
                 postElement.innerHTML = `
                     <div class="post-header">
@@ -257,12 +259,12 @@
                     ${postotourl ? `<div class="post-link"><a rel="noopener noreferrer" href="${postotourl}">${postotourl}</a></div>` : ""}
                     <div class="post-footer">
                         <div class="counter">
-                            <button>👍</button>
-                            <span>${post_view.counts.upvotes}</span>
+                            <button onclick="voteContent(1, 'post', ${post_view.post.id}, ${post_view.my_vote})">👍</button>
+                            <span style="color: ${likecolor};" id="vote${post_view.post.id}">${post_view.counts.upvotes}</span>
                         </div>
                         <div class="counter">
-                            <button>👎</button>
-                            <span>${post_view.counts.downvotes}</span>
+                            <button onclick="voteContent(-1, 'post', ${post_view.post.id}, ${post_view.my_vote})">👎</button>
+                            <span style="color: ${dislikecolor};" id="down${post_view.post.id}">${post_view.counts.downvotes}</span>
                         </div>
                         <div class="answer">
                             <button>💬</button>
