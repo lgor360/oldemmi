@@ -62,14 +62,16 @@
         </div>
     </div>
 
-    <dialog id="actiondialog" style="display: none; z-index: 10; border: 1px solid #ccc; border-radius: 0px; background-color: #353535; color: #fff; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-        <div>
-            <span>select the action</span>
-            <button onclick="document.getElementById('actiondialog').style.display = 'none'" style="margin-left: auto; display: flex; flex-direction: column; align-items: flex-end;">×</button>
-            <hr width="100%" size="1" color="#ccc" style="margin-top: 15px; margin-bottom: 15px;">
-            <button>edit</button>
-        </div>
-    </dialog>
+    <div id="actiondialog" style="display: none; z-index: 10; justify-content: center; align-items: center; height: 100vh;">
+        <dialog style="position: fixed; width: 50%; height: 40%; border: 1px solid #ccc; border-radius: 0px; background-color: #353535; color: #fff;">
+            <div>
+                <span>select the action</span>
+                <button onclick="document.getElementById('actiondialog').style.display = 'none'" style="margin-left: auto; display: flex; flex-direction: column; align-items: flex-end;">×</button>
+                <hr width="100%" size="1" color="#ccc" style="margin-top: 15px; margin-bottom: 15px;">
+                <button>edit</button>
+            </div>
+        </dialog>
+    </div>
 
     <script src="https://oldemmi.vercel.app/js/needScript.js"></script>
     <script src="https://oldemmi.vercel.app/js/actions.js"></script>
