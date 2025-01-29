@@ -35,7 +35,7 @@ input[type="checkbox"] {
     appearance: none; /* убираем стандартный стиль */
     display: block;
     width: 13px;
-    height: 3px;
+    height: 13px;
     border: 1px solid #ccc;
     border-radius: 0px;
     background-color: #353535;
