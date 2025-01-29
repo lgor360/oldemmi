@@ -41,7 +41,7 @@ input[type="checkbox"] {
     color: #fff;
     box-sizing: border-box;
     cursor: pointer;
-    font-size: 9px;
+    font-size: 10px;
     line-height: 10px;
 }
 input[type="checkbox"]::before {
