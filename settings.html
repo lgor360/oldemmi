@@ -55,7 +55,7 @@
             </div>
         </div>
         <div style="margin-top: 15px;" class="accountsettings">
-            <div style="font-weight: bold;" class="header">account settings</div>
+            <div style="font-weight: bold;" class="header">client settings</div>
             <div style="text-align: center;" class="body">
                 <select onchange="setTheme()" name="themes" id="themes">
                     <option value="red">red</option>
@@ -95,7 +95,7 @@
 
         function setTheme() {
             localStorage.setItem("theme", document.getElementById("themes").value);
-            document.getElementById("csslink").src = `https://lgor360.github.io/oldemmi/css/colors/${document.getElementById("themes").value}/dark.css?nocache=` + new Date().getTime();
+            document.getElementById("csslink").href = `https://lgor360.github.io/oldemmi/css/colors/${document.getElementById("themes").value}/dark.css?nocache=` + new Date().getTime();
         }
 
         // функция для получения профиля
