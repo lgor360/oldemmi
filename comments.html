@@ -76,6 +76,7 @@
         const limit = 9; // количество постов на одну загрузку
         const api = `https://${server}/api/v3`
         const lemmyToken = localStorage.getItem("lemmyToken");
+        let usernamecaca = null;
 
         function pathzero(num, dis, mes) {
             compath = num;
@@ -358,6 +359,7 @@
                     const likecolor = comment.my_vote === 1 ? "#b3c46d" : "#ffffff";
                     const dislikecolor = comment.my_vote === -1 ? "#b3c46d" : "#ffffff";
                     const cerotinicosi = comment.comment.content.length > 10 ? comment.comment.content.slice(0, 11 - 1) + '…' : comment.comment.content;
+                    const editornot = comment.creator.name === usernamecaca ? "✏️" : "";
 
                     commentElement.innerHTML = `
                         <div class="post-header">
@@ -366,6 +368,11 @@
                                 ${comment.creator.display_name || comment.creator.name}
                                 <div class="community">
                                     ${getInstanceFromActorId(comment.creator.actor_id)}
+                                </div>
+                            </div>
+                            <div class="post-status">
+                                <div onclick="alert('bsb')" class="edit">
+                                    ${editornot}
                                 </div>
                             </div>
                         </div>
@@ -446,6 +453,7 @@
                         login.style.display = "none";
 
                         const user = await getLoggined();
+                        usernamecaca = user.name;
                         profileInBar.innerHTML = `
                             <img onclick="goToProfile('${user.name}', '${localStorage.getItem("accountServer")}')" src="${user.avatar || 'https://lgor360.github.io/oldemmi/user.png'}">
                             <div class="text">
