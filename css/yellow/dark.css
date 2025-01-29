@@ -1,0 +1,387 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #bfa754;
+    background-image: url(https://lgor360.github.io/oldemmi/css/colors/yellow/wallpaper.png);
+    background-attachment: fixed;
+    color: #f3f3f3;
+    margin: 0;
+    padding: 0;
+}
+img {
+    border: 1px solid #ccc;
+    border-radius: 0px;
+}
+textarea {
+    border: 1px solid #ccc;
+    border-radius: 0px;
+    background-color: #353535;
+    color: #fff;
+    box-sizing: border-box;
+    padding: 6px 20px;
+    margin: 10px 0;
+    cursor: text;
+}
+input {
+    border: 1px solid #ccc;
+    border-radius: 0px;
+    background-color: #353535;
+    color: #fff;
+    box-sizing: border-box;
+    padding: 6px 20px;
+    margin: 10px 0;
+    cursor: text;
+}
+.caca input {
+    display: block;
+    width: 100%;
+}
+blockquote {
+    font-weight: bold;
+    font-size: 0.9em;
+}
+table {
+    border: 0px;
+    background-color: #ccc;
+    border-radius: 0px;
+}
+thead {
+    border: 2px solid #fff;
+    background-color: #454545;
+    border-radius: 0px;
+}
+tbody {
+    border: 2px solid #1f1f1f;
+    background-color: #454545;
+    border-radius: 0px;
+}
+select {
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 0px;
+    background-color: #353535;
+    color: #fff
+}
+button {
+    border: 1px solid #ccc;
+    border-radius: 0px;
+    cursor: pointer;
+    background-color: #353535;
+    color: #fff;
+    padding: 10px 20px;
+}
+.caca button {
+    max-width: 80px;
+    margin: 40px 0;
+    right: 0;
+}
+a {
+    color: #c4b16d;
+    text-decoration: none;
+}
+a:hover {
+    color: #b7a566;
+    text-decoration: none;
+}
+a:active {
+    color: #b79d42;
+    text-decoration: none;
+}
+a:visited {
+    color: #b7a975;
+    text-decoration: none;
+}
+.navbar {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background: linear-gradient(#303030, #2d2d2d 45%, #2b2b2b 55%, #282828);
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    overflow: hidden;
+}
+.navbar img {
+    max-height: 40px;
+    border: none;
+}
+.navbar button {
+    padding: 10px 15px;
+}
+.navbar .login {
+    background-color: #afa274;
+}
+.oldemmi {
+    display: flex;
+    align-items: center;
+    justify-content: normal;
+}
+.text {
+    margin-left: 5px;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+.text .instance {
+    font-size: 0.6em;
+}
+.navbar .searchbar button {
+    margin: 0px 0;
+    padding: 10px 15px;
+}
+.navbar .searchbar input {
+    margin: 0px 0;
+    padding: 10px 15px;
+}
+.navbar .searchbar select {
+    margin: 0px 0;
+    padding: 10px 15px;
+}
+.post {
+    min-width: 300px;
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin: 20px auto;
+    max-width: 600px;
+    background-color: #454545;
+    border-radius: 0px;
+    text-wrap: wrap;
+    overflow: hidden;
+}
+.post button {
+    padding: 2px 2px;
+}
+.post-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.post-header img {
+    border: 1px solid #ccc;
+    height: 50px;
+    width: 50px;
+    margin-right: 10px;
+}
+.post-header .author {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+.post-header .author .community {
+    font-size: 0.6em;
+}
+.post-name {
+    margin-bottom: 10px;
+}
+.post-text {
+    margin-bottom: 10px;
+    font-size: 0.8em;
+}
+.post-image {
+    border: 1px solid #ccc;
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+.post-footer {
+    display: flex;
+    justify-content: space-between;
+}
+.followButton {
+    margin-left: auto;
+    display: flex;
+    align-items: flex-end;
+    padding: 5px 5px;
+}
+.counter {
+    display: flex;
+    align-items: center;
+}
+.counter span {
+    margin-left: 5px;
+}
+.load-more {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+.profile {
+    min-width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 0px;
+    padding: 15px;
+    margin: 20px auto;
+    max-width: 600px;
+    background-color: #454545;
+}
+.profile-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.profile-bottom {
+    display: flex;
+    align-items: center;
+}
+.profile-header img {
+    height: 50px;
+    width: 50px;
+    margin-right: 10px;
+}
+.person {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+.instance {
+    font-weight: bold;
+    font-size: 0.6em;
+}
+.counts {
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+.post-link {
+    margin-bottom: 10px;
+}
+.post-status {
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-size: 2.0em;
+}
+.normal {
+    justify-content: normal;
+    display: flex;
+}
+.buttons {
+    border: 1px solid #ccc;
+    border-radius: 0px;
+    margin: 20px auto;
+    margin-bottom: 20px;
+    background-color: #454545;
+    width: fit-content;
+}
+.buttons .somi {
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+.buttons .somi button {
+    padding: 10px 25px;
+}
+.profileInBar {
+    display: flex;
+    align-items: center;
+    justify-content: normal;
+}
+.profileInBar img {
+    border: 1px solid #ccc;
+}
+.profileInBar .text {
+    margin-left: 5px;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+.comments {
+    width: 100%;
+}
+.comments .post-footer button {
+    padding: 2px 2px;
+}
+.comment {
+    align-items: center;
+    margin-bottom: 10px;
+    min-width: 300px;
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin: 20px auto;
+    max-width: 600px;
+    background-color: #454545;
+    border-radius: 0px;
+}
+progress {
+    border: 1px solid #ccc;
+    background-color: #454545;
+    border-radius: 0px;
+    height: 30px;
+}
+progress::-webkit-progress-bar {
+    background-color: #454545;
+}
+progress::-webkit-progress-value {
+    background-color: #dbbd53;
+    transition: width 0.5s;
+}
+progress::-moz-progress-bar {
+    background-color: #dbbd53;
+    transition: width 0.5s;
+}
+.caca {
+    padding: 20px;
+    margin: 40px auto;
+    text-align: center;
+}
+.error {
+    font-weight: bold;
+    font-size: 5.5em;
+}
+.message {
+    font-weight: bold;
+    font-size: 2.1em;
+    margin: 10px 0;
+}
+.back {
+    margin: 20px 0;
+    padding: 10px 15px;
+}
+.login-text {
+    font-weight: bold;
+    font-size: 4.1em;
+    margin-bottom: 30px;
+}
+.login-form {
+    max-width: 250px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+.creating-form {
+    max-width: 600px;
+    min-width: 300px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+.publish {
+    margin-top: 30px;
+    padding: 10px 20px;
+    max-width: 70px;
+}
+.accountsettings {
+    min-width: 300px;
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin: 20px auto;
+    max-width: 600px;
+    background-color: #454545;
+    border-radius: 0px;
+    text-wrap: wrap;
+    display: block;
+}
+.accountsettings .header {
+    display: flex;
+    margin-bottom: 10px;
+    text-size: 1.7em;
+}
+.accountsettings .body { 
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+}
+.accountsettings .body .bioinput {
+    min-height: 150px;
+}
