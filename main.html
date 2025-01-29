@@ -16,7 +16,6 @@
         }
         const colorned = localStorage.getItem("theme") || "green";
         const link = document.createElement("link");
-        link.id = "csslink";
         link.rel = "stylesheet";
         link.href = `https://lgor360.github.io/oldemmi/css/colors/${colorned}/dark.css?nocache=` + new Date().getTime();
         document.head.appendChild(link);
