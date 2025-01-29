@@ -34,6 +34,7 @@ input {
 input[type="checkbox"] {
     appearance: none; /* убираем стандартный стиль */
     display: block;
+    padding: 3px 3px;
     width: 13px;
     height: 13px;
     border: 1px solid #ccc;
@@ -44,10 +45,14 @@ input[type="checkbox"] {
     cursor: pointer;
     font-size: 16px;
     line-height: 18px;
-    content: " ";
+}
+input[type="checkbox"]::before {
+    content: "";
 }
 input[type="checkbox"]:checked {
     background-color: #bf5654;
+}
+input[type="checkbox"]:checked::before {
     content: "✔";
 }
 .caca input {
