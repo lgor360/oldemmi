@@ -34,15 +34,15 @@ input {
 input[type="checkbox"] {
     appearance: none; /* убираем стандартный стиль */
     display: block;
-    padding: 8px 8px;
+    padding: 10px 8px;
     border: 1px solid #ccc;
     border-radius: 0px;
     background-color: #353535;
     color: #fff;
     box-sizing: border-box;
     cursor: pointer;
-    font-size: 10px;
-    line-height: 8px;
+    font-size: 7px;
+    line-height: 10px;
 }
 input[type="checkbox"]::before {
     content: "";
