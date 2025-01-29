@@ -313,11 +313,11 @@ progress::-webkit-progress-bar {
     background-color: #454545;
 }
 progress::-webkit-progress-value {
-    background-color: #c4db53;
+    background-color: #a453db;
     transition: width 0.5s;
 }
 progress::-moz-progress-bar {
-    background-color: #c4db53;
+    background-color: #a453db;
     transition: width 0.5s;
 }
 .caca {
