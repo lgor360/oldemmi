@@ -24,7 +24,7 @@ input[type="checkbox"]::before {
 }
 input[type="checkbox"]:checked {
     padding: 5px 5px;
-    background-color: #bf5654;
+    background-color: #54a8bf;
 }
 input[type="checkbox"]:disabled {
     background-color: #797979;
