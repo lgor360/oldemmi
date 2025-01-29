@@ -75,7 +75,7 @@
         // функция для получения постов
         async function fetchPost() {
             try {
-                const response = await fetch(`${api}/post?id=${post}`, {
+                const response = await fetch(`${api}/post?id=${post}&nope=${Date.now()}`, {
                     method: "GET",
                     headers: { "Content-Type": "application/json", "authorization": `Bearer ${localStorage.getItem("lemmyToken")}` }
                 });
@@ -88,7 +88,7 @@
 
         async function fetchCross() {
             try {
-                const response = await fetch(`${api}/post?id=${post}`, {
+                const response = await fetch(`${api}/post?id=${post}&nope=${Date.now()}`, {
                     method: "GET",
                     headers: { "Content-Type": "application/json", "authorization": `Bearer ${localStorage.getItem("lemmyToken")}` }
                 });
