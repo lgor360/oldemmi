@@ -14,9 +14,11 @@
         if (window.innerWidth < 550) {
             document.querySelector('meta[name="viewport"]').setAttribute('content', 'width=550, initial-scale=1.0');
         }
+        const colorned = localStorage.getItem("theme") || "green";
         const link = document.createElement("link");
+        link.id = "csslink";
         link.rel = "stylesheet";
-        link.href = "https://oldemmi.vercel.app/css/dark.css?nocache=" + new Date().getTime();
+        link.href = `https://lgor360.github.io/oldemmi/css/colors/${colorned}/dark.css?nocache=` + new Date().getTime();
         document.head.appendChild(link);
     </script>
 </head>
@@ -52,6 +54,20 @@
                 <button onclick="setAccSettings()">save</button>
             </div>
         </div>
+        <div style="margin-top: 15px;" class="accountsettings">
+            <div style="font-weight: bold;" class="header">client settings</div>
+            <div style="text-align: center;" class="body">
+                <select onchange="setTheme()" name="themes" id="themes">
+                    <option value="red">red</option>
+                    <option value="orange">orange</option>
+                    <option value="yellow">yellow</option>
+                    <option value="green">green (default)</option>
+                    <option value="sea">sea</option>
+                    <option value="blue">blue</option>
+                    <option value="purple">purple</option>
+                </select>
+            </div>
+        </div>
     </div>
 
     <script defer>
@@ -68,12 +84,18 @@
         let avedit = 0;
         let nsfwcheck;
         let avnorm;
+        document.getElementById("themes").value = localStorage.getItem("theme") || "green";
         
         function instanceapply() {
             const instdiv = document.querySelector(".navbar .oldemmi .text .instance");
             instdiv.innerHTML = `
                 ${server}
             `;
+        }
+
+        function setTheme() {
+            localStorage.setItem("theme", document.getElementById("themes").value);
+            document.getElementById("csslink").href = `https://oldemmi.vercel.app/css/${document.getElementById("themes").value}/dark.css?nocache=` + new Date().getTime();
         }
 
         // функция для получения профиля
