@@ -361,6 +361,8 @@
                     const dislikecolor = comment.my_vote === -1 ? "#b3c46d" : "#ffffff";
                     const cerotinicosi = comment.comment.content.length > 10 ? comment.comment.content.slice(0, 11 - 1) + '…' : comment.comment.content;
                     const editornot = comment.creator.name === usernamentu ? `<div class="counter><button>✏️</button>` : "";
+                    alert(comment.creator.name);
+                    alert(usernamentu);
 
                     commentElement.innerHTML = `
                         <div class="post-header">
