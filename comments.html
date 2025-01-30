@@ -14,9 +14,10 @@
         if (window.innerWidth < 550) {
             document.querySelector('meta[name="viewport"]').setAttribute('content', 'width=550, initial-scale=1.0');
         }
+        const colorned = localStorage.getItem("theme") || "green";
         const link = document.createElement("link");
         link.rel = "stylesheet";
-        link.href = "https://oldemmi.vercel.app/css/red/dark.css?nocache=" + new Date().getTime();
+        link.href = `https://oldemmi.vercel.app/css/${colorned}/dark.css?nocache=` + new Date().getTime();
         document.head.appendChild(link);
     </script>
 </head>
@@ -62,20 +63,12 @@
         </div>
     </div>
 
-    <dialog id="actiondialog" style="display: flex; position: fixed; width: 50%; display: none; z-index: 10; justify-content: center; align-items: center; height: 100vh; border: 1px solid #ccc; border-radius: 0px; background-color: #353535; color: #fff;">
-        <div>
-            <span>select the action</span>
-            <button onclick="document.getElementById('actiondialog').style.display = 'none'" style="margin-left: auto; display: flex; flex-direction: column; align-items: flex-end;">×</button>
-            <hr width="100%" size="1" color="#ccc" style="margin-top: 15px; margin-bottom: 15px;">
-            <button>edit</button>
-        </div>
-    </dialog>
-
     <script src="https://oldemmi.vercel.app/js/needScript.js"></script>
     <script src="https://oldemmi.vercel.app/js/actions.js"></script>
     <script src="https://oldemmi.vercel.app/js/markdown.js"></script>
     <script defer>
         let compath = 0;
+        let usernamintu = null;
         let commentsCount = null;
         let allComments = []; // глобальный массив для хранения всех комментариев
         const urlParams = new URLSearchParams(window.location.search);
@@ -85,7 +78,6 @@
         const limit = 9; // количество постов на одну загрузку
         const api = `https://${server}/api/v3`
         const lemmyToken = localStorage.getItem("lemmyToken");
-        let usernamecaca = null;
 
         function pathzero(num, dis, mes) {
             compath = num;
@@ -103,9 +95,9 @@
         // функция для получения постов
         async function fetchPost() {
             try {
-                const response = await fetch(`${api}/post?id=${post}`, {
+                const response = await fetch(`${api}/post?id=${post}&nope=${Date.now()}`, {
                     method: "GET",
-                    headers: { "Content-Type": "application/json", "authorization": `Bearer ${lemmyToken}` }
+                    headers: { "Content-Type": "application/json", "authorization": `Bearer ${localStorage.getItem("lemmyToken")}` }
                 });
                 const data = await response.json();
                 commentsCount = data.post_view.counts.comments;
@@ -125,7 +117,7 @@
                         method: "POST",
                         headers: {
                             "content-type": "application/json",
-                            "authorization": `Bearer ${lemmyToken}`
+                            "authorization": `Bearer ${localStorage.getItem("lemmyToken")}`
                         },
                         body: {
                             "read": true,
@@ -154,7 +146,7 @@
             while (true) {
                 const response = await fetch(`${api}/comment/list?post_id=${post}&page=${page}&limit=${limit}&sort=New`, {
                     method: "GET",
-                    headers: { "Content-Type": "application/json", "authorization": `Bearer ${lemmyToken}` }
+                    headers: { "Content-Type": "application/json", "authorization": `Bearer ${localStorage.getItem("lemmyToken")}` }
                 });
                 const data = await response.json();
                 const comments = data.comments;
@@ -205,7 +197,7 @@
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
-                        "Authorization": `Bearer ${lemmyToken}`
+                        "authorization": `Bearer ${localStorage.getItem("lemmyToken")}`
                     }
                 });
                 const data = await response.json();
@@ -223,7 +215,7 @@
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
-                        "Authorization": `Bearer ${lemmyToken}`
+                        "authorization": `Bearer ${localStorage.getItem("lemmyToken")}`
                     }
                 });
 
@@ -368,7 +360,7 @@
                     const likecolor = comment.my_vote === 1 ? "#b3c46d" : "#ffffff";
                     const dislikecolor = comment.my_vote === -1 ? "#b3c46d" : "#ffffff";
                     const cerotinicosi = comment.comment.content.length > 10 ? comment.comment.content.slice(0, 11 - 1) + '…' : comment.comment.content;
-                    const editornot = comment.creator.name === usernamecaca ? "✏️" : "";
+                    const editornot = comment.creator.name === usernamentu ? `<div class="counter><button>✏️</button>` : "";
 
                     commentElement.innerHTML = `
                         <div class="post-header">
@@ -377,11 +369,6 @@
                                 ${comment.creator.display_name || comment.creator.name}
                                 <div class="community">
                                     ${getInstanceFromActorId(comment.creator.actor_id)}
-                                </div>
-                            </div>
-                            <div class="post-status">
-                                <div onclick="document.getElementById('actiondialog').style.display = 'flex'" class="edit">
-                                    ${editornot}
                                 </div>
                             </div>
                         </div>
@@ -398,6 +385,7 @@
                             <div class="counter">
                                 <button onclick="pathzero(${comment.comment.id}, 'table', 'you answering on the comment \`${cerotinicosi}\`. click to cancel')">💬</button>
                             </div>
+                            ${editornot}
                         </div>
                     `;
 
@@ -462,7 +450,7 @@
                         login.style.display = "none";
 
                         const user = await getLoggined();
-                        usernamecaca = user.name;
+                        usernamintu = user.name;
                         profileInBar.innerHTML = `
                             <img onclick="goToProfile('${user.name}', '${localStorage.getItem("accountServer")}')" src="${user.avatar || 'https://lgor360.github.io/oldemmi/user.png'}">
                             <div class="text">
