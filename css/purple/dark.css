@@ -413,3 +413,6 @@ progress::-moz-progress-bar {
 .accountsettings .body .bioinput {
     min-height: 150px;
 }
+.likenonecounte {
+    color: #a16dc4;
+}
