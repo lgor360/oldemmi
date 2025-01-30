@@ -14,9 +14,10 @@
         if (window.innerWidth < 550) {
             document.querySelector('meta[name="viewport"]').setAttribute('content', 'width=550, initial-scale=1.0');
         }
+        const colorned = localStorage.getItem("theme") || "green";
         const link = document.createElement("link");
         link.rel = "stylesheet";
-        link.href = "https://oldemmi.vercel.app/css/dark.css?nocache=" + new Date().getTime();
+        link.href = `https://oldemmi.vercel.app/css/${colorned}/dark.css?nocache=` + new Date().getTime();
         document.head.appendChild(link);
     </script>
 </head>
@@ -54,6 +55,7 @@
 
     <script src="https://oldemmi.vercel.app/js/needScript.js"></script>
     <script src="https://oldemmi.vercel.app/js/markdown.js"></script>
+    <script src="https://oldemmi.vercel.app/js/actions.js"></script>
     <script defer>
         let logined = false;
         const lemmyToken = localStorage.getItem("lemmyToken");
@@ -121,9 +123,9 @@
 
         async function fetchPosts() {
             try {
-                const response = await fetch(`${api}/post/list?community_name=${community}&limit=${limit}&page=${page}`, {
+                const response = await fetch(`${api}/post/list?sort=New&community_name=${community}&limit=${limit}&page=${page}`, {
                     method: "GET",
-                    headers: { "content-type": "application/json" }
+                    headers: { "content-type": "application/json", "authorization": `Bearer ${localStorage.getItem("lemmyToken")}` }
                 });
                 const data = await response.json();
                 return data.posts;
@@ -322,6 +324,8 @@
                     const postotourl = post.post.url && post.post.url !== post.post.thumbnail_url ? post.post.url : null;
                     const postElement = document.createElement("div");
                     postElement.classList.add("post");
+                    const likecolor = post.my_vote === 1 ? "likenonecounte" : "gagagaracnic";
+                    const dislikecolor = post.my_vote === -1 ? "likenonecounte" : "gagagaracnic";
 
                     postElement.innerHTML = `
                         <div class="post-header">
@@ -352,12 +356,12 @@
                         ${postotourl ? `<div class="post-link"><a rel="noopener noreferrer" href="${postotourl}">${linkMax(postotourl)}</a></div>` : ""}
                         <div class="post-footer">
                             <div class="counter">
-                                <button>👍</button>
-                                <span>${post.counts.upvotes}</span>
+                                <button onclick="voteContent(1, 'post', ${post.post.id}, ${post.my_vote})">👍</button>
+                                <span class="${likecolor}" id="vote${post.post.id}">${post.counts.upvotes}</span>
                             </div>
                             <div class="counter">
-                                <button>👎</button>
-                                <span>${post.counts.downvotes}</span>
+                                <button onclick="voteContent(-1, 'post', ${post.post.id}, ${post.my_vote})">👎</button>
+                                <span class="${dislikecolor}" id="down${post.post.id}">${post.counts.downvotes}</span>
                             </div>
                             <div class="counter">
                                 <button onclick="goToComments(${post.post.id})">💬</button>
@@ -376,7 +380,8 @@
         function renderCommunity(community_view) {
             try {
                 if (!community_view || !community_view.community || !community_view.counts) {
-                    throw new Error("invalid community_view data");
+          
+                          throw new Error("invalid community_view data");
                 }
 
                 const date = new Date(community_view.community.published);
