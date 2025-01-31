@@ -287,6 +287,7 @@
                         }
                     })
                 });
+                console.log(JSON.stringify(await response.json(), null, 2));
                 document.getElementById("commentinput").value = "";
                 allComments = [];
                 page = 1;
