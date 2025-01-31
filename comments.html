@@ -452,7 +452,7 @@
                         login.style.display = "none";
 
                         const user = await getLoggined();
-                        usernamintu = user.name;
+                        usernamentu = user.name;
                         profileInBar.innerHTML = `
                             <img onclick="goToProfile('${user.name}', '${localStorage.getItem("accountServer")}')" src="${user.avatar || 'https://lgor360.github.io/oldemmi/user.png'}">
                             <div class="text">
