@@ -269,7 +269,7 @@
             }
         }
         
-        async function deleteHappyComment(id) {
+        async function deleteHappyComment(id, delor) {
             try {
                 const response = await fetch("https://oldemmi.vercel.app/api/server.js", {
                     method: "POST",
@@ -283,7 +283,7 @@
                         },
                         body: {
                             "comment_id": Number(id),
-                            "deleted": true
+                            "deleted": delor
                         }
                     })
                 });
@@ -446,7 +446,9 @@
                     const dislikecolor = comment.my_vote === -1 ? "#b3c46d" : "#ffffff";
                     const cerotinicosi = comment.comment.content.length > 10 ? comment.comment.content.slice(0, 11 - 1) + '…' : comment.comment.content;
                     const bodyforedit = letmakendody(comment.comment.content);
-                    const editornot = comment.creator.name === usernamentu ? `<div style="justlify-content: center;" class="counter"><button onclick="letseditcom(${comment.comment.id}, '${cerotinicosi}', '${bodyforedit}')">✏️</button><button onclick="deleteHappyComment(${comment.comment.id})">🗑️</button></div>` : "";
+                    const deletor = comment.comment.deleted === false ? true : false;
+                    const deletonamr = comment.comment.deleted === false ? "🗑️" : "↩️🗑️";
+                    const editornot = comment.creator.name === usernamentu ? `<div style="justlify-content: center;" class="counter"><button onclick="letseditcom(${comment.comment.id}, '${cerotinicosi}', '${bodyforedit}')">✏️</button><button onclick="deleteHappyComment(${comment.comment.id}, ${deletor})">${deletonamr}</button></div>` : "";
                     const vlickedbody = comment.comment.deleted === true ? "deleted by creator" : comment.comment.content;
                     const deleted = comment.comment.deleted === true ? '🗑️' : '';
                     
