@@ -89,7 +89,7 @@
         
         function pathzero(num, dis, mes) {
             compath = num;
-            editid = num;
+            editid = 0;
             document.getElementById("pathstatus").style.display = dis;
             document.getElementById("pathstatus").textContent = mes;
         }
@@ -443,6 +443,7 @@
                     const editornot = comment.creator.name === usernamentu ? `<div style="justlify-content: center;" class="counter"><button onclick="letseditcom(${comment.comment.id}, '${cerotinicosi}', '${comment.comment.content}')">✏️</button><button onclick="deleteHappyComment(${comment.comment.id})">🗑️</button></div>` : "";
                     const vlickedbody = comment.comment.deleted === true ? "deleted by creator" : comment.comment.content;
                     const deleted = comment.comment.deleted === true ? '🗑️' : '';
+                    alert(comment.comment.content);
                     
                     commentElement.innerHTML = `
                         <div class="post-header">
