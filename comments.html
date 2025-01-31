@@ -361,7 +361,7 @@
                     const likecolor = comment.my_vote === 1 ? "#b3c46d" : "#ffffff";
                     const dislikecolor = comment.my_vote === -1 ? "#b3c46d" : "#ffffff";
                     const cerotinicosi = comment.comment.content.length > 10 ? comment.comment.content.slice(0, 11 - 1) + '…' : comment.comment.content;
-                    const editornot = comment.creator.name === usernamentu ? `<div style="justlify-content: center;" class="counter"><button>✏️</button><button><span style="z-index: 5">💬</span><span style="z-index: 10">❌</span></button></div>` : "";
+                    const editornot = comment.creator.name === usernamentu ? `<div style="justlify-content: center;" class="counter"><button>✏️</button><button>❌</button></div>` : "";
 
                     commentElement.innerHTML = `
                         <div class="post-header">
