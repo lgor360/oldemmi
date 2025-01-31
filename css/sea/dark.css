@@ -277,7 +277,6 @@ a:visited {
 .post-status {
     margin-left: auto;
     display: flex;
-    flex-direction: column;
     justify-content: flex-end;
     font-size: 2.0em;
 }
