@@ -441,6 +441,8 @@
                     const dislikecolor = comment.my_vote === -1 ? "#b3c46d" : "#ffffff";
                     const cerotinicosi = comment.comment.content.length > 10 ? comment.comment.content.slice(0, 11 - 1) + '…' : comment.comment.content;
                     const editornot = comment.creator.name === usernamentu ? `<div style="justlify-content: center;" class="counter"><button onclick="letseditcom(${comment.comment.id}, '${cerotinicosi}', '${comment.comment.content}')">✏️</button><button onclick="deleteHappyComment(${comment.comment.id})">🗑️</button></div>` : "";
+                    const vlickedbody = comment.comment.deleted === true ? "deleted by creator" : comment.comment.content;
+                    const deleted = comment.comment.deleted === true ? '🗑️' : '';
                     
                     commentElement.innerHTML = `
                         <div class="post-header">
@@ -451,8 +453,13 @@
                                     ${getInstanceFromActorId(comment.creator.actor_id)}
                                 </div>
                             </div>
+                            <div class="post-status">
+                                <div onclick="alert('this comment is deleted')" class="deleted">
+                                    ${deleted}
+                                </div>
+                            </div>
                         </div>
-                        <div class="post-text">${parseMarkdown(comment.comment.content)}</div>
+                        <div class="post-text">${parseMarkdown(vlickedbody)}</div>
                         <div class="post-footer">
                             <div class="counter">
                                 <button onclick="voteContent(1, 'comment', ${comment.comment.id}, ${comment.my_vote})">👍</button>
