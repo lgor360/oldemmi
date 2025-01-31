@@ -288,6 +288,9 @@
                     })
                 });
                 console.log(JSON.stringify(await response.json(), null, 2));
+                document.getElementById("post").innerHTML = "";
+                const post_view = await fetchPost();
+                await renderPost(post_view);
                 document.getElementById("commentinput").value = "";
                 allComments = [];
                 page = 1;
@@ -318,6 +321,9 @@
                         }
                     })
                 });
+                document.getElementById("post").innerHTML = "";
+                const post_view = await fetchPost();
+                await renderPost(post_view);
                 document.getElementById("commentinput").value = "";
                 allComments = [];
                 page = 1;
@@ -347,6 +353,9 @@
                         }
                     })
                 });
+                document.getElementById("post").innerHTML = "";
+                const post_view = await fetchPost();
+                await renderPost(post_view);
                 document.getElementById("commentinput").value = "";
                 allComments = [];
                 page = 1;
