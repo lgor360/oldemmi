@@ -45,7 +45,7 @@
     <hr width="93%" size="2" color="#454545">
     
     <div id="ancksokrinca" style="display: none; margin-bottom: 10px; justify-content: center; margin: 20px auto; align-content: center; align-items: center;">
-        <div style="display: flex;"><textarea placeholder="enter your comment" id="commentinput"></textarea><button onclick="createHappyComment()">submit</button></div>
+        <div style="display: flex;"><textarea placeholder="enter your comment" id="commentinput"></textarea><button onclick="edorcr()">submit</button></div>
         <span onclick="pathzero(0, 'none', 'a')" style="display: none; max-width: 250px; width: 100%; text-wrap: wrap; border: 1px solid #ccc; background-color: #353535;" id="pathstatus">path_status</span>
     </div>
     
@@ -67,8 +67,9 @@
     <script src="https://oldemmi.vercel.app/js/actions.js"></script>
     <script src="https://oldemmi.vercel.app/js/markdown.js"></script>
     <script defer>
+        let editid = 0;
         let compath = 0;
-        let usernamentu = null;
+        let usernamentu = "a";
         let commentsCount = null;
         let allComments = []; // глобальный массив для хранения всех комментариев
         const urlParams = new URLSearchParams(window.location.search);
@@ -79,10 +80,26 @@
         const api = `https://${server}/api/v3`
         const lemmyToken = localStorage.getItem("lemmyToken");
 
+        function letseditcom(id, cerotinicosi, body) {
+            editid = Number(id);
+            document.getElementById("pathstatus").style.display = "table";
+            document.getElementById("pathstatus").textContent = `you editing comment \`${cerotinicosi}\`. click to cancel`;
+            document.getElementById("commentinput").value = body;
+        }
+        
         function pathzero(num, dis, mes) {
             compath = num;
+            editid = num;
             document.getElementById("pathstatus").style.display = dis;
             document.getElementById("pathstatus").textContent = mes;
+        }
+
+        function edorcr() {
+            if (editid === 0) {
+                createHappyComment();
+            } else {
+                editHappyComment();
+            }
         }
         
         function instanceapply() {
@@ -279,6 +296,35 @@
             }
         }
         
+        async function editHappyComment() {
+            try {
+                const response = await fetch("https://oldemmi.vercel.app/api/server.js", {
+                    method: "POST",
+                    headers: { "content-type": "application/json" },
+                    body: JSON.stringify({
+                        url: `https://${server}/api/v3/comment`,
+                        method: "PUT",
+                        headers: {
+                            "content-type": "application/json",
+                            "authorization": `Bearer ${localStorage.getItem("lemmyToken")}`
+                        },
+                        body: {
+                            "content": `${document.getElementById("commentinput").value}`,
+                            "comment_id": editid
+                        }
+                    })
+                });
+                document.getElementById("commentinput").value = "";
+                allComments = [];
+                page = 1;
+                commentsCount = null;
+                pathzero(0, 'none', 'a');
+                loadMoreComments();
+            } catch (error) {
+                alert(`action failed: ${error}`);
+            }
+        }
+        
         // функция для отображения постов
         async function renderPost(post_view) {
             try {
@@ -361,9 +407,7 @@
                     const likecolor = comment.my_vote === 1 ? "#b3c46d" : "#ffffff";
                     const dislikecolor = comment.my_vote === -1 ? "#b3c46d" : "#ffffff";
                     const cerotinicosi = comment.comment.content.length > 10 ? comment.comment.content.slice(0, 11 - 1) + '…' : comment.comment.content;
-                    const editornot = comment.creator.name === usernamentu ? `<div style="justlify-content: center;" class="counter"><button>✏️</button><button>❌</button></div>` : "";
-                    alert(usernamentu);
-                    alert(comment.creator.name);
+                    const editornot = comment.creator.name === usernamentu ? `<div style="justlify-content: center;" class="counter"><button onclick="letseditcom(${comment.comment.id}, ${cerotinicosi}, '${comment.comment.content}')">✏️</button><button>❌</button></div>` : "";
 
                     commentElement.innerHTML = `
                         <div class="post-header">
