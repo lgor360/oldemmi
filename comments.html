@@ -424,6 +424,11 @@
             }
         }
 
+        function letmakendody(body) {
+            body = body.replace(/\n/g, "\\n");
+            return body;
+        }
+        
         function renderComments(comments) {
             try {
                 const commentsContainer = document.getElementById("comments");
@@ -440,7 +445,8 @@
                     const likecolor = comment.my_vote === 1 ? "#b3c46d" : "#ffffff";
                     const dislikecolor = comment.my_vote === -1 ? "#b3c46d" : "#ffffff";
                     const cerotinicosi = comment.comment.content.length > 10 ? comment.comment.content.slice(0, 11 - 1) + '…' : comment.comment.content;
-                    const editornot = comment.creator.name === usernamentu ? `<div style="justlify-content: center;" class="counter"><button onclick="letseditcom(${comment.comment.id}, '${cerotinicosi}', '${comment.comment.content}')">✏️</button><button onclick="deleteHappyComment(${comment.comment.id})">🗑️</button></div>` : "";
+                    const bodyforedit = letmakendody(comment.comment.content);
+                    const editornot = comment.creator.name === usernamentu ? `<div style="justlify-content: center;" class="counter"><button onclick="letseditcom(${comment.comment.id}, '${cerotinicosi}', '${bodyforedit}')">✏️</button><button onclick="deleteHappyComment(${comment.comment.id})">🗑️</button></div>` : "";
                     const vlickedbody = comment.comment.deleted === true ? "deleted by creator" : comment.comment.content;
                     const deleted = comment.comment.deleted === true ? '🗑️' : '';
                     
