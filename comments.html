@@ -288,15 +288,15 @@
                     })
                 });
                 console.log(JSON.stringify(await response.json(), null, 2));
-                document.getElementById("post").innerHTML = "";
-                const post_view = await fetchPost();
-                await renderPost(post_view);
                 document.getElementById("commentinput").value = "";
                 allComments = [];
                 page = 1;
                 commentsCount = null;
                 pathzero(0, 'none', 'a');
                 loadMoreComments();
+                document.getElementById("post").innerHTML = "";
+                const post_view = await fetchPost();
+                await renderPost(post_view);
             } catch (error) {
                 alert(`action failed: ${error}`);
             }
@@ -321,15 +321,15 @@
                         }
                     })
                 });
-                document.getElementById("post").innerHTML = "";
-                const post_view = await fetchPost();
-                await renderPost(post_view);
                 document.getElementById("commentinput").value = "";
                 allComments = [];
                 page = 1;
                 commentsCount = null;
                 pathzero(0, 'none', 'a');
                 loadMoreComments();
+                document.getElementById("post").innerHTML = "";
+                const post_view = await fetchPost();
+                await renderPost(post_view);
             } catch (error) {
                 alert(`action failed: ${error}`);
             }
@@ -353,15 +353,15 @@
                         }
                     })
                 });
-                document.getElementById("post").innerHTML = "";
-                const post_view = await fetchPost();
-                await renderPost(post_view);
                 document.getElementById("commentinput").value = "";
                 allComments = [];
                 page = 1;
                 commentsCount = null;
                 pathzero(0, 'none', 'a');
                 loadMoreComments();
+                document.getElementById("post").innerHTML = "";
+                const post_view = await fetchPost();
+                await renderPost(post_view);
             } catch (error) {
                 alert(`action failed: ${error}`);
             }
