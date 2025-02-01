@@ -413,3 +413,8 @@ progress::-moz-progress-bar {
     display: block;
     width: 100%;
 }
+
+.caca input[type="checkbox"] {
+    display: flex !important;
+    width: auto !important;
+}
