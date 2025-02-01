@@ -55,7 +55,7 @@
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const server = localStorage.getItem("accountServer") || urlParams.get('server') || "lemmy.world";
-        const post = urlParams.get('editid') || "";
+        const post = urlParams.get('editid');
         document.getElementById("community").value = urlParams.get('community') || "";
         const api = `https://${server}/api/v3`
         const lemmyToken = localStorage.getItem("lemmyToken");
@@ -287,12 +287,11 @@
                     headers: { "Content-Type": "application/json", "authorization": `Bearer ${localStorage.getItem("lemmyToken")}` }
                 });
                 const data = await response.json();
-                if (data.post_view.creator.name === uname) {
-                    document.getElementById("community").value = `${data.post_view.community.name}@${getInstanceFromActorId(data.post_view.community.actor_id)}`;
-                    document.getElementById("title").value = data.post_view.post.name;
-                    document.getElementById("url").value = data.post_view.post.url || "";
-                    document.getElementById("body").value = data.post_view.post.body;
-                    document.getElementById("nsfw").checked = data.post_view.post.nsfw;
+                document.getElementById("community").value = `${data.post_view.community.name}@${getInstanceFromActorId(data.post_view.community.actor_id)}`;
+                document.getElementById("title").value = data.post_view.post.name;
+                document.getElementById("url").value = data.post_view.post.url || "";
+                document.getElementById("body").value = data.post_view.post.body;
+                document.getElementById("nsfw").checked = data.post_view.post.nsfw;
                 }
             } catch (error) {
                 alert(`error while loading post: ${error}`);
