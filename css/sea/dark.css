@@ -60,10 +60,6 @@ input {
     margin: 10px 0;
     cursor: text;
 }
-.caca input {
-    display: block;
-    width: 100%;
-}
 blockquote {
     font-weight: bold;
     font-size: 0.9em;
