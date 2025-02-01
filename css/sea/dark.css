@@ -40,7 +40,6 @@ img {
     border-radius: 0px;
 }
 textarea {
-    resize: vertical;
     border: 1px solid #ccc;
     border-radius: 0px;
     background-color: #353535;
@@ -59,6 +58,11 @@ input {
     padding: 6px 20px;
     margin: 10px 0;
     cursor: text;
+}
+.caca input:not([type]),  
+.caca input[type="text"] {  
+    display: block;  
+    width: 100%;  
 }
 blockquote {
     font-weight: bold;
@@ -376,8 +380,14 @@ progress::-moz-progress-bar {
 .creating-form {
     max-width: 600px;
     min-width: 300px;
+    margin: 0 auto;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+}
+.publish {
+    margin-top: 30px;
+    padding: 10px 20px;
+    max-width: 70px;
 }
 .accountsettings {
     min-width: 300px;
