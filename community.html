@@ -33,6 +33,7 @@
             </div>
         </div>
         <div class="normal">
+            <button onclick="createPost()">+</button>
             <button onclick="goToSearch()">🔎</button>
             <button id="logout" style="display: none;" onclick="logout('userlogout')">logout</button>
             <button style="display: inline;" id="login" class="login" onclick="login()">login</button>
@@ -532,6 +533,10 @@
         
         function goToHome() {
             window.location.href = `https://oldemmi.vercel.app/home?server=${server}`
+        }
+        
+        function createPost() {
+            window.location.href = `https://oldemmi.vercel.app/creating?community=${community}@${server}&server=${server}`
         }
 
         loginedornot();
