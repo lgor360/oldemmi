@@ -40,6 +40,7 @@ img {
     border-radius: 0px;
 }
 textarea {
+    resize: vertical;
     border: 1px solid #ccc;
     border-radius: 0px;
     background-color: #353535;
@@ -379,14 +380,8 @@ progress::-moz-progress-bar {
 .creating-form {
     max-width: 600px;
     min-width: 300px;
-    margin: 0 auto;
     display: flex;
-    flex-direction: column;
-}
-.publish {
-    margin-top: 30px;
-    padding: 10px 20px;
-    max-width: 70px;
+    align-items: center;
 }
 .accountsettings {
     min-width: 300px;
