@@ -55,11 +55,9 @@
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const server = localStorage.getItem("accountServer") || urlParams.get('server') || "lemmy.world";
-        const post = urlParams.get('editid');
         document.getElementById("community").value = urlParams.get('community') || "";
         const api = `https://${server}/api/v3`
         const lemmyToken = localStorage.getItem("lemmyToken");
-        let uname = null;
         
         function instanceapply() {
             const instdiv = document.querySelector(".navbar .oldemmi .text .instance");
@@ -112,36 +110,31 @@
             }
             const match = communityInput.value.match(/^(.+)@([\w.-]+)$/);
             const [, community, instance] = match;
-            if (!post) {
-                const communityData = await fetchCommunity(`https://${instance}/c/${community}`);
-                try {
-                    const response = await fetch("https://oldemmi.vercel.app/api/server.js", {
+            const communityData = await fetchCommunity(`https://${instance}/c/${community}`);
+            try {
+                const response = await fetch("https://oldemmi.vercel.app/api/server.js", {
+                    method: "POST",
+                    headers: { "content-type": "application/json" },
+                    body: JSON.stringify({
+                        url: `https://${server}/api/v3/post`,
                         method: "POST",
-                        headers: { "content-type": "application/json" },
-                        body: JSON.stringify({
-                            url: `https://${server}/api/v3/post`,
-                            method: "POST",
-                            headers: {
-                                "content-type": "application/json",
-                                "authorization": `Bearer ${localStorage.getItem("lemmyToken")}`
-                            },
-                            body: {
-                                "community_id": communityData.community.id,
-                                "name": `${titleInput.value}`,
-                                "body": `${bodyInput.value}`,
-                                "url": urlInput.value || null,
-                                "nsfw": nsfwInput.checked,
-                            }
-                        })
-                    });
-                    const data = await response.json();
-                    goToComments(data.post_view.post.id);
-                } catch (error) {
-                    alert(`error while creating/editing post: ${error}`);
-                    return;
-                }
-            } else {
-                alert("c");
+                        headers: {
+                            "content-type": "application/json",
+                            "authorization": `Bearer ${localStorage.getItem("lemmyToken")}`
+                        },
+                        body: {
+                            "community_id": communityData.community.id,
+                            "name": `${titleInput.value}`,
+                            "body": `${bodyInput.value}`,
+                            "url": urlInput.value || null,
+                            "nsfw": nsfwInput.checked,
+                        }
+                    })
+                });
+                const data = await response.json();
+                goToComments(data.post_view.post.id);
+            } catch (error) {
+                alert(`error while creating post: ${error}`);
             }
         }
 
@@ -200,7 +193,6 @@
                         login.style.display = "none";
 
                         const user = await getLoggined();
-                        uname = user.name;
                         profileInBar.innerHTML = `
                             <img onclick="goToProfile('${user.name}', '${server}')" src="${user.avatar || 'https://lgor360.github.io/oldemmi/user.png'}">
                             <div class="text">
@@ -275,34 +267,10 @@
             window.location.href = `https://oldemmi.vercel.app/profile?server=${servero}&user=${id}`
         }
 
-        function getInstanceFromActorId(actorId) {
-            const url = new URL(actorId);
-            return url.hostname; // возвращает домен, например, "lemmy.world"
-        }
-        
-        async function editPost() {
-            try {
-                const response = await fetch(`${api}/post?id=${post}&nope=${Date.now()}`, {
-                    method: "GET",
-                    headers: { "Content-Type": "application/json", "authorization": `Bearer ${localStorage.getItem("lemmyToken")}` }
-                });
-                const data = await response.json();
-                document.getElementById("community").value = `${data.post_view.community.name}@${getInstanceFromActorId(data.post_view.community.actor_id)}`;
-                document.getElementById("title").value = data.post_view.post.name;
-                document.getElementById("url").value = data.post_view.post.url || "";
-                document.getElementById("body").value = data.post_view.post.body;
-                document.getElementById("nsfw").checked = data.post_view.post.nsfw;
-                }
-            } catch (error) {
-                alert(`error while loading post: ${error}`);
-            }
-        }
-
         if (!lemmyToken) { login(); }
+        
         // загружаем пост и комментарии при загрузке страницы
         loginedornot();
-        if (post) { editPost(); }
-        
         // вставляем название сервера в заголовок
         instanceapply();
     </script>
