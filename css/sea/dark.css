@@ -59,6 +59,10 @@ input {
     margin: 10px 0;
     cursor: text;
 }
+.caca input {
+    display: block;
+    width: 100%;
+}
 blockquote {
     font-weight: bold;
     font-size: 0.9em;
@@ -407,19 +411,4 @@ progress::-moz-progress-bar {
 }
 .accountsettings .body .bioinput {
     min-height: 150px;
-}
-.caca input:not([type]),
-.caca input[type="text"] {
-    display: block;
-    width: 100%;
-}
-.caca input[type="checkbox"] {
-    justify-content: center !important;
-    display: flex !important;
-    width: 10px !important;
-}
-.caca input[type="checkbox"]:checked {
-    justify-content: center !important;
-    display: flex !important;
-    width: 20px !important;
 }
