@@ -59,8 +59,7 @@ input {
     margin: 10px 0;
     cursor: text;
 }
-.caca input:not([type]),  
-.caca input[type="text"] {  
+.caca input {  
     display: block;  
     width: 100%;  
 }
@@ -412,4 +411,8 @@ progress::-moz-progress-bar {
 }
 .accountsettings .body .bioinput {
     min-height: 150px;
+}
+.caca input[type="checkbox"] {  
+    display: flex;  
+    width: auto;  
 }
