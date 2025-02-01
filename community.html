@@ -33,7 +33,7 @@
             </div>
         </div>
         <div class="normal">
-            <button onclick="createPost()">+</button>
+            <button id="cPost" style="display: none;" onclick="createPost()">+</button>
             <button onclick="goToSearch()">🔎</button>
             <button id="logout" style="display: none;" onclick="logout('userlogout')">logout</button>
             <button style="display: inline;" id="login" class="login" onclick="login()">login</button>
@@ -500,6 +500,7 @@
                 const profileInBar = document.querySelector(".navbar .normal .neP .profileInBar");
                 const login = document.getElementById("login");
                 const logout = document.getElementById("logout");
+                const createpostbutton = document.getElementById("cPost");
             
                 if (lemmyToken) {
                     const lemmyTokenValid = await validateToken();
@@ -507,6 +508,7 @@
                         logined = true;
                         profileInBar.style.display = "flex";
                         logout.style.display = "flex";
+                        createpostbutton.style.display = "flex";
                         login.style.display = "none";
 
                         const user = await getLoggined();
