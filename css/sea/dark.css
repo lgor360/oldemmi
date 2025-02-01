@@ -414,12 +414,12 @@ progress::-moz-progress-bar {
     width: 100%;
 }
 .caca input[type="checkbox"] {
-    align-items: center !important;
+    justify-content: center !important;
     display: flex !important;
     width: 10px !important;
 }
 .caca input[type="checkbox"]:checked {
-    align-items: center !important;
+    justify-content: center !important;
     display: flex !important;
     width: 20px !important;
 }
