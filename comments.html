@@ -509,6 +509,7 @@
                     const vlickedbody = comment.comment.deleted === true ? "deleted by creator" : comment.comment.content;
                     const deleted = comment.comment.deleted === true ? '🗑️' : '';
                     const edited = comment.comment.updated ? '✏️' : '';
+                    alert(JSON.stringify(comment.comment, null, 2));
                     const blocked = comment.comment.removed === true ? '🚫' : '';
                     
                     commentElement.innerHTML = `
@@ -521,7 +522,7 @@
                                 </div>
                             </div>
                             <div class="post-status">
-                                <div onclick="alert('this post is removed by community moderator')" class="blocked">
+                                <div onclick="alert('this comment is removed by community moderator')" class="blocked">
                                     ${blocked}
                                 </div>
                                 <div onclick="alert('this comment is deleted')" class="deleted">
