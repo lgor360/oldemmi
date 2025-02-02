@@ -21,11 +21,12 @@ due to the client being under development, some features are not available
 |comment replies|✓|
 |404 page|✓|
 |actions|✓|
-|locked and deleted flags|✓|
 |cross-posts view|✓|
 |markdown full support|✓|
 |themes|✓|
-|indicators for ALL||✓|
+|indicators for ALL|✓|
+|uploading images||✓|
+|view notifications||✓|
 
 # i want to view "under development" functions!
 
