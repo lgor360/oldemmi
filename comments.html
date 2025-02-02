@@ -403,7 +403,7 @@
                 const caneditorno = post_view.creator.name === usernamentu && post_view.post.deleted === false ? `<button onclick="window.location.href = 'https://oldemmi.vercel.app/editing?editid=${post_view.post.id}&server=${server}'">✏️</button>` : "";
                 const deletonamr = post_view.post.deleted === false ? "🗑️" : "↩️🗑️";
                 const actionbuttons = post_view.creator.name === usernamentu ? `<div style="justlify-content: center;" class="counter">${caneditorno}<button onclick="deleteHappyPost(${post_view.post.id}, ${deletor})">${deletonamr}</button></div>` : "";
-                const locked = post_view.post.locked === true ? '🔒' : '';f
+                const locked = post_view.post.locked === true ? '🔒' : '';
                 const deleted = post_view.post.deleted === true ? '🗑️' : '';
                 const nsfw = post_view.post.nsfw === true ? '🔞' : '';
                 const edited = post_view.post.updated ? '✏️' : '';
@@ -460,7 +460,7 @@
                             <button onclick="pathzero(0, 'none', 'a')">💬</button>
                             <span>${post_view.counts.comments}</span>
                         </div>
-                        ${caneditorno}
+                        ${actionbuttons}
                     </div>
                 `;
                 postContainer.appendChild(postElement);
