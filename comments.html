@@ -372,9 +372,11 @@
             try {
                 const postContainer = document.getElementById("post");
 
+                const caneditorno = post_view.creator.name === usernamentu && post_view.post.deleted === false ? `<div class="edit"><button onclick="window.location.href = 'https://oldemmi.vercel.app/editing?editid=${post_view.post.id}&server=${server}'">✏️</button></div>` : "";
                 const locked = post_view.post.locked === true ? '🔒' : '';
                 const deleted = post_view.post.deleted === true ? '🗑️' : '';
                 const nsfw = post_view.post.nsfw === true ? '🔞' : '';
+                const edited = post_view.post.updated ? '✏️' : '';
                 const cross = await checkCross() === true ? '🔄' : '';
                 const postotourl = post_view.post.url && post_view.post.url !== post_view.post.thumbnail_url ? post_view.post.url : null;
                 const postElement = document.createElement("div");
@@ -406,6 +408,9 @@
                             <div onclick="goToCross()" class="cross">
                                 ${cross}
                             </div>
+                            <div onclick="alert('this post is edited')" class="edited">
+                                ${edited}
+                            </div>
                         </div>
                     </div>
                     <div class="post-name">${post_view.post.name}</div>
@@ -425,6 +430,7 @@
                             <button onclick="pathzero(0, 'none', 'a')">💬</button>
                             <span>${post_view.counts.comments}</span>
                         </div>
+                        ${caneditorno}
                     </div>
                 `;
                 postContainer.appendChild(postElement);
