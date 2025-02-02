@@ -29,6 +29,10 @@
       "destination": "/creating.html"
     },
     {
+      "source": "/editing",
+      "destination": "/editing.html"
+    },
+    {
       "source": "/cross-posts",
       "destination": "/cross-posts.html"
     },
