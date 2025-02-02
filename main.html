@@ -68,7 +68,7 @@
     <script defer>
         const urlParams = new URLSearchParams(window.location.search);
         let filter = urlParams.get('filter') || "New";
-        let fromFilter = urlParams.get('from') || "";
+        let fromFilter = urlParams.get('from') || "all";
         let page = 1; // текущая страница для загрузки
         const limit = 9; // количество постов на одну загрузку
         const server = localStorage.getItem("accountServer") || urlParams.get('server') || "lemmy.world";
