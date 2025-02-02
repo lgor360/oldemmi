@@ -187,6 +187,7 @@
                     const locked = post.post.locked === true ? '🔒' : '';
                     const deleted = post.post.deleted === true ? '🗑️' : '';
                     const pinned_community = post.post.featured_community === true ? '📍' : '';
+                    const blocked = post.post.removed === true ? '🚫' : '';
                     const pinned_local = post.post.featured_local === true ? '📌' : '';
                     const edited = post.post.updated ? '✏️' : '';
                     const nsfw = post.post.nsfw === true ? '🔞' : '';
@@ -217,14 +218,17 @@
                                 <div onclick="alert('this post is nsfw (18+)')" class="nsfw">
                                     ${nsfw}
                                 </div>
-                                <div onclick="alert('this post is edited')" class="nsfw">
+                                <div onclick="alert('this post is edited')" class="edited">
                                     ${edited}
                                 </div>
-                                <div onclick="alert('this post is pinned in community')" class="nsfw">
+                                <div onclick="alert('this post is pinned in community')" class="pincom">
                                     ${pinned_community}
                                 </div>
-                                <div onclick="alert('this post is pinned in instance')" class="nsfw">
+                                <div onclick="alert('this post is pinned in instance')" class="pininstance">
                                     ${pinned_local}
+                                </div>
+                                <div onclick="alert('this post is removed by community moderator')" class="blocked">
+                                    ${blocked}
                                 </div>
                             </div>
                         </div>
