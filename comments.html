@@ -405,8 +405,10 @@
                 const actionbuttons = post_view.creator.name === usernamentu ? `<div style="justlify-content: center;" class="counter"><button onclick="window.location.href = 'https://oldemmi.vercel.app/cross-posting?original=${post_view.post.id}&server=${server}'">🔄</button>${caneditorno}<button onclick="deleteHappyPost(${post_view.post.id}, ${deletor})">${deletonamr}</button></div>` : "";
                 const locked = post_view.post.locked === true ? '🔒' : '';
                 const deleted = post_view.post.deleted === true ? '🗑️' : '';
+                const pinned_community = post_view.post.featured_community === true ? '📍' : '';
+                const blocked = post_view.post.removed === true ? '🚫' : '';
+                const pinned_local = post_view.post.featured_local === true ? '📌' : '';                    const edited = post.post.updated ? '✏️' : '';
                 const nsfw = post_view.post.nsfw === true ? '🔞' : '';
-                const edited = post_view.post.updated ? '✏️' : '';
                 const cross = await checkCross() === true ? '🔄' : '';
                 const postotourl = post_view.post.url && post_view.post.url !== post_view.post.thumbnail_url ? post_view.post.url : null;
                 const postElement = document.createElement("div");
@@ -426,6 +428,9 @@
                             </div>
                         </div>
                         <div class="post-status">
+                            <div onclick="goToCross()" class="cross">
+                                ${cross}
+                            </div>
                             <div onclick="alert('this post is locked')" class="locked">
                                 ${locked}
                             </div>
@@ -435,11 +440,17 @@
                             <div onclick="alert('this post is nsfw (18+)')" class="nsfw">
                                 ${nsfw}
                             </div>
-                            <div onclick="goToCross()" class="cross">
-                                ${cross}
-                            </div>
                             <div onclick="alert('this post is edited')" class="edited">
                                 ${edited}
+                            </div>
+                            <div onclick="alert('this post is pinned in community')" class="pincom">
+                                ${pinned_community}
+                            </div>
+                            <div onclick="alert('this post is pinned in instance')" class="pininstance">
+                                ${pinned_local}
+                            </div>
+                            <div onclick="alert('this post is removed by community moderator')" class="blocked">
+                                ${blocked}
                             </div>
                         </div>
                     </div>
@@ -498,6 +509,7 @@
                     const vlickedbody = comment.comment.deleted === true ? "deleted by creator" : comment.comment.content;
                     const deleted = comment.comment.deleted === true ? '🗑️' : '';
                     const edited = comment.comment.updated ? '✏️' : '';
+                    const blocked = comment.comment.removed === true ? '🚫' : '';
                     
                     commentElement.innerHTML = `
                         <div class="post-header">
@@ -509,6 +521,9 @@
                                 </div>
                             </div>
                             <div class="post-status">
+                                <div onclick="alert('this post is removed by community moderator')" class="blocked">
+                                    ${blocked}
+                                </div>
                                 <div onclick="alert('this comment is deleted')" class="deleted">
                                     ${deleted}
                                 </div>
