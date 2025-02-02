@@ -91,18 +91,13 @@
         }
 
         async function publish() {
-            const communityInput = document.getElementById("community");
             const titleInput = document.getElementById("title");
             const urlInput = document.getElementById("url");
             const bodyInput = document.getElementById("body");
             const nsfwInput = document.getElementById("nsfw");
             const proxyUrl = "https://oldemmi.vercel.app/api/server.js";
 
-            if (!communityInput.value.includes('@')) {
-                communityInput.setCustomValidity("please enter a valid community in the format 'community@instance'");
-                communityInput.reportValidity();
-                return;
-            } else if (titleInput.value.length < 3) {
+            if (titleInput.value.length < 3) {
                 titleInput.setCustomValidity("minimum 3 letters");
                 titleInput.reportValidity();
                 return;
@@ -110,27 +105,20 @@
                 titleInput.setCustomValidity("please fill the input");
                 titleInput.reportValidity();
                 return;
-            } else if (!communityInput.checkValidity()) {
-                communityInput.setCustomValidity("please fill the input")
-                communityInput.reportValidity();
-                return;
             }
-            const match = communityInput.value.match(/^(.+)@([\w.-]+)$/);
-            const [, community, instance] = match;
-            const communityData = await fetchCommunity(`https://${instance}/c/${community}`);
             try {
                 const response = await fetch("https://oldemmi.vercel.app/api/server.js", {
                     method: "POST",
                     headers: { "content-type": "application/json" },
                     body: JSON.stringify({
                         url: `https://${server}/api/v3/post`,
-                        method: "POST",
+                        method: "PUT",
                         headers: {
                             "content-type": "application/json",
                             "authorization": `Bearer ${localStorage.getItem("lemmyToken")}`
                         },
                         body: {
-                            "community_id": communityData.community.id,
+                            "post_id": Number(editid),
                             "name": `${titleInput.value}`,
                             "body": `${bodyInput.value}`,
                             "url": urlInput.value || null,
