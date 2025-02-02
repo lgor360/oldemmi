@@ -68,7 +68,7 @@
     <script defer>
         const urlParams = new URLSearchParams(window.location.search);
         let filter = urlParams.get('filter') || "New";
-        let fromFilter = urlParams.get('from') || "All";
+        let fromFilter = localStorage.getItem("fromFilter") || urlParams.get('from') || "All";
         let page = 1; // текущая страница для загрузки
         const limit = 9; // количество постов на одну загрузку
         const server = localStorage.getItem("accountServer") || urlParams.get('server') || "lemmy.world";
@@ -304,6 +304,7 @@
 
         async function fromFilters() {
             fromFilter = fromSelect.value;
+            localStorage.setItem("fromFilter", fromFilter);
             page = 1;
             document.getElementById("posts").innerHTML = "";
             const url = new URL(window.location);
