@@ -68,7 +68,7 @@
     <script defer>
         const urlParams = new URLSearchParams(window.location.search);
         let filter = urlParams.get('filter') || "New";
-        let fromFilter = urlParams.get('from') || "all";
+        let fromFilter = urlParams.get('from') || "All";
         let page = 1; // текущая страница для загрузки
         const limit = 9; // количество постов на одну загрузку
         const server = localStorage.getItem("accountServer") || urlParams.get('server') || "lemmy.world";
@@ -89,11 +89,7 @@
         // функция для получения постов
         async function fetchPosts() {
             try {
-                const fromSource = fromFilter === "All" ? "" :
-                                   fromFilter === "Local" ? "type_=true&" :
-                                   fromFilter === "Subscribed" ? "type_=Subscribed&" :
-                                   "";
-                const response = await fetch(`${api}/post/list?${fromSource}page=${page}&limit=${limit}&sort=${filter}`, {
+                const response = await fetch(`${api}/post/list?page=${page}&limit=${limit}&sort=${filter}&type_=${fromFilter}`, {
                     method: "GET",
                     headers: { "Content-Type": "application/json", "authorization": `Bearer ${localStorage.getItem("lemmyToken")}` }
                 });
