@@ -40,9 +40,9 @@
                 <option value="Controversial">controversial</option>
             </select>
             <select onchange="fromFilters()" name="fromSelect" id="fromSelect">
-                <option value="all">all posts</option>
-                <option value="local">local</option>
-                <option value="subscribed">subscribed</option>
+                <option value="All">all posts</option>
+                <option value="Local">local</option>
+                <option value="Subscribed">subscribed</option>
             </select>
         </div>
         <div class="normal">
@@ -89,11 +89,10 @@
         // функция для получения постов
         async function fetchPosts() {
             try {
-                const fromSource = fromFilter === "all" ? "" :
-                                   fromFilter === "local" ? "community_local=true&" :
-                                   fromFilter === "subscribed" ? "subscribed=Subscribed&" :
+                const fromSource = fromFilter === "All" ? "" :
+                                   fromFilter === "Local" ? "type_=true&" :
+                                   fromFilter === "Subscribed" ? "type_=Subscribed&" :
                                    "";
-                alert(fromSource);
                 const response = await fetch(`${api}/post/list?${fromSource}page=${page}&limit=${limit}&sort=${filter}`, {
                     method: "GET",
                     headers: { "Content-Type": "application/json", "authorization": `Bearer ${localStorage.getItem("lemmyToken")}` }
