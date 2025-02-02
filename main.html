@@ -186,6 +186,9 @@
                 posts.forEach(post => {
                     const locked = post.post.locked === true ? '🔒' : '';
                     const deleted = post.post.deleted === true ? '🗑️' : '';
+                    const pinned_community = post.post.featured_community === true ? '📍' : '';
+                    const pinned_local = post.post.featured_local === true ? '📌' : '';
+                    const edited = post.post.updated ? '✏️' : '';
                     const nsfw = post.post.nsfw === true ? '🔞' : '';
                     const postotourl = post.post.url && post.post.url !== post.post.thumbnail_url ? post.post.url : null;
                     const postElement = document.createElement("div");
@@ -213,6 +216,15 @@
                                 </div>
                                 <div onclick="alert('this post is nsfw (18+)')" class="nsfw">
                                     ${nsfw}
+                                </div>
+                                <div onclick="alert('this post is edited')" class="nsfw">
+                                    ${edited}
+                                </div>
+                                <div onclick="alert('this post is pinned in community')" class="nsfw">
+                                    ${pinned_community}
+                                </div>
+                                <div onclick="alert('this post is pinned in instance')" class="nsfw">
+                                    ${pinned_local}
                                 </div>
                             </div>
                         </div>
