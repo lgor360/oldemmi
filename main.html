@@ -90,11 +90,11 @@
         async function fetchPosts() {
             try {
                 const fromSource = fromFilter === "all" ? "" :
-                                   fromFilter === "local" ? "&community_local=true" :
-                                   fromFilter === "subscribed" ? "&subscribed=Subscribed" :
+                                   fromFilter === "local" ? "community_local=true&" :
+                                   fromFilter === "subscribed" ? "subscribed=Subscribed&" :
                                    "";
                 alert(fromSource);
-                const response = await fetch(`${api}/post/list?page=${page}&limit=${limit}&sort=${filter}${fromSource}`, {
+                const response = await fetch(`${api}/post/list?${fromSource}page=${page}&limit=${limit}&sort=${filter}`, {
                     method: "GET",
                     headers: { "Content-Type": "application/json", "authorization": `Bearer ${localStorage.getItem("lemmyToken")}` }
                 });
