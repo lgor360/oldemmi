@@ -214,6 +214,10 @@
                 posts.forEach(post => {
                     const locked = post.post.locked === true ? '🔒' : '';
                     const deleted = post.post.deleted === true ? '🗑️' : '';
+                    const pinned_community = post.post.featured_community === true ? '📍' : '';
+                    const blocked = post.post.removed === true ? '🚫' : '';
+                    const pinned_local = post.post.featured_local === true ? '📌' : '';
+                    const edited = post.post.updated ? '✏️' : '';
                     const nsfw = post.post.nsfw === true ? '🔞' : '';
                     const postotourl = post.post.url && post.post.url !== post.post.thumbnail_url ? post.post.url : null;
                     const postElement = document.createElement("div");
@@ -239,6 +243,18 @@
                                 </div>
                                 <div onclick="alert('this post is nsfw (18+)')" class="nsfw">
                                     ${nsfw}
+                                </div>
+                                <div onclick="alert('this post is edited')" class="edited">
+                                    ${edited}
+                                </div>
+                                <div onclick="alert('this post is pinned in community')" class="pincom">
+                                    ${pinned_community}
+                                </div>
+                                <div onclick="alert('this post is pinned in instance')" class="pininstance">
+                                    ${pinned_local}
+                                </div>
+                                <div onclick="alert('this post is removed by community moderator')" class="blocked">
+                                    ${blocked}
                                 </div>
                             </div>
                         </div>
@@ -303,6 +319,10 @@
 
                 comments.forEach(comment => {
                     const commentElement = document.createElement("div");
+                    const vlickedbody = comment.comment.deleted === true ? "deleted by creator" : comment.comment.content;
+                    const deleted = comment.comment.deleted === true ? '🗑️' : '';
+                    const edited = comment.comment.updated ? '✏️' : '';
+                    const blocked = comment.comment.removed === true ? '🚫' : '';
                     commentElement.classList.add("post");
 
                     commentElement.innerHTML = `
@@ -314,8 +334,19 @@
                                     ${getInstanceFromActorId(comment.creator.actor_id)}
                                 </div>
                             </div>
+                            <div class="post-status">
+                                <div onclick="alert('this comment is removed by community moderator')" class="blocked">
+                                    ${blocked}
+                                </div>
+                                <div onclick="alert('this comment is deleted')" class="deleted">
+                                    ${deleted}
+                                </div>
+                                <div onclick="alert('this comment is edited')" class="edited">
+                                    ${edited}
+                                </div>
+                            </div>
                         </div>
-                        <div class="post-text">${parseMarkdown(comment.comment.content)}</div>
+                        <div class="post-text">${parseMarkdown(vlickedbody)}</div>
                     `;
                     commentsContainer.appendChild(commentElement);
                 });
