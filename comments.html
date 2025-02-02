@@ -407,7 +407,8 @@
                 const deleted = post_view.post.deleted === true ? '🗑️' : '';
                 const pinned_community = post_view.post.featured_community === true ? '📍' : '';
                 const blocked = post_view.post.removed === true ? '🚫' : '';
-                const pinned_local = post_view.post.featured_local === true ? '📌' : '';                    const edited = post.post.updated ? '✏️' : '';
+                const pinned_local = post_view.post.featured_local === true ? '📌' : '';
+                const edited = post_view.post.updated ? '✏️' : '';
                 const nsfw = post_view.post.nsfw === true ? '🔞' : '';
                 const cross = await checkCross() === true ? '🔄' : '';
                 const postotourl = post_view.post.url && post_view.post.url !== post_view.post.thumbnail_url ? post_view.post.url : null;
@@ -509,7 +510,6 @@
                     const vlickedbody = comment.comment.deleted === true ? "deleted by creator" : comment.comment.content;
                     const deleted = comment.comment.deleted === true ? '🗑️' : '';
                     const edited = comment.comment.updated ? '✏️' : '';
-                    alert(JSON.stringify(comment.comment, null, 2));
                     const blocked = comment.comment.removed === true ? '🚫' : '';
                     
                     commentElement.innerHTML = `
