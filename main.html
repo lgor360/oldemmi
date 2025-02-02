@@ -89,13 +89,10 @@
         // функция для получения постов
         async function fetchPosts() {
             try {
-                let fromSource = "";
-                if (fromFilter === "local") {
-                    fromSource = "&community_local=true";
-                } else if (fromFilter === "subscribed") {
-                    fromSource = "&subscribed=Subscribed";
-                }
-                alert(fromSource);
+                const fromSource = fromFilter === "all" ? "" :
+                                   fromFilter === "local" ? "&community_local=true" :
+                                   fromFilter === "subscribed" ? "&subscribed=Subscribed" :
+                                   "";
                 const response = await fetch(`${api}/post/list?page=${page}&limit=${limit}&sort=${filter}${fromSource}`, {
                     method: "GET",
                     headers: { "Content-Type": "application/json", "authorization": `Bearer ${localStorage.getItem("lemmyToken")}` }
