@@ -33,6 +33,10 @@
       "destination": "/editing.html"
     },
     {
+      "source": "/cross-posting",
+      "destination": "/cross-posting.html"
+    },
+    {
       "source": "/cross-posts",
       "destination": "/cross-posts.html"
     },
