@@ -1,4 +1,4 @@
-# aboute
+# about
 i wanted to make a light client for lemmy. i tried to make it look like from the old internet :P
 
 ![preview](https://github.com/user-attachments/assets/ea474101-9363-47a9-821c-c94294493657)
@@ -20,7 +20,7 @@ due to the client being under development, some features are not available
 |moderation functions||✓|
 |comment replies|✓|
 |404 page|✓|
-|actions|||✓|
+|actions|✓|
 |locked and deleted flags|✓|
 |cross-posts view|✓|
 |markdown full support|✓|
