@@ -32,12 +32,19 @@
                 </div>
             </div>
         </div>
-        <select onchange="filters()" name="filter" id="filter">
-            <option value="Hot">hot</option>
-            <option value="New">new</option>
-            <option value="Old">old</option>
-            <option value="Controversial">controversial</option>
-        </select>
+        <div style="justify-content: normal;">
+            <select onchange="filters()" name="filter" id="filter">
+                <option value="Hot">hot</option>
+                <option value="New">new</option>
+                <option value="Old">old</option>
+                <option value="Controversial">controversial</option>
+            </select>
+            <select onchange="fromFilters()" name="fromSelect" id="fromSelect">
+                <option value="true">local</option>
+                <option value="Subscribed">subscribed</option>
+                <option value="">all posts</option>
+            </select>
+        </div>
         <div class="normal">
             <button id="settings" style="display: none;" onclick="goToSettings()">⚙️</button>
             <button onclick="goToSearch()">🔎</button>
@@ -61,12 +68,15 @@
     <script defer>
         const urlParams = new URLSearchParams(window.location.search);
         let filter = urlParams.get('filter') || "New";
+        let fromFilter = urlParams.get('from') || "";
         let page = 1; // текущая страница для загрузки
         const limit = 9; // количество постов на одну загрузку
         const server = localStorage.getItem("accountServer") || urlParams.get('server') || "lemmy.world";
         const api = `https://${server}/api/v3`
         let fSelect = document.querySelector(".navbar #filter");
         fSelect.value = filter;
+        let fromSelect = document.querySelector(".navbar #fromSelect");
+        fromSelect.value = fromFilter;
         const lemmyToken = localStorage.getItem("lemmyToken");
         
         function instanceapply() {
@@ -79,7 +89,15 @@
         // функция для получения постов
         async function fetchPosts() {
             try {
-                const response = await fetch(`${api}/post/list?page=${page}&limit=${limit}&sort=${filter}`, {
+                let fromSource;
+                if (fromFilter === "") {
+                    fromSource = "";
+                } else if (fromFilter === "true")
+                    fromSource = "&community_local=true";
+                } else if (fromFilter === "Subscribed") {
+                    fromSource = "&subscribed=Subscribed";
+                }
+                const response = await fetch(`${api}/post/list?page=${page}&limit=${limit}&sort=${filter}${fromSource}`, {
                     method: "GET",
                     headers: { "Content-Type": "application/json", "authorization": `Bearer ${localStorage.getItem("lemmyToken")}` }
                 });
@@ -288,6 +306,16 @@
             document.getElementById("posts").innerHTML = "";
             const url = new URL(window.location);
             url.searchParams.set("filter", filter);
+            window.history.replaceState({}, '', url);
+            await loadMorePosts();
+        }
+
+        async function fromFilters() {
+            fromFilter = fromSelect.value;
+            page = 1;
+            document.getElementById("posts").innerHTML = "";
+            const url = new URL(window.location);
+            url.searchParams.set("from", fromFilter);
             window.history.replaceState({}, '', url);
             await loadMorePosts();
         }
