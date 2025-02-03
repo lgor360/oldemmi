@@ -12,7 +12,8 @@
     <meta name="theme-color" content="#303030">
     <script>
         let bebra = window.innerWidth < 550 ? 550 : window.innerWidth;
-        let conebebra = bebra / 1300;
+        let cebaracter = window.innerWidth < 550 ? 810 : 1300;
+        let conebebra = bebra / cebaracter;
         document.querySelector('meta[name="viewport"]').setAttribute('content', `width=${bebra}, initial-scale=${conebebra}`);
         
         const colorned = localStorage.getItem("theme") || "green";
