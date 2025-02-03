@@ -201,11 +201,11 @@ a:visited {
 }
 .post-name {
     margin-bottom: 10px;
-    font-size: 0.132vw;
+    font-size: 1.32vw;
 }
 .post-text {
     margin-bottom: 10px;
-    font-size: 0.110vw;
+    font-size: 1.10vw;
 }
 .post-image {
     border: 1px solid #ccc;
@@ -274,7 +274,7 @@ a:visited {
 }
 .post-link {
     margin-bottom: 10px;
-    font-size: 0.110vw;
+    font-size: 1.10vw;
 }
 .post-status {
     margin-left: auto;
