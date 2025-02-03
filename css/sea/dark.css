@@ -201,10 +201,11 @@ a:visited {
 }
 .post-name {
     margin-bottom: 10px;
+    font-size: 0.8em;
 }
 .post-text {
     margin-bottom: 10px;
-    font-size: 0.4em;
+    font-size: 0.6em;
 }
 .post-image {
     border: 1px solid #ccc;
