@@ -11,12 +11,12 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#303030">
     <script>
-        if (window.innerWidth < 550) {
-            document.querySelector('meta[name="viewport"]').setAttribute('content', 'width=550, initial-scale=1.0');
-        }
+        let bebra = window.innerWidth < 550 ? 550 : window.innerWidth;
+        let conebebra = bebra / 1300;
+        document.querySelector('meta[name="viewport"]').setAttribute('content', `width=${bebra}, initial-scale=${conebebra}`);
+        
         const colorned = localStorage.getItem("theme") || "green";
         const link = document.createElement("link");
-        link.id = "csslink";
         link.rel = "stylesheet";
         link.href = `https://oldemmi.vercel.app/css/${colorned}/dark.css?nocache=` + new Date().getTime();
         document.head.appendChild(link);
