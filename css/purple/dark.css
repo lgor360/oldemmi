@@ -7,6 +7,9 @@ body {
     margin: 0;
     padding: 0;
 }
+.bio {
+    font-size: 1.10vw;
+}
 input[type="checkbox"] {
     appearance: none;
     padding: 10px 10px;
