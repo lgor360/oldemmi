@@ -260,6 +260,7 @@ a:visited {
 }
 .person {
     font-weight: bold;
+    font-size: 1.2em;
 }
 .bio {
     font-size: 1.10vw;
