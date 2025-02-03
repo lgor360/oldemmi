@@ -7,6 +7,9 @@ body {
     margin: 0;
     padding: 0;
 }
+.bio {
+    font-size: 1.10vw;
+}
 img {
     border: 1px solid #ccc;
     border-radius: 0px;
