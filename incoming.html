@@ -174,7 +174,6 @@
                 const commentsContainer = document.getElementById("comments");
                 comments.sort((a, b) => new Date(a.comment.published) - new Date(b.comment.published)); // сортируем по path
 
-                const commentMap = new Map(); // мапа для связи комментариев
                 comments.forEach(comment => {
                     const commentElement = document.createElement("div");
                     commentElement.classList.add("comment");
@@ -190,52 +189,9 @@
                                     ${getInstanceFromActorId(comment.creator.actor_id)}
                                 </div>
                             </div>
-                            <div class="post-status">
-                                <div onclick="alert('this comment is removed by community moderator')" class="blocked">
-                                    ${blocked}
-                                </div>
-                                <div onclick="alert('this comment is deleted')" class="deleted">
-                                    ${deleted}
-                                </div>
-                                <div onclick="alert('this comment is edited')" class="edited">
-                                    ${edited}
-                                </div>
-                            </div>
                         </div>
                         <div class="post-text">${parseMarkdown(vlickedbody)}</div>
-                        <div class="post-footer">
-                            <div class="counter">
-                                <button onclick="voteContent(1, 'comment', ${comment.comment.id}, ${comment.my_vote})">👍</button>
-                                <span style="color: ${likecolor};" id="vote${comment.comment.id}">${comment.counts.upvotes}</span>
-                            </div>
-                            <div class="counter">
-                                <button onclick="voteContent(-1, 'comment', ${comment.comment.id}, ${comment.my_vote})">👎</button>
-                                <span style="color: ${dislikecolor};" id="down${comment.comment.id}">${comment.counts.downvotes}</span>
-                            </div>
-                            <div class="counter">
-                                <button onclick="pathzero(${comment.comment.id}, 'table', 'you answering on the comment \`${cerotinicosi}\`. click to cancel')">💬</button>
-                            </div>
-                            ${actionbuttons}
-                        </div>
                     `;
-
-                    commentMap.set(comment.comment.id, commentElement);
-
-                    // ищем родителя
-                    const parentPath = comment.comment.path.split('.').slice(0, -1).join('.');
-                    if (parentPath) {
-                        const parentId = parentPath.split('.').pop();
-                        const parentComment = commentMap.get(parseInt(parentId));
-                        if (parentComment) {
-                            const repliesContainer = parentComment.querySelector(".replies") || document.createElement("div");
-                            repliesContainer.classList.add("replies");
-                            parentComment.appendChild(repliesContainer);
-                            repliesContainer.appendChild(commentElement);
-                            return; // добавляем только в родительский контейнер
-                        }
-                    }
-
-                    // если нет родителя, добавляем в основной контейнер
                     commentsContainer.appendChild(commentElement);
                 });
             } catch (error) {
