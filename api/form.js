@@ -32,13 +32,8 @@ module.exports = async (req, res) => {
         });
 
         // проверяем, что ответ не пустой
-        const textResponse = await response.text();
-        if (!textResponse) {
-            throw new Error("empty response from server");
-        }
-
-        const data = JSON.parse(textResponse);
-        res.status(response.status).json(data);
+        const text = await response.text();
+        res.status(response.status).send(text);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
