@@ -177,10 +177,10 @@
             try {
                 alert("a");
                 const formData = new FormData();
-                formData.append('image', document.getElementById("fileInput").files[0]);
+                formData.append('image', document.getElementById("fileInput").files);
                 formData.append('lemmyToken', localStorage.getItem("lemmyToken"));
                 formData.append('server', localStorage.getItem("accountServer"));
-                alert(document.getElementById("fileInput").files[0]);
+                alert(document.getElementById("fileInput").files);
 
                 const response = await fetch(`https://oldemmi.vercel.app/api/form.js`, {
                     method: 'POST',
