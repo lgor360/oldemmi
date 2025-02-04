@@ -3,8 +3,8 @@
 </p>
 <h1 align="center">oldemmi</h1>
 <p align="center">
-    <img src="https://img.shields.io/badge/status-under_developement-FFDD00?labelColor=C3A900&style=plastic" alt="logo" width="165">
-    <img src="https://img.shields.io/badge/old_school-yes-BFFF00?labelColor=92C300&style=plastic" alt="logo" width="95">
+    <img src="https://img.shields.io/badge/status-under_developement-C3A900?labelColor=FFDD00&style=plastic" alt="logo" width="165">
+    <img src="https://img.shields.io/badge/old_school-yes-92C300?labelColor=BFFF00&style=plastic" alt="logo" width="95">
     <img src="https://img.shields.io/badge/cat_smile-:3-482c63?labelColor=6d1bbf&style=plastic" alt="logo" width="80">
 </p>
 
