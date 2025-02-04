@@ -27,9 +27,9 @@ module.exports = async (req, res) => {
 
         // создаём форму для отправки
         const form = new FormData();
-        form.append("image", imageFile.data, imageFile.name);
+        form.append("image", imageFile.data, { filename: imageFile.name });
 
-        const response = await fetch(`https://${server}/api/v3/picts/image`, {
+        const response = await fetch(`https://${server}/api/v3/pictrs/image`, {
             method: "POST",
             headers: {
                 "authorization": `Bearer ${lemmyToken}`
