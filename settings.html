@@ -187,8 +187,8 @@
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({
-                            lemmyToken: localStorage.getItem("lemmyToken"),
-                            server: localStorage.getItem("accountServer"),
+                            lemmyToken: `${localStorage.getItem("lemmyToken")}`,
+                            server: `${localStorage.getItem("accountServer")}`,
                             image: base64Image
                         })
                     });
