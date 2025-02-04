@@ -11,25 +11,20 @@ module.exports = async (req, res) => {
     if (req.method !== 'POST') return res.status(405).json({ error: "Method not allowed" });
 
     try {
-        if (!req.files || !req.files.image) {
-            return res.status(400).json({ error: "No image file provided" });
+        if (!req.body || !req.body.image || !req.body.server || !req.body.lemmyToken) {
+            return res.status(400).json({ error: "no needed params provided :(" });
         }
 
-        const { server, lemmyToken } = req.body;
-        const imageFile = req.files.image;
+        const { server, lemmyToken, image } = req.body;
 
         // создаём form-data
         const form = new FormData();
-        form.append("image", imageFile.data, {
-            filename: imageFile.name,
-            contentType: imageFile.mimetype
-        });
+        form.append("image", image.data);
 
         const response = await fetch(`https://${server}/api/v3/pictrs/image`, {
             method: "POST",
             headers: {
-                "authorization": `Bearer ${lemmyToken}`,
-                ...form.getHeaders() // передаём правильные заголовки
+                "authorization": `Bearer ${lemmyToken}`
             },
             body: form
         });
