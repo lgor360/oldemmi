@@ -40,8 +40,8 @@ due to the client being under development, some features are not available
 |markdown full support|✓|
 |themes|✓|
 |indicators for ALL|✓|
-|uploading images||✓|
-|view notifications|||✓|
+|uploading images|||✓|
+|view notifications||✓|
 
 ### i want to view "under development" functions!
 if u want to view "under development" functions [go here](https://github.com/lgor360/oldemmi/tree/dev)
