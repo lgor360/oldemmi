@@ -12,7 +12,11 @@
 i wanted to make a light client for lemmy. i tried to make it look like from the old internet :P
 
 ## screenshots
-![preview](https://github.com/user-attachments/assets/ea474101-9363-47a9-821c-c94294493657)
+<img src="https://github.com/user-attachments/assets/2dc252b6-7108-4eff-9007-f441f2c2d0d4" alt="preview" width="49%">
+<img src="https://github.com/user-attachments/assets/0a81cd1b-0aa0-4b40-9684-03d784144071" alt="preview" width="49%">
+<img src="https://github.com/user-attachments/assets/bb2dbc7e-0c22-4685-af65-2add99dc669c" alt="preview" width="49%">
+<img src="https://github.com/user-attachments/assets/9a7c6497-33a3-44ac-825f-1f65db9427f1" alt="preview" width="49%">
+<img src="https://github.com/user-attachments/assets/1b245188-4abf-4232-a736-381c2d26e3ad" alt="preview">
 
 ## under development
 due to the client being under development, some features are not available
