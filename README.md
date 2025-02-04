@@ -1,8 +1,12 @@
-# about
 <p align="center">
-  <img src="https://oldemmi.vercel.app/resources/favicon/android-chrome-512x512.png" alt="logo" width="185">
+    <img src="https://oldemmi.vercel.app/resources/favicon/android-chrome-512x512.png" alt="logo" width="185">
 </p>
-<p style="text-weight: bold;" align="center">oldemmi</p>
+<h1 align="center">oldemmi</h1>
+<p align="center">
+    <img src="https://img.shields.io/badge/status-under_developement-FFDD00?labelColor=C3A900&style=plastic" alt="logo" width="165">
+    <img src="https://img.shields.io/badge/old_school-yes-BFFF00?labelColor=92C300&style=plastic" alt="logo" width="95">
+    <img src="https://img.shields.io/badge/cat_smile-:3-482c63?labelColor=6d1bbf&style=plastic" alt="logo" width="80">
+</p>
 
 ## description 
 i wanted to make a light client for lemmy. i tried to make it look like from the old internet :P
