@@ -39,6 +39,5 @@ due to the client being under development, some features are not available
 |uploading images||✓|
 |view notifications||✓|
 
-# i want to view "under development" functions!
-
+### i want to view "under development" functions!
 if u want to view "under development" functions [go here](https://github.com/lgor360/oldemmi/tree/dev)
