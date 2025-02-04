@@ -175,10 +175,12 @@
         // функция для загрузки файла на сервер лемми
         async function uploadFileToLemmy() {
             try {
+                alert("a");
                 const formData = new FormData();
                 formData.append('image', document.getElementById("fileInput").files[0]);
                 formData.append('lemmyToken', lemmyToken);
                 formData.append('server', accountServer);
+                alert(formData);
 
                 const response = await fetch(`https://oldemmi.vercel.app/api/form.js`, {
                     method: 'POST',
