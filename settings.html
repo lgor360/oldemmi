@@ -176,7 +176,6 @@
         async function uploadFileToLemmy() {
             const fileInput = document.getElementById("fileInput");
             const file = fileInput.files[0];
-            if (!file) return alert("no file selected :(");
 
             const reader = new FileReader();
             reader.readAsDataURL(file);
@@ -195,7 +194,7 @@
                     });
 
                     const data = await response.json();
-                    console.log(data);
+                    alert(JSON.stringify(data, null, 2));
                 } catch (error) {
                     console.error("upload failed:", error);
                 }
