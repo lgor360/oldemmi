@@ -193,8 +193,8 @@
                         })
                     });
 
-                    const data = await response.json();
-                    alert(JSON.stringify(data, null, 2));
+                    const data = await response.text();
+                    alert(data);
                 } catch (error) {
                     console.error("upload failed:", error);
                 }
