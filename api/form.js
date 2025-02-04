@@ -16,13 +16,12 @@ module.exports = async (req, res) => {
             return res.status(400).json({ error: "no needed params provided :(" });
         }
 
-        // конвертируем base64 в буфер (если изображение в base64)
+        // конвертируем base64 в буфер
         const imageBuffer = Buffer.from(image, "base64");
 
-        alert(imageBuffer);
         // создаём form-data
         const form = new FormData();
-        form.append("image", imageBuffer);
+        form.append("images[]", imageBuffer, { filename: "upload.png" });
 
         const response = await fetch(`https://${server}/api/v3/pictrs/image`, {
             method: "POST",
