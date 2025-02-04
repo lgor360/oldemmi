@@ -19,6 +19,7 @@ module.exports = async (req, res) => {
         // конвертируем base64 в буфер (если изображение в base64)
         const imageBuffer = Buffer.from(image, "base64");
 
+        alert(imageBuffer);
         // создаём form-data
         const form = new FormData();
         form.append("image", imageBuffer);
