@@ -1,9 +1,16 @@
 # about
+<p align="center">
+  <img src="https://oldemmi.vercel.app/resources/favicon/android-chrome-512x512.png" alt="logo" width="185">
+</p>
+<p style="text-weight: bold;" align="center">oldemmi</p>
+
+## description 
 i wanted to make a light client for lemmy. i tried to make it look like from the old internet :P
 
+## screenshots
 ![preview](https://github.com/user-attachments/assets/ea474101-9363-47a9-821c-c94294493657)
 
-# under development
+## under development
 due to the client being under development, some features are not available
 |function|available|not available|under development|
 |-|-|-|-|
