@@ -223,10 +223,6 @@
                 if (lemmyToken) {
                     const lemmyTokenValid = await validateToken();
                     if (lemmyTokenValid) {
-                        profileInBar.style.display = "flex";
-                        logout.style.display = "flex";
-                        login.style.display = "none";
-
                         const user = await getLoggined();
                         profileInBar.innerHTML = `
                             <img onclick="goToProfile('${user.name}', '${localStorage.getItem("accountServer")}')" src="${user.avatar || 'https://lgor360.github.io/oldemmi/user.png'}">
