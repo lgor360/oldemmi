@@ -199,7 +199,7 @@
                     alert(JSON.stringify(data.files.file, null, 2));
                     return `https://${localStorage.getItem("accountServer")}/pictrs/image/${data.files.file}`;
                 } catch (error) {
-                    alert("upload failed:", error);
+                    alert(`upload failed: ${error}`);
                 }
             };
         }
