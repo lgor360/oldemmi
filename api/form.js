@@ -1,5 +1,5 @@
 const fetch = require("node-fetch");
-const FormData = require("form-data");
+import { LemmyHttp } from "lemmy-js-client";
 
 module.exports = async (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
@@ -16,21 +16,14 @@ module.exports = async (req, res) => {
             return res.status(400).json({ error: "no needed params provided :(" });
         }
 
+        // создаём клиент lemmy с указанным инстансом
+        const lemmy = new LemmyHttp(`https://${server}`);
+        lemmy.setHeaders({ authorization: `Bearer ${lemmyToken}` });
+
         // конвертируем base64 в буфер
         const imageBuffer = Buffer.from(image, "base64");
-
-        // создаём form-data
-        const form = new FormData();
-        form.append("images[]", imageBuffer);
-
-        const response = await fetch(`https://${server}/api/v3/pictrs/image`, {
-            method: "POST",
-            headers: {
-                "authorization": `Bearer ${lemmyToken}`
-            },
-            body: form
-        });
-
+        const response = await lemmy.uploadImage({ image: imageBuffer, auth: lemmyToken });
+        
         // проверяем, что ответ не пустой
         const text = await response.text();
         res.status(response.status).send(text);
