@@ -11,6 +11,7 @@
     "body-parser": "^2.0.2",
     "cors": "^2.8.5",
     "node-fetch": "^2.7.0",
+    "lemmy-js-client": "^0.20.0-search-combined.1",
     "form-data": "^4.0.1"
   }
 }
