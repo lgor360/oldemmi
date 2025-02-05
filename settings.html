@@ -172,27 +172,33 @@
             }
         }
 
-        // функция для загрузки файла на сервер леммиi
+        // функция для загрузки файла на сервер лемми
         async function uploadFileToLemmy() {
             const fileInput = document.getElementById("fileInput");
             const file = fileInput.files[0];
 
-            try {
-                const response = await fetch("https://oldemmi.vercel.app/api/form.js", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        lemmyToken: `${localStorage.getItem("lemmyToken")}`,
-                        server: `${localStorage.getItem("accountServer")}`,
-                        image: file
-                    })
-                });
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = async function () {
+                const base64Image = reader.result.split(",")[1]; // убираем префикс
 
-                const data = await response.text();
-                alert(data);
-            } catch (error) {
-                console.error("upload failed:", error);
-            }
+                try {
+                    const response = await fetch("https://oldemmi.vercel.app/api/form.js", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            lemmyToken: `${localStorage.getItem("lemmyToken")}`,
+                            server: `${localStorage.getItem("accountServer")}`,
+                            image: base64Image
+                        })
+                    });
+
+                    const data = await response.text();
+                    alert(data);
+                } catch (error) {
+                    console.error("upload failed:", error);
+                }
+            };
         }
         
         async function setAccSettings() {
