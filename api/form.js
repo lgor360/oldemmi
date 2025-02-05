@@ -1,5 +1,5 @@
 const fetch = require("node-fetch");
-import { LemmyHttp } from "lemmy-js-client";
+const FormData = require("form-data");
 
 module.exports = async (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
@@ -10,27 +10,31 @@ module.exports = async (req, res) => {
     if (req.method !== 'POST') return res.status(405).json({ error: "Method not allowed" });
 
     try {
-        if (!req.body || typeof req.body !== "object") {
-            return res.status(400).json({ error: "invalid json input" });
-        }
-
         const { server, lemmyToken, image } = req.body;
+
         if (!server || !lemmyToken || !image) {
             return res.status(400).json({ error: "no needed params provided :(" });
         }
 
-        const lemmy = new LemmyHttp(`https://${server}`);
-        lemmy.setHeaders({ authorization: `Bearer ${lemmyToken}` });
-        
-        // загружаем изображение
-        const responseData = await lemmy.uploadImage({
-            image: image,
-            auth: `Bearer ${lemmyToken}`
+        // конвертируем base64 в буфер
+        const imageBuffer = Buffer.from(image, "base64");
+
+        // создаём form-data
+        const form = new FormData();
+        form.append("images[]", imageBuffer);
+
+        const response = await fetch(`https://${server}/api/v3/pictrs/image`, {
+            method: "POST",
+            headers: {
+                "authorization": `Bearer ${lemmyToken}`
+            },
+            body: form
         });
 
-        res.status(200).json(responseData.json());
+        // проверяем, что ответ не пустой
+        const text = await response.text();
+        res.status(response.status).send(text);
     } catch (error) {
-        console.error("upload error:", error);
         res.status(500).json({ error: error.message });
     }
 };
