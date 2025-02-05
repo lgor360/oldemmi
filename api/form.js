@@ -22,7 +22,9 @@ module.exports = async (req, res) => {
         const lemmy = new LemmyHttp(`https://${server}`);
         
         // загружаем изображение
-        const responseData = await lemmy.uploadImage({ image: image });
+        const responseData = await lemmy.uploadImage({
+            image: image
+        });
 
         res.status(200).json(responseData.json());
     } catch (error) {
