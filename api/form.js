@@ -18,7 +18,7 @@ module.exports = async (req, res) => {
 
         // создаём form-data
         const form = new FormData();
-        form.append("images[]", imageBuffer);
+        form.append("images[]", image);
 
         const response = await fetch(`https://${server}/api/v3/pictrs/image`, {
             method: "POST",
