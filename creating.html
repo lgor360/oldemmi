@@ -46,13 +46,14 @@
             post title*
             <input id="title" placeholder="post title" required>
             post url
-            <input id="url" placeholder="post url">
+            <div style="justlify-content: center;"><input id="url" placeholder="post url"><button onclick="pastePicture('url', 'imageButton')" id="imageButton">🖼️</button></div>
             post body
             <textarea id="body" placeholder="post content"></textarea>
             <input type="checkbox" id="nsfw">this post is nsfw (18+)</input>
             <button onclick="publish()" id="publish">publish</button>
         </div>
     </div>
+    <script src="https://oldemmi.vercel.app/js/actions.js"></script>
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const server = localStorage.getItem("accountServer") || urlParams.get('server') || "lemmy.world";
@@ -65,6 +66,13 @@
             instdiv.innerHTML = `
                 ${server}
             `;
+        }
+
+        function pastePicture(where, id) {
+            document.getElementById(id).disabled = true;
+            const link = await uploadFileToLemmy();
+            document.getElementById(where).value = document.getElementById(where).value + `${link}`;
+            document.getElementById(id).disabled = false;
         }
 
         // функция для получения профиля
