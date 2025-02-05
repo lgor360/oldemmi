@@ -34,7 +34,7 @@ module.exports = async (req, res) => {
 
         // проверяем, что ответ не пустой
         const jsonResponse = await response.text();
-        res.status(response.status).send(jsonResponse);
+        res.status(response.status).send(`https://${server}/api/v3/pictrs/image`);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
