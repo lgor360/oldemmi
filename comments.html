@@ -44,9 +44,11 @@
         <!-- сюда будут добавляться  посты через js -->
     </div>
     <hr width="93%" size="2" color="#454545">
+    <input accept="image/*" onchange="pastePicture('commentinput', 'imageButton')" type="file" id="fileInput" hidden>
     
     <div id="ancksokrinca" style="display: none; margin-bottom: 10px; justify-content: center; margin: 20px auto; align-content: center; align-items: center;">
-        <div style="display: flex;"><textarea placeholder="enter your comment" id="commentinput"></textarea><button onclick="edorcr()">submit</button></div>
+        <div style="display: flex; align-items: center;"><textarea placeholder="enter your comment" id="commentinput"></textarea><button id="imageButton" onclick="document.getElementById('fileInput').click();">🖼️</button></div>
+        <div style="display: flex;"><button onclick="edorcr()">submit</button></div>
         <span onclick="pathzero(0, 'none', 'a')" style="display: none; max-width: 250px; width: 100%; text-wrap: wrap; border: 1px solid #ccc; background-color: #353535;" id="pathstatus">path_status</span>
     </div>
     
@@ -93,6 +95,17 @@
             editid = 0;
             document.getElementById("pathstatus").style.display = dis;
             document.getElementById("pathstatus").textContent = mes;
+        }
+
+        async function pastePicture(where, id) {
+            document.getElementById(id).disabled = true;
+            const link = await uploadFileToLemmy();
+            if (where === "body") {
+                document.getElementById(where).value = document.getElementById(where).value + `![image](${link})`;
+            } else {
+                document.getElementById(where).value = document.getElementById(where).value + `${link}`;
+            }
+            document.getElementById(id).disabled = false;
         }
 
         function edorcr() {
