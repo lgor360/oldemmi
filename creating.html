@@ -87,9 +87,9 @@
             document.getElementById(id).disabled = true;
             const link = await uploadFileToLemmy();
             if (where === "body") {
-                document.getElementById(where).value = document.getElementById(where).value + ` ![image](${link})`;
+                document.getElementById(where).value = document.getElementById(where).value + `![image](${link})`;
             } else {
-                document.getElementById(where).value = document.getElementById(where).value + ` ${link}`;
+                document.getElementById(where).value = document.getElementById(where).value + `${link}`;
             }
             document.getElementById(id).disabled = false;
         }
