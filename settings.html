@@ -17,6 +17,7 @@
         
         const colorned = localStorage.getItem("theme") || "green";
         const link = document.createElement("link");
+        link.id = "csslink";
         link.rel = "stylesheet";
         link.href = `https://oldemmi.vercel.app/css/${colorned}/dark.css?nocache=` + new Date().getTime();
         document.head.appendChild(link);
@@ -51,8 +52,7 @@
                 <input class="displayname" type="text" placeholder="display name" maxlength="29">
                 <textarea maxlength="300" class="bioinput" placeholder="bio"></textarea>
                 <input class="shownsfw" style="margin-bottom: 10px;" type="checkbox">show nsfw</input>
-                <button onclick="setAccSettings()">save</button>
-                <button id="avsave" onclick="setAccSettingsAv()" hidden>save</button>
+                <button id="saveButton" onclick="setAccSettings()">save</button>
             </div>
         </div>
         <div style="margin-top: 15px;" class="accountsettings">
@@ -208,6 +208,7 @@
         }
         
         async function setAccSettings() {
+            document.getElementById("saveButton").disabled = true;
             const newBio = document.querySelector(".bioinput").value;
             const newName = document.querySelector(".displayname").value;
             const proxyUrl = "https://oldemmi.vercel.app/api/server.js";
