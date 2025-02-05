@@ -185,7 +185,6 @@
                 try {
                     const response = await fetch("https://oldemmi.vercel.app/api/form.js", {
                         method: "POST",
-                        headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({
                             lemmyToken: `${localStorage.getItem("lemmyToken")}`,
                             server: `${localStorage.getItem("accountServer")}`,
