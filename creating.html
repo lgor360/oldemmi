@@ -52,9 +52,9 @@
                 <button style="margin-top: 0; margin-bottom: 5px;" onclick="checkM('url', 'imageButton')" id="imageButton">🖼️</button>
             </div>
             post body
-            <div style="display: flex; align-items: center;">
-                <textarea style="margin-bottom: 0; width: 100%;" id="body" placeholder="post content"></textarea>
-                <button style="margin-top: 0; margin-bottom: 5px;" onclick="checkM('body', 'imageButtonBody')" id="imageButtonBody">🖼️</button>
+            <textarea style="margin-bottom: 0; width: 100%;" id="body" placeholder="post content"></textarea>
+            <div style="display: flex; align-items: center; margin-top: 0; margin-bottom: 5px;">
+                <button onclick="checkM('body', 'imageButtonBody')" id="imageButtonBody">🖼️</button>
             </div>
             <input type="checkbox" id="nsfw">this post is nsfw (18+)</input>
             <button onclick="publish()" id="publish">publish</button>
