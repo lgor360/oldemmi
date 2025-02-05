@@ -33,8 +33,8 @@ module.exports = async (req, res) => {
         });
 
         // проверяем, что ответ не пустой
-        const jsonResponse = await response.json();
-        res.status(response.status).json(jsonResponse);
+        const jsonResponse = await response.text();
+        res.status(response.status).text(jsonResponse);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
