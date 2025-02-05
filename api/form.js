@@ -16,13 +16,18 @@ module.exports = async (req, res) => {
             return res.status(400).json({ error: "no needed params provided :(" });
         }
 
+        // конвертируем base64 в буфер
+        const imageBuffer = Buffer.from(image, "base64");
+
         // создаём form-data
         const form = new FormData();
-        form.append("images[]", `${image}`);
-        form.append("authorization", `Bearer ${lemmyToken}`);
+        form.append("images[]", imageBuffer);
 
         const response = await fetch(`https://${server}/api/v3/pictrs/image`, {
             method: "POST",
+            headers: {
+                "authorization": `Bearer ${lemmyToken}`
+            },
             body: form
         });
 
