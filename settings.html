@@ -205,8 +205,9 @@
             const newBio = document.querySelector(".bioinput").value;
             const newName = document.querySelector(".displayname").value;
             const proxyUrl = "https://oldemmi.vercel.app/api/server.js";
-            let avurl = document.getElementById("fileInput").files[0] ? await uploadFileToLemmy() : avnorm;
-            
+            let avurl = avedit === 1 ? uploadFileToLemmy() : avnorm;
+            alert(avedit);
+            alert(avurl);
             const needData = {
                 url: `https://${localStorage.getItem("accountServer")}/api/v3/user/save_user_settings`,
                 method: "PUT",
@@ -218,7 +219,7 @@
                     bio: bio !== newBio ? newBio : bio, 
                     display_name: namedis !== newName ? newName : namedis,
                     show_nsfw: document.querySelector(".shownsfw").checked,
-                    avatar: avurl
+                    avatar: avedit !== 0 ? avurl : avnorm
                 }
             };
 
