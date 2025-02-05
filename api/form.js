@@ -20,10 +20,7 @@ module.exports = async (req, res) => {
         }
 
         const lemmy = new LemmyHttp(`https://${server}`);
-
-        // создаём объект `File` из base64
-        const imageBuffer = Buffer.from(image, "base64");
-
+        
         // загружаем изображение
         const responseData = await lemmy.uploadImage({ image: image });
 
