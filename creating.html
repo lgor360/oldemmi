@@ -39,6 +39,7 @@
             <div style="display: inline;" class="neP"><div style="display: none;" class="profileInBar"></div></div>
         </div>
     </div>
+    <input accept="image/*" onchange="document.getElementById('fileInput').click();" type="file" id="fileInput" hidden>
     <div class="caca">
         <div class="creating-form">
             community*
@@ -46,7 +47,7 @@
             post title*
             <input id="title" placeholder="post title" required>
             post url
-            <div style="justlify-content: center;"><input id="url" placeholder="post url"><button onclick="pastePicture('url', 'imageButton')" id="imageButton">🖼️</button></div>
+            <div style="justlify-content: center;"><input id="url" placeholder="post url"><button onclick="document.getElementById('fileInput').click();" id="imageButton">🖼️</button></div>
             post body
             <textarea id="body" placeholder="post content"></textarea>
             <input type="checkbox" id="nsfw">this post is nsfw (18+)</input>
