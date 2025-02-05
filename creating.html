@@ -76,7 +76,10 @@
         }
 
         function checkM(where, id) {
-            document.getElementById('fileInput').onchange = `pastePicture('${where}', '${id}')`;
+            document.getElementById('fileInput').onchange = function () {
+                pastePicture(`${where}`, `${id}`);
+            };
+
             document.getElementById('fileInput').click();
         }
         
