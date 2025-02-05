@@ -194,7 +194,7 @@
                     });
 
                     const data = await response.json();
-                    alert(`https://${localStorage.getItem("accountServer")}/pictrs/image/${data.files[0].file}`);
+                    return `https://${localStorage.getItem("accountServer")}/pictrs/image/${data.files[0].file}`;
                 } catch (error) {
                     console.error("upload failed:", error);
                 }
