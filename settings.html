@@ -205,7 +205,7 @@
             const newBio = document.querySelector(".bioinput").value;
             const newName = document.querySelector(".displayname").value;
             const proxyUrl = "https://oldemmi.vercel.app/api/server.js";
-            let avurl = avedit === 1 ? uploadFileToLemmy() : avnorm;
+            let avurl = avedit === 1 ? await uploadFileToLemmy() : avnorm;
             alert(avedit);
             alert(avurl);
             const needData = {
