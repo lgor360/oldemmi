@@ -25,7 +25,7 @@ module.exports = async (req, res) => {
         const imageBuffer = Buffer.from(image, "base64");
 
         // загружаем изображение
-        const responseData = await lemmy.uploadImage({ "image": imageBuffer });
+        const responseData = await lemmy.uploadImage({ image: image });
 
         res.status(200).json(responseData.json());
     } catch (error) {
