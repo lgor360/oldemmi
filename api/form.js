@@ -24,7 +24,8 @@ module.exports = async (req, res) => {
         
         // загружаем изображение
         const responseData = await lemmy.uploadImage({
-            image: image
+            image: image,
+            auth: `Bearer ${lemmyToken}`
         });
 
         res.status(200).json(responseData.json());
