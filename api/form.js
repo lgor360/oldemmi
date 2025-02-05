@@ -21,7 +21,7 @@ module.exports = async (req, res) => {
 
         // создаём form-data
         const form = new FormData();
-        form.append("images[]", imageBuffer);
+        form.append("images[]", imageBuffer, { filename: "upload.png", contentType: "image/png" });
 
         const response = await fetch(`https://${server}/pictrs/image`, {
             method: "POST",
@@ -32,8 +32,9 @@ module.exports = async (req, res) => {
             body: form
         });
 
-        const jsonResponse = await response.json();
-        res.status(response.status).json(jsonResponse);
+        // проверяем, что ответ не пустой
+        const jsonResponse = await response.text();
+        res.status(response.status).send(jsonResponse);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
