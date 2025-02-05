@@ -16,9 +16,6 @@ module.exports = async (req, res) => {
             return res.status(400).json({ error: "no needed params provided :(" });
         }
 
-        // конвертируем base64 в буфер
-        const imageBuffer = Buffer.from(image, "base64");
-
         // создаём form-data
         const form = new FormData();
         form.append("images[]", imageBuffer);
