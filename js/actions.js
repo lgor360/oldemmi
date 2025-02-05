@@ -66,3 +66,42 @@ async function fedFetch(q, type) {
         alert(`error while loading federated object: ${error}`);
     }
 }
+
+async function uploadFileToLemmy() {
+    const fileInput = document.getElementById("fileInput");
+    const file = fileInput.files[0];
+
+    if (!file) {
+        alert("no file selected");
+        return;
+    }
+
+    try {
+        const base64Image = await new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result.split(",")[1]); // убираем префикс
+            reader.onerror = (error) => reject(error);
+        });
+
+        const response = await fetch("https://oldemmi.vercel.app/api/form.js", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                lemmyToken: localStorage.getItem("lemmyToken"),
+                server: localStorage.getItem("accountServer"),
+                image: base64Image
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error(`upload failed: ${response.status} ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        return `https://${localStorage.getItem("accountServer")}/pictrs/image/${data.files[0].file}`;
+    } catch (error) {
+        alert(`upload failed: ${error}`);
+    }
+}
+
