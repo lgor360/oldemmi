@@ -1,6 +1,5 @@
 const fetch = require("node-fetch");
 const FormData = require("form-data");
-const { fileTypeFromBuffer } = require('file-type');
 
 module.exports = async (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
@@ -19,11 +18,10 @@ module.exports = async (req, res) => {
 
         // конвертируем base64 в буфер
         const imageBuffer = Buffer.from(image, "base64");
-        const fileType = await fileTypeFromBuffer(imageBuffer);
-    
+
         // создаём form-data
         const form = new FormData();
-        form.append("images[]", imageBuffer, { filename: `uploading.${fileType.ext}`, contentType: fileType.mime });
+        form.append("images[]", imageBuffer, { filename: "upload.png", contentType: "image/png" });
 
         const response = await fetch(`https://${server}/pictrs/image`, {
             method: "POST",
@@ -35,8 +33,8 @@ module.exports = async (req, res) => {
         });
 
         // проверяем, что ответ не пустой
-        const jsonResponse = await response.json();
-        res.status(response.status).json(jsonResponse);
+        const jsonResponse = await response.text();
+        res.status(response.status).send(jsonResponse);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
