@@ -41,13 +41,13 @@
         </div>
     </div>
 
-    <input accept="image/*" onchange="setAvatar('set', this.file)" type="file" id="fileInput" hidden>
+    <input accept="image/*" onchange="setAvatar('set')" type="file" id="fileInput" hidden>
     <div class="settings">
         <div class="accountsettings">
             <div style="font-weight: bold;" class="header">account settings</div>
             <div style="text-align: center;" class="body">
                 <img onclick="document.getElementById('fileInput').click();" class="avatar" alt="avatar" style="margin-bottom: 10px; height: 120px; width: 120px;">
-                <button class="avbutton" style="display: none;" onclick="setAvatar('reset', 0)">×</button>
+                <button class="avbutton" style="display: none;" onclick="setAvatar('reset')">×</button>
                 <input class="displayname" type="text" placeholder="display name" maxlength="29">
                 <textarea maxlength="300" class="bioinput" placeholder="bio"></textarea>
                 <input class="shownsfw" style="margin-bottom: 10px;" type="checkbox">show nsfw</input>
@@ -293,7 +293,7 @@
             nsfwcheck = settings.show_nsfw;
         }
 
-        async function setAvatar(status, files) {
+        async function setAvatar(status) {
             if (status === "set") {
                 if (files.length > 0) {
                     const fileReader = new FileReader();
@@ -302,7 +302,7 @@
                         document.querySelector(".avatar").src = event.target.result;
                         document.querySelector(".avbutton").style.display = "flex";
                     };
-                    fileReader.readAsDataURL(files[0]); // читаем файл как dataURL
+                    fileReader.readAsDataURL(document.getElementById("fileInput").files[0]); // читаем файл как dataURL
                 }
             } else if (status === "reset") {
                 document.querySelector(".avbutton").style.display = "none";
