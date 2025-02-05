@@ -34,7 +34,7 @@ module.exports = async (req, res) => {
 
         // проверяем, что ответ не пустой
         const jsonResponse = await response.text();
-        res.status(response.status).text(jsonResponse);
+        res.status(response.status).send(jsonResponse);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
