@@ -47,9 +47,15 @@
             post title*
             <input id="title" placeholder="post title" required>
             post url
-            <div style="display: block;"><input style="margin-bottom: 0;" id="url" placeholder="post url"><button style="margin-top: 0; margin-bottom: 5px;" onclick="document.getElementById('fileInput').click();" id="imageButton">🖼️</button></div>
+            <div style="display: block;">
+                <input style="margin-bottom: 0;" id="url" placeholder="post url">
+                <button style="margin-top: 0; margin-bottom: 5px;" onclick="checkM('url', 'imageButton')" id="imageButton">🖼️</button>
+            </div>
             post body
-            <textarea id="body" placeholder="post content"></textarea>
+            <div style="display: block;">
+                <textarea style="margin-bottom: 0;" id="body" placeholder="post content"></textarea>
+                <button style="margin-top: 0; margin-bottom: 5px;" onclick="checkM('body', 'imageButtonBody')" id="imageButtonBody">🖼️</button>
+            </div>
             <input type="checkbox" id="nsfw">this post is nsfw (18+)</input>
             <button onclick="publish()" id="publish">publish</button>
         </div>
@@ -69,6 +75,11 @@
             `;
         }
 
+        function checkM(where, id) {
+            document.getElementById('fileInput').onchange = `pastePicture('${where}', '${id}')`;
+            document.getElementById('fileInput').click();
+        }
+        
         async function pastePicture(where, id) {
             document.getElementById(id).disabled = true;
             const link = await uploadFileToLemmy();
