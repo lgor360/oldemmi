@@ -193,10 +193,13 @@
                         })
                     });
 
-                    const data = await response.text();
-                    alert(data);
+                    const data = await response.json();
+                    alert(JSON.stringify(data, null, 2));
+                    alert(JSON.stringify(data.files, null, 2));
+                    alert(JSON.stringify(data.files.file, null, 2));
+                    return `https://${localStorage.getItem("accountServer")}/pictrs/image/${data.files.file}`;
                 } catch (error) {
-                    console.error("upload failed:", error);
+                    alert("upload failed:", error);
                 }
             };
         }
