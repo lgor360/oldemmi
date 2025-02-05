@@ -201,13 +201,10 @@
             };
         }
         
-        async function setAccSettings() {
+        async function setAccSettingsNoAv() {
             const newBio = document.querySelector(".bioinput").value;
             const newName = document.querySelector(".displayname").value;
             const proxyUrl = "https://oldemmi.vercel.app/api/server.js";
-            let avurl = avedit === 1 ? await uploadFileToLemmy() : avnorm;
-            alert(avedit);
-            alert(avurl);
             const needData = {
                 url: `https://${localStorage.getItem("accountServer")}/api/v3/user/save_user_settings`,
                 method: "PUT",
@@ -219,7 +216,54 @@
                     bio: bio !== newBio ? newBio : bio, 
                     display_name: namedis !== newName ? newName : namedis,
                     show_nsfw: document.querySelector(".shownsfw").checked,
-                    avatar: avedit !== 0 ? avurl : avnorm
+                    avatar: avnorm
+                }
+            };
+
+            try {
+                // выполняем запрос на выход через прокси
+                const response = await fetch(proxyUrl, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(needData)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`saving failed: ${response.status} ${response.statusText}`);
+                }
+                goToHome();
+            } catch (error) {
+                alert(`error during saving settings: ${error}`);
+                return;
+            }
+        }
+
+        async function setAccSettings() {
+            if (avedit === 0) {
+                await setAccSettingsNoAv();
+            } else {
+                await setAccSettingsAv();
+            }
+        }
+        
+        async function setAccSettingsAv() {
+            const newBio = document.querySelector(".bioinput").value;
+            const newName = document.querySelector(".displayname").value;
+            const proxyUrl = "https://oldemmi.vercel.app/api/server.js";
+            let avurl = await uploadFileToLemmy();
+            
+            const needData = {
+                url: `https://${localStorage.getItem("accountServer")}/api/v3/user/save_user_settings`,
+                method: "PUT",
+                headers: {
+                    "content-type": "application/json",
+                    "authorization": `Bearer ${lemmyToken}`
+                },
+                body: {
+                    bio: bio !== newBio ? newBio : bio, 
+                    display_name: namedis !== newName ? newName : namedis,
+                    show_nsfw: document.querySelector(".shownsfw").checked,
+                    avatar: avurl
                 }
             };
 
