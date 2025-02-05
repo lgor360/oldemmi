@@ -20,6 +20,7 @@ module.exports = async (req, res) => {
         }
 
         const lemmy = new LemmyHttp(`https://${server}`);
+        lemmy.setHeaders({ authorization: `Bearer ${lemmyToken}` });
         
         // загружаем изображение
         const responseData = await lemmy.uploadImage({
