@@ -18,13 +18,11 @@ module.exports = async (req, res) => {
 
         // создаём form-data
         const form = new FormData();
-        form.append("images[]", image);
+        form.append("images[]", `${image}`);
+        form.append("authorization", `Bearer ${lemmyToken}`);
 
-        const response = await fetch(`https://${server}/api/v4/image`, {
+        const response = await fetch(`https://${server}/api/v3/pictrs/image`, {
             method: "POST",
-            headers: {
-                "authorization": `Bearer ${lemmyToken}`
-            },
             body: form
         });
 
