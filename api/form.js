@@ -16,21 +16,25 @@ module.exports = async (req, res) => {
             return res.status(400).json({ error: "no needed params provided :(" });
         }
 
+        // конвертируем base64 в буфер
+        const imageBuffer = Buffer.from(image, "base64");
+
         // создаём form-data
         const form = new FormData();
-        form.append("images[]", image);
+        form.append("images[]", imageBuffer, { filename: "upload.png", contentType: "image/png" });
 
         const response = await fetch(`https://${server}/api/v3/pictrs/image`, {
             method: "POST",
             headers: {
-                "authorization": `Bearer ${lemmyToken}`
+                "authorization": `Bearer ${lemmyToken}`,
+                ...form.getHeaders()
             },
             body: form
         });
 
         // проверяем, что ответ не пустой
-        const text = await response.text();
-        res.status(response.status).send(text);
+        const jsonResponse = await response.json();
+        res.status(response.status).json(jsonResponse);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
