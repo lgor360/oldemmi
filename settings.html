@@ -189,17 +189,14 @@
                         body: JSON.stringify({
                             lemmyToken: `${localStorage.getItem("lemmyToken")}`,
                             server: `${localStorage.getItem("accountServer")}`,
-                            image: `${base64Image}`
+                            image: base64Image
                         })
                     });
 
-                    const data = await response.json();
-                    alert(JSON.stringify(data, null, 2));
-                    alert(JSON.stringify(data.files, null, 2));
-                    alert(JSON.stringify(data.files.file, null, 2));
-                    alert(`https://${localStorage.getItem("accountServer")}/pictrs/image/${data.files}`);
+                    const data = await response.text();
+                    alert(data);
                 } catch (error) {
-                    alert(`upload failed: ${error}`);
+                    console.error("upload failed:", error);
                 }
             };
         }
