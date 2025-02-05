@@ -69,7 +69,7 @@
             `;
         }
 
-        function pastePicture(where, id) {
+        async function pastePicture(where, id) {
             document.getElementById(id).disabled = true;
             const link = await uploadFileToLemmy();
             document.getElementById(where).value = document.getElementById(where).value + `${link}`;
