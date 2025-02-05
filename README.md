@@ -40,7 +40,7 @@ due to the client being under development, some features are not available
 |markdown full support|✓|
 |themes|✓|
 |indicators for ALL|✓|
-|uploading images|||✓|
+|uploading images|✓|
 |view notifications||✓|
 
 ### i want to view "under development" functions!
