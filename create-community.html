@@ -53,7 +53,7 @@
                     <textarea style="margin-bottom: 2px; width: 100%; display: flex;" id="body" placeholder="community description"></textarea>
                     <button style="margin-top: 0; margin-bottom: 5px;" onclick="document.getElementById('fileInput').click();" id="imageButtonBody">🖼️</button>
                 </div>
-                this post is nsfw (18+)
+                this community is nsfw (18+)
                 <input type="checkbox" id="nsfw"></input>
                 <button style="margin-top: 15px;" onclick="publish()" id="publish">create</button>
             </div>
@@ -114,14 +114,15 @@
                         body: {
                             "name": `${nameInput.value}`,
                             "title": `${title}`,
-                            "body": `${bodyInput.value}`,
+                            "description": `${bodyInput.value}`,
                             "nsfw": nsfwInput.checked
                         }
                     })
                 });
                 const data = await response.json();
                 if (data.error) {
-                    if (data.error === "invalid_name") { alert('sorry, but community name does not fit :('); return; }
+                    if (data.error === "invalid_name") { alert('sorry, but community name doesnt fit :('); }
+                    return;
                 }
                 goToCreated(`${nameInput.value}`);
             } catch (error) {
