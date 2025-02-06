@@ -45,9 +45,11 @@
             <div class="accountsettings" style="width: 600px;">
                 <div style="font-weight: bold;" class="header">create community</div>
                 icon
-                <input accept="image/*" onchange="pastePictureInImage('body', 'fileInputIcon')" type="file" id="fileInputIcon">
+                <input accept="image/*" onchange="pastePictureInImage('icon', 'fileInputIcon')" type="file" id="fileInputIcon">
+                <img id="icon" hidden>
                 banner
-                <input accept="image/*" onchange="pastePictureInImage('body', 'fileInputBanner')" type="file" id="fileInputBanner">
+                <input accept="image/*" onchange="pastePictureInImage('banner', 'fileInputBanner')" type="file" id="fileInputBanner">
+                <img id="banner" hidden>
                 community name*
                 <input id="name" placeholder="community name" required>
                 community title
@@ -81,7 +83,7 @@
         async function pastePictureInImage(where, id) {
             document.getElementById(id).disabled = true;
             const link = await uploadFileToLemmy(id);
-            // document.getElementById(where).src = `${link}`;
+            document.getElementById(where).src = `${link}`;
             
             document.getElementById(id).disabled = false;
         }
@@ -100,6 +102,8 @@
       
         async function publish() {
             document.getElementById("publish").disabled = true;
+            const icon = document.getElementById("icon").src;
+            const banner = document.getElementById("banner").src;
             const nameInput = document.getElementById("name");
             const titleInput = document.getElementById("title");
             const nsfwInput = document.getElementById("nsfw");
@@ -127,7 +131,9 @@
                             "name": `${nameInput.value}`,
                             "title": `${title}`,
                             "description": `${bodyInput.value}`,
-                            "nsfw": nsfwInput.checked
+                            "nsfw": nsfwInput.checked,
+                            "icon": icon,
+                            "banner": banner
                         }
                     })
                 });
