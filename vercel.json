@@ -5,6 +5,10 @@
       "destination": "/search.html"
     },
     {
+      "source": "/create-community", 
+      "destination": "/create-community.html"
+    },
+    {
       "source": "/settings", 
       "destination": "/settings.html"
     },
