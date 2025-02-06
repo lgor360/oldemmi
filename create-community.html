@@ -144,7 +144,9 @@
                 });
                 const data = await response.json();
                 if (data.error) {
-                    if (data.error === "invalid_name") { alert('sorry, but community name does not fit :('); } else { alert(JSON.stringify(data.error, null, 2)); }
+                    document.getElementById("publish").disabled = false;
+                    if (data.error === "invalid_name") { alert('sorry, but community name does not fit :('); }
+                    if (data.error === "community_already_exists") { alert('sorry, but community with that name are already exist :('); } else { alert(JSON.stringify(data.error, null, 2)); }
                     return;
                 }
                 goToCreated(`${nameInput.value}`);
