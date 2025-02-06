@@ -67,8 +67,8 @@ async function fedFetch(q, type) {
     }
 }
 
-async function uploadFileToLemmy() {
-    const fileInput = document.getElementById("fileInput");
+async function uploadFileToLemmy(id = 'fileInput') {
+    const fileInput = document.getElementById(`${id}`);
     const file = fileInput.files[0];
 
     if (!file) {
