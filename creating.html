@@ -116,6 +116,7 @@
         }
 
         async function publish() {
+            document.getElementById("publish").disabled = true;
             const communityInput = document.getElementById("community");
             const titleInput = document.getElementById("title");
             const urlInput = document.getElementById("url");
@@ -167,7 +168,9 @@
                 goToComments(data.post_view.post.id);
             } catch (error) {
                 alert(`error while creating post: ${error}`);
+                return;
             }
+            document.getElementById("publish").disabled = false;
         }
 
         async function getLoggined() {
