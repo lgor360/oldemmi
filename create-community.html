@@ -53,6 +53,8 @@
                     <textarea style="margin-bottom: 2px; width: 100%; display: flex;" id="body" placeholder="community description"></textarea>
                     <button style="margin-top: 0; margin-bottom: 5px;" onclick="document.getElementById('fileInput').click();" id="imageButtonBody">🖼️</button>
                 </div>
+                this post is nsfw (18+)
+                <input type="checkbox" id="nsfw"></input>
                 <button style="margin-top: 15px;" onclick="publish()" id="publish">create</button>
             </div>
         </div>
@@ -88,6 +90,7 @@
             document.getElementById("publish").disabled = true;
             const nameInput = document.getElementById("name");
             const titleInput = document.getElementById("title");
+            const nsfwInput = document.getElementById("nsfw");
             const bodyInput = document.getElementById("body");
             const proxyUrl = "https://oldemmi.vercel.app/api/server.js";
             const title = titleInput.value ? titleInput.value : nameInput.value;
@@ -111,11 +114,15 @@
                         body: {
                             "name": `${nameInput.value}`,
                             "title": `${title}`,
-                            "body": `${bodyInput.value}`
+                            "body": `${bodyInput.value}`,
+                            "nsfw": nsfwInput.checked
                         }
                     })
                 });
-                alert(JSON.stringify(await response.json(), null, 2));
+                const data = await response.json();
+                if (data.error) {
+                    if (data.error === "invalid_name") { alert('sorry, but community name does not fit :('); return; }
+                }
                 goToCreated(`${nameInput.value}`);
             } catch (error) {
                 alert(`error while creating community: ${error}`);
