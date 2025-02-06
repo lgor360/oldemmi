@@ -32,7 +32,7 @@ due to the client being under development, some features are not available
 |profiles view|✓|
 |filters|✓|
 |post's link view|✓|
-|moderation functions||✓|
+|moderation functions|||✓|
 |comment replies|✓|
 |404 page|✓|
 |actions|✓|
