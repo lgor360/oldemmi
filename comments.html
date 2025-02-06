@@ -47,8 +47,8 @@
     <input accept="image/*" onchange="pastePicture('commentinput', 'imageButton')" type="file" id="fileInput" hidden>
     
     <div id="ancksokrinca" style="display: none; margin-bottom: 10px; justify-content: center; margin: 20px auto; align-content: center; align-items: center;">
-        <div style="display: flex;"><textarea placeholder="enter your comment" id="commentinput"></textarea></div>
-        <div style="display: flex;"><button id="imageButton" onclick="document.getElementById('fileInput').click();">🖼️</button><button onclick="edorcr()">submit</button></div>
+        <div style="display: flex;"><textarea placeholder="enter your comment" style="width: 450px; height: 300px;" id="commentinput"></textarea></div>
+        <div style="display: flex;"><button id="imageButton" onclick="document.getElementById('fileInput').click();">🖼️</button><button id='subBut' onclick="edorcr()">submit</button></div>
         <span onclick="pathzero(0, 'none', 'a')" style="display: none; max-width: 250px; width: 100%; text-wrap: wrap; border: 1px solid #ccc; background-color: #353535;" id="pathstatus">path_status</span>
     </div>
     
@@ -109,6 +109,7 @@
             if (document.getElementById("commentinput").value === "") {
                 return;
             }
+            document.getElementById("subBut").disabled = true;
             if (editid === 0) {
                 createHappyComment();
             } else {
