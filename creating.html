@@ -165,6 +165,9 @@
                     })
                 });
                 const data = await response.json();
+                if (data.error) {
+                    if (data.error === "invalid_name") { alert('sorry, but community name does not fit :('); return; }
+                }
                 goToComments(data.post_view.post.id);
             } catch (error) {
                 alert(`error while creating post: ${error}`);
