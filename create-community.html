@@ -115,7 +115,7 @@
                         }
                     })
                 });
-                const data = await response.json();
+                alert(JSON.stringify(await response.json(), null, 2));
                 goToCreated(`${nameInput.value}`);
             } catch (error) {
                 alert(`error while creating community: ${error}`);
