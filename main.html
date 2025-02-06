@@ -47,6 +47,7 @@
             </select>
         </div>
         <div class="normal">
+            <button id="ccom" style="display: none;" onclick="window.location.href = 'https://oldemmi.vercel.app/create-community.html';">➕</button>
             <button id="settings" style="display: none;" onclick="goToSettings()">⚙️</button>
             <button onclick="goToSearch()">🔎</button>
             <button id="logout" style="display: none;" onclick="logout('userlogout')">logout</button>
@@ -162,12 +163,14 @@
                 const login = document.getElementById("login");
                 const logout = document.getElementById("logout");
                 const settings = document.getElementById("settings");
+                const ccom = document.getElementById("ccom");
             
                 if (lemmyToken) {
                     const lemmyTokenValid = await validateToken();
                     if (lemmyTokenValid) {
                         profileInBar.style.display = "flex";
                         settings.style.display = "flex";
+                        ccom.style.display = "flex";
                         logout.style.display = "flex";
                         changeServer.style.display = "none";
                         login.style.display = "none";
