@@ -44,6 +44,10 @@
         <div class="creating-form">
             <div class="accountsettings" style="width: 600px;">
                 <div style="font-weight: bold;" class="header">create community</div>
+                icon
+                <input accept="image/*" onchange="pastePictureInImage('body', 'fileInputIcon')" type="file" id="fileInputIcon">
+                banner
+                <input accept="image/*" onchange="pastePictureInImage('body', 'fileInputBanner')" type="file" id="fileInputBanner">
                 community name*
                 <input id="name" placeholder="community name" required>
                 community title
@@ -65,11 +69,19 @@
         const server = localStorage.getItem("accountServer") || urlParams.get('server') || "lemmy.world";
         const api = `https://${server}/api/v3`
         const lemmyToken = localStorage.getItem("lemmyToken");
-      
+
         async function pastePicture(where, id) {
             document.getElementById(id).disabled = true;
             const link = await uploadFileToLemmy();
             document.getElementById(where).value = document.getElementById(where).value + `![image](${link})`;
+            
+            document.getElementById(id).disabled = false;
+        }
+        
+        async function pastePictureInImage(where, id) {
+            document.getElementById(id).disabled = true;
+            const link = await uploadFileToLemmy(id);
+            // document.getElementById(where).src = `${link}`;
             
             document.getElementById(id).disabled = false;
         }
@@ -121,7 +133,7 @@
                 });
                 const data = await response.json();
                 if (data.error) {
-                    if (data.error === "invalid_name") { alert('sorry, but community name doesnt fit :('); }
+                    if (data.error === "invalid_name") { alert('sorry, but community name does not fit :('); }
                     return;
                 }
                 goToCreated(`${nameInput.value}`);
@@ -269,4 +281,4 @@
         instanceapply();
     </script>
 </body>
-  </html>
+</html>
