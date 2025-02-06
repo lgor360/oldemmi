@@ -45,8 +45,8 @@
             <div class="accountsettings" style="width: 600px;">
                 <div style="font-weight: bold;" class="header">create community</div>
                 icon
-                <input accept="image/*" onchange="pastePictureInImage('icon', 'fileInputIcon')" type="file" id="fileInputIcon">
-                <img id="icon" hidden>
+                <input accept="image/*" onchange="pastePictureInImage('icon', 'fileInputIcon')" type="file" id="fileInputIcon" hidden>
+                <img style="width: 50px;" onclick="document.getElementById('fileInputIcon').click();" src='https://oldemmi.vercel.app/resources/community.png' id="icon">
                 banner
                 <input accept="image/*" onchange="pastePictureInImage('banner', 'fileInputBanner')" type="file" id="fileInputBanner">
                 <img id="banner" hidden>
@@ -139,7 +139,7 @@
                 });
                 const data = await response.json();
                 if (data.error) {
-                    if (data.error === "invalid_name") { alert('sorry, but community name does not fit :('); }
+                    if (data.error === "invalid_name") { alert('sorry, but community name does not fit :('); } else { alert(JSON.stringify(data.error, null, 2)); }
                     return;
                 }
                 goToCreated(`${nameInput.value}`);
