@@ -42,22 +42,26 @@
     <input accept="image/*" onchange="pastePicture('url', 'imageButton')" type="file" id="fileInput" hidden>
     <div class="caca">
         <div class="creating-form">
-            community*
-            <input id="community" placeholder="community" required>
-            post title*
-            <input id="title" placeholder="post title" required>
-            post url
-            <div style="display: block;">
-                <input style="margin-bottom: 2px;" id="url" placeholder="post url">
-                <button style="margin-top: 0; margin-bottom: 5px;" onclick="checkM('url', 'imageButton')" id="imageButton">🖼️</button>
+            <div class="accountsettings" style="width: 600px;">
+                <div style="font-weight: bold;" class="header">edit post</div>
+                community*
+                <input id="community" placeholder="community" required>
+                post title*
+                <input id="title" placeholder="post title" required>
+                post url
+                <div style="display: block;">
+                    <input style="margin-bottom: 2px;" id="url" placeholder="post url">
+                    <button style="margin-top: 0; margin-bottom: 5px;" onclick="checkM('url', 'imageButton')" id="imageButton">🖼️</button>
+                </div>
+                post body
+                <div style="display: block;">
+                    <textarea style="margin-bottom: 2px; width: 100%; display: flex;" id="body" placeholder="post content"></textarea>
+                    <button style="margin-top: 0; margin-bottom: 5px;" onclick="checkM('body', 'imageButtonBody')" id="imageButtonBody">🖼️</button>
+                </div>
+                this post is nsfw (18+)
+                <input type="checkbox" id="nsfw"></input>
+                <button style="margin-top: 15px;" onclick="publish()" id="publish">publish</button>
             </div>
-            post body
-            <div style="display: block;">
-                <textarea style="margin-bottom: 2px; width: 100%; display: flex;" id="body" placeholder="post content"></textarea>
-                <button style="margin-top: 0; margin-bottom: 5px;" onclick="checkM('body', 'imageButtonBody')" id="imageButtonBody">🖼️</button>
-            </div>
-            <input type="checkbox" id="nsfw">this post is nsfw (18+)</input>
-            <button onclick="publish()" id="publish">publish</button>
         </div>
     </div>
     <script src="https://oldemmi.vercel.app/js/actions.js"></script>
@@ -119,6 +123,7 @@
         }
 
         async function publish() {
+            document.getElementById("publish").disabled = true;
             const titleInput = document.getElementById("title");
             const urlInput = document.getElementById("url");
             const bodyInput = document.getElementById("body");
@@ -159,6 +164,7 @@
             } catch (error) {
                 alert(`error while creating post: ${error}`);
             }
+            document.getElementById("publish").disabled = false;
         }
 
         async function getLoggined() {
