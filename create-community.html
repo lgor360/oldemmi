@@ -72,6 +72,11 @@
         const api = `https://${server}/api/v3`
         const lemmyToken = localStorage.getItem("lemmyToken");
 
+        function letmakendody(body) {
+            body = body.replace(/\n/g, "\\n");
+            return body;
+        }
+        
         async function pastePicture(where, id) {
             document.getElementById(id).disabled = true;
             const link = await uploadFileToLemmy();
@@ -107,9 +112,9 @@
             const nameInput = document.getElementById("name");
             const titleInput = document.getElementById("title");
             const nsfwInput = document.getElementById("nsfw");
-            const bodyInput = document.getElementById("body");
             const proxyUrl = "https://oldemmi.vercel.app/api/server.js";
             const title = titleInput.value ? titleInput.value : nameInput.value;
+            const body = letmakendody(document.getElementById("body").value);
 
             if (nameInput.value.length < 3) {
                 nameInput.setCustomValidity("minimum 3 letters");
@@ -130,7 +135,7 @@
                         body: {
                             "name": `${nameInput.value}`,
                             "title": `${title}`,
-                            "description": `${bodyInput.value}`,
+                            "description": body,
                             "nsfw": nsfwInput.checked,
                             "icon": icon,
                             "banner": banner
