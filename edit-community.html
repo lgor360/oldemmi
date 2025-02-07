@@ -73,6 +73,7 @@
         const api = `https://${server}/api/v3`
         const lemmyToken = localStorage.getItem("lemmyToken");
         const editid = urlParams.get('editid');
+        document.getElementById("name").value = editid;
 
         function letmakendody(body) {
             body = body.replace(/\n/g, "\\");
@@ -295,7 +296,7 @@
                     headers: { "Content-Type": "application/json", "authorization": `Bearer ${localStorage.getItem("lemmyToken")}` }
                 });
                 const data = await response.json();
-                document.getElementById("title").value = data.community_view.community.title;
+                document.getElementById("title").value = data.community_view.community.title !== editid ? data.community_view.community.title : "";
                 document.getElementById("body").value = data.community_view.community.description;
                 document.getElementById("nsfw").checked = data.community_view.community.nsfw;
                 document.getElementById("icon").src = data.community_view.community.icon;
