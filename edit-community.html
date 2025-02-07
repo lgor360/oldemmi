@@ -115,16 +115,10 @@
             const titleInput = document.getElementById("title");
             const nsfwInput = document.getElementById("nsfw");
             const proxyUrl = "https://oldemmi.vercel.app/api/server.js";
-            const title = titleInput.value;
-            alert(title);
+            const title = titleInput.value !== "" ? titleInput.value : document.getElementById("name").value;
             const body = letmakendody(document.getElementById("body").value);
             const caramelka = Number(mikumuki);
-
-            if (titleInput.value.length < 3) {
-                titleInput.setCustomValidity("minimum 3 letters");
-                titleInput.reportValidity();
-                return;
-            }
+            
             try {
                 const response = await fetch("https://oldemmi.vercel.app/api/server.js", {
                     method: "POST",
