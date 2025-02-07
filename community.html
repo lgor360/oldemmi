@@ -59,7 +59,9 @@
     <script src="https://oldemmi.vercel.app/js/markdown.js"></script>
     <script src="https://oldemmi.vercel.app/js/actions.js"></script>
     <script defer>
+        let mod = 0;
         let logined = false;
+        let usernamentu = "a";
         const lemmyToken = localStorage.getItem("lemmyToken");
         const accountServer = localStorage.getItem("accountServer");
         const urlParams = new URLSearchParams(window.location.search);
@@ -116,6 +118,9 @@
                         return fedata;
                     }
                 }
+                if (data.moderators.some(mod => mod.moderator.name === usernamentu)) {
+                    mod = 1;
+                }
                 return data.community_view;
             } catch (error) {
                 alert(`error while loading community: ${error}`);
@@ -146,6 +151,7 @@
                     }
                 });
                 const data = await response.json();
+                usernamentu = data.my_user.local_user_view.person.name;
                 return data.my_user.local_user_view.person;
             } catch (error) {
                 alert(`error while loading profile: ${error}`);
@@ -391,6 +397,7 @@
                 });
             } catch (error) {
                 alert(`error while rendering post: ${error}`);
+                return;
             }
         }
 
@@ -398,10 +405,10 @@
         function renderCommunity(community_view) {
             try {
                 if (!community_view || !community_view.community || !community_view.counts) {
-          
-                          throw new Error("invalid community_view data");
+                    throw new Error("invalid community_view data");
                 }
 
+                const actions = mod === 1 ? `<div><button onclick="window.location.href = 'https://oldemmi.vercel.app/edit-community?editid=${community_view.community.name}'">✏️</button></div>` : "";
                 const date = new Date(community_view.community.published);
                 const profile = document.querySelector(".profile");
                 let but;
@@ -446,10 +453,12 @@
                         <div class="followButton">
                             <button onclick="subticom(${community_view.community.id}, '${community_view.community.actor_id}', ${doisubornot}, '${getInstanceFromActorId(community_view.community.actor_id)}')">${but}</button>
                         </div>
+                        ${actions}
                     </div>
                 `;
             } catch (error) {
                 alert(`error while rendering community: ${error.message}`);
+                return;
             }
         }
         
@@ -462,6 +471,7 @@
                 page++;
             } catch (error) {
                 alert(`error in loadMorePosts function: ${error}`);
+                return;
             }
         }
 
@@ -509,6 +519,7 @@
                 location.reload();
             } catch (error) {
                 alert(`error during logout: ${error}`);
+                return;
             }
         }
 
@@ -557,12 +568,15 @@
         function createPost() {
             window.location.href = `https://oldemmi.vercel.app/creating?community=${community}@${server}&server=${server}`
         }
+        
+        async function init() {
+            await loginedornot();
+            await loadCommunity();
+        }
 
-        loginedornot();
         // вставляем название сервера в заголовок
         instanceapply();
-        // загружаем профиль
-        loadCommunity();
+        init();
         // загружаем первые посты при загрузке страницы
         loadMorePosts();
     </script>
