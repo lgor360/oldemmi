@@ -443,6 +443,7 @@
                 const profile = document.querySelector(".profile");
                 const nsfw = community_view.community.nsfw === false ? "" : "🔞";
                 const deleted = community_view.community.deleted === false ? "" : "🗑️";
+                const modder = mod === 1 ? "🛡️" : "";
                 let but;
                 let doisubornot;
                 if (community_view.subscribed === "NotSubscribed") {
@@ -489,6 +490,9 @@
                             </div>
                             <div onclick="alert('this community is nsfw (18+)')" class="nsfw">
                                 ${nsfw}
+                            </div>
+                            <div onclick="alert('you are the moderator of this community')" class="modder">
+                                ${modder}
                             </div>
                         </div>
                         <div style="margin-left: 5px;" class="followButton">
