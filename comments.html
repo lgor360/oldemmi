@@ -234,6 +234,7 @@
                 });
                 const data = await response.json();
                 usernamentu = data.my_user.local_user_view.person.name;
+                alert(data.my_user.local_user_view.person.name);
                 return data.my_user.local_user_view.person;
             } catch (error) {
                 alert(`error while loading profile: ${error}`);
