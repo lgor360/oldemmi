@@ -441,6 +441,8 @@
                 const actions = mod === 1 ? `<div style="display: flex; margin-right: auto; justify-content: flex-start;">${edited}${delBut}</div>` : "";
                 const date = new Date(community_view.community.published);
                 const profile = document.querySelector(".profile");
+                const nsfw = community_view.community.nsfw === false ? "" : "🔞";
+                const deleted = community_view.community.deleted === false ? "" : "🗑️";
                 let but;
                 let doisubornot;
                 if (community_view.subscribed === "NotSubscribed") {
@@ -481,6 +483,14 @@
                     ${community_view.community.description ? `<div class='bio'>${parseMarkdown(community_view.community.description)}</div>` : ''}
                     <div style="margin-top: 10px;" class="profile-bottom">
                         ${actions}
+                        <div class="post-status">
+                            <div onclick="alert('this community is deleted')" class="deleted">
+                                ${deleted}
+                            </div>
+                            <div onclick="alert('this community is nsfw (18+)')" class="nsfw">
+                                ${nsfw}
+                            </div>
+                        </div>
                         <div class="followButton">
                             <button onclick="subticom(${community_view.community.id}, '${community_view.community.actor_id}', ${doisubornot}, '${getInstanceFromActorId(community_view.community.actor_id)}')">${but}</button>
                         </div>
