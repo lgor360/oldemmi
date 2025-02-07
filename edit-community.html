@@ -67,6 +67,7 @@
     </div>
     <script src="https://oldemmi.vercel.app/js/actions.js"></script>
     <script>
+        let mikumuki = null;
         const urlParams = new URLSearchParams(window.location.search);
         const server = localStorage.getItem("accountServer") || urlParams.get('server') || "lemmy.world";
         const api = `https://${server}/api/v3`
@@ -115,6 +116,7 @@
             const proxyUrl = "https://oldemmi.vercel.app/api/server.js";
             const title = titleInput.value;
             const body = letmakendody(document.getElementById("body").value);
+            const caramelka = Number(mikumuki);
 
             if (titleInput.value.length < 3) {
                 titleInput.setCustomValidity("minimum 3 letters");
@@ -138,7 +140,7 @@
                             "nsfw": nsfwInput.checked,
                             "icon": icon,
                             "banner": banner,
-                            "community_id": Number(editid)
+                            "community_id": caramelka
                         }
                     })
                 });
@@ -297,6 +299,7 @@
                 document.getElementById("nsfw").checked = data.community_view.community.nsfw;
                 document.getElementById("icon").src = data.community_view.community.icon;
                 document.getElementById("banner").src = data.community_view.community.banner;
+                mikumuki = data.community_view.community.id;
             } catch (error) {
                 alert(`error while loading post: ${error}`);
             }
