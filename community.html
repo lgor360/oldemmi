@@ -483,7 +483,7 @@
                     ${community_view.community.description ? `<div class='bio'>${parseMarkdown(community_view.community.description)}</div>` : ''}
                     <div style="margin-top: 10px;" class="profile-bottom">
                         ${actions}
-                        <div class="post-status">
+                        <div style="justify-content: flex-end; margin-left: auto;" class="post-status">
                             <div onclick="alert('this community is deleted')" class="deleted">
                                 ${deleted}
                             </div>
@@ -491,7 +491,7 @@
                                 ${nsfw}
                             </div>
                         </div>
-                        <div class="followButton">
+                        <div style="margin-left: 5px;" class="followButton">
                             <button onclick="subticom(${community_view.community.id}, '${community_view.community.actor_id}', ${doisubornot}, '${getInstanceFromActorId(community_view.community.actor_id)}')">${but}</button>
                         </div>
                     </div>
