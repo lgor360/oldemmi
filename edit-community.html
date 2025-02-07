@@ -292,7 +292,7 @@
                 });
                 const data = await response.json();
                 document.getElementById("title").value = data.community_view.community.title;
-                document.getElementById("body").value = data.community_view.community.body;
+                document.getElementById("body").value = data.community_view.community.description;
                 document.getElementById("nsfw").checked = data.community_view.community.nsfw;
                 document.getElementById("icon").src = data.community_view.community.icon;
                 document.getElementById("banner").src = data.community_view.community.banner;
