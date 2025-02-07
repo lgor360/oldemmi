@@ -71,10 +71,10 @@
     <script src="https://oldemmi.vercel.app/js/actions.js"></script>
     <script src="https://oldemmi.vercel.app/js/markdown.js"></script>
     <script defer>
+        const usernamentu = document.getElementById("username-span");
         let editid = 0;
         let compath = 0;
         let commentsCount = null;
-        let usernamentu = "a";
         let allComments = []; // глобальный массив для хранения всех комментариев
         const urlParams = new URLSearchParams(window.location.search);
         const server = urlParams.get('server') || "lemmy.world";
@@ -234,7 +234,7 @@
                     }
                 });
                 const data = await response.json();
-                window.usernamentu = data.my_user.local_user_view.person.name;
+                usernamentu.textContent = data.my_user.local_user_view.person.name;
                 return data.my_user.local_user_view.person;
             } catch (error) {
                 alert(`error while loading profile: ${error}`);
@@ -413,9 +413,9 @@
                 const postContainer = document.getElementById("post");
 
                 const deletor = post_view.post.deleted === false ? true : false;
-                const caneditorno = post_view.creator.name === usernamentu && post_view.post.deleted === false ? `<button onclick="window.location.href = 'https://oldemmi.vercel.app/editing?editid=${post_view.post.id}&server=${server}'">✏️</button>` : "";
+                const caneditorno = post_view.creator.name === usernamentu.textContent && post_view.post.deleted === false ? `<button onclick="window.location.href = 'https://oldemmi.vercel.app/editing?editid=${post_view.post.id}&server=${server}'">✏️</button>` : "";
                 const deletonamr = post_view.post.deleted === false ? "🗑️" : "↩️🗑️";
-                const actionbuttons = post_view.creator.name === usernamentu ? `<div style="justlify-content: center;" class="counter"><button onclick="window.location.href = 'https://oldemmi.vercel.app/cross-posting?original=${post_view.post.id}&server=${server}'">🔄</button>${caneditorno}<button onclick="deleteHappyPost(${post_view.post.id}, ${deletor})">${deletonamr}</button></div>` : "";
+                const actionbuttons = post_view.creator.name === usernamentu.textContent ? `<div style="justlify-content: center;" class="counter"><button onclick="window.location.href = 'https://oldemmi.vercel.app/cross-posting?original=${post_view.post.id}&server=${server}'">🔄</button>${caneditorno}<button onclick="deleteHappyPost(${post_view.post.id}, ${deletor})">${deletonamr}</button></div>` : "";
                 const locked = post_view.post.locked === true ? '🔒' : '';
                 const deleted = post_view.post.deleted === true ? '🗑️' : '';
                 const pinned_community = post_view.post.featured_community === true ? '📍' : '';
