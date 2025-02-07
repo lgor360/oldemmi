@@ -699,9 +699,13 @@
         }
         
         // загружаем пост и комментарии при загрузке страницы
-        loginedornot();
-        loadPost();
-        loadMoreComments();
+        async function init() {
+            await loginedornot();
+            await loadPost();
+            await loadMoreComments();
+        }
+
+        init();
         // вставляем название сервера в заголовок
         instanceapply();
     </script>
