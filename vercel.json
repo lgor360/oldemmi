@@ -58,6 +58,10 @@
       "source": "/",
       "destination": "/home",
       "permanent": true
+    },
+    {
+      "source": "/view-source",
+      "destination": "https://github.com/lgor360/oldemmi/"
     }
   ]
 }
