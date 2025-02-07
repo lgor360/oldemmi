@@ -130,7 +130,7 @@
                     headers: { "content-type": "application/json" },
                     body: JSON.stringify({
                         url: `https://${server}/api/v3/community`,
-                        method: "PIT",
+                        method: "PUT",
                         headers: {
                             "content-type": "application/json",
                             "authorization": `Bearer ${localStorage.getItem("lemmyToken")}`
