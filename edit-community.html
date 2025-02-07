@@ -51,7 +51,7 @@
                 <input accept="image/*" onchange="pastePictureInImage('banner', 'fileInputBanner')" type="file" id="fileInputBanner">
                 <img id="banner" hidden>
                 community name*
-                <input id="name" placeholder="community name" required>
+                <input id="title" placeholder="community name" disabled>
                 community title
                 <input id="title" placeholder="community title">
                 community description
@@ -71,6 +71,7 @@
         const server = localStorage.getItem("accountServer") || urlParams.get('server') || "lemmy.world";
         const api = `https://${server}/api/v3`
         const lemmyToken = localStorage.getItem("lemmyToken");
+        const editid = urlParams.get('editid');
 
         function letmakendody(body) {
             body = body.replace(/\n/g, "\\");
@@ -109,16 +110,15 @@
             document.getElementById("publish").disabled = true;
             const icon = document.getElementById("icon").src;
             const banner = document.getElementById("banner").src;
-            const nameInput = document.getElementById("name");
             const titleInput = document.getElementById("title");
             const nsfwInput = document.getElementById("nsfw");
             const proxyUrl = "https://oldemmi.vercel.app/api/server.js";
-            const title = titleInput.value ? titleInput.value : nameInput.value;
+            const title = titleInput.value;
             const body = letmakendody(document.getElementById("body").value);
 
-            if (nameInput.value.length < 3) {
-                nameInput.setCustomValidity("minimum 3 letters");
-                nameInput.reportValidity();
+            if (titleInput.value.length < 3) {
+                titleInput.setCustomValidity("minimum 3 letters");
+                titleInput.reportValidity();
                 return;
             }
             try {
@@ -127,13 +127,12 @@
                     headers: { "content-type": "application/json" },
                     body: JSON.stringify({
                         url: `https://${server}/api/v3/community`,
-                        method: "POST",
+                        method: "PIT",
                         headers: {
                             "content-type": "application/json",
                             "authorization": `Bearer ${localStorage.getItem("lemmyToken")}`
                         },
                         body: {
-                            "name": `${nameInput.value}`,
                             "title": `${title}`,
                             "description": body,
                             "nsfw": nsfwInput.checked,
@@ -145,7 +144,6 @@
                 const data = await response.json();
                 if (data.error) {
                     document.getElementById("publish").disabled = false;
-                    if (data.error === "invalid_name") { alert('sorry, but community name does not fit :('); }
                     if (data.error === "community_already_exists") { alert('sorry, but community with that name are already exist :('); } else { alert(JSON.stringify(data.error, null, 2)); }
                     return;
                 }
@@ -286,7 +284,25 @@
             window.location.href = `https://oldemmi.vercel.app/profile?server=${servero}&user=${id}`
         }
 
+        async function fetchCom() {
+            try {
+                const response = await fetch(`${api}/community?name=${editid}&nope=${Date.now()}`, {
+                    method: "GET",
+                    headers: { "Content-Type": "application/json", "authorization": `Bearer ${localStorage.getItem("lemmyToken")}` }
+                });
+                const data = await response.json();
+                document.getElementById("title").value = data.community_view.community.title;
+                document.getElementById("body").value = data.community_view.community.body;
+                document.getElementById("nsfw").checked = data.community_view.community.nsfw;
+                document.getElementById("icon").src = data.community_view.community.icon;
+                document.getElementById("banner").src = data.community_view.community.banner;
+            } catch (error) {
+                alert(`error while loading post: ${error}`);
+            }
+        }
+
         if (!lemmyToken) { login(); }
+        fetchCom();
         
         // загружаем пост и комментарии при загрузке страницы
         loginedornot();
