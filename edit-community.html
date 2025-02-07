@@ -109,7 +109,7 @@
       
         async function publish() {
             document.getElementById("publish").disabled = true;
-            const icon = document.getElementById("icon").src;
+            const icon = document.getElementById("icon").src !== "https://oldemmi.vercel.app/resources/community.png" ? document.getElementById("icon").src : "";
             const banner = document.getElementById("banner").src;
             const titleInput = document.getElementById("title");
             const nsfwInput = document.getElementById("nsfw");
@@ -136,7 +136,7 @@
                             "authorization": `Bearer ${localStorage.getItem("lemmyToken")}`
                         },
                         body: {
-                            "title": `${title}`,
+                            "title": title,
                             "description": body,
                             "nsfw": nsfwInput.checked,
                             "icon": icon,
