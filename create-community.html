@@ -104,8 +104,12 @@
             const url = new URL(actorId);
             return url.hostname; // возвращает домен, например, "lemmy.world"
         }
-      
+
         async function publish() {
+            alert(document.getElementById("icon").src !== "https://oldemmi.vercel.app/resources/community.png" ? document.getElementById("icon").src : "");
+        }
+        
+        async function publishh() {
             document.getElementById("publish").disabled = true;
             const icon = document.getElementById("icon").src !== "https://oldemmi.vercel.app/resources/community.png" ? document.getElementById("icon").src : "";
             const banner = document.getElementById("banner").src;
