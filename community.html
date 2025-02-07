@@ -449,7 +449,7 @@
                         </div>
                     </div>
                     ${community_view.community.description ? `<div class='bio'>${parseMarkdown(community_view.community.description)}</div>` : ''}
-                    <div class="profile-bottom">
+                    <div style="margin-top: 25px;" class="profile-bottom">
                         ${actions}
                         <div class="followButton">
                             <button onclick="subticom(${community_view.community.id}, '${community_view.community.actor_id}', ${doisubornot}, '${getInstanceFromActorId(community_view.community.actor_id)}')">${but}</button>
