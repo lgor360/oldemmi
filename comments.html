@@ -234,7 +234,6 @@
                 });
                 const data = await response.json();
                 usernamentu = data.my_user.local_user_view.person.name;
-                alert(data.my_user.local_user_view.person.name);
                 return data.my_user.local_user_view.person;
             } catch (error) {
                 alert(`error while loading profile: ${error}`);
@@ -415,6 +414,8 @@
                 const deletor = post_view.post.deleted === false ? true : false;
                 const caneditorno = post_view.creator.name === usernamentu && post_view.post.deleted === false ? `<button onclick="window.location.href = 'https://oldemmi.vercel.app/editing?editid=${post_view.post.id}&server=${server}'">✏️</button>` : "";
                 const deletonamr = post_view.post.deleted === false ? "🗑️" : "↩️🗑️";
+                alert(usernamentu);
+                alert(post_view.creator.name);
                 const actionbuttons = post_view.creator.name === usernamentu ? `<div style="justlify-content: center;" class="counter"><button onclick="window.location.href = 'https://oldemmi.vercel.app/cross-posting?original=${post_view.post.id}&server=${server}'">🔄</button>${caneditorno}<button onclick="deleteHappyPost(${post_view.post.id}, ${deletor})">${deletonamr}</button></div>` : "";
                 const locked = post_view.post.locked === true ? '🔒' : '';
                 const deleted = post_view.post.deleted === true ? '🗑️' : '';
