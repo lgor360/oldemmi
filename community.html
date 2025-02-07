@@ -128,7 +128,7 @@
             }
         }
 
-        async function delCom(id) {
+        async function delCom(id, deletor) {
             try {
                 const response = await fetch("https://oldemmi.vercel.app/api/server.js", {
                     method: "POST",
@@ -141,7 +141,7 @@
                             "authorization": `Bearer ${localStorage.getItem("lemmyToken")}`
                         },
                         body: {
-                            "deleted": true,
+                            "deleted": deletor,
                             "community_id": Number(id)
                         }
                     })
