@@ -62,6 +62,10 @@
     {
       "source": "/view-source",
       "destination": "https://github.com/lgor360/oldemmi/"
+    },
+    {
+      "source": "/view-source-dev",
+      "destination": "https://github.com/lgor360/oldemmi/tree/dev"
     }
   ]
 }
