@@ -408,7 +408,7 @@
                     throw new Error("invalid community_view data");
                 }
 
-                const actions = mod === 1 ? `<div><button onclick="window.location.href = 'https://oldemmi.vercel.app/edit-community?editid=${community_view.community.name}'">✏️</button></div>` : "";
+                const actions = mod === 1 ? `<div style="display: flex; margin-right: auto; justify-content: flex-start;"><button onclick="window.location.href = 'https://oldemmi.vercel.app/edit-community?editid=${community_view.community.name}'">✏️</button></div>` : "";
                 const date = new Date(community_view.community.published);
                 const profile = document.querySelector(".profile");
                 let but;
