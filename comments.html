@@ -23,6 +23,7 @@
     </script>
 </head>
 <body>
+    <span id="username-span" hidden></span>
     <div class="navbar">
         <div onclick="goToHome()" class="oldemmi">
             <img src="https://oldemmi.vercel.app/resources/logo.png" alt="oldemmi logo">
@@ -72,8 +73,8 @@
     <script defer>
         let editid = 0;
         let compath = 0;
-        let usernamentu = "a";
         let commentsCount = null;
+        let usernamentu = "a";
         let allComments = []; // глобальный массив для хранения всех комментариев
         const urlParams = new URLSearchParams(window.location.search);
         const server = urlParams.get('server') || "lemmy.world";
@@ -414,8 +415,6 @@
                 const deletor = post_view.post.deleted === false ? true : false;
                 const caneditorno = post_view.creator.name === usernamentu && post_view.post.deleted === false ? `<button onclick="window.location.href = 'https://oldemmi.vercel.app/editing?editid=${post_view.post.id}&server=${server}'">✏️</button>` : "";
                 const deletonamr = post_view.post.deleted === false ? "🗑️" : "↩️🗑️";
-                alert(usernamentu);
-                alert(post_view.creator.name);
                 const actionbuttons = post_view.creator.name === usernamentu ? `<div style="justlify-content: center;" class="counter"><button onclick="window.location.href = 'https://oldemmi.vercel.app/cross-posting?original=${post_view.post.id}&server=${server}'">🔄</button>${caneditorno}<button onclick="deleteHappyPost(${post_view.post.id}, ${deletor})">${deletonamr}</button></div>` : "";
                 const locked = post_view.post.locked === true ? '🔒' : '';
                 const deleted = post_view.post.deleted === true ? '🗑️' : '';
