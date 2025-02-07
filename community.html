@@ -147,6 +147,8 @@
                     })
                 });
                 console.log(JSON.stringify(await response.json(), null, 2));
+                document.querySelector(".profile").innerHTML = "";
+                await loadCommunity();
             } catch (error) {
                 alert(`error while loading community: ${error}`);
             }
