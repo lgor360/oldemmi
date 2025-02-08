@@ -501,7 +501,9 @@
         }
 
         function forEdit(str) {
-            str.replace(/\\n/g, "\\n");
+            const n = "\\n".trim();
+            alert(n);
+            str.replace(/\n/g, n);
             alert(str);
             return str;
         }
