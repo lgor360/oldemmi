@@ -136,6 +136,11 @@
                 alert(`error while loading community: ${error}`);
             }
         }
+        
+        function letmakendody(body) {
+            body = body.replace(/\\n/g, "\\\n");
+            return body;
+        }
 
         async function publish() {
             document.getElementById("publish").disabled = true;
@@ -180,7 +185,7 @@
                         body: {
                             "community_id": communityData.community.id,
                             "name": `${titleInput.value}`,
-                            "body": `${bodyInput.value}`,
+                            "body": `${letmakenbody(bodyInput.value)}`,
                             "url": urlInput.value || null,
                             "nsfw": nsfwInput.checked,
                         }
