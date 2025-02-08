@@ -87,7 +87,7 @@
             editid = Number(id);
             document.getElementById("pathstatus").style.display = "table";
             document.getElementById("pathstatus").textContent = `you editing comment \`${cerotinicosi}\`. click to cancel`;
-            document.getElementById("commentinput").value = com.content;
+            document.getElementById("commentinput").value = com;
         }
         
         function pathzero(num, dis, mes) {
@@ -518,7 +518,7 @@
                     const cerotinicosi = comment.comment.content.length > 10 ? comment.comment.content.slice(0, 11 - 1) + '…' : comment.comment.content;
                     const deletor = comment.comment.deleted === false ? true : false;
                     const deletonamr = comment.comment.deleted === false ? "🗑️" : "↩️🗑️";
-                    const caneditorno = comment.creator.name === usernamentu && comment.comment.deleted === false ? `<button onclick="letseditcom(${comment.comment.id}, '${cerotinicosi}', ${comment.comment})">✏️</button>` : "";
+                    const caneditorno = comment.creator.name === usernamentu && comment.comment.deleted === false ? `<button onclick="letseditcom(${comment.comment.id}, '${cerotinicosi}', ${comment.comment.content})">✏️</button>` : "";
                     const actionbuttons = comment.creator.name === usernamentu ? `<div style="justlify-content: center;" class="counter">${caneditorno}<button onclick="deleteHappyComment(${comment.comment.id}, ${deletor})">${deletonamr}</button></div>` : "";
                     const vlickedbody = comment.comment.deleted === true ? "deleted by creator" : comment.comment.content;
                     const deleted = comment.comment.deleted === true ? '🗑️' : '';
