@@ -516,6 +516,7 @@
                     const likecolor = comment.my_vote === 1 ? "#b3c46d" : "#ffffff";
                     const dislikecolor = comment.my_vote === -1 ? "#b3c46d" : "#ffffff";
                     const cerotinicosi = comment.comment.content.length > 10 ? comment.comment.content.slice(0, 11 - 1) + '…' : comment.comment.content;
+                    alert(comment.comment.content.trim());
                     const bodyforedit = comment.comment.content.trim();
                     const deletor = comment.comment.deleted === false ? true : false;
                     const deletonamr = comment.comment.deleted === false ? "🗑️" : "↩️🗑️";
