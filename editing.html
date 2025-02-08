@@ -72,6 +72,11 @@
         const api = `https://${server}/api/v3`
         const lemmyToken = localStorage.getItem("lemmyToken");
         
+        function letmakendody(body) {
+            body = body.replace(/\\n/g, "\\\n");
+            return body;
+        }
+        
         function instanceapply() {
             const instdiv = document.querySelector(".navbar .oldemmi .text .instance");
             instdiv.innerHTML = `
@@ -153,7 +158,7 @@
                         body: {
                             "post_id": Number(editid),
                             "name": `${titleInput.value}`,
-                            "body": `${bodyInput.value}`,
+                            "body": `${letmakendody(bodyInput.value)}`,
                             "url": urlInput.value || null,
                             "nsfw": nsfwInput.checked,
                         }
