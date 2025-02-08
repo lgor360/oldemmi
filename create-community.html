@@ -71,9 +71,9 @@
         const server = localStorage.getItem("accountServer") || urlParams.get('server') || "lemmy.world";
         const api = `https://${server}/api/v3`
         const lemmyToken = localStorage.getItem("lemmyToken");
-
+        
         function letmakendody(body) {
-            body = body.replace(/\n/g, "\\");
+            body = body.replace(/\\n/g, "\\\n");
             return body;
         }
         
