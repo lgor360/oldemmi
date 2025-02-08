@@ -37,7 +37,7 @@ function parseMarkdown(text) {
     text = text.replace(/^(#+)\s*(.+)$/gm, (_, hashes, content) => `<h${hashes.length}>${content}</h${hashes.length}>`);
     // переносы строк
     text = text.replace(/\n\n/g, '<br><br>');
-    text = text.replace(/\\/g, '<br>');
+    text = text.replace(/\\\n/g, "<br>");
     // обработка ссылок типа !сообщество@инстанс
     text = text.replace(/!([\w\d_]+)@([\w\d\.-]+)/g, (match, community, instance) => {
         const url = `https://oldemmi.vercel.app/community?server=${instance}&community=${community}`;
