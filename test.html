@@ -10,13 +10,18 @@
         function caca() {
             const a = document.getElementById("a").value;
             alert(a);
-            const cac = letmakendody(a);
+            const cac = letmakendody("make \\\n cac");
             alert(cac);
             alert(letmakenbdy(cac));
         }
       
         function letmakendody(body) {
             body = body.replace(/\\n/g, "\\\n");
+            return body;
+        }
+        
+        function leetmakendody(body) {
+            body = body.replace(/\n/g, "\n");
             return body;
         }
 
