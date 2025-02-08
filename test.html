@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>oldemmi</title>
+</head>
+<body>
+    <input id="a">
+    <button onclick="caca()">test</button>
+    <script defer>
+        function caca() {
+            const a = document.getElementById("a").value;
+            alert(a);
+            const cac = letmakendody(a);
+            alert(cac);
+            alert(letmakenbdy(cac));
+        }
+      
+        function letmakendody(body) {
+            body = body.replace(/\\n/g, "\\\n");
+            return body;
+        }
+
+        function letmakenbdy(body) {
+            body = body.replace(/\\n/g, "\n");
+            return body;
+        }
+    </script>
+</body>
+</html>
