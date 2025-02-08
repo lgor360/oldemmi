@@ -499,6 +499,11 @@
             body = body.replace(/\\n/g, "\\\n");
             return body;
         }
+
+        function letmakenbdy(body) {
+            body = body.replace(/\n/g, "\n");
+            return body;
+        }
         
         function renderComments(comments) {
             try {
@@ -516,7 +521,7 @@
                     const likecolor = comment.my_vote === 1 ? "#b3c46d" : "#ffffff";
                     const dislikecolor = comment.my_vote === -1 ? "#b3c46d" : "#ffffff";
                     const cerotinicosi = comment.comment.content.length > 10 ? comment.comment.content.slice(0, 11 - 1) + '…' : comment.comment.content;
-                    const bodyforedit = letmakendody(comment.comment.content);
+                    const bodyforedit = letmakenbdy(comment.comment.content);
                     const deletor = comment.comment.deleted === false ? true : false;
                     const deletonamr = comment.comment.deleted === false ? "🗑️" : "↩️🗑️";
                     const caneditorno = comment.creator.name === usernamentu && comment.comment.deleted === false ? `<button onclick="letseditcom(${comment.comment.id}, '${cerotinicosi}', '${bodyforedit}')">✏️</button>` : "";
