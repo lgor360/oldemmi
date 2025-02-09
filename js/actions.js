@@ -105,3 +105,19 @@ async function uploadFileToLemmy(id = 'fileInput') {
     }
 }
 
+async function fetchFed(acid, type) {
+    try {
+        const response = await fetch(`https://${accountServer}/api/v3/resolve_object?q=${acid}&type=${type}`, {
+            method: "GET",
+            headers: {
+                "content-type": "application/json",
+                "authorization": `Bearer ${lemmyToken}`
+            }
+        });
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        alert(`error while loading profile: ${error}`);
+        return;
+    }
+}
