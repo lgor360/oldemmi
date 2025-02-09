@@ -68,6 +68,7 @@
     <script src="https://oldemmi.vercel.app/js/needScript.js"></script>
     <script src="https://oldemmi.vercel.app/js/actions.js"></script>
     <script defer>
+        let usernamentu = null;
         const urlParams = new URLSearchParams(window.location.search);
         let filter = urlParams.get('filter') || "New";
         let fromFilter = localStorage.getItem("fromFilter") || urlParams.get('from') || "All";
@@ -176,6 +177,7 @@
                         login.style.display = "none";
 
                         const user = await getLoggined();
+                        usernamentu = user.name:
                         profileInBar.innerHTML = `
                             <img onclick="goToProfile('${user.name}', '${server}')" src="${user.avatar || 'https://lgor360.github.io/oldemmi/user.png'}">
                             <div class="text">
@@ -285,7 +287,7 @@
         }
         
         function goToSettings() {
-            window.location.href = `https://oldemmi.vercel.app/settings`;
+            window.location.href = `https://oldemmi.vercel.app/settings?user=${usernamentu}`;
         }
 
         // функция для изменения инстанса
