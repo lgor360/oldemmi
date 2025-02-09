@@ -13,9 +13,10 @@ function parseMarkdown(text) {
     // подчёркнутый текст
     text = text.replace(/__([^_]+)__/g, '<u>$1</u>');
     // жирный текст (*текст*)
-    text = text.replace(/\*{2}([^\*]+)\*{2}/g, '<strong>$1</strong>');
+    text = text.replace(/\*{2}([^\*]+)\{2}/g, '<strong>$1</strong>');
     // курсив (*текст*)
     text = text.replace(/\*([^\*]+)\*/g, '<em>$1</em>');
+    text = text.replace(/\_([^\*]+)\_/g, '<em>$1</em>');
     // зачёркнутый текст (~~текст~~)
     text = text.replace(/~~(.*?)~~/g, '<del>$1</del>');
     // цитаты (> текст)
