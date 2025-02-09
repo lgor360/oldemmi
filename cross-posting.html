@@ -192,6 +192,11 @@
                     })
                 });
                 const data = await response.json();
+                if (data.error) {
+                    if (data.error === "only_mods_can_post_in_community") { alert("only modderators can publish posts in this community!"); } else { alert(data.error); }
+                    document.getElementById("publish").disabled = false;
+                    return;
+                }
                 goToComments(data.post_view.post.id);
             } catch (error) {
                 alert(`error while creating post: ${error}`);
