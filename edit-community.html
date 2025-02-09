@@ -61,6 +61,8 @@
                 </div>
                 this community is nsfw (18+)
                 <input type="checkbox" id="nsfw"></input>
+                only admins can post in community
+                <input type="checkbox" id="modPost"></input>
                 <button style="margin-top: 15px;" onclick="publish()" id="publish">apply</button>
             </div>
         </div>
@@ -115,6 +117,7 @@
             const titleInput = document.getElementById("title");
             const nsfwInput = document.getElementById("nsfw");
             const proxyUrl = "https://oldemmi.vercel.app/api/server.js";
+            const modInput = document.getElementById("modPost");
             const title = titleInput.value !== "" ? titleInput.value : document.getElementById("name").value;
             const body = letmakendody(document.getElementById("body").value);
             const caramelka = Number(mikumuki);
@@ -136,7 +139,8 @@
                             "nsfw": nsfwInput.checked,
                             "icon": icon,
                             "banner": banner,
-                            "community_id": caramelka
+                            "community_id": caramelka,
+                            "posting_restricted_to_mods": modInput.checked
                         }
                     })
                 });
