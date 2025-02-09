@@ -15,7 +15,8 @@ function parseMarkdown(text) {
     // жирный текст **жирный**
     text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
 
-    // курсив _курсив_
+    // курсив _курсив_ *курсив*
+    text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
     text = text.replace(/_(.*?)_/g, '<em>$1</em>');
 
     // зачёркнутый текст ~~зачеркнутый~~
