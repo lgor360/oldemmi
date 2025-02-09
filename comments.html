@@ -354,7 +354,7 @@
                         method: "POST",
                         headers: {
                             "content-type": "application/json",
-                            "authorization": `Bearer ${localStorage.getItem("lemmyToken")}`
+                            "Authorization": `Bearer ${localStorage.getItem("lemmyToken")}`
                         },
                         body: {
                             "post_id": Number(post),
