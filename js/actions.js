@@ -107,11 +107,11 @@ async function uploadFileToLemmy(id = 'fileInput') {
 
 async function fetchFed(acid, type) {
     try {
-        const response = await fetch(`https://${accountServer}/api/v3/resolve_object?q=${acid}&type=${type}`, {
+        const response = await fetch(`https://${localStorage.getItem("accountServer")}/api/v3/resolve_object?q=${acid}&type=${type}`, {
             method: "GET",
             headers: {
                 "content-type": "application/json",
-                "authorization": `Bearer ${lemmyToken}`
+                "authorization": `Bearer ${localStorage.getItem("lemmyToken")}`
             }
         });
         const data = await response.json();
