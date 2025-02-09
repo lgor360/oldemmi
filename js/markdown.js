@@ -48,9 +48,9 @@ function parseMarkdown(text) {
     text = text.replace(/^(#+)\s*(.+)$/gm, (_, hashes, content) => `<h${hashes.length}>${content}</h${hashes.length}>`);
 
     // обработка ссылок типа !сообщество@инстанс
-    text = text.replace(/!([\w\d_]+)@([\w\d\.-]+)/g, (match, community, instance) => {
-        const url = `https://oldemmi.vercel.app/community?server=${instance}&community=${community}`;
-        return `<a href="${url}" rel="noopener noreferrer">${community}@${instance}</a>`;
+    text = text.replace(/@([\w\d_]+)@([\w\d\.-]+)/g, (match, username, instance) => {
+        const url = `https://oldemmi.vercel.app/profile?server=${instance}&user=${username}`;
+        return `<a href="${url}" rel="noopener noreferrer">${username}@${instance}</a>`;
     });
 
     // таблицы
