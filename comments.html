@@ -550,7 +550,7 @@
                     const deletor = comment.comment.deleted === false ? true : false;
                     const deletonamr = comment.comment.deleted === false ? "🗑️" : "↩️🗑️";
                     const caneditorno = comment.creator.name === usernamentu && comment.comment.deleted === false ? `<button onclick="letseditcom(${comment.comment.id}, '${cerotinicosi}')">✏️</button>` : "";
-                    const actionbuttons = comment.creator.name === usernamentu ? `<div style="justlify-content: center;" class="counter">${caneditorno}<button onclick="deleteHappyComment(${comment.comment.id}, ${deletor})">${deletonamr}</button></div>` : "<div style="justlify-content: center;" class="counter"><button onclick="report(${comment.comment.id})" id="report">🚩</button></div>";
+                    const actionbuttons = comment.creator.name === usernamentu ? `<div style="justlify-content: center;" class="counter">${caneditorno}<button onclick="deleteHappyComment(${comment.comment.id}, ${deletor})">${deletonamr}</button></div>` : `<div style="justlify-content: center;" class="counter"><button onclick="report(${comment.comment.id})" id="report">🚩</button></div>`;
                     const vlickedbody = comment.comment.deleted === true ? "deleted by creator" : comment.comment.content;
                     const deleted = comment.comment.deleted === true ? '🗑️' : '';
                     const edited = comment.comment.updated ? '✏️' : '';
