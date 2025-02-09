@@ -76,7 +76,7 @@
     <script defer>
         const lemmyToken = localStorage.getItem("lemmyToken");
         const urlParams = new URLSearchParams(window.location.search);
-        const server = urlParams.get('server') || "lemmy.world";
+        const server = localStorage.getItem("accountServer") || urlParams.get('server') || "lemmy.world";
         const need = urlParams.get('need') || "post";
         const user = urlParams.get('user') || "okelote360";
         let page = 1; // текущая страница для загрузки
