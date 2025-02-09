@@ -350,7 +350,7 @@
                     method: "POST",
                     headers: { "content-type": "application/json" },
                     body: JSON.stringify({
-                        url: `https://${server}/api/v3/comment`,
+                        url: `https://${localStorage.getItem("accountServer")}/api/v3/comment`,
                         method: "POST",
                         headers: {
                             "content-type": "application/json",
