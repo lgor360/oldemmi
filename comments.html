@@ -363,7 +363,7 @@
                         }
                     })
                 });
-                alert(localStorage.getItem("lemmyToken"));
+                alert('"authorization": "Bearer ' + `${localStorage.getItem("lemmyToken")}"`);
                 alert(JSON.stringify(await response.json(), null, 2));
                 document.getElementById("subBut").disabled = false;
                 document.getElementById("commentinput").value = "";
