@@ -116,7 +116,10 @@
                     headers: { "Content-Type": "application/json", "authorization": `Bearer ${localStorage.getItem("lemmyToken")}` }
                 });
                 const data = await response.json();
-                alert(JSON.stringify(data, null, 2));
+                if (data.error) {
+                    if (data.error === "unknown") { alert(`wait... here is an error while loading post, but... it's unknown... here is error message: ${data.message}`); }
+                    return;
+                }
                 document.getElementById("community").value = `${data.post_view.community.name}@${getInstanceFromActorId(data.post_view.community.actor_id)}`;
                 document.getElementById("community").disabled = true;
                 document.getElementById("title").value = data.post_view.post.name;
