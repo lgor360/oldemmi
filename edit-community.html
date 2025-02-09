@@ -297,6 +297,7 @@
                 document.getElementById("title").value = data.community_view.community.title !== editid ? data.community_view.community.title : "";
                 document.getElementById("body").value = data.community_view.community.description;
                 document.getElementById("nsfw").checked = data.community_view.community.nsfw;
+                document.getElementById("modPost").checked = data.community_view.community.posting_restricted_to_mods;
                 document.getElementById("icon").src = data.community_view.community.icon || "https://oldemmi.vercel.app/resources/community.png";
                 document.getElementById("banner").src = data.community_view.community.banner || "";
                 mikumuki = data.community_view.community.id;
