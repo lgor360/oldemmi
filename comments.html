@@ -86,6 +86,7 @@
 
         function letseditcom(id, cerotinicosi) {
             const com = contentMap.get(id);
+            alert(com);
             editid = Number(id);
             document.getElementById("pathstatus").style.display = "table";
             document.getElementById("pathstatus").textContent = `you editing comment \`${cerotinicosi}\`. click to cancel`;
