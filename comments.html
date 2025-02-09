@@ -511,7 +511,7 @@
                 comments.forEach(comment => {
                     const commentElement = document.createElement("div");
                     commentElement.classList.add("comment");
-                    contentMap.set(comment.comment.id, comment.comment.content.replace(/\n/g, "\\n"));
+                    contentMap.set(comment.comment.id, comment.comment.content);
 
                     // определяем уровень вложенности
                     const depth = comment.comment.path.split('.').length - 1;
