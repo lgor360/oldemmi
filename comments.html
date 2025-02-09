@@ -317,7 +317,7 @@
                     method: "POST",
                     headers: { "content-type": "application/json" },
                     body: JSON.stringify({
-                        url: `https://${server}/api/v3/comment/delete`,
+                        url: `https://${localStorage.getItem("accountServer")}/api/v3/comment/delete`,
                         method: "POST",
                         headers: {
                             "content-type": "application/json",
@@ -346,6 +346,9 @@
         
         async function createHappyComment() {
             try {
+                const postingeder = await fetchFed(`https://${server}/post/${post}`, "post");
+                alert(JSON.stringify(postingeder, null, 2));
+                alert(postingeder.post.post.id);
                 const response = await fetch("https://oldemmi.vercel.app/api/server.js", {
                     method: "POST",
                     headers: { "content-type": "application/json" },
@@ -357,7 +360,7 @@
                             "Authorization": `Bearer ${localStorage.getItem("lemmyToken")}`
                         },
                         body: {
-                            "post_id": Number(post),
+                            "post_id": Number(postingeder.post.post.id),
                             "content": `${document.getElementById("commentinput").value}`,
                             "parent_id": compath
                         }
@@ -386,7 +389,7 @@
                     method: "POST",
                     headers: { "content-type": "application/json" },
                     body: JSON.stringify({
-                        url: `https://${server}/api/v3/comment`,
+                        url: `https://${localStorage.getItem("accountServer")}/api/v3/comment`,
                         method: "PUT",
                         headers: {
                             "content-type": "application/json",
