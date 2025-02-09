@@ -170,6 +170,9 @@
                     })
                 });
                 const data = await response.json();
+                if (data.error) {
+                    alert(data.error);
+                }
                 goToComments(data.post_view.post.id);
             } catch (error) {
                 alert(`error while creating post: ${error}`);
