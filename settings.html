@@ -78,7 +78,7 @@
         const urlParams = new URLSearchParams(window.location.search);
         const server = urlParams.get('server') || "lemmy.world";
         const need = urlParams.get('need') || "post";
-        let usernamentu = urlParams.get('user') || "okelote360";
+        const user = urlParams.get('user') || "okelote360";
         let page = 1; // текущая страница для загрузки
         const limit = 9; // количество постов на одну загрузку
         const api = `https://${server}/api/v3`;
@@ -104,7 +104,7 @@
         // функция для получения профиля
         async function fetchUser() {
             try {
-                const response = await fetch(`${api}/user?username=${usernamentu}`, {
+                const response = await fetch(`${api}/user?username=${user}`, {
                     method: "GET",
                     headers: { "Content-Type": "application/json" }
                 });
@@ -237,7 +237,6 @@
                         login.style.display = "none";
 
                         const user = await getLoggined();
-                        usernamentu = user.name;
                         profileInBar.innerHTML = `
                             <img onclick="goToProfile('${user.name}', '${localStorage.getItem("accountServer")}')" src="${user.avatar || 'https://lgor360.github.io/oldemmi/user.png'}">
                             <div class="text">
@@ -345,16 +344,13 @@
         }
 
         // вставляем название сервера в заголовок
-        async function init() {
-            instanceapply();
+        instanceapply();
 
-            if (!lemmyToken) {
-                login();
-            }
-            await loginedornot();
-            await loadSettings();
+        if (!lemmyToken) {
+            login();
         }
-        init();
+        loginedornot();
+        loadSettings();
     </script>
 </body>
 </html>
