@@ -85,12 +85,10 @@
         const lemmyToken = localStorage.getItem("lemmyToken");
 
         function letseditcom(id, cerotinicosi) {
-            const com = contentMap.get(id);
-            alert(com);
             editid = Number(id);
             document.getElementById("pathstatus").style.display = "table";
             document.getElementById("pathstatus").textContent = `you editing comment \`${cerotinicosi}\`. click to cancel`;
-            document.getElementById("commentinput").value = com;
+            document.getElementById("commentinput").value = contentMap.get(id);
         }
         
         function pathzero(num, dis, mes) {
@@ -513,7 +511,6 @@
                     const commentElement = document.createElement("div");
                     commentElement.classList.add("comment");
                     contentMap.set(comment.comment.id, comment.comment.content);
-                    alert(contentMap.get(comment.comment.id));
 
                     // определяем уровень вложенности
                     const depth = comment.comment.path.split('.').length - 1;
