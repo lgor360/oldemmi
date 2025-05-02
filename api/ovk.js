@@ -11,7 +11,7 @@ module.exports = async (req, res) => {
     return res.status(204).end(); // успешный ответ для preflight
   }
 
-  if (req.method!== 'POST') {
+  if (req.method!== 'GET') {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
