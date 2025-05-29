@@ -18,7 +18,7 @@ module.exports = async (req, res) => {
         }
     }
 
-    let { url: requestUrl, method = 'GET', headers, body } = req.body;
+    let { url: requestUrl, method = 'GET', headers, body, need = "json"} = req.body;
 
     if (req.method === 'GET') {
         const urlParts = url.parse(req.url, true);
@@ -35,8 +35,13 @@ module.exports = async (req, res) => {
 
     try {
         const response = await fetch(requestUrl, { method, headers, body: JSON.stringify(body) });
-        const data = await response.json();
-        res.status(response.status).json(data);
+        if (need == "text") {
+            const data = await response.text();
+            res.status(response.status).send(data);
+        } else {
+            const data = await response.json();
+            res.status(response.status).json(data);
+        }
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
